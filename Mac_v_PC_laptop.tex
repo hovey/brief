@@ -1,0 +1,264 @@
+%%!TEX TS-program = latex
+\documentclass[10pt,twocolumn,reqno]{amsart}
+%\usepackage{d:/home/hovey/latexsources/fancyheadings/fancyheadings}
+%\usepackage{c:/home/hovey/latexsources/fancyheadings/fancyheadings}
+%\usepackage{/Users/Pictor/hovey/latexsources/fancyheadings/fancyheadings} % Pictor
+\usepackage{latexsources/fancyheadings/fancyheadings} % Pictor
+%\usepackage{d:/home/hovey/latexsources/psfrag}
+%\usepackage{c:/home/hovey/latexsources/psfrag}
+\usepackage{psfrag}
+%\usepackage[foot]{amsaddr}
+
+% two-column: space between columns
+\setlength{\columnsep}{1.0cm}
+
+% multi-column spanning
+\usepackage{multicol}
+
+
+%\usepackage{fancyheadings}
+%\usepackage[]{psfrag}
+%\usepackage{multirow}
+\usepackage{epsfig}
+\usepackage{pifont} % reqd for dingbats
+%\usepackage{subfigure} % requires \usepackage{epsfig} too
+
+%\include{/home/hovey/Hwriting/Hformatams}
+%\include{/tmp_mnt/users/lmaf/hovey/Hwriting/Hformatams}
+%\include{d:/home/hovey/latexsources/Hformatams}
+%\include{c:/home/hovey/latexsources/Hformatams}
+%\include{/Users/Pictor/hovey/latexsources/Hformatams} % Pictor
+\include{latexsources/Hformatams} % Pictor
+
+% =============================================
+% https://www.sharelatex.com/learn/Page_size_and_margins
+% =============================================
+% 0
+\setlength{\paperwidth}{8.5in}
+\setlength{\paperheight}{11.0in}
+% 1
+\setlength{\hoffset}{0pt}
+% 2
+\setlength{\voffset}{0pt}
+% 3
+%\setlength{\oddsidemargin}{0.125in}
+%\setlength{\evensidemargin}{0.125in}
+\setlength{\oddsidemargin}{0.0in}
+\setlength{\evensidemargin}{0.0in}
+% 4
+\setlength{\topmargin}{-0.25in}
+% 5
+\setlength{\headheight}{0.125in}
+% 6
+\setlength{\headsep}{0.125in}
+% 7
+\setlength{\textheight}{9.0in}
+% 8
+%\setlength{\textwidth}{6.25in}
+\setlength{\textwidth}{6.5in}
+% 9
+\setlength{\marginparsep}{10pt}
+% 10 
+\setlength{\marginparwidth}{50pt}
+\setlength{\voffset}{0pt}
+% 11
+\setlength{\footskip}{0.25in}
+% =============================================
+
+\renewcommand{\baselinestretch}{1.25} 
+
+\newcommand{\cbhTitle}{THE DATA-DRIVEN DECISION TO ELECT A MAC OVER A WINDOWS LAPTOP}
+\title{\bfseries \cbhTitle}
+\author{C.B. Hovey \\ \tiny 14 October 2016}
+%\address{Mechanics and Computation Department, Durand Building, 496 Lomita Mall, Stanford University, Stanford CA 94305}
+%\address{Delta V Biomechanics Inc., 930 Commercial Street, Palo Alto, CA 94303}
+%\address{Hovey Consulting LLC, 4801 Lang Avenue NE, Suite 110, Albuquerque NM 87109}
+%\email{chad.hovey@stanfordalumni.org}
+% \email{cbh@deltavbio.com}
+%\email{chad.hovey@hoveyconsulting.com}
+%
+\newcommand{\cbhPublishDate}{\tt Mac\_v\_PC\_laptop.tex}
+%\date{\cbhPublishDate}
+
+\pagestyle{empty}
+%\chead{\sc{\small   title
+\chead{\sc{\scriptsize   \cbhTitle
+   \hfill \footnotesize \thepage}}
+\lhead[\sc{\small }]{\footnotesize }
+\rhead[\footnotesize ]{\sc{\small }}
+\lfoot[\sc{\small }]{\footnotesize }
+\rfoot[\footnotesize ]{\sc{\small }}
+%\cfoot{ \sc{\small c.b.~hovey} \hfill \footnotesize \today}
+\cfoot{ \sc{\small c.b.~hovey} \hfill \footnotesize \cbhPublishDate}
+
+\setlength{\footrulewidth}{0.4pt}
+
+\pagestyle{fancyplain}
+
+
+% ==========================================
+
+\begin{document}
+
+%{\abstract
+%To come some day.
+%}
+
+\maketitle
+
+%\tableofcontents
+%\clearpage
+
+%====================
+\section{Introduction}
+%====================
+I have been using a Dell Latitude E7240 (64 bit, Intel Core i7-4600U @ 2.10 GHz, 16 MB RAM, 12 inch touch screen, 250 GB HD) running Windows~7 Enterprise SP1, borrowed from Department 5421 OAA Valerie Marquez.  Instead of ordering a laptop computer immediately upon my first day of work 
+(over a month ago), a delay, I opined, would allow me time to collect information and assess; to make a decision driven by data, not just inertia (``that's how we have always done it'') or emotion (``that's how I feel'').  
+
+%====================
+\section{Assessment}
+%====================
+\subsection{The Microsoft Office hurdle}
+
+During this assessment time, I collected data from many sources.  
+My manager, Doug Dederman, expressed a preference for a PC 
+running Windows over Mac because he had encountered Mac users 
+who suffered from incomplete or absent functionality with the 
+Microsoft Office suite of software, in particular, with the 
+calendar and email programs.  
+My colleague, Candice Cooper, stated that she had encountered 
+incompatibilities with the PowerPoint application on a Mac.  
+Some PowerPoint documents, created or last written to file from a PC, 
+when opened on a Mac, had equations that were mangled, 
+suggesting incompatibility between the Mac and PC implementation
+of Equation Editor.
+
+I noted that these two experiences were historical, and wanted to
+determine if these bugs persisted, or had been fixed.
+
+I tested functionality on and compatibility between a Mac and 
+a PC running Microsoft Word 2016, Outlook 2016, and PowerPoint 2016 
+using a Microsoft Office 365 subscription.  
+This testing failed to reproduce the aforementioned 
+deficiencies in functionality and compatibility.  
+The result of this point testing, while anecdotal, 
+persuades me that hurdles of the past remain in the past, 
+and are not applicable to the present-day software offerings.  
+
+In addition, data from ALEGRA developers Glen Hansen, 
+Duane Labreche, and Jason Sanchez, 
+all Mac users in the Sandia desktop computer ecosystem, 
+indicated no loss of functionality and compatibility 
+in their present-day experience with Microsoft products.  
+
+Finally, Microsoft's website for this suite of products 
+speaks to Office 365 compatibility not only between Mac and PC, 
+but also across mobile devices (iOS, Android, Windows).
+
+\subsection{The runs-only-on-Windows hurdle}
+Applications that run only on the Windows operating system 
+may present worry for those who run on a Mac instead of a PC.  
+Indeed, I encountered this problem with at least three applications 
+used at my engineering consultancy.  
+To surmount these hurdles, I used VMware Fusion Pro for Mac, 
+which allows users to virtualize the Windows operating system, 
+and thus run Windows-only applications concurrently on a Mac.  
+I used this hybrid system, the baseline Mac hardware running OS X 
+(now, macOS Sierra) with a virtualized installation of Windows~7 
+(and later, version~10), for years, with complete satisfaction.  
+A Mac running virtualized Windows was the 
+ultimate ``have your cake and eat it too'' solution. 
+
+\subsection{Focus on Analyst/Developer Use Cases}
+In the context of ALEGRA development, there are several 
+compelling reasons to choose a Mac over a PC.  
+First, ALEGRA can be built on a Mac; it cannot be built on a PC.  
+So, the use case of an analyst/developer engaging at a client site 
+and, for example, 
+updating a material model on-the-fly is lost on a PC, found on a Mac.  
+Similarly, for any use case that is network-deprived 
+(fly on an airplane, work at a remote site, 
+work where the network connection is not secure or 
+suffers frequent down time, to name four), 
+a Mac can keep a local build of ALEGRA available to the user, 
+a PC cannot.  
+
+Why does ALEGRA run on a Mac?  
+Because the Mac operating system is a descendant of the 
+Berkeley Software Distribution (BSD) UNIX.  
+And UNIX is the second compelling reason to choose a Mac instead of a PC.  
+The target operating system for ALEGRA is Linux, 
+and the target compiler is {\tt gcc}.  
+Because Mac UNIX and Linux (specifically, Red Hat Enterprise Linux used
+on the HP workstation) 
+descend from the same Portable Operating System Interface (POSIX) 
+and AT\&T UNIX System V Interface Definition (SVID) parents, 
+integration of shells, scripts, and infrastructure 
+between Mac and Linux are tightly integrated, 
+if not essentially invisible.  
+In contrast, Windows requires the user to bolt on and 
+maintain compensatory applications, 
+such as VIM for Windows, PuTTY for Window, and Cygwin for Windows, 
+to bring Microsoft's operating system environment up to snuff.  
+
+There are many other user productivity reasons that make Mac the 
+preferred desktop client for ALEGRA development.  
+While not exhaustive, the following example is illustrative. 
+
+A text file generated on a PC will insert end-of-line (EOL) characters 
+that can impose problems for the Mac or Linux user.  
+Text files created on Windows will have a pair of 
+carriage return (CR) and line feed (LF) characters 
+to terminate lines.  UNIX uses a LF only.  
+Text files created on Windows will display on UNIX
+with the extra CR displayed as {\tt \^{}M} or {\tt <cr>} 
+at the end of the line or as a second line break. 
+
+A common workaround, when transferring files between client and 
+server with file transfer protocol (FTP), is to use an ascii transfer, 
+which converts line breaks, instead of a binary transfer, 
+which preserves the native line break characters.
+
+While this and other workarounds exist to tame PC-to-Linux 
+translation problems, avoiding such hoop jumping in the first place 
+is a better practice.  
+Indeed, this is the thematically consistent feedback I have 
+received from numerous ALEGRA developers:  
+If you have the choice, choose Mac.  
+If you don't have the choice, you can still make the PC work, 
+with additional effort above and beyond what is required with a Mac.  
+
+Sand in the gears, then, is the proverbial description of PCs in 
+the ALEGRA high performance computing environment at Sandia.  
+And if PC clients are sand, then Mac clients are surely viewed 
+by ALEGRA developers as no less than the oil.  
+
+%====================
+\section{Recommendation}
+%====================
+MacBook Pro with Retina display, 15 inch, 2.5~GHz Quad-core Intel
+Core~i7, 16~GB 1600~MHz DDR3L SDRAM, 512~GB PCIe-based 
+flash storage. $\qed$
+%====================
+%\section{Conclusions}
+%====================
+
+%====================
+%\section{References}
+%====================
+
+%====================
+%\pagebreak
+%\appendix
+%\section{Numerical Details}
+%====================
+
+
+\end{document}
+
+
+
+
+
+
+

@@ -1,0 +1,77 @@
+%\documentclass[11pt]{article}
+\documentclass[10pt,reqno]{amsart}
+%\usepackage[]{fancyheadings}
+\usepackage{d:/home/hovey/latexsources/fancyheadings/fancyheadings}
+%\usepackage{amstex}
+
+%\include{/home/hovey/Hwriting/Hformatams}
+\include{d:/home/hovey/latexsources/Hformatams}
+
+
+\setlength{\oddsidemargin}{0.25in}
+\setlength{\evensidemargin}{0.25in}
+\setlength{\textwidth}{6.0in}
+\setlength{\textheight}{9.0in}
+\setlength{\footskip}{18pt}
+\renewcommand{\baselinestretch}{1.25}
+
+\title{References for 
+       Finite Element Analysis}
+
+\author{C.B. Hovey \\ \sc\today}
+
+\date{\today \\ PAPER REFERENCE {\tt 120597-00XX-CBH-XXXXXXX}}
+
+
+\pagestyle{empty}
+%\chead{\sc{\small \title} \hfill \footnotesize \thepage}
+\lhead[\sc{\small structural dynamics references }]{\sc{\small finite element analysis references}}
+\rhead[\footnotesize ]{\sc{\small   }}
+\chead{\sc{\small \title} \hfill \footnotesize \thepage}
+\lfoot[\sc{\small   c.b.~hovey }]{\sc{\small c.b.~hovey  }}
+\rfoot[\footnotesize \sc \today ]{\footnotesize \sc \today}
+\cfoot{ \sc{\small }   \hfill \footnotesize }
+\setlength{\footrulewidth}{0.4pt}
+\pagestyle{fancyplain}
+
+
+
+
+% ==========================================
+
+\begin{document}
+
+\maketitle
+
+%\section{Articles In Chronological Order}
+
+\nocite{
+Curnier94,
+Hughes96,
+Hughes87,
+Prathap85,
+Rabevala90,
+Simo98}
+
+
+
+% ============
+% BIBLIOGRAPHY 
+% ============
+
+% use the following bibliography databases
+% biomech.bib    // biomechanics
+% dr.bib         // dynamic relaxation
+
+\bibliography{/home/hovey/bibtexsources/fea}
+\bibliographystyle{plain}
+%\bibliographystyle{apalike}
+
+
+
+\end{document}
+
+
+
+
+

@@ -1,0 +1,29 @@
+\documentclass[10pt,reqno]{amsart}
+\usepackage{d:/home/hovey/latexsources/fancyheadings/fancyheadings}
+\usepackage{d:/home/hovey/latexsources/psfrag}
+
+
+
+
+\begin{figure}[htb]
+ \psfrag{A}{$\hat{\vE}_1$}
+ \psfrag{B}{$\hat{\vE}_2$}
+ \psfrag{O}{$O$}
+ \psfrag{a}{$a$}
+ \psfrag{b}{$b$}
+ \psfrag{c}{$c$}
+ \psfrag{d}{$\veba$}
+ \psfrag{e}{$\vebb$}
+ \psfrag{f}{$\veaa$}
+ \psfrag{g}{$\veab$}
+ \psfrag{h}{$g$}
+ \psfrag{q}{$q_1$}
+ \psfrag{P}{$P$}
+ \psfrag{G}{$B^G$}
+ \begin{center}
+   \includegraphics[width=3.5in]{d:/home/hovey/rsh/figs/q1Element.eps}
+ \end{center}
+ \caption{Rigid body one degree of freedom, planar rotation, representing
+  the implementation of the {\tt q1Element} element type.}
+ \label{fig:q1Element}
+\end{figure}

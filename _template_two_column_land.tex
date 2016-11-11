@@ -1,0 +1,525 @@
+%%!TEX TS-program = latex
+\documentclass[10pt,legalpaper,twocolumn,reqno]{amsart}
+%\usepackage{d:/home/hovey/latexsources/fancyheadings/fancyheadings}
+%\usepackage{c:/home/hovey/latexsources/fancyheadings/fancyheadings}
+%\usepackage{/Users/Pictor/hovey/latexsources/fancyheadings/fancyheadings} % Pictor
+\usepackage{latexsources/fancyheadings/fancyheadings} % Pictor
+%\usepackage{d:/home/hovey/latexsources/psfrag}
+%\usepackage{c:/home/hovey/latexsources/psfrag}
+\usepackage{psfrag}
+%\usepackage[foot]{amsaddr}
+
+% two-column: space between columns
+\setlength{\columnsep}{1.0cm}
+
+% multi-column spanning
+\usepackage{multicol}
+
+
+%\usepackage{fancyheadings}
+%\usepackage[]{psfrag}
+%\usepackage{multirow}
+\usepackage{epsfig}
+\usepackage{pifont} % reqd for dingbats
+%\usepackage{subfigure} % requires \usepackage{epsfig} too
+
+%\include{/home/hovey/Hwriting/Hformatams}
+%\include{/tmp_mnt/users/lmaf/hovey/Hwriting/Hformatams}
+%\include{d:/home/hovey/latexsources/Hformatams}
+%\include{c:/home/hovey/latexsources/Hformatams}
+%\include{/Users/Pictor/hovey/latexsources/Hformatams} % Pictor
+\include{latexsources/Hformatams} % Pictor
+
+% =============================================
+% https://www.sharelatex.com/learn/Page_size_and_margins
+% =============================================
+% 0
+\setlength{\paperwidth}{8.5in}
+\setlength{\paperheight}{11.0in}
+% 1
+\setlength{\hoffset}{0pt}
+% 2
+\setlength{\voffset}{0pt}
+% 3
+%\setlength{\oddsidemargin}{0.125in}
+%\setlength{\evensidemargin}{0.125in}
+\setlength{\oddsidemargin}{0.0in}
+\setlength{\evensidemargin}{0.0in}
+% 4
+\setlength{\topmargin}{-0.25in}
+% 5
+\setlength{\headheight}{0.125in}
+% 6
+\setlength{\headsep}{0.125in}
+% 7
+\setlength{\textheight}{9.0in}
+% 8
+%\setlength{\textwidth}{6.25in}
+\setlength{\textwidth}{6.5in}
+% 9
+\setlength{\marginparsep}{10pt}
+% 10 
+\setlength{\marginparwidth}{50pt}
+\setlength{\voffset}{0pt}
+% 11
+\setlength{\footskip}{0.25in}
+% =============================================
+
+\renewcommand{\baselinestretch}{1.25} 
+
+\newcommand{\cbhTitle}{TEST CASES OF HOLONOMIC CONSTRAINTS IN A FINITE ELEMENT ANALYSIS FRAMEWORK}
+\title{\bfseries \cbhTitle}
+\author{C.B. Hovey}
+%\address{Mechanics and Computation Department, Durand Building, 496 Lomita Mall, Stanford University, Stanford CA 94305}
+%\address{Delta V Biomechanics Inc., 930 Commercial Street, Palo Alto, CA 94303}
+\address{Hovey Consulting LLC, 4801 Lang Avenue NE, Suite 110, Albuquerque NM 87109}
+%\email{chad.hovey@stanfordalumni.org}
+% \email{cbh@deltavbio.com}
+\email{chad.hovey@hoveyconsulting.com}
+%
+\newcommand{\cbhPublishDate}{Month Day, Year}
+\date{\cbhPublishDate,  {\em Paper Reference:} {\tt PaperNumber.tex}}
+
+\pagestyle{empty}
+%\chead{\sc{\small   title
+\chead{\sc{\scriptsize   \cbhTitle
+   \hfill \footnotesize \thepage}}
+\lhead[\sc{\small }]{\footnotesize }
+\rhead[\footnotesize ]{\sc{\small }}
+\lfoot[\sc{\small }]{\footnotesize }
+\rfoot[\footnotesize ]{\sc{\small }}
+%\cfoot{ \sc{\small c.b.~hovey} \hfill \footnotesize \today}
+\cfoot{ \sc{\small c.b.~hovey} \hfill \footnotesize \cbhPublishDate}
+
+\setlength{\footrulewidth}{0.4pt}
+
+\pagestyle{fancyplain}
+
+
+% ==========================================
+
+\begin{document}
+
+{\abstract
+To come some day.
+}
+
+\maketitle
+
+%\tableofcontents
+%\clearpage
+
+%====================
+\section{Introduction}
+%====================
+\subsection{Observations}
+\begin{enumerate}
+ \item Yaw data is often suspect.
+ \item Differentiation often creates a noisy result, e.g., differentiate position to get velocity, in the 
+ computation of ejection speed, results in noisy ``spray'' either to the left or right (latitude) of the
+ roll path (longitude).
+ \item Have experimented with shutting off (zero-out) yaw rates, but retain yaw angles, and has 
+ more smooth and (perhaps) more believable results.
+\end{enumerate}
+
+
+\subsection{Questions}
+Given a canonical rollover example, e.g., Exponent Expedition dolly rollover test:
+\begin{enumerate}
+ \item What is the breakdown of ejection speed into components (directions: latitude and longitude) and
+ into contribution source (e.g., $\omega \times r$, carrier frame speed, relative speed in rotating frame).
+ \item Is there a contribution source that is dominant for all time?
+ \item What is the {\em relative} contribution of each (e.g., normalize to 1.0, examine breakdown).
+ \item Is there a justification for shutting off yaw rate?
+ \item Is there a justification for modeling yaw rate as some smooth ``canned'' functional form, assumed 
+ {\em a priori}?
+\end{enumerate}
+
+
+
+%====================
+\section{Methods}
+%====================
+
+
+\subsection{Reference Frames}
+Fig.~\ref{fig:referenceFrames} illustrates the reference frames.  
+Let the inertial reference frame $\cF$ have unit vectors 
+$[\vefa, \vefb, \vefc]$ at origin point $F$.
+Unit vector $\vefa$ points to the right of the page.
+Unit vector $\vefb$ points the top of the page.
+Unit vector $\vefc$ points out of the page, and is perpendicular to a
+level plane of vehicle travel.
+These unit vectors correspond to the easting, northing, and elevation
+vectors in a plan view survey coordinate system, respectively.
+All unit vectors used in this paper are dextral, orthonormal, ordered triads.
+We note that our coordinate system
+uses the ``z'' direction as up.  This is different from the SAE
+convention, which uses the ``z'' direction as down. 
+%\begin{figure}[htb]
+\begin{figure*}
+  \psfrag{a}{$\vefa$}
+  \psfrag{b}{$\vefb$}
+  \psfrag{u}{$\vefc$}
+  \psfrag{c}{$\veaa$}
+  \psfrag{d}{$\veab$}
+  \psfrag{e}{$\veac$}
+  \psfrag{f}{$\vebb$}
+  \psfrag{g}{$\vebc$}
+  \psfrag{h}{$F$}
+  \psfrag{i}{$\vr^{FV}$}
+  \psfrag{j}{$V$}
+  \psfrag{k}{$O$}
+  \psfrag{p}{$\phi$}  
+  \psfrag{q}{$\cA$}    
+  \psfrag{r}{$\cB$}  
+  \psfrag{y}{$\psi$}
+  \psfrag{t}{$\theta$}
+  \begin{center}
+   %\includegraphics[width=4.5in]{../AR/ARfinal.eps}
+   %\includegraphics[width=4.5in]{../AR/AR_diagram_CBH.eps}
+   \includegraphics[width=5.5in]{figs/referenceFramesThree.eps}
+   %\includegraphics[width=3.5in]{../../AR/referenceFramesTwo.eps}
+ \end{center}
+ \caption{Illustration of inertial, carrier, and vehicle reference frames in a top view (left subfigure) and vehicle front view (right subfigure).}
+ \label{fig:referenceFrames}
+%\end{figure}
+\end{figure*}
+
+Let the carrier frame $\cA$ be attached to the vehicle's center of mass at point $V$.
+The carrier frame has unit vectors $[\veaa, \veab, \veac]$.
+Unit vector $\veaa$ points toward the front of the vehicle.
+Unit vector $\veab$ points to the left of the vehicle, with the vehicle in a non-rolling configuration.
+Unit vector $\veac$ points to the roof of the vehicle, with the vehicle in a non-rolling configuration.
+The carrier frame translates with the vehicle frame, but is not attached to the 
+vehicle. Therefore, the carrier frame does not rotate with
+roll $\theta$ of the vehicle with respect to the with the vehicle roll 
+axis the $\veba$ (equivalently $\veaa$).
+The carrier frame rotates with the yaw $\psi$ of the vehicle with respect to the inertial frame along the vertical axis $\vefc$ (equivalently $\veac$).
+
+Let the vehicle frame $\cB$ be fixed to the vehicle's center of mass at point $V$.
+The vehicle frame has unit vectors $[\veba, \vebb, \vebc]$.
+Unit vector $\veba$ points to the front of the vehicle.
+Unit vector $\vebb$ points to the left of the vehicle.
+Unit vector $\vebc$ points to the roof of the vehicle.
+
+\subsection{Occupant Description at Ejection}
+In our previous work (Hovey 2008), we described the position vector of the 
+occupant at ejection $\vr^{FO} \in \real^3$ as
+\be
+ \vr^{FO} = \vr^{FV} + \vr^{VO}, 
+\ee
+\be
+ \vr^{FO} = x \; \vefa + y \; \vefb + z \; \vefc + \chi \; \veba + \rho \cos \phi 
+ \; \vebb + \rho \sin \phi \; \vebc.
+\ee
+We described the velocity of an occupant 
+$\hframe{F}\vv^{O} \in \real^3$
+ejected from a rollover vehicle with non-trivial yaw effects as
+\be
+\hframe{F}\vv^{O} =  \hframe{F}\vv^{V} +  \hframe{B}\vv^{O} +  \hframe{F}\vomega^{\cB} \times \vr^{VO},
+ \label{eq:velocity}
+\ee
+where $\hframe{F}\vv^{V}$ is the velocity of the vehicle relative to the inertial frame, 
+$\hframe{B}\vv^{O}$ is the velocity of the occupant relative to the vehicle frame,
+$\hframe{F}\vomega^{\cB}$ is the angular velocity of the vehicle in the inertial frame,
+and
+$\vr^{VO}$ is the position vector from the vehicle at point $V$ to the occupant at point $O$.
+
+
+Writing this equation out explicitly in terms of velocity of the vehicle center
+of mass in the inertial reference frame ($\dot{x}, \dot{y}, \dot{z}$), 
+the radial and longitudinal position ($\rho, \chi$) and velocity 
+($\dot{\rho}, \dot{\chi}$)
+of the the occupant in the vehicle reference frame,
+the yaw and roll position ($\psi, \theta$) and rates ($\dot{\psi}, \dot{\theta}$), 
+and using the shorthand notation of 
+$\cos \alpha = \hcos \alpha, \sin \alpha = \hsin \alpha$ 
+for all angle variables $\alpha$ gives
+\be
+\hframe{F}\vv^{O} 
+= 
+\left\{  
+	\begin{tabular}{c}
+ 	  	$\dot{x}$ \\ 
+ 		$\dot{y}$ \\ 
+ 		$\dot{z}$
+ 	\end{tabular}
+\right\}
++
+\left[
+  \begin{tabular}{ccc}
+  $\hcos \psi$  	& $-\hsin \psi \; \hcos \theta$ & $ \hsin \psi \; \hsin \theta$ \\ 
+  $\hsin \psi$   & $ \hcos \psi \; \hcos \theta$ & $-\hcos \psi \; \hsin \theta$ \\
+  $0$           & $ \hsin \theta$           & $\hcos \theta$  
+  \end{tabular}
+\right]
+\left\{  
+	\begin{tabular}{c}
+ 	  	$\dot{\chi}$ \\ 
+ 		$\dot{\rho} \; \hcos \phi$ \\ 
+ 		$\dot{\rho} \; \hsin \phi$
+ 	\end{tabular}
+\right\}
++
+\nonumber
+\ee
+\be
+\left[
+  \begin{tabular}{ccc}
+  $0$  & $-\dot{\psi}$ & $\hsin \psi \; \dot{\theta}$ \\ 
+  $\dot{\psi}$   & $0$ & $-\hcos \psi \; \dot{\theta}$ \\
+  $-\hsin \psi \; \dot{\theta}$  & $\hcos \psi \; \dot{\theta}$ & $0$  
+  \end{tabular}
+\right]
+\left[
+  \begin{tabular}{ccc}
+  $\hcos \psi$  	& $-\hsin \psi \; \hcos \theta$ & $ \hsin \psi \; \hsin \theta$ \\ 
+  $\hsin \psi$   & $ \hcos \psi \; \hcos \theta$ & $-\hcos \psi \; \hsin \theta$ \\
+  $0$           & $ \hsin \theta$           & $\hcos \theta$  
+  \end{tabular}
+\right]
+\left\{  
+	\begin{tabular}{c}
+ 	  	$\chi$ \\ 
+ 		$\rho \; \hcos \phi$ \\ 
+ 		$\rho \; \hsin \phi$
+ 	\end{tabular}
+\right\}
+\label{eq:velocityExpanded}
+\ee
+which is equivalent to the result we recorded previously (Hovey 2008).
+
+\subsection{Specialization to Roll Dominant Condition}
+Suppose now that the vehicle is predominantly in a roll, with trivial yaw.
+If we approximate this condition as the constant $\psi = -90^{\circ} + \epsilon$, 
+where $\epsilon \approx 0$.
+This means  $\dot{\psi} \neq 0$ for all time.  We are then describing 
+a vehicle that has yawed approximately one quarter of a revolution clockwise, 
+when viewed from above, as it moves.
+Eq.~(\ref{eq:velocityExpanded}) then simplifies to 
+\begin{eqnarray}
+\left.\hframe{F}\vv^{O}\right|_{\psi=-90^{\circ}}
+&= 
+\left\{  
+	\begin{tabular}{c}
+ 	  	$\dot{x}$ \\ 
+ 		$\dot{y}$ \\ 
+ 		$\dot{z}$
+ 	\end{tabular}
+\right\}
++
+\left[
+  \begin{tabular}{ccc}
+  $0$  	& $\hcos \theta$ & $-\hsin \theta$ \\ 
+  $-1$   & $0$ & $0$ \\
+  $0$   & $ \hsin \theta$ & $\hcos \theta$  
+  \end{tabular}
+\right]
+\left\{  
+	\begin{tabular}{c}
+ 	  	$\dot{\chi}$ \\ 
+ 		$\dot{\rho} \; \hcos \phi$ \\ 
+ 		$\dot{\rho} \; \hsin \phi$
+ 	\end{tabular}
+\right\}
++
+%\nonumber
+%\ee
+%\be
+\left[
+  \begin{tabular}{ccc}
+  $0$  & $-\dot{\psi}$ & $\dot{\theta}$ \\ 
+  $\dot{\psi}$   & $0$ & $0$ \\
+  $-\dot{\theta}$  & $0$ & $0$  
+  \end{tabular}
+\right]
+\left[
+  \begin{tabular}{ccc}
+  $0$  	& $\hcos \theta$ & $-\hsin \theta$ \\ 
+  $-1$   & $0$ & $0$ \\
+  $0$   & $ \hsin \theta$ & $\hcos \theta$  
+  \end{tabular}
+\right]
+\left\{  
+	\begin{tabular}{c}
+ 	  	$\chi$ \\ 
+ 		$\rho \; \hcos \phi$ \\ 
+ 		$\rho \; \hsin \phi$
+ 	\end{tabular}
+\right\}
+\label{eq:velocitySpecialCase}
+%\ee
+\\
+%\be
+&= 
+\left\{  
+	\begin{tabular}{c}
+ 	  	$\dot{x}$ \\ 
+ 		$\dot{y}$ \\ 
+ 		$\dot{z}$
+ 	\end{tabular}
+\right\}
++
+\left\{  
+	\begin{tabular}{c}
+ 	  	$\dot{\rho} \; (\hcos \theta \; \hcos \phi - \hsin \theta \; \hsin \phi)$ \\ 
+ 		$-\dot{\chi}$ \\ 
+ 		$\dot{\rho} \; (\hsin \theta \; \hcos \phi + \hcos \theta \; \hsin \phi)$
+ 	\end{tabular}
+\right\}
++
+\left\{  
+	\begin{tabular}{c}
+ 	  	$\rho (\hsin \theta \; \hcos \phi + \hcos \theta \; \hsin \phi) \; 
+			\dot{\theta} + \chi \; \dot{\psi}$ \\ 
+ 		$\rho (\hcos \theta \; \hcos \phi - \hsin \theta \; \hsin \phi) \; 
+			\dot{\psi} \;\;\;\;\;\;\;\; \;$ \\ 
+ 		$\rho (\hcos \theta \; \hcos \phi - \hsin \theta \; \hsin \phi) \; 
+			\dot{\theta} \;\;\;\;\;\;\;\; \;$
+ 	\end{tabular}
+\right\}
+%\ee
+\end{eqnarray}
+The only contributions to the velocity 
+in the $\hframe{F}\vv^{O} \cdot \vefb$ direction 
+arise from vehicle speed $\dot{y}$,
+occupant longitudinal speed relative to the vehicle frame $\dot{\chi}$,
+and yaw rate $\dot{\psi}$.
+These contributions are linear. 
+Perturbations in
+$\dot{y}$ alone cause one-to-one corresponding perturbations in the 
+occupant's ejection speed in the $\vefb$ direction.  Identical arguments
+can be made for $\dot{\chi}$ and $\dot{\psi}$.  
+The significance of this development is to 
+illustrate sensitivity of the occupant's $\vefb$ ejection speed.
+If these values, $\dot{y}$, $\dot{\chi}$, and $\dot{\psi}$ are zero, the values for 
+$\hframe{F}\vv^{O}$ are forever confined to the plane spanned by 
+$\left[ \vefa, \vefc \right]$.
+
+Next, we specialize the foregoing result for trailing and leading occupants.
+To facilitate insight without stretching the model too far from 
+reality, we take 
+the leading occupant ejection angle 
+$\phi_{\mbox{\small lead}} = 0^{\circ}$
+and 
+the trailing occupant ejection angle 
+$\phi_{\mbox{\small trail}} = 180^{\circ}$.
+Typically, when $\psi = -90^{\circ}$, 
+we take 
+$\phi_{\mbox{\small lead}} = 50^{\circ}$ and 
+$\phi_{\mbox{\small trail}} = 145^{\circ}$.
+Also, for sunroof ejection portals, we typically start
+$\phi_{\mbox{\small roof}} = 90^{\circ}$.  
+Thus, by taking a wide range $[0, 180]^{\circ}$, we are 
+bounding the ejection parameter for $\phi$ 
+below by $0^{\circ}$
+and
+above by $180^{\circ}$. 
+Substitution of numeric values of $\phi$ produces the following two
+results:
+\be
+\left.\hframe{F}\vv^{O}\right|^{\psi=-90^{\circ}}_{\phi=0^{\circ}} 
+= 
+\left\{  
+	\begin{tabular}{c}
+ 	  	$\dot{x}$ \\ 
+ 		$\dot{y}$ \\ 
+ 		$\dot{z}$
+ 	\end{tabular}
+\right\}
++
+\left\{  
+	\begin{tabular}{c}
+ 	  	$\dot{\rho} \; \hcos \theta$ \\ 
+ 		$-\dot{\chi}$ \\ 
+ 		$\dot{\rho} \; \hsin \theta$
+ 	\end{tabular}
+\right\}
++
+\left\{  
+	\begin{tabular}{c}
+ 	  	$\rho \hsin \theta \; 
+			\dot{\theta} + \chi \; \dot{\psi}$ \\ 
+ 		$\rho \hcos \theta \; 
+			\dot{\psi} \;\;\;\;\;\;\;\; \;$ \\ 
+ 		$\rho \hcos \theta \; \; 
+			\dot{\theta} \;\;\;\;\;\;\;\; \;$
+ 	\end{tabular}
+\right\}
+\ee
+\be
+\left.\hframe{F}\vv^{O}\right|^{\psi=-90^{\circ}}_{\phi=180^{\circ}} 
+= 
+\left\{  
+	\begin{tabular}{c}
+ 	  	$\dot{x}$ \\ 
+ 		$\dot{y}$ \\ 
+ 		$\dot{z}$
+ 	\end{tabular}
+\right\}
++
+\left\{  
+	\begin{tabular}{c}
+ 	  	$-\dot{\rho} \; \hcos \theta$ \\ 
+ 		$-\dot{\chi}$ \\ 
+ 		$-\dot{\rho} \; \hsin \theta$
+ 	\end{tabular}
+\right\}
++
+\left\{  
+	\begin{tabular}{c}
+ 	  	$-\rho \hsin \theta \; 
+			\dot{\theta} + \chi \; \dot{\psi}$ \\ 
+ 		$-\rho \hcos \theta \; 
+			\dot{\psi} \;\;\;\;\;\;\;\; \;$ \\ 
+ 		$-\rho \hcos \theta \; 
+			\dot{\theta} \;\;\;\;\;\;\;\; \;$
+ 	\end{tabular}
+\right\}
+\ee
+
+
+
+
+%====================
+\section{Results}
+%====================
+\subsection{Special Case: 2D Ejection Solutions with Bounded Ejection Angles}
+
+\subsection{Special Case: 2D Ejection Solutions with Tuned Ejection Angles}
+
+\subsection{3D Ejection Solutions with Naive Yaw Data}
+
+\subsection{3D Ejection Solutions with Damped Yaw Data}
+
+\subsection{3D Ejection Solutions with Smoothed Yaw Data}
+
+
+%====================
+\section{Discussion}
+%====================
+
+%====================
+\section{Conclusions}
+%====================
+
+%====================
+\section{References}
+%====================
+
+%====================
+\pagebreak
+\appendix
+\section{Numerical Details}
+%====================
+
+
+\end{document}
+
+
+
+
+
+
+
