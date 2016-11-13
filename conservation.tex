@@ -119,22 +119,31 @@
 %====================
 \section{Introduction}
 %====================
-
+We introduce the concepts of conservation of mass, momentum, and energy.
 
 %====================
 \section{Conservation of Anything}
 %====================
-\begin{itemize}
- \item Let $\Box \subset \realthree$ be an arbitrary volume of space, 
- \item Let $\partial\Box = S \subset \realtwo$ be the surface enclosing the volume, 
- \item Let $d\ve{S} \in \realthree$ be the outward normal vector of a small patch 
-  on surface $\partial\Box$, and
- \item Let $\bbT = [0, T] \subset \realplus$ be the time interval of interest.
-\end{itemize}
+Let the following definitions be made:
+\begin{enumerate}
+ \item $\real$ is a field of real numbers,
+ \item $\bbEthree$ is three-dimensional Euclidean space,
+ \item $V \subset \bbEthree$ is an arbitrary volume of space with 
+ infinitesimal volume $dV$,
+ \item $\partial V$ is the boundary of the volume $V$ with infinitesimal
+ surface area $dA$,
+ \item $d\ve{n} \in \realthree$ is the unit outward normal vector 
+ of infinitesimal surface area $dA$ on boundary $\partial V$,
+ \item $d\vA$ be the outward normal with magnitude $dA$ and direction $d\ve{n}$,
+ \item $\bbT = [t_0, t_f] \subset \real$ is the time interval of interest
+ between initial time $t_0$ and final time $t_f$.  Note, $t_0$ is not necessarily
+ equal to zero, and the time interval may include negative numbers, in addition
+ to the commonly used positive numbers.  
+\end{enumerate}
 
-Let $f(\vx,t): \Box \times \bbT \mapsto \realplus$ 
+Let $f(\vx,t): V \times \bbT \mapsto \real$ 
 be a function that describes a material property,
-defined as item per unit of volume $\Box$, 
+defined as item per unit of volume $V$, 
 varies according to current position $\vx$ and time $t$.
 
 There are two special cases:
@@ -146,45 +155,47 @@ There are two special cases:
 \end{itemize}
 
 Two equivalent viewpoints are explicated: Eulerian and Lagrangian.  With Eulerian, the
-volume $\Box$ is fixed in space for all time.  With Lagrangian, the volume $\Box$ moves through
-space and time.  
+volume $V$ is fixed in space for all time.  With Lagrangian, the volume $V$ 
+moves through space and time.  
 
 \subsubsection{Eulerian formulation}
-Let point $\vp(\vx) : \Box \mapsto \realthree$ 
+Let point $\vp(\vx) : V \mapsto \realthree$ 
 be a point fixed in space for all time.  Point $\vp$ is 
 located by Cartesian coordinates $(x,y,z)$, thus $\vp(\vx) = \vp(x,y,z)$.  
 Note that $\vp$ is not a function of time $t$.
-Let the vicinity of volume $\Box$ be located by point $\vp$.
+Let the vicinity of volume $V$ be located by point $\vp$.
 
-How can property $f$ be varied within the volume $\Box$?  It can be varied
+How can property $\Phi$ be varied within the volume $V$?  It can be varied
 either from {\em within} the volume or {\em across} the volume surface, referred to 
 {\bf source} and {\bf flux}, respectively.
 \begin{itemize}
  \item {\bf Source} (or more precisely, point source) says that at point $\vx$, 
- the property $f$ is created 
+ the property $\Phi$ is created 
  (added) or deleted (subtracted) from a point source or sink, respectively.  Let source
- $\fdotstar(\vx,t)$ denote the property source/sink rate 
+ $\dot{\Phi}_*(\vx,t)$ denote the property source/sink rate 
  at point $\vx$ and time $t$ with dimensions of 
  property per unit volume per unit time.  
- \item {\bf Flux} describes the property moving across the boundary $\partial\Box$.  
+ \item {\bf Flux} describes the property moving across the boundary $\partial V$.  
  Movement can arise in two ways:
- \begin{itemize}
-  \item Absent of fluid transport:  Let $\vq$ be the flux of $f$ in the absence of
+ \begin{enumerate}
+  \item Absent of fluid transport:  Let $\vq$ be the flux of $\Phi$ in the absence of
   fluid transport; for example, with heat conduction.  
-  \item Presence of fluid transport: Let $f \vv$ be the transport flux of the property 
+  \item Presence of fluid transport: Let $\Phi \vv$ 
+  be the transport flux of the property 
   because of fluid transport, with units of property
   per unit area per unit time.
- \end{itemize}
+ \end{enumerate}
 \end{itemize}
-Finally, we state that property $f$ is {\it conserved} because changes in 
-time of $f$ across the volume $\Box$ are caused by either sources 
-or fluxes.    Stated mathematically, 
+Finally, we state that property $\Phi$ is {\it conserved} because changes in 
+time of $\Phi$ across the volume $V$ are caused by either sources 
+or fluxes.    
+Stated mathematically, 
 \be
- \frac{d}{dt} \int_{\Box} f \; d\Box = \underbrace{\int_{\Box} \fdotstar d\Box}_{\mbox{source}} 
+ \frac{d}{dt} \int_V \Phi \; dV = \underbrace{\int_V \dot{\Phi}_* dV}_{\mbox{\small source}} 
  \hspace{0.25cm} + \hspace{0.25cm} \underbrace{\left\{
-	  - \int_{\partial\Box} \vq \cdot d\vS  
-	  - \int_{\partial\Box} f \vv \cdot d\vS 
-  \right\}}_{\mbox{flux}}
+	  \; - \int_{\partial V} \vq \cdot \vn \; dA  
+	  \;\; - \;\; \int_{\partial V} \Phi \vv \cdot \vn \; dA \;
+  \right\}}_{\mbox{\small flux}}
  \label{eq:conservation}
 \ee
 Note the minus signs for the flux terms are used with the understanding that movement of
@@ -194,39 +205,41 @@ change of the property.
 
 Next, recall the divergence theorem, also known as Gauss's theorem, relates flow (flux)
 of a vector field through a surface to the behavior of the vector field inside of the 
-surface.  That is, for a volume $V \subset \realthree$ that is compact and has a 
-piecewise smooth boundary $S$ and outward unit normal $\vn$, 
-if $\vF$ is a continuously differentiable 
+surface.  That is, for a volume $V$ that is compact and has a 
+piecewise smooth boundary $\partial V$ and unit outward normal $\vn$, 
+if $\vf$ is a continuously differentiable 
 vector field defined in the vicinity of $V$, then 
 \be
- \int_S (\vF \cdot \vn) dS 
- = \int_V (\nabla \cdot \vF) dV  
+ \int_{\partial V} (\vf \cdot \vn) dA 
+ = \int_V (\nabla_x \cdot \vf) dV  
 \ee 
 Use of the divergence theorem used for the flux terms in (\ref{eq:conservation}) gives
 \be
- \frac{d}{dt} \int_{\Box} f \; d\Box = \underbrace{\int_{\Box} \fdotstar d\Box}_{\mbox{source}} 
+ \frac{d}{dt} \int_V \Phi \; dV = \underbrace{\int_V \dot{\Phi}_* dV}_{\mbox{\small source}} 
  \hspace{0.25cm} - \hspace{0.25cm} \underbrace{
-	  \int_{\Box} \nabla \cdot \left(\vq + f \vv \right) d\Box 
-  }_{\mbox{flux}}
+	  \int_V \nabla_x \cdot \left(\vq + \Phi \vv \right) dV
+  }_{\mbox{\small flux}}
  \label{eq:conservation_two}
 \ee
-Because the volume $\Box$ and surface $\partial \Box$ are fixed in an inertial reference
+Because the volume $V$ and surface $\partial V$ are fixed in an inertial reference
 frame, the time derivative of summed properties equals the sum of local time derivatives
 of properties, or
 \be
- \frac{d}{dt} \int_{\Box} f d\Box = \int_{\Box} \frac{\partial f}{\partial t} d\Box
+ \frac{d}{dt} \int_V \Phi dV = \int_V \frac{\partial \Phi}{\partial t} dV
 \ee
 Use of the foregoing equation in (\ref{eq:conservation_two}) gives
 \be
- \int_{\Box} \left(
- \frac{\partial f}{\partial t} + \nabla \cdot \left(\vq + f \vv \right) \right) d\Box
+ \int_V \left(
+ \frac{\partial \Phi}{\partial t} + \nabla_x 
+ \cdot \left(\vq + \Phi \vv \right) \right) dV
  = 
-\underbrace{\int_{\Box} \fdotstar d\Box}_{\mbox{source}} 
+\underbrace{\int_V \dot{\Phi}_* dV}_{\mbox{\small source}} 
 \ee
-Since the volume $\Box$ has arbitrary shape and size, the following must also be true, 
+Since the volume $V$ has arbitrary shape and size, the following must also be true, 
 which is the general form for all conservation laws in continuum mechanics, 
 \be
- \frac{\partial f}{\partial t} + \nabla \cdot \left(\vq + f \vv \right) = \fdotstar
+ \frac{\partial \Phi}{\partial t} + \nabla_x \cdot \left(\vq + \Phi \vv \right) = 
+ \dot{\Phi}_*
  \label{eq:conservation_general}
 \ee
 
@@ -234,37 +247,38 @@ which is the general form for all conservation laws in continuum mechanics,
 %====================
 \section{The Material Derivative}
 %====================
-Let $\vx = \vvarphi(\vX, t)$ be the function of a fluid particle at time $t$ that
+Let $\vx = \vvarphi(\vX, t)$ be the function of a particle 
+(of solid, fluid, or gas) at time $t$ that
 was located at position $\vX$ at time $t=0$.  
-Let some scalar property $\cP$ (for example, temperature or density) of the fluid be
+Let some scalar property $\Phi$ (for example, temperature or density) of the fluid be
 attached the fluid at $\vX$ and as this point located by $\vX$ moves, the property
-$\cP$ is invariant in time.  This means
+$\Phi$ is invariant in time.  This means
 \be
- \left.\frac{\partial \cP}{\partial t}\right|_{\vX} = 0.
+ \left.\frac{\partial \Phi}{\partial t}\right|_{\vX} = 0.
  \label{eq:material_invariance}
 \ee
-When a property $\cP$ is invariant in time for a particle $\vX$ of the fluid, 
+When a property $\Phi$ is invariant in time for a particle $\vX$ of the fluid, 
 the invariant scalar is {\em material}.  
 
-The Eulerian point of view of this same property $\cP$ proceeds by 
+The Eulerian point of view of this same property $\Phi$ proceeds by 
 selecting a point $\vx$ that is fixed in space, and expressing the 
 material invariance in terms of properties of the fluid {\em at} point $\vx$. 
 In general, the fluid will be moving at this point $\vx$, so the velocity
 $\vv$ of the fluid at this point enters through the chain rule.  
 That is
 \be 
- \left.\frac{\partial \cP(\vvarphi(\vX,t),t)}{\partial t}\right|_{\vX}
+ \left.\frac{\partial \Phi(\vvarphi(\vX,t),t)}{\partial t}\right|_{\vX}
  \overset{(\ref{eq:material_invariance})}{=} 0
- = \left.\frac{\partial \cP}{\partial \varphi_i}\right|_{t}
+ = \left.\frac{\partial \Phi}{\partial \varphi_i}\right|_{t}
    \left.\frac{\partial \varphi_i}{\partial t}\right|_{\vX} + 
-   \left.\frac{\partial \cP}{\partial t}\right|_{\vvarphi} 
- = \nabla \cP \cdot \vv + \cP_t.
+   \left.\frac{\partial \Phi}{\partial t}\right|_{\vvarphi} 
+ = \nabla_x \Phi \cdot \vv + \Phi_{,t}.
 \ee
 This gives rise to the notation of {\bf material derivative}, written with 
 capital $D$ as
 \be
- \frac{D(\cdot)}{Dt} \defe \frac{\partial (\cdot)}{\partial t} + \vv \cdot
-  \nabla(\cdot).
+ \frac{D(\bullet)}{Dt} \defe \frac{\partial (\bullet)}{\partial t} + \vv \cdot
+  \nabla_x(\bullet).
 \ee
 
 
@@ -277,13 +291,13 @@ capital $D$ as
 Conservation of mass is obtained from (\ref{eq:conservation_general}) with the following 
 substitutions:
 \begin{itemize}
- \item $f = \rho(\vx, t)$ is the mass per unit volume (or density),
+ \item $\Phi = \rho(\vx, t)$ is the mass per unit volume (or density),
  \item $\vq = \ve{0}$ because flux of mass can only occur with transport, and 
- \item $\fdotstar = 0$ since mass can be neither created or destroyed.
+ \item $\dot{\Phi}_* = 0$ since mass can be neither created or destroyed.
 \end{itemize}
 This gives conservation of mass, also called the {\bf continuity equation}
 \be
- \frac{\partial \rho}{\partial t} + \nabla \cdot \left( \rho \vv \right) = 0.
+ \frac{\partial \rho}{\partial t} + \nabla_x \cdot \left( \rho \vv \right) = 0.
 \ee
 
  
