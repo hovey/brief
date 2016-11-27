@@ -134,11 +134,12 @@ Let the following definitions be made:
  surface area $dA$,
  \item $d\ve{n} \in \realthree$ is the unit outward normal vector 
  of infinitesimal surface area $dA$ on boundary $\partial V$,
- \item $d\vA$ be the outward normal with magnitude $dA$ and direction $d\ve{n}$,
+ \item $d\vA$ be the outward normal with magnitude $dA$ and direction 
+ $d\ve{n}$,
  \item $\bbT = [t_0, t_f] \subset \real$ is the time interval of interest
- between initial time $t_0$ and final time $t_f$.  Note, $t_0$ is not necessarily
- equal to zero, and the time interval may include negative numbers, in addition
- to the commonly used positive numbers.  
+ between initial time $t_0$ and final time $t_f$.  Note, $t_0$ is not 
+ necessarily equal to zero, and the time interval may include negative 
+ numbers, in addition to the commonly used positive numbers.  
 \end{enumerate}
 
 Let $f(\vx,t): V \times \bbT \mapsto \real$ 
@@ -154,9 +155,9 @@ There are two special cases:
  vary with time $t$.  
 \end{itemize}
 
-Two equivalent viewpoints are explicated: Eulerian and Lagrangian.  With Eulerian, the
-volume $V$ is fixed in space for all time.  With Lagrangian, the volume $V$ 
-moves through space and time.  
+Two equivalent viewpoints are explicated: Eulerian and Lagrangian.  
+With Eulerian, the volume $V$ is fixed in space for all time.  
+With Lagrangian, the volume $V$ moves through space and time.  
 
 \subsubsection{Eulerian formulation}
 Let point $\vp(\vx) : V \mapsto \realthree$ 
@@ -166,20 +167,20 @@ Note that $\vp$ is not a function of time $t$.
 Let the vicinity of volume $V$ be located by point $\vp$.
 
 How can property $\Phi$ be varied within the volume $V$?  It can be varied
-either from {\em within} the volume or {\em across} the volume surface, referred to 
-{\bf source} and {\bf flux}, respectively.
+either from {\em within} the volume or {\em across} the volume surface, 
+referred to {\bf source} and {\bf flux}, respectively.
 \begin{itemize}
  \item {\bf Source} (or more precisely, point source) says that at point $\vx$, 
  the property $\Phi$ is created 
- (added) or deleted (subtracted) from a point source or sink, respectively.  Let source
- $\dot{\Phi}_*(\vx,t)$ denote the property source/sink rate 
+ (added) or deleted (subtracted) from a point source or sink, respectively.  
+ Let source $\dot{\Phi}_*(\vx,t)$ denote the property source/sink rate 
  at point $\vx$ and time $t$ with dimensions of 
  property per unit volume per unit time.  
- \item {\bf Flux} describes the property moving across the boundary $\partial V$.  
- Movement can arise in two ways:
+ \item {\bf Flux} describes the property moving across the boundary 
+ $\partial V$.  Movement can arise in two ways:
  \begin{enumerate}
-  \item Absent of fluid transport:  Let $\vq$ be the flux of $\Phi$ in the absence of
-  fluid transport; for example, with heat conduction.  
+  \item Absent of fluid transport:  Let $\vq$ be the flux of $\Phi$ in the 
+  absence of fluid transport; for example, with heat conduction.  
   \item Presence of fluid transport: Let $\Phi \vv$ 
   be the transport flux of the property 
   because of fluid transport, with units of property
@@ -191,39 +192,41 @@ time of $\Phi$ across the volume $V$ are caused by either sources
 or fluxes.    
 Stated mathematically, 
 \be
- \frac{d}{dt} \int_V \Phi \; dV = \underbrace{\int_V \dot{\Phi}_* dV}_{\mbox{\small source}} 
+ \frac{d}{dt} \int_V \Phi \; dV = 
+ \underbrace{\int_V \dot{\Phi}_* dV}_{\mbox{\small source}} 
  \hspace{0.25cm} + \hspace{0.25cm} \underbrace{\left\{
 	  \; - \int_{\partial V} \vq \cdot \vn \; dA  
 	  \;\; - \;\; \int_{\partial V} \Phi \vv \cdot \vn \; dA \;
   \right\}}_{\mbox{\small flux}}
  \label{eq:conservation}
 \ee
-Note the minus signs for the flux terms are used with the understanding that movement of
-the property from inside to outside the volume (positive outward flux) 
-{\em reduces} the time rate of 
-change of the property.  
+Note the minus signs for the flux terms are used with the understanding that 
+movement of the property from inside to outside the volume 
+(positive outward flux) {\em reduces} the time rate of change of the property.  
 
-Next, recall the divergence theorem, also known as Gauss's theorem, relates flow (flux)
-of a vector field through a surface to the behavior of the vector field inside of the 
-surface.  That is, for a volume $V$ that is compact and has a 
-piecewise smooth boundary $\partial V$ and unit outward normal $\vn$, 
-if $\vf$ is a continuously differentiable 
-vector field defined in the vicinity of $V$, then 
+Next, recall the divergence theorem, also known as Gauss's theorem, 
+relates flow (flux) of a vector field through a surface to the behavior 
+of the vector field inside of the surface.  That is, for a volume $V$ that 
+is compact and has a piecewise smooth boundary $\partial V$ and unit outward 
+normal $\vn$, if $\vf$ is a continuously differentiable vector field defined 
+in the vicinity of $V$, then 
 \be
  \int_{\partial V} (\vf \cdot \vn) dA 
  = \int_V (\nabla_x \cdot \vf) dV  
 \ee 
-Use of the divergence theorem used for the flux terms in (\ref{eq:conservation}) gives
+Use of the divergence theorem used for the flux terms in 
+(\ref{eq:conservation}) gives
 \be
- \frac{d}{dt} \int_V \Phi \; dV = \underbrace{\int_V \dot{\Phi}_* dV}_{\mbox{\small source}} 
+ \frac{d}{dt} \int_V \Phi \; dV 
+ = \underbrace{\int_V \dot{\Phi}_* dV}_{\mbox{\small source}} 
  \hspace{0.25cm} - \hspace{0.25cm} \underbrace{
 	  \int_V \nabla_x \cdot \left(\vq + \Phi \vv \right) dV
   }_{\mbox{\small flux}}
  \label{eq:conservation_two}
 \ee
-Because the volume $V$ and surface $\partial V$ are fixed in an inertial reference
-frame, the time derivative of summed properties equals the sum of local time derivatives
-of properties, or
+Because the volume $V$ and surface $\partial V$ are fixed in 
+an inertial reference frame, the time derivative of summed properties 
+equals the sum of local time derivatives of properties, or
 \be
  \frac{d}{dt} \int_V \Phi dV = \int_V \frac{\partial \Phi}{\partial t} dV
 \ee
@@ -235,10 +238,12 @@ Use of the foregoing equation in (\ref{eq:conservation_two}) gives
  = 
 \underbrace{\int_V \dot{\Phi}_* dV}_{\mbox{\small source}} 
 \ee
-Since the volume $V$ has arbitrary shape and size, the following must also be true, 
-which is the general form for all conservation laws in continuum mechanics, 
+Since the volume $V$ has arbitrary shape and size, the following must 
+also be true, which is the general form for all conservation laws in 
+continuum mechanics, 
 \be
- \frac{\partial \Phi}{\partial t} + \nabla_x \cdot \left(\vq + \Phi \vv \right) = 
+ \frac{\partial \Phi}{\partial t} + \nabla_x \cdot 
+ \left(\vq + \Phi \vv \right) = 
  \dot{\Phi}_*
  \label{eq:conservation_general}
 \ee
@@ -250,9 +255,9 @@ which is the general form for all conservation laws in continuum mechanics,
 Let $\vx = \vvarphi(\vX, t)$ be the function of a particle 
 (of solid, fluid, or gas) at time $t$ that
 was located at position $\vX$ at time $t=0$.  
-Let some scalar property $\Phi$ (for example, temperature or density) of the fluid be
-attached the fluid at $\vX$ and as this point located by $\vX$ moves, the property
-$\Phi$ is invariant in time.  This means
+Let some scalar property $\Phi$ (for example, temperature or density) of the 
+fluid be attached the fluid at $\vX$ and as this point located by $\vX$ moves, 
+the property $\Phi$ is invariant in time.  This means
 \be
  \left.\frac{\partial \Phi}{\partial t}\right|_{\vX} = 0.
  \label{eq:material_invariance}
@@ -288,8 +293,8 @@ capital $D$ as
 %====================
 \section{Conservation of Mass}
 %====================
-Conservation of mass is obtained from (\ref{eq:conservation_general}) with the following 
-substitutions:
+Conservation of mass is obtained from (\ref{eq:conservation_general}) 
+with the following substitutions:
 \begin{itemize}
  \item $\Phi = \rho(\vx, t)$ is the mass per unit volume (or density),
  \item $\vq = \ve{0}$ because flux of mass can only occur with transport, and 
