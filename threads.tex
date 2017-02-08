@@ -1,0 +1,331 @@
+%%!TEX TS-program = latex
+%\documentclass[10pt,twocolumn,reqno]{amsart}
+\documentclass[12pt,reqno]{amsart}
+%\usepackage{d:/home/hovey/latexsources/fancyheadings/fancyheadings}
+%\usepackage{c:/home/hovey/latexsources/fancyheadings/fancyheadings}
+%\usepackage{/Users/Pictor/hovey/latexsources/fancyheadings/fancyheadings} % Pictor
+\usepackage{latexsources/fancyheadings/fancyheadings} % Pictor
+%\usepackage{d:/home/hovey/latexsources/psfrag}
+%\usepackage{c:/home/hovey/latexsources/psfrag}
+\usepackage{psfrag}
+%\usepackage[foot]{amsaddr}
+%\usepackage{draftwatermark}
+
+% two-column: space between columns
+\setlength{\columnsep}{1.0cm}
+
+% multi-column spanning
+\usepackage{multicol}
+
+
+%\usepackage{fancyheadings}
+%\usepackage[]{psfrag}
+%\usepackage{multirow}
+\usepackage{epsfig}
+\usepackage{pifont} % reqd for dingbats
+%\usepackage{subfigure} % requires \usepackage{epsfig} too
+
+%\include{/home/hovey/Hwriting/Hformatams}
+%\include{/tmp_mnt/users/lmaf/hovey/Hwriting/Hformatams}
+%\include{d:/home/hovey/latexsources/Hformatams}
+%\include{c:/home/hovey/latexsources/Hformatams}
+%\include{/Users/Pictor/hovey/latexsources/Hformatams} % Pictor
+\include{latexsources/Hformatams} % Pictor
+
+% =============================================
+% https://www.sharelatex.com/learn/Page_size_and_margins
+% =============================================
+% 0
+\setlength{\paperwidth}{8.5in}
+\setlength{\paperheight}{11.0in}
+% 1
+\setlength{\hoffset}{0pt}
+% 2
+\setlength{\voffset}{0pt}
+% 3
+%\setlength{\oddsidemargin}{0.125in}
+%\setlength{\evensidemargin}{0.125in}
+\setlength{\oddsidemargin}{0.0in}
+\setlength{\evensidemargin}{0.0in}
+% 4
+\setlength{\topmargin}{-0.25in}
+% 5
+\setlength{\headheight}{0.125in}
+% 6
+\setlength{\headsep}{0.125in}
+% 7
+\setlength{\textheight}{9.0in}
+% 8
+%\setlength{\textwidth}{6.25in}
+\setlength{\textwidth}{6.5in}
+% 9
+\setlength{\marginparsep}{10pt}
+% 10 
+\setlength{\marginparwidth}{50pt}
+\setlength{\voffset}{0pt}
+% 11
+\setlength{\footskip}{0.25in}
+% =============================================
+
+\renewcommand{\baselinestretch}{1.25} 
+
+\newcommand{\cbhTitleBreak}{ANALYSIS OF THREADED JOINTS \\ 
+                            IN KOLSKY BAR EXPERIMENTS} 
+\newcommand{\cbhTitle}{ANALYSIS OF THREADED JOINTS IN KOLSKY BAR EXPERIMENTS}
+\title{\bfseries \cbhTitleBreak}
+\author{C.B. Hovey \\ \tiny 19 January 2017}
+%\address{Mechanics and Computation Department, Durand Building, 496 Lomita Mall, Stanford University, Stanford CA 94305}
+%\address{Delta V Biomechanics Inc., 930 Commercial Street, Palo Alto, CA 94303}
+%\address{Hovey Consulting LLC, 4801 Lang Avenue NE, Suite 110, Albuquerque NM 87109}
+%\email{chad.hovey@stanfordalumni.org}
+% \email{cbh@deltavbio.com}
+%\email{chad.hovey@hoveyconsulting.com}
+%
+\newcommand{\cbhPublishDate}{\tt threads.tex}
+%\date{\cbhPublishDate}
+
+\pagestyle{empty}
+%\chead{\sc{\small   title
+\chead{\sc{\scriptsize   \cbhTitle
+   \hfill \footnotesize \thepage}}
+\lhead[\sc{\small }]{\footnotesize }
+\rhead[\footnotesize ]{\sc{\small }}
+\lfoot[\sc{\small }]{\footnotesize }
+\rfoot[\footnotesize ]{\sc{\small }}
+%\cfoot{ \sc{\small c.b.~hovey} \hfill \footnotesize \today}
+\cfoot{ \sc{\small c.b.~hovey} \hfill \footnotesize \cbhPublishDate}
+
+\setlength{\footrulewidth}{0.4pt}
+
+\pagestyle{fancyplain}
+
+
+% ==========================================
+
+\begin{document}
+
+
+{\abstract
+// DRAFT - WORK-IN-PROGRESS - NOT FOR RELEASE //
+As of this writing, the intended audience for this brief is limited to 
+the author.
+}
+
+\maketitle
+
+%\tableofcontents
+%\clearpage
+
+%====================
+\section{Introduction}
+%====================
+
+%====================
+\section{Background}
+%====================
+
+Vigil
+{\em et al.}\footnote{Vigil MS, Brake MRW, VanGoethem DJ (2015) {\em 
+Analysis of Modeling Parameters of Threaded Screws}, Sandia Report SAND2015-5135, 
+June.} 
+modeled a threaded screw as a three-dimensional wedge domain composed of a screw
+and substrate (see Figure~\ref{fig:vigil_domain}).  
+The Allow A-286 screw had material
+properties\footnote{Young's modulus, Poisson's ratio, yield stress, and 
+ultimate tensile strength (respectively).}
+$E=29$e+6~psi, $\nu=0.28$, $\sigma_Y = 120$e+3~psi, and
+$\sigma_U = 160$e+3~psi.   The 304L stainless steel substrate had material
+properties $E=28$e+6~psi, $\nu=0.28$, $\sigma_Y = 32.7$e+3~psi, and 
+$\sigma_U = 78$e+3~psi.
+
+\begin{figure}                                                                 
+  \label{fig:vigil_domain}
+  \begin{center}                                                                             
+    \includegraphics[width=3.5in]{figs/screw_substrate.png}                 
+  \end{center}                                                                   
+  \caption{Reproduction of Vigil, Figure 3.}
+\end{figure}  
+
+Homogeneous Dirichlet boundary conditions were applied to the longitudinal
+faces as required to allow the substrate to remain stationary while the 
+screw to move axially.  An inhomogeneous Dirichlet boundary condition 
+was imposed on the top face screw, from zero to 0.635~mm (0.025 inches), 
+shown (at maximum displacement) in Figure~\ref{fig:vigil_displaced}.
+
+\begin{figure}                                                                 
+  \label{fig:vigil_displaced}
+  \begin{center}                                                                             
+    \includegraphics[width=3.5in]{figs/screw_displaced.png}                 
+  \end{center}                                                                   
+  \caption{Reproduction of Vigil, Figure 5.}
+\end{figure}  
+
+
+Castelluccio 
+{\em et al.}\footnote{Castelluccio GM, Brake MRW (2017 in press) {\em On the
+Origin of Computational Model Sensitivity, Error, and Uncertainty in 
+Threaded Fasteners}, {\em submitted to} Computers \& Structures, Second 
+Preprint December 9, 2016.} examined model parameters of
+geometry (shape, size, tolerance), materials (anisotropy, inhomogeneity), 
+mechanics (interface friction, temperature, loading) and 
+methodology (discretization errors, coding implementation errors) 
+to analyze sensitivity, error, and uncertainty on the 
+force-displacement response of threaded fasteners.
+
+They considered the \#0-40~UNF bolt (see Figure~\ref{fig:UNF_bolt}) for
+the simulations.
+\begin{figure}                                                                 
+  \label{fig:UNF_bolt}
+  \begin{center}                                                                             
+    \includegraphics[width=\textwidth]{figs/UNF_bolt}
+  \end{center}                                                                   
+  \caption{Reproduction of Castelluccio, Figure 2, showing the 
+  anatomy and geometry of the \#-40~UNF bolt (IS units).}
+\end{figure}  
+
+
+Castelluccio performed a systematic comparison of 1D, 2.5D and 3D
+finite element models (see Figure~\ref{fig:thread_models}).
+\begin{figure}                                                                 
+  \label{fig:thread_models}
+  \begin{center}                                                                             
+    \includegraphics[width=\textwidth]{figs/thread_models.png}
+  \end{center}                                                                   
+  \caption{Reproduction of Castelluccio, Figure 4, showing the 
+  1D, 2.5D, and 3D models.} 
+\end{figure}  
+
+
+
+	
+
+%====================
+\section{Methods}
+%====================
+``The incident bar was C300 maraging steel and 6061-T6 Aluminum I believe.'' 
+(see Sanborn 2017-01-25)
+
+\begin{figure}                                                                 
+  \begin{center}                                                                             
+    \includegraphics[width=\textwidth]{figs/hop_bar_threads.png}
+  \end{center}                                                                   
+  \caption{Hopkinson bar schematic.}
+\end{figure}  
+
+\begin{figure}                                                                 
+  \begin{center}                                                                             
+    \includegraphics[width=\textwidth]{figs/hop_bar_threads_zoom_pre.png}
+  \end{center}                                                                   
+  \caption{Close up view of threaded joint, prior to insertion.}
+\end{figure}  
+
+\begin{figure}                                                                 
+  \begin{center}                                                                             
+    \includegraphics[width=\textwidth]{figs/hop_bar_threads_zoom_mate.png}
+  \end{center}                                                                   
+  \caption{Close up view of threaded joint, during insertion.}
+\end{figure}  
+
+\begin{figure}                                                                 
+  \begin{center}                                                                             
+    \includegraphics[width=\textwidth]{figs/hop_bar_threads_zoom_post.png}
+  \end{center}                                                                   
+  \caption{Close up view of threaded joint, after insertion.}
+\end{figure}  
+
+
+\begin{figure}                                                                 
+  \begin{center}                                                                             
+    \includegraphics[width=\textwidth]{figs/hop_bar_threads_matl.png}
+  \end{center}                                                                   
+  \caption{Schematic showing incident bar as aluminum and transmission 
+  bar as steel.}
+\end{figure}  
+
+
+
+%====================
+\section{Results}
+%====================
+
+%====================
+\section{Discussion}
+%====================
+
+%====================
+\section{Conclusion}
+%====================
+
+\clearpage
+%====================
+\section{References}
+%====================
+\begin{itemize}
+
+ \item Sanborn 2016-11-09.  Sanborn B, Song B. (2016) Energy Dissipation through
+ Threaded Joint Interfaces under Impact Tensile Loading, Fall 2016 TCG-XI
+ Joint Meeting, November 9, 2016, Albuquerque, NM.  (``TCG-XI Fall 2016
+ threaded joint.pptx'')
+
+ \item Sanborn 2017-01-25.  Sanborn B.  E-mail communication.
+
+\end{itemize}
+
+
+
+\clearpage
+\appendix
+%====================
+\section{Communications}
+%====================
+
+On 19 January 2017, I emailed Garth Reese (gmreese@sandia.gov), 
+Matthew Brake (brake@rice.edu), and Douglas VanGoethem (djvango@sandia.gov), 
+to inquire if they knew of additional modeling work in Cubit or 
+simulation work in Sierra.  
+
+
+\begin{itemize}
+\item REESE, Garth email 2016-01-19 1405: ``I have worked with Matt 
+Brake in the past, but that has focused on reduced order models such 
+as the Iwan model. I'm not an adagio expert. I don't even recall reviewing 
+this paper --- which is kind of odd. I wonder if the authors got it mixed up? 
+You might contact Nathan Crane.''
+
+\item BRAKE, Matthew email 2016-01-19 1439: 
+\begin{itemize}
+\item cc: Castelluccio, Gustavo M (gmcaste@sandia.gov); Smith, Jeffrey 
+(jasmith@sandia.gov); Robertson, Brett Anthony (barober@sandia.gov)
+\item ``There are several efforts that have been combined this FY by my
+understanding. My former postdoc, Gustavo Castelluccio, is now working with
+Jeff Smith (in 1550) on the sequel to this and other projects. Gustavo
+recently finished a paper on our efforts for modeling a fastener in SIERRA,
+and the conclusions are that the material model is more important than the
+geometric model. i.e. if you were to use a model of a square peg instead of
+the fastener, but with the right material model (i.e. elastic plastic), that
+will give you a surprisingly close answer to the truth data. If, on the
+other hand, you use a very detailed geometry with a poor material model
+(i.e. elastic for something that will experience yielding), then you will
+have a very poor answer compared to the truth data. The paper is either in
+the third round of reviews or it's been accepted for publication, I'm not
+sure which.
+\item We're also working on spinning up a few complimentary programs here at Rice,
+but I've not yet gotten a computer setup with SIERRA installed on it.
+\item Another branch of research that my students and I worked on while I was
+still at Sandia was looking at developing a surrogate model for the fastener
+so that you could have a high fidelity characterization of the fastener's
+response built into a single degree of freedom constitutive model that was
+directly inserted into an FEA model (Brett Robertson did that work for Jeff
+Smith and me). That showed some good agreement with modeling experiments,
+and would be an area that I'd hope to find funding to continue one day.
+\item I hope that helps. Let me know if you've any other questions.''
+\end{itemize}
+\end{itemize}
+\end{document}
+
+
+
+
+
+
+
