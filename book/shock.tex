@@ -1,0 +1,199 @@
+\section{Shock}
+
+\subsection{Introduction}
+
+\subsection{An Ideal Fluid}
+
+\subsection{Definition of a Shock}
+
+\subsection{Conservation Laws for a Single Shock}
+\subsubsection{Laboratory Fixed Coordinate Frame}
+The derivation that follows assumes a {\bf laboratory-fixed reference
+frame}, as shown in Fig.~\ref{fig:piston_shock_cv}.\footnote{A shock-fixed 
+reference frame derivation then is developed in a subsequent section.}
+Consider a rigid tube containing a rigid piston material at ambient
+density $\rho_0$ and ambient pressure $P_0$ at time $t=t_0$.  
+
+\begin{figure}[htb]
+  \begin{center}
+  %\begin{overpic}[width=\textwidth, grid, tics=10]{fig/piston_shock_cv}
+  \begin{overpic}[width=\textwidth]{fig/piston_shock_cv}
+    \put(14, 29){$O$}
+    \put(95, 31){$x$}
+    \put(15, 38){$y$}
+    \put(12, 27){$z$}
+    \put(23,  9.5){$U_P \cdot \Delta t$}
+    \put(49,  9.5){$(U_P - U_P) \cdot \Delta t$}
+    \put(44,  3.5){$U_S \cdot \Delta t$}
+    \put( 2, 47){\footnotesize piston at time $t=t_0$}
+    \put(28, 47){\footnotesize piston at time $t=(t_0 + \Delta t)$}
+    \put(58, 47){\footnotesize shock with speed $U_S$ at $t=(t_0 + \Delta t)$}
+    \put(49, 30){$\rho_1, P_1, U_P$}
+    \put(85, 30){$\rho_0, P_0$}
+  \end{overpic}
+  \end{center}
+  \caption{Piston moving left-to-right along the $x$-axis, with 
+  piston speed $U_P$, causing shock with shock speed $U_S$.}
+  \label{fig:piston_shock_cv}
+\end{figure}
+
+Assume at time $t=t_0 + \Delta t$, the piston moves left-to-right
+along the $x$-axis with speed $U_P$, measured in the fixed 
+laboratory reference frame.  
+Assume the piston speed $U_P$ causes a shock to propagate through
+the material with speed $U_S$.  We require the following:
+\begin{itemize}
+  \item $0 < U_P < +\infty$
+  \item $0 < U_S < +\infty$
+  \item $U_P < U_S$
+\end{itemize}  
+From these considerations, we conclude that the material to the left of the
+shock wave in Fig.~\ref{fig:piston_shock_cv} moves to the right at speed
+$U_S$.  The material to the right of the shock wave remains at 
+rest.\footnote{Furthermore, we assume the material throughout the tube and
+for all time is inviscid, non-diffusive, and non-reacting.  We assume 
+an adiabatic boundary, thus no
+heat conduction occurs through the boundary of the tube walls or piston.
+We assume no heat transfer from radiation occurs across the shock.  Finally, 
+we assume body forces from gravity and electromagnetism are negligible.}
+
+Since the piston compresses the material in the tube, we know
+\begin{itemize}
+\item $\rho_0 < \rho_1$.
+\end{itemize}
+
+Allow some time interval $\Delta t$ to elapse, as illustrated 
+in Fig.~\ref{fig:piston_shock_cv}.  Consider the distances along the
+$x$-axis, written as a multiplication of speeds and elapsed time.  
+In the time interval $\Delta t$, the piston moves along the $x$-axis
+a distance of $U_P \cdot \Delta t$.  
+In the same time interval, the shock wave moves along the $x$-axis
+a distance of $U_S \cdot \Delta t$.  Thus, the control volume at 
+$t=(t_0 + \Delta t)$ has an axial length of $(U_S - U_P) \cdot \Delta t$.
+
+From these axial lengths and piston cross-sectional area $A$, we can write
+the following relationships:
+
+\begin{itemize}
+\item volume
+\begin{itemize}
+%
+\item[] $V_0 = \left.V\right|_{t=t_0} = A \cdot U_S \cdot \Delta t$,
+\item[] $V_1 = \left.V\right|_{t=(t_0 + \Delta t)} = A \cdot \left(
+U_S - U_P\right) \cdot \Delta t$,
+\end{itemize}
+%
+\item density
+\begin{itemize}
+\item[] $\rho_0 = \left.\rho\right|_{t=t_0}$,
+\item[] $\rho_1 = \left.\rho\right|_{t=(t_0 + \Delta t)}$,
+\end{itemize}
+%
+\item mass 
+\begin{itemize}
+\item[] $\rho_0 V_0 = \rho_0 \cdot A \cdot U_S \cdot \Delta t$, 
+\item[] $\rho_1 V_1 = \rho_1 \cdot A \cdot \left(U_S - U_P\right) \cdot 
+\Delta t$.
+\end{itemize}
+%
+\end{itemize}
+
+\subsubsection{Conservation of Mass}
+Conservation of mass within the control volume requires that mass at
+time $t=(t_0 + \Delta t)$ be unchanged from mass at time $t=t_0$.  
+Thus
+\be
+ \rho_0 \cdot A \cdot U_S \cdot \Delta t =
+ \rho_1 \cdot A \cdot \left(U_S - U_P\right) \cdot \Delta t, 
+\ee
+or
+\be
+ \boxed{\rho_0 U_S = \rho_1 \left(U_S - U_P\right).}
+\ee
+
+\subsubsection{Conservation of Momentum}
+The driving force from the piston on the material is $(P_1 - P_0) \cdot A$.
+Conservation of momentum requires $F = d(ma)/dt$.  Written over the time
+interval $\Delta t$ and for constant mass, 
+conservation of momentum can be written
+\be
+ F \cdot \Delta t = m \cdot \Delta U.
+\ee
+Rewriting this expression in terms of pressures and densities, we have
+\be(P_1 - P_0) \cdot A \cdot \Delta t = \left(\rho_0 \cdot A \cdot U_S \cdot 
+\Delta T \right) \; \left(U_P - 0\right) 
+\ee
+which gives
+\be
+\boxed{P_1 - P_0  = \rho_0 \; U_S \; U_P.}
+\label{eq:cons_momentum}
+\ee
+
+\subsubsection{Conservation of Energy}
+The work done on the control volume by the piston moving left-to-right
+is given by
+\be
+W_P = \underset{\mbox{\footnotesize force}}{\underbrace{P_1 \cdot A}}
+\cdot 
+ \underset{\mbox{\footnotesize disp.}}{\underbrace{U_P \cdot \Delta t}}.
+\ee
+The kinetic energy increase of the control volume is simply the one-half times
+the mass times the square of the change in velocity, thus
+\be
+KE = \half  \;
+\underset{\mbox{\footnotesize mass}}{\underbrace{\left(\rho_0 \cdot A 
+\cdot U_S \cdot \Delta t\right)}} \;
+\underset{\mbox{\footnotesize velocity}}{\underbrace{\left(U_P - 0
+\right)}}^2.
+\ee
+Finally, the increase in internal energy is just the internal energy 
+{\bf per unit mass}, $e$, multiplied by the mass, 
+\be
+IE = (e_1 - e_0)  \;
+\underset{\mbox{\footnotesize mass}}{\underbrace{\left(\rho_0
+ \cdot A \cdot U_S \cdot \Delta t\right)}}.
+\ee
+Equating these quantities gives
+\be
+P_1 \cdot A \cdot U_P \cdot \Delta t = 
+\half \; \rho_0 \cdot A \cdot U_S \cdot \Delta t \cdot U_P^2 + 
+\left(e_1 - e_0\right) \; \rho_0 \cdot A \cdot U_S \cdot \Delta t
+\ee
+or simply
+\be
+\boxed{P_1 \; U_P = \rho_0 \; U_S \left(\frac{U_P^2}{2} + e_1 - e_0\right).}
+\label{eq:cons_energy}
+\ee
+The foregoing equation can be written without kinematic variables 
+$U_S$ and $U_P$. Define the specific volume as
+\be
+V \defe \frac{1}{\rho}.
+\label{eq:specific_volume}
+\ee
+Next, note that conservation of mass can be rewritten as 
+\be
+\frac{U_P}{U_S} = 1 - \frac{\rho_0}{\rho_1}.
+\label{eq:cons_mass_ratio}
+\ee
+Then, with (\ref{eq:cons_energy}),
+\begin{align}
+P_1 \; U_P 
+&\overset{(\ref{eq:cons_momentum})}{=} 
+\left(P_1 - P_0\right) \frac{U_P}{2} + \rho_0 \; U_S \; (e_1 - e_0), \\
+&= -P_0 \; U_P + 2 \; \rho_0 \; U_S \; (e_1 - e_0), \\
+(e_1 - e_0) &= \frac{U_P \; (P_1 + P_0)}{2 \; \rho_0 \; U_S}, \\
+&\overset{(\ref{eq:cons_mass_ratio})}{=} 
+\left(\frac{P_1 + P_0}{2\;\rho_0}\right) \; 
+\left(1 - \frac{\rho_0}{\rho_1}\right), \\
+&\overset{(\ref{eq:specific_volume})}{=} 
+\left(\frac{P_1 + P_0}{2}\right) V_0 \left(1 - \frac{V_1}{V_0}\right), 
+\end{align}
+which simplifies to
+\be
+\boxed{e_1 - e_0 = \left(\frac{P_1 + P_1}{2}\right) \; (V_0 - V_1).}
+\ee
+
+\subsubsection{Alternative Formulations}
+Now we develop the {shock-fixed reference frame} equations for mass, 
+momentum, and energy conservation.
+

@@ -1,0 +1,1081 @@
+\section{Plasticity}
+
+We first focus on plasticity in one dimension, 
+as opposed to fully three-dimensional plasticity, 
+to emphasize concepts while being
+as mathematically simple as possible.  
+After the concepts are clear, the extension of the mathematics from
+one- to three-dimensions can be made naturally.  
+
+\subsection{Perfect Plasticity}
+The extension of elasticity to plasticity is made by way of 
+{\em perfect} plasticity.
+Conceptually, perfect plasticity in the constitutive stress-strain 
+relationship is obtained by ``capping'' the
+elastic response function at some yield stress 
+(to be defined later as $\sigma_y$).  Beyond the yield stress, the 
+stress response function is perfectly horizontal.  
+Increases in strain produce no increase in stress
+beyond the yield stress.  
+
+
+\subsubsection{Deformation Measures}
+Let the body $\Omega$ have strain measure 
+$\hstrain : \Omega \rightarrow \real$ 
+in one dimension be defined as a ratio of change in length, that is 
+the difference between the new (deformed, current configuration) 
+length $\ell$ of body $\Omega$ and the original (undeformed, reference 
+configuration) length $L$, divided by the original length, 
+\be
+ \hstrain \defe \frac{\ell - L}{L}.
+ \ee
+ The total strain $\hstrain$ in the body be defined as an 
+ additive decomposition of elastic strain $\hstraine$ and 
+plastic strain $\hstrainp$, 
+\be
+ \label{eq:smallStrainAddition}
+ \hstrain \defe \hstraine + \hstrainp.
+\ee
+
+
+\subsubsection{Constitutive Law}
+Then, the traditional stress-strain relationship, $\sigma = E \hstraine$, 
+can be rewritten as
+\be
+ \label{eq:stressStrain}
+ \sigma = E \left( \hstrain - \hstrainp \right).
+\ee
+A change in the configuration of the plastic element 
+(see  Fig.~\ref{fig:plastic_slider})
+can only occur if the notion of {\bf slip rate} is
+allowed.
+
+%\begin{figure}[htb]
+% \psfrag{a}{$\sigma$}
+% \psfrag{b}{$\sigma_y$}
+% %\fbox{\begin{minipage}{0.95\columnwidth}\centering
+% \begin{center}
+% \includegraphics[width=2.8in]{fig/plasticityFrictionElement.eps}
+% \end{center}
+% \caption{Phenomenological model of a friction element.  A unit cross-sectional
+% area is assumed.  Motion in the friction 
+% element occurs only if the friction force, $\sigma_y$, 
+% is exceeded.  The motion, in rate form, is
+% referred to as the slip rate. Note that we employ a slight abuse of 
+% notation by using $\sigma$ to describe a force $F$, since the cross-sectional area $A$ is
+% unity, $F = \sigma A \implies \sigma \cdot 1 = \sigma$.}
+% \label{fig:plasticFrictionElement_old}
+% %\end{minipage}
+% %} % \fbox
+%\end{figure}
+
+
+\begin{figure}[htb]
+  \begin{center}
+  %\begin{overpic}[width=0.5\textwidth, grid, tics=10]{fig/plastic_slider}
+  \begin{overpic}[width=0.5\textwidth]{fig/plastic_slider}
+    \put( 4, 13){$\sigma$}
+    \put(95, 13){$\sigma$}
+    \put(47, 23){$\sigma_y$}
+  \end{overpic}
+  \end{center}
+ \caption{Phenomenological model of a friction element.  A unit cross-sectional
+ area is assumed.  Motion in the friction 
+ element occurs only if the friction force, $\sigma_y$, 
+ is exceeded.  The motion, in rate form, is
+ referred to as the slip rate. Note that we employ a slight abuse of 
+ notation by using $\sigma$ to describe a force $F$, since the 
+ cross-sectional area $A$ is
+ unity, $F = \sigma A \implies \sigma \cdot 1 = \sigma$.}
+ \label{fig:plastic_slider}
+\end{figure}
+
+%\begin{figure}[htb]
+%\begin{center}
+%  \psfragfig[width=6cm]{fig/plasticityFrictionElement}{% the .eps file
+%    \psfrag{a}{$\sigma$}
+%    \psfrag{b}{$\sigma_y$}
+%  } % psfragfig
+%\end{center}
+% \caption{Phenomenological model of a friction element.  A unit cross-sectional
+% area is assumed.  Motion in the friction 
+% element occurs only if the friction force, $\sigma_y$, 
+% is exceeded.  The motion, in rate form, is
+% referred to as the slip rate. Note that we employ a slight abuse of 
+% notation by using $\sigma$ to describe a force $F$, since the cross-sectional area $A$ is
+% unity, $F = \sigma A \implies \sigma \cdot 1 = \sigma$.}
+% \label{fig:plasticFrictionElement}
+%\end{figure}
+%
+
+
+That is, {\em assume} that $\hstrainp(t)$ is a 
+function of time on interval $[0, T] \subset \real$.  
+Then from~(\ref{eq:smallStrainAddition}) and~(\ref{eq:stressStrain}), 
+time evolution expressions $\hstrain(t)$ and $\sigma(t)$ exist, respectively.  
+Finally, the presence of evolution equations allows the constitutive law 
+in~(\ref{eq:stressStrain}) to be
+written as
+\be
+ \sigmadot = E \left( \hstraindot - \hstrainpdot \right).
+ \label{eq:stressStrainRate}
+\ee
+This form of the constitutive equation will 
+become useful for quantifying plastic 
+flow, as seen below in~(\ref{eq:PhiChainRule}).
+
+%\begin{figure}[htb]
+
+%%\begin{figure*}[h!]
+% \psfrag{a}{(b) slip rate $\gammadot \geq 0$}
+% \psfrag{b}{(a) yield function $\Phi(\sigma) \leq 0$}
+% \psfrag{c}{(c) consistency}
+% \psfrag{g}{$\gammadot$}  
+% \psfrag{p}{$\Phi$} 
+% %\fbox{\begin{minipage}{0.98\textwidth}\centering
+% \begin{center}
+% \includegraphics[width=5.5in]{fig/plasticunion.eps}
+% \end{center}
+% \caption{Unilateral conditions (a) $\Phi(\sigma) \leq 0$ and 
+% (b) slip rate $\gammadot \geq 0$.  
+%  The complementarity condition, $\gammadot \; \Phi(\sigma) = 0$, 
+%  is shown in~(c).}
+% \label{fig:plasticunion}
+% %\end{minipage}
+% %} % \fbox
+%\end{figure}
+%%\end{figure*}
+%
+%
+%\begin{figure}[htb]
+%\begin{center}
+%  \psfragfig[width=\textwidth]{fig/plasticunion}{% the .eps file
+%    \psfrag{a}{(b) slip rate $\gammadot \geq 0$}
+%    \psfrag{b}{(a) yield function $\Phi(\sigma) \leq 0$}
+%    \psfrag{c}{(c) consistency}
+%    \psfrag{g}{$\gammadot$}  
+%    \psfrag{p}{$\Phi$} 
+%  } % psfragfig
+%\end{center}
+% \caption{Unilateral conditions (a) $\Phi(\sigma) \leq 0$ and 
+% (b) slip rate $\gammadot \geq 0$.  
+%  The complementarity condition, $\gammadot \; \Phi(\sigma) = 0$, 
+%  is shown in~(c).}
+% \label{fig:plasticunion_new}
+%\end{figure}
+%
+
+\subsubsection{Yield Function}
+The stress $\sigma$ in the frictional device can never greater in 
+absolute value than the yield stress (also known
+as flow stress) $\sigma_y \in \realplus$.
+The {\bf yield function} $\Phi$ is then defined as 
+\be
+ \Phi(\sigma) \defe \abs{\sigma} - \sigma_y \leq 0.
+ \label{eq:yieldFunctionPerfectPlastic}
+\ee
+For stress levels within the elastic domain, 
+only elastic straining can occur, thus
+\be
+ \mbox{If} \;\;\; \Phi(\sigma) < 0 \Rightarrow \hstrainpdot = 0.
+\ee
+For stress levels on the boundary of the elastic domain 
+(at the yield stress), either plastic strain via plastic loading or
+non-plastic strain via elastic unloading occurs.
+\begin{align}
+ \mbox{If} \;\; \Phi(\sigma) & = 0  \nonumber \\
+  & \Rightarrow  
+   \left\{
+     \begin{tabular}{ll}
+     $\hstrainpdot \neq 0$ & for plastic loading, \\
+     $\hstrainpdot = 0$ & for elastic unloading.
+     \end{tabular}
+   \right.
+\end{align}
+
+\subsubsection{Plastic Flow Rule, Loading/Unloading Conditions}
+We next define how, on the yield surface, the plastic strain evolves 
+through time, which is called the 
+{\bf plastic flow rule}.  A reasonable first approximation for the 
+plastic strain evolution is to posit
+\be
+ \hstrainpdot \defe \gammadot \; \sign (\sigma),
+ \label{eq:flowrule}
+\ee
+where $\gammadot \geq 0$ is the {\bf plastic multiplier} or 
+absolute value of the plastic slip rate, and 
+where $\sign : \real \rightarrow \{-1,+1\}$ is the {\em signum} 
+function defined as
+\be
+ \sign(a) = 
+ \left\{ 
+   \begin{tabular}{rl}
+    $+1$ & if $a \geq 0$, \\
+    $-1$ & if $a < 0$.
+   \end{tabular}
+ \right.
+\ee
+Both $\sigma$ and $\gammadot$ are restricted by {\bf unilateral constraints}, 
+\be
+ \begin{tabular}{r}
+  $\Phi(\sigma) \leq 0$ \\
+   $\gammadot \geq 0$ 
+ \end{tabular}
+\ee
+Now if $\Phi(\sigma) < 0$, then $\gammadot = 0$.  
+Similarly, if $\gammadot > 0$, then $\Phi(\sigma) = 0$.
+These two observations require
+\be
+\gammadot \; \Phi(\sigma) = 0,
+\ee
+which is referred to as the {\bf complementarity condition}, 
+and when taken with the unilateral constraints, describes the
+so-called {\bf Kuhn-Tucker conditions}.
+The unilateral constraints and the complementarity condition are illustrated 
+in Fig.~\ref{fig:plastic_union}.
+
+\begin{figure}[htb]
+  \begin{center}
+  %\begin{overpic}[width=\textwidth, grid, tics=10]{fig/plastic_union}
+  \begin{overpic}[width=0.95\textwidth]{fig/plastic_union}
+    \put(28, 13){$\gammadot$}
+    \put(63, 13){$\gammadot$}
+    \put(99, 13){$\gammadot$}
+    \put(12.5, 29){$\Phi$}
+    \put(47, 29){$\Phi$}
+    \put(82, 29){$\Phi$}
+    \put( 0, 35){(a) yield function $\Phi(\sigma) \leq 0$}
+    \put(39, 35){(b) slip rate $\gammadot \geq 0$}
+    \put(74, 35){(c) consistency}
+  \end{overpic}
+  \end{center}
+ \caption{Unilateral conditions (a) $\Phi(\sigma) \leq 0$ and 
+ (b) slip rate $\gammadot \geq 0$.  
+  The complementarity condition, $\gammadot \; \Phi(\sigma) = 0$, 
+  is shown in~(c).}
+ \label{fig:plastic_union}
+\end{figure}
+
+
+Together, the unilateral constraints and complementarity condition 
+create the normal plasticity law, shown in 
+Fig.~\ref{fig:plastic_law}.
+
+\begin{figure}[htb]
+  \begin{center}
+  %\begin{overpic}[width=0.3\textwidth, grid, tics=10]{fig/plastic_law}
+  \begin{overpic}[width=0.3\textwidth]{fig/plastic_law}
+    \put(90, 41){$\gammadot$}
+    \put(41, 90){$\Phi$}
+  \end{overpic}
+  \end{center}
+  \caption{The normal plastic law described as the intersection of the 
+  unilateral constraints and the complementarity condition.}
+ \label{fig:plastic_law}
+\end{figure}
+
+%\begin{figure}[htb]
+% \psfrag{g}{$\gammadot$}  
+% \psfrag{p}{$\Phi$} 
+% %\fbox{\begin{minipage}{0.95\columnwidth}\centering
+%  \includegraphics[width=1.8in]{fig/plasticlaw.eps}
+%  \caption{The normal plastic law described as the intersection of the 
+%  unilateral constraints and the complementarity condition.}
+%  \label{fig:plasticlaw}
+%  %\end{minipage}
+%  %} % fbox
+%\end{figure}
+
+Next, consider any time interval $[t, t + \Delta t]$ 
+during which {\em plastic flow occurs}, the yield function 
+remains constant, $\Phi(\sigma) = 0$.  Similarly, 
+if during this time interval, 
+we have elastic response only, and $\Phidot(\sigma) < 0$, 
+then necessarily $\gammadot = 0$.  These relationships create 
+the {\bf persistency (or consistency) condition}
+\be
+ \left.
+  \begin{tabular}{l}
+   $\mbox{If} \;\;\; \gammadot > 0 \Rightarrow \Phidot = 0$, \\
+   $\mbox{If} \;\;\; \Phidot < 0 \Rightarrow \gammadot = 0$,
+  \end{tabular}
+  \right\} 
+  \;\;\; \Rightarrow \;\;\;
+  \gammadot \; \Phidot = 0.
+ \label{eq:persistencyCondition}
+\ee
+
+
+
+\subsubsection{Determination of Plastic Multiplier}
+As of yet, the value of the plastic multiplier $\gammadot$ 
+has remained undetermined.  For non-trivial $\gammadot$, we
+know $\Phidot = 0$ by the persistency condition.  
+An explicit form for $\Phidot$ may be found using 
+the chain rule with~(\ref{eq:stressStrainRate}) 
+and~(\ref{eq:flowrule}), 
+\begin{align}
+ \frac{\partial \Phi}{\partial t} &= \dst\frac{\partial \Phi}{\partial \sigma} 
+ \dst\frac{\partial \sigma}{\partial t} 
+ \nonumber \\
+ &=  \dst\frac{\partial }{\partial \sigma} \left(\abs{\sigma} - 
+ \sigma_y \right) E \left( \hstraindot - \hstrainpdot \right) \nonumber \\
+ &= \sign(\sigma) E \left( \hstraindot - \gammadot \; \sign(\sigma) \right), 
+ \label{eq:PhiChainRule}
+\end{align}
+or, compactly
+\be
+ \Phidot = \sign(\sigma) E \hstraindot - E \gammadot \; \setequal \;  0,
+\ee
+gives
+\be
+ \gammadot = \hstraindot \; \sign(\sigma)
+ \label{eq:gammaDotPerfectPlasticity}
+\ee
+which, when compared with~(\ref{eq:flowrule}), shows that for 
+perfect plasticity during plastic flow, 
+\be
+ \hstrain = \hstrainp.
+ \label{eq:strainPerfectPlasticity}
+\ee
+The results from~(\ref{eq:gammaDotPerfectPlasticity}) 
+and~(\ref{eq:strainPerfectPlasticity}) 
+are remarkable for the following reasons:  During plastic flow, 
+\begin{itemize}
+ \item None of the strain $\hstrain$ is {\em elastic} strain $\hstraine$; 
+ 100\% of the stain $\hstrain$ is {\em plastic} strain $\hstrainp$.
+ This feature will not be true, in general, for more sophisticated yield 
+ functions (for example, that have plastic hardening).
+ \item The plastic flow parameter $\gammadot$ is equal to the strain 
+ $\hstrain$ times the sign of the stress. 
+ For more sophisticated yield functions, the plastic flow 
+ parameter will not by identically 
+ equal to the signed strain, but will be related thereto via 
+ factors of the elastic and hardening parameters, as shown subsequent
+ developments and in particular in~(\ref{eq:gammaDotHardening}).
+\end{itemize}
+
+\subsection{Hardening Plasticity}
+
+Hardening plasticity is considered an extension of perfect plasticity.  With 
+perfect plasticity, the slope of stress-strain relationship at yielding is
+identically zero.  With hardening plasticity, the slope becomes 
+positive.\footnote{For completeness, we note that softening plasticity occurs
+when the slope becomes negative.}   
+
+\subsubsection{Remarks on Loss of Stability}
+Perfect plasticity allows for the notion of unbounded 
+strains when stress is at the yield stress. 
+The slope of the stress-strain curve for strains 
+beyond the elastic strain region is identically zero.
+This zero slope causes numerical problems for the 
+consistent tangent, which is inverted and multiplied by
+the external load to obtain displacements.  
+Three strategies to circumvent this zero tangent are 
+mentioned here:  arc-length, displacement control, and dynamic formulation.
+
+The most notable of the continuation methods is called the  
+{\bf arc-length method}, 
+which is a non-trivial area of study within computational mechanics.  
+Arc-length methods will be used eventually, but their
+explication is delayed for now, in favor development of hardening plasticity.  
+
+Despite being more slightly more complex than
+perfect plasticity, hardening plasticity does not 
+likewise suffer from loss of ellipticity and therefore is actually easier to solve since
+algorithmic enhancements, such as arc-length, are 
+(usually\footnote{If the hardening is ``soft'' enough that the hardening 
+approximates perfect plasticity, hardening plasticity can 
+result in lack of conditioning.  Usually, however, 
+hardening is sufficiently stiff and
+therefore loss of ellipticity is not a concern.}) unnecessary.
+
+Next, algorithmic formulations that utilize {\bf displacement control} 
+instead of force control can avoid loss of ellipticity if the 
+displacement boundary conditions reduce the number of equations 
+in the tangent to provide rank sufficiency.  
+However, displacement control is less-favored than 
+force control since we often know imposed forces and 
+seek to discover the displacement response.  The setting of 
+known inhomogeneous displacements and unknown forces is
+less frequently encountered in practice.  
+On the topic of load control versus displacement 
+control, de~Borst~{\em et al.,}\footnote{De Borst, R., 
+Crisfield, M. A., Remmers, J. J., \& Verhoosel, C. V. (2012). 
+Nonlinear finite element analysis of solids and structures. John Wiley \& Sons, at page 50--51.} offer similar insights and additional context. 
+
+Finally, elastoplastic {\bf dynamics}, and so-called dynamic 
+relaxation as a subset thereof,
+are additional strategies to circumvent the above-mentioned 
+problem as these approaches condition the
+consistent tangent with mass matrices.  The benefit of 
+mass matrices comes at the cost of increased expense to compute 
+and store the same, and to incorporate
+a time stepping algorithm, such as the Newmark methods.
+
+\subsubsection{Yield Function}
+The departure of hardening plasticity from perfect plasticity 
+begins with the yield function.
+The {\bf yield function} from perfect 
+plasticity in~(\ref{eq:yieldFunctionPerfectPlastic}) 
+is now modified to include a {\bf linear hardening modulus} $H \in \real$ and
+the {\bf internal hardening variable} $\alpha : [0, T] \rightarrow \real$,
+\be
+ \Phi(\sigma, \hstrainp) \defe \abs{\sigma} - \left( \sigma_y + H \alpha \right) \leq 0.
+ \label{eq:yieldFunctionHardening}
+\ee
+for strain-hardening plasticity.
+The variable $\alpha : [0, T] \rightarrow \real$ is called the 
+{\bf internal hardening variable} and is a nonnegative function of the amount of 
+plastic flow (slip).  
+The simplest evolution for $\alpha$ can be written as
+\be
+ \alphadot = \abs{\hstrainpdot}.
+\ee
+The {\bf plastic flow rule}, 
+\be 
+ \hstrainpdot = \gammadot \; \sign(\sigma),
+ \label{eq:plasticFlowRuleHarding}
+\ee
+remains unchanged.  The {\bf Kuhn-Tucker conditions} are rewritten to include 
+dependence on $\alpha$, 
+\be
+  \gammadot \geq 0 \;\;\;\;\; 
+  \Phi(\sigma, \alpha) \leq 0 \;\;\;\;\;
+  \gammadot \; \Phi(\sigma, \alpha) = 0, 
+\ee
+and the {\bf persistency condition} is written as
+\be
+ \gammadot \; \Phidot(\sigma, \alpha) = 0.
+\ee
+
+\subsubsection{Determination of Plastic Multiplier}
+Like perfect plasticity, strain-hardening plasticity uses the time derivative
+of the yield function to generate an expression for the plastic multiplier
+$\gammadot$, which ultimately leads to a relationship between stress rates and
+strain rates, and the elasto-plastic tangent.
+
+With the yield function in~(\ref{eq:yieldFunctionHardening}),
+\begin{align}
+ \frac{\partial \Phi}{\partial t} 
+  &=  \dst\frac{\partial \Phi}{\partial \sigma} 
+  \dst\frac{\partial \sigma}{\partial t} 
+  +\dst\frac{\partial \Phi}{\partial \alpha} 
+  \dst\frac{\partial \alpha}{\partial t}, \nonumber \nonumber \\
+  &= \sign(\sigma) \sigmadot - H \alphadot, \nonumber \\
+  &= \sign(\sigma) E \left( \hstraindot - \hstrainpdot \right) 
+  - H \abs{\hstrainpdot}, \nonumber \\
+  &= \sign(\sigma) E \hstraindot - E \gammadot - H \gammadot \; \setequal \;  0, 
+\end{align}
+gives
+\be
+ \boxed{\gammadot = \hstraindot \; \sign(\sigma) \dst\frac{E}{E + H} }.
+ \label{eq:gammaDotHardening}
+\ee
+The ratio $\frac{E}{E + H}$ in~({\ref{eq:gammaDotHardening}) 
+may be conceived as the apportionment of
+total strain (rate) to plastic slip:
+\begin{itemize}
+ \item If $H = 0$, then all strain is plastic slip, 
+ and the perfect plasticity results obtained in previous sections 
+ are obtained as a special case.
+ \item If $H=E$, then half of all strain goes into plastic slip.
+ \item If $H \gg E$, then very little $\hstraindot$ goes into plastic slip.
+\end{itemize}
+
+\subsubsection{Elasto-Plastic Tangent}
+The elasto-plastic tangent is found by 
+observing $\sigmadot = \frac{d\sigma}{d\hstrain} \hstraindot$.  
+Starting with the elastic stress-strain relationship
+$\sigma = E \left(\hstrain - \hstrainp\right)$,
+in the rate form and 
+substituting for $\hstraindot$ from~(\ref{eq:gammaDotHardening})
+and for $\hstrainpdot$ from the plastic flow 
+rule~(\ref{eq:plasticFlowRuleHarding}) 
+gives
+\begin{align}
+ \sigmadot 
+ & = E \left( \hstraindot - \hstrainpdot \right), \nonumber \\
+ & = \gammadot \; \sign(\sigma) (E + H) - \gammadot \; \sign(\sigma) E, \nonumber \\ 
+ & = \gammadot \; \sign(\sigma) H.
+\end{align}
+Substituting for $\gammadot$ from~(\ref{eq:gammaDotHardening}) gives
+\be
+ \sigmadot = \dst\frac{E H}{E + H} \hstraindot, 
+\ee
+where $\Eep$, the elasto-plastic tangent, is giving by
+\be
+ \boxed{\Eep = \dst\frac{E H}{E + H}}.
+\ee
+		      
+The concept of the elasto-plastic tangent is readily understood with 
+the phenomenological model
+shown in Fig.~\ref{fig:plastic_slider_harden}.
+
+
+%\begin{figure}[htb]
+% \psfrag{a}{$\sigma$}
+% \psfrag{b}{$\sigma_y$}
+% \psfrag{c}{$H$}
+% \psfrag{d}{$E$}
+% \psfrag{e}{$\hstrainp$}
+% \psfrag{f}{$\hstraine$}
+% \psfrag{g}{$\hstrain$}
+% %\fbox{\begin{minipage}{0.98\columnwidth}\centering
+% \begin{center}
+% \includegraphics[width=3.0in]{fig/plasticitySpringModel.eps}
+% \end{center}
+% \caption{Phenomenological model of strain-hardening 
+% plasticity with applied stress $\sigma$, yield stress $\sigma_y$, 
+% hardening modulus $H$ and elastic modulus $E$.  The 
+% total strain, $\hstrain$ is the sum of plastic strain $\hstrainp$ 
+% and elastic strain $\hstraine$.}
+% \label{fig:plasticSpringModel}
+% %\end{minipage}
+% %} % fbox
+%\end{figure}
+
+\begin{figure}[htb]
+  \begin{center}
+  %\begin{overpic}[width=0.6\textwidth, grid, tics=10]{fig/plastic_slider_harden}
+  \begin{overpic}[width=0.5\textwidth]{fig/plastic_slider_harden}
+    \put(66, 72){$E$}
+    \put(32, 54){$H$}
+    \put( 1, 61){$\sigma$}
+    \put(97, 61){$\sigma$}
+    \put(32, 84){$\sigma_y$}
+    \put(32, 28){$\hstrainp$}
+    \put(66, 28){$\hstraine$}
+    \put(49, 10){$\hstrain$}
+  \end{overpic}
+  \end{center}
+ \caption{Phenomenological model of strain-hardening 
+ plasticity with applied stress $\sigma$, yield stress $\sigma_y$, 
+ hardening modulus $H$ and elastic modulus $E$.  The 
+ total strain, $\hstrain$ is the sum of plastic strain $\hstrainp$ 
+ and elastic strain $\hstraine$.}
+ \label{fig:plastic_slider_harden}
+\end{figure}
+
+
+The stress $\sigma$ is applied to the model.  
+Initially, the applied stress $\sigma$ creates only
+elastic strain $\hstraine$ since $\sigma \leq \sigma_y$.  
+When $\sigma > \sigma_y$, strain composed
+of {\em both} elastic strain $\hstraine$ and plastic 
+strain $\hstrainp$ is created.  The linear moduli $E$ and $H$ 
+act as springs in series.  The relationship for two springs 
+with spring constants, $k_1$ and $k_2$, in series immediately shows the
+relationship between the equivalent spring constant $\keq$ 
+and the elasto-plastic tangent $\Eep$
+\begin{align}
+ \frac{1}{\keq} = \frac{1}{k_1} + \frac{1}{k_2} 
+ \implies & \keq = \frac{k_1 k_2}{k_1 + k_2} \\
+ & \; \Updownarrow \hspace{1.1cm} \Updownarrow \nonumber \\
+ & \Eep = \frac{E H}{E + H}
+\end{align}
+The hardening modulus $H$ is shown in Fig.~\ref{fig:stress_strain_harden}(b)
+such that, during plastic flow, the incremental stress $\partial \sigma$ relative
+to the incremental plastic strain $\partial\hstrainp$ is given by
+\be
+ \frac{\partial \sigma}{\partial \hstrainp} = H.
+\ee
+
+%%\begin{figure*}
+%\begin{figure}[htb]
+% \psfrag{1}{(a)}
+% \psfrag{2}{(b)}
+%  \psfrag{a}{elastic}
+%  \psfrag{b}{elasto-plastic}
+%  \psfrag{c}{plastic}
+%  \psfrag{E}{$E$}
+%  \psfrag{e}{$\hstrain$}
+%  \psfrag{F}{$\Eep$}
+%  \psfrag{f}{$\hstrainp$}
+%  \psfrag{G}{$H$}
+%  \psfrag{s}{$\sigma$}
+%  \psfrag{y}{$\sigma_y$}
+%  %\fbox{\begin{minipage}{0.98\textwidth}\centering
+%  \includegraphics[width=\textwidth]{fig/plasticityHardening.eps}
+%  \caption{(a) Strain-hardening stress-strain relationship with elastic 
+%  and elasto-plastic strain regions delineated, elastic modulus $E$, 
+%  elasto-plastic modulus $\Eep$, and yield stress $\sigma_y$, and 
+%  (b) stress-(plastic) strain relationship with hardening modulus $H$.}
+%  \label{fig:plasticityHardening}
+%  %\end{minipage}
+%  %} % fbox
+%%\end{figure*}
+%\end{figure}
+
+
+\begin{figure}[htb]
+  \begin{center}
+  %\begin{overpic}[width=\textwidth, grid, tics=10]{fig/stress_strain_harden}
+  \begin{overpic}[width=\textwidth]{fig/stress_strain_harden}
+  \put( 7.25, 10){elastic}
+  \put(20, 10){elasto-plastic}
+  \put(72, 10){plastic}
+  \put(11, 17){$E$}
+  \put(45, 14){$\hstrain$}
+  \put(32, 36){$\Eep$}
+  \put(94, 14){$\hstrainp$}
+  \put(73, 36){$H$}
+  \put( 5, 52){$\sigma$}
+  \put(55, 52){$\sigma$}
+  \put( 4, 30){$\sigma_y$}
+  \put(54, 30){$\sigma_y$}
+  \put( 0, 55){(a)}
+  \put(52, 55){(b)}
+  \end{overpic}
+  \end{center}
+  \caption{(a) Strain-hardening stress-strain relationship with elastic 
+  and elasto-plastic strain regions delineated, elastic modulus $E$, 
+  elasto-plastic modulus $\Eep$, and yield stress $\sigma_y$, and 
+  (b) stress-(plastic) strain relationship with hardening modulus $H$.}
+ \label{fig:stress_strain_harden}
+\end{figure}
+
+
+\subsection{Elasto-Plastic 2D Truss Element}
+
+Consider the two-dimensional truss member shown in 
+Fig.~\ref{fig:nonlinear_truss}.
+The coordinates in the reference configuration are noted 
+with $\vX^{\underset{\bullet}{1}}$ and $\vX^{\underset{\bullet}{2}}$ for 
+nodes ${\underset{\bullet}{1}}$ and ${\underset{\bullet}{2}}$, respectively.
+These nodes are moved into the current configuration 
+at $\vx^{\underset{\bullet}{1}}$ and $\vx^{\underset{\bullet}{2}}$ through 
+nodal displacements $\vu^{\underset{\bullet}{1}}$ and
+$\vu^{\underset{\bullet}{2}}$.  
+
+%\begin{figure*}
+%\begin{figure}[htb]
+% \psfrag{A}{$\vE_1$}
+% \psfrag{B}{$\vE_2$}
+% \psfrag{C}{$\vE_3$}    
+% \psfrag{O}{$O$}
+% \psfrag{L}{$L$}
+% \psfrag{l}{$\ell$}
+% \psfrag{X}{$\vX^{\underset{\bullet}{1}}$}  
+% \psfrag{x}{$\vx^{\underset{\bullet}{1}}$}  
+% \psfrag{Y}{$\vX^{\underset{\bullet}{2}}$}  
+% \psfrag{y}{$\vx^{\underset{\bullet}{2}}$}        
+% \psfrag{T}{$\vThat$}
+% \psfrag{t}{$\vthat$}
+% %\fbox{\begin{minipage}{0.98\textwidth}\centering
+% \begin{center}
+% \includegraphics[width=0.8\textwidth]{fig/nonlinearTruss.eps}
+% \end{center}
+% \caption{Nonlinear truss in reference and current configurations.}
+% \label{fig:nonlinearTruss}
+% %\end{minipage}
+% %} % \fbox
+%%\end{figure*} 
+%\end{figure}
+
+\begin{figure}[htb]
+  \begin{center}
+  %\begin{overpic}[width=\textwidth, grid, tics=5]{fig/nonlinear_truss}
+  \begin{overpic}[width=\textwidth]{fig/nonlinear_truss}
+ \put(19,  8){$\vE_1$}
+ \put( 7, 19){$\vE_2$}
+ \put( 0,  2){$\vE_3$}    
+ \put( 9, 10){$O$}
+ \put(15.7, 48.9){$L$}
+ \put(67.6, 32){$\ell$}
+ \put( 4, 42){$\vX^{\underset{\bullet}{1}}$}  
+ \put(47, 27){$\vx^{\underset{\bullet}{1}}$}  
+ \put(25, 60){$\vX^{\underset{\bullet}{2}}$}  
+ \put(82, 40){$\vx^{\underset{\bullet}{2}}$}        
+ \put(39, 60){$\vThat$}
+ \put(97, 37){$\vthat$}
+  \end{overpic}
+  \end{center}
+ \caption{Nonlinear truss in reference and current configurations.}
+ \label{fig:nonlinear_truss}
+\end{figure}
+
+The strain energy of the truss is the strain energy 
+density integrated over the truss's volume, 
+\be
+ \cW  = \int_{\Omega} \vsigma : \vhstrain \; d\Omega.
+\ee
+The virtual work done by the truss is
+\be
+ \delta \cW = \int_{\Omega} \delta \vhstrain : \vsigma \; d\Omega.
+\ee
+The virtual work computed in the reference configuration is then 
+\begin{align}
+  \delta \cW & = \int_{L} \delta \vhstrain : \vsigma A \; dL, \\
+  & \overset{\mbox{\footnotesize (1D)}}{=} 
+  \delta \left(\dst\frac{\ell - L}{L} \right) \sigma A L 
+  = \dst\frac{\delta \ell}{L} \sigma A L = \delta \ell \sigma A, \\
+  & \overset{(2.70)}{=} 
+  (- \delta \vu^{\underset{\bullet}{1}} + 
+  \delta \vu^{\underset{\bullet}{2}} ) \cdot \vthat 
+  \; \sigma A, \label{eq:NLTrussFirstVariation} \\
+  & \overset{\mbox{\footnotesize (lin)}}{=} 
+  (- \delta \vu^{\underset{\bullet}{1}} + 
+  \delta \vu^{\underset{\bullet}{2}} ) \cdot \vthat  \; 
+  E \left( \dst\frac{\ell - L}{L} \right) A, \\
+  & = (- \delta \vu^{\underset{\bullet}{1}} + 
+  \delta \vu^{\underset{\bullet}{2}} ) \cdot \vthat \; k (\ell - L),
+\end{align}
+where the result from 
+Hovey\footnote{Hovey CB (2000). Stress and Motion in Diarthrodial 
+Joints Using Coupled Nonlinear Elastodynamics, Rigid Body Dynamics, 
+and Large-Slip Contact-Impact, Doctoral Thesis, Stanford University, 
+Stanford, CA.}~page~45, Eq.~(2.70), 
+$\delta \ell = (- \delta \vu^{\underset{\bullet}{1}} + 
+\delta \vu^{\underset{\bullet}{2}} ) \cdot \vthat$, has been used, 
+and agrees with Eq.~(2.76) of the same manuscript.
+The virtual work expressed in terms of nodal displacements and the 
+{\em nonlinear} internal force vector in~(\ref{eq:NLTrussFirstVariation}) is then
+\begin{equation}
+ \boxed{
+  \delta \cW = \vdelta \cdot \vfint = 
+   \left\{\begin{tabular}{c}
+    $\delta \vu^{\underset{\bullet}{1}}$ \\ $\delta \vu^{\underset{\bullet}{2}}$
+   \end{tabular}\right\}^T
+   \sigma A 
+   \left\{
+	  \begin{tabular}{c}
+	    $-\vthat$ \\ $\vthat$
+          \end{tabular}
+   \right\}
+   } \; .  
+   \label{eq:NLTrussFirstVariationFint}
+\end{equation}
+With $\delta \ell$ at hand, and noting that
+\begin{align}
+ \delta \vthat & = \delta \left(
+ \frac{\vx_2 - \vx_1}{l}\right) = \delta 
+ \left((\vx_2 - \vx_1)l^{-1} \right), \\
+  % & = (\delta \vu_2 - \delta \vu_1) l^{-1} + (\vx_2 - \vx_1)(-l^{-2}) 
+  %  \delta l, \\
+  % & = \frac{\delta \vu_2 - \delta \vu_1}{l} - 
+  %   \frac{\vx_2 - \vx_1}{l^2} (-\delta \vu_1 + \delta \vu_2) \cdot \vthat, \\
+  & = \frac{1}{l}\left[\vid - \vthat \otimes \vthat
+  \right] (-\delta \vu_1 + \delta \vu_2),
+\end{align} 
+the second variation of the nonlinear form in~(\ref{eq:NLTrussFirstVariation}), 
+or equivalently in~(\ref{eq:NLTrussFirstVariationFint}), 
+is found through
+%\clearpage
+\begin{align}
+  \Delta (\delta \cW) 
+   & = \Delta \left[(- \delta \vu^{\underset{\bullet}{1}} + 
+   \delta \vu^{\underset{\bullet}{2}} ) \cdot \sigma A \; \vthat \right], \\
+   % & = (- \delta \vu^{\underset{\bullet}{1}} + \delta \vu^{\underset{\bullet}{2}} ) 
+   % \cdot \Delta \vthat \; \sigma A \;\;+\;\; (- \delta \vu^{\underset{\bullet}{1}} + \delta 
+   % \vu^{\underset{\bullet}{2}} ) \cdot \vthat \; \Delta \sigma A, \\
+   & = (- \delta \vu^{\underset{\bullet}{1}} 
+   + \delta \vu^{\underset{\bullet}{2}} ) 
+   \cdot \Delta \sigma A \; \vthat \nonumber \\
+   & \hspace{0.5cm} + (- \delta \vu^{\underset{\bullet}{1}} + \delta \vu^{\underset{\bullet}{2}} ) \cdot \sigma A \; \Delta \vthat.
+\end{align}
+Now, adopting a compact notation where 
+$\delta \vu = 
+(- \delta \vu^{\underset{\bullet}{1}} + \delta \vu^{\underset{\bullet}{2}} )$ 
+and 
+$\Delta \vu = (- \Delta \vu^{\underset{\bullet}{1}} + \Delta \vu^{\underset{\bullet}{2}} )$,
+\begin{align}
+ &\Delta (\delta \cW) \nonumber \\
+ &= \delta \vu \cdot 
+ \left\{ 
+  \dst\frac{\partial \sigma}{\partial \hstrain} \Delta \hstrain A \; \vthat     
+   +
+  \sigma A \frac{1}{\ell}\left[\vid - \vthat \otimes \vthat
+ \right] \Delta \vu
+ \right\}, \\
+ % & = (- \delta \vu^{\underset{\bullet}{1}} + \delta \vu^{\underset{\bullet}{2}} ) 
+ % \cdot \left\{ \frac{1}{\ell}\left[\vid - \vthat \otimes \vthat
+ %   \right] (- \Delta \vu^{\underset{\bullet}{1}} + \Delta \vu^{\underset{\bullet}{2}}) \; 
+ %\sigma A \;\;+\;\; \vthat \; \dst\frac{\partial \sigma}{\partial \hstrain} \Delta \hstrain A
+ %\right\}, \\
+ & = \delta \vu \cdot 
+ \left\{ 
+   \dst\frac{\partial \sigma}{\partial \hstrain} 
+     \left(\dst\frac{\Delta \ell}{L} \right)
+     A \; \vthat 
+    + 
+    \frac{\sigma A}{\ell}\left[\vid - \vthat \otimes \vthat
+    \right] \Delta \vu \right\}.
+\end{align}
+Expanding $\delta \vu$ and $\Delta \vu$ gives
+\begin{align}
+\Delta(\delta \cW) & = (- \delta \vu^{\underset{\bullet}{1}} + \delta \vu^{\underset{\bullet}{2}} ) \nonumber \\
+ &
+ \hspace{0.5cm} 
+  \cdot 
+   \left[ 
+    \dst\frac{\partial \sigma}{\partial \hstrain} \dst\frac{A}{L} \;
+    \vthat \otimes \vthat 
+    \;\;+\;\; 
+    \frac{\sigma A}{\ell}\left[\vid - \vthat \otimes \vthat\right]  
+   \right] \nonumber \\
+ %
+  &  \hspace{1.0cm} \left\{ 
+  (- \Delta \vu^{\underset{\bullet}{1}} + \Delta \vu^{\underset{\bullet}{2}})
+  \right\}.
+\end{align}
+This leads to the element stiffness equations
+\begin{align}
+  \Delta \delta \cW &= \nonumber \\
+  & \hspace{2.5\columnwidth} \nonumber
+\end{align}
+  \vspace{-1cm}
+\begin{equation}
+  \boxed{
+  \vdelta \cdot \vK \vDelta
+   = \left\{
+	\begin{tabular}{c}
+        $\delta \vu^{\underset{\bullet}{1}}$ \\ 
+	$\delta \vu^{\underset{\bullet}{2}}$
+	\end{tabular}
+	\right\}^T
+	\left[
+	 \begin{tabular}{rr}
+	   	$\vkappa$  & $-\vkappa$ \\ 
+	 	$-\vkappa$ & $\vkappa$
+	 \end{tabular}
+	\right]
+	\left\{
+	 \begin{tabular}{c}
+	  	$\Delta \vu^{\underset{\bullet}{1}}$ \\ 
+		$\Delta \vu^{\underset{\bullet}{2}}$
+	  \end{tabular}
+	 \right\}
+	 } \; ,
+\end{equation}
+where
+\begin{equation}
+ \vkappa = \left[\dst\frac{\partial \sigma}{\partial \hstrain}
+ \dst\frac{A}{L} \; \vthat \otimes \vthat + \frac{\sigma A}{\ell}
+ \left[\vid - \vthat \otimes \vthat \right] \right].
+\end{equation}
+Note that the explicit form of $\partial \sigma / \partial \hstrain$ 
+will depend on the plastic multiplier $\gammadot$.  If $\gammadot = 0$, 
+then $\partial \sigma / \partial \hstrain = E$, as shown in the 
+elastic region of Fig.~\ref{fig:stress_strain_harden}~(a).  
+If $\gammadot > 0$, then $\partial \sigma / \partial \hstrain = \Eep$, as 
+shown in the elasto-plastic region of Fig.~\ref{fig:stress_strain_harden}~(a).  
+
+
+% ========================
+\subsection{From 1D to 3D}
+In one-dimensional plasticity, we spoke of the Cauchy stress scalar
+$\sigma \in \real$ with positive values describing tension (resulting
+in elongations) and compression (resulting in contractions).  
+Now, we generalize this concept to speak of the Cauchy stress
+tensor $\vsigma$ as a collection of all the normal and shear 
+Cauchy stress components present in three dimensions.  
+
+We decompose $\vsigma$ into volumetric and deviatoric components, 
+denoted
+\be
+\vsigma = \vsigmavol + \vsigmadev.
+\ee
+Next, we {\em define} each of these two components.  
+The {\bf volumetric} Cauchy stress tensor is defined as
+\be
+\vsigmavol \defe \frac{1}{3} \trace(\vsigma) \vid = 
+\frac{1}{3} \sigma_{kk} \; \delta_{ij}.
+\ee
+It is often convenient to define {\bf pressure} $P \in \real$ as
+\be
+P \defe - \frac{1}{3} \trace(\vsigma) \hspace{1.0cm}
+  \left\{
+    \begin{tabular}{l}
+      $P > 0$ compression, \\
+      $P < 0$ tension.
+    \end{tabular}
+  \right.
+\ee
+Note the negative sign in the definition.  The negative sign
+allows us to harmonize our concepts of (compressive, e.g., 
+underwater) pressure as a positive, scalar with 
+tension/compression (positive/negative) convention of the Cauchy
+stress tensor.
+
+Furthermore, the deviatoric Cauchy stress tensor is often denoted
+simply as $\tsbold$.  Using this notation, the {\bf deviatoric}
+Cauchy stress tensor is defined as
+\be
+\tsbold \defe \vsigma - \vsigmavol = \vsigma + P \; \vid.
+\ee 
+
+\subsubsection{Uniaxial Tension Test}
+With these definitions at hand, we are now poised to demonstrate
+how the results of a uniaxial tension test at the plastic limit
+are used to generalize a theory of small-strain plasticity to
+three dimensions. 
+
+A yielding, the Cauchy stress tensor $\vsigma$ has the simple form
+\be
+\left.
+\vsigma
+\right|_y = 
+\left[
+  \begin{tabular}{lll}
+    $\sigma_y$   & 0 & 0 \\
+                 & 0 & 0 \\
+     &   & 0 
+  \end{tabular}
+\right].
+\ee
+
+\begin{Hremark}
+Note that for symmetric matrices, we will 
+avoid filling in the lower part of the matrix both for brevity, and to
+reinforce the idea of symmetry.
+\end{Hremark}
+
+The volumetric part of the Cauchy stress tensor at yield is then
+\be
+\left.
+\vsigmavol 
+\right|_y
+= \frac{\sigma_y}{3}
+\left[
+  \begin{tabular}{lll}
+    1            & 0 & 0 \\
+                 & 1 & 0 \\
+     &   & 1 
+  \end{tabular}
+\right].
+\ee
+The deviatoric part of the Cauchy stress tensor at yield is then
+\be
+\left.
+\tsbold 
+\right|_y
+= \frac{3 \;\sigma_y}{3}
+\left[
+  \begin{tabular}{lll}
+    1            & 0 & 0 \\
+                 & 1 & 0 \\
+     &   & 1 
+  \end{tabular}
+\right]
+ - 
+\frac{\sigma_y}{3}
+\left[
+  \begin{tabular}{lll}
+    1            & 0 & 0 \\
+                 & 1 & 0 \\
+     &   & 1 
+  \end{tabular}
+\right] 
+ = 
+\frac{\sigma_y}{3}
+\left[
+  \begin{tabular}{lll}
+    2 & \;0 & \;0 \\
+      &-1 & \;0 \\
+      &   &-1 
+  \end{tabular}
+\right].
+\label{eq:deviatoric_uniaxial_tension}
+\ee
+So, we now have the form of the deviatoric Cauchy stress
+tensor $\tsbold$ at yield.  How can this result for a uniaxial tension test
+be generalized for three dimensions?  The thought experiment is to
+envision $\tsbold$ for {\em any and all} matrix forms, not just the form
+obtained in (\ref{eq:deviatoric_uniaxial_tension}).  Any and all matrix
+form for $\tsbold$ will have one commonality:  their matrix invariants.
+
+
+Recall that the three invariants, 
+$I_1(\tAbold)$, 
+$I_2(\tAbold)$, and 
+$I_3(\tAbold)$ of matrix
+$\tAbold$ satisfy the equation
+\be
+\det(\tAbold - \lambda \vid) \overset{\tiny\mbox{set}}{=} 0
+\ee
+for any $\lambda$, and produce the characteristic equation
+\begin{align}
+ 0 & = \lambda^3 \; (-1) \\
+   & + \lambda^2 \;
+       \underset{\mbox{\normalsize$\trace$(\tAbold)}}{\underbrace{\left(a_{11} 
+       + a_{22} + a_{33} \right)}} \\
+   & + \lambda^1 \; 
+       \underset{\mbox{\normalsize$\half\left[ \;
+	         \trace(\tAbold \cdot \tAbold)
+		 - \trace(\tAbold) \trace(\tAbold) \; \right]$}}
+                {\underbrace{\left(-a_{11} a_{22} - 
+       a_{22} a_{33} - a_{33} a_{11} + 
+       a_{12} a_{21} + a_{23} a_{32} + a_{31} a_{13} \right)}} \\ 
+   & + \lambda^0 \; 
+       \underset{\mbox{\normalsize$\det$(\tAbold)}}{\underbrace{\left(
+       a_{11} a_{22} a_{33} 
+       + a_{12} a_{23} a_{31} 
+       + a_{13} a_{21} a_{32}
+       - a_{11} a_{23} a_{32} 
+       - a_{12} a_{21} a_{33}
+       - a_{13} a_{22} a_{31} 
+       \right)}}.
+\end{align}
+Then the first invariant of $\tsbold$, 
+\be
+J_1(\tsbold) \defe \trace(\tsbold) = s_{kk} = 0,
+\ee
+is uninteresting because it has
+zero value for all stress states of $\vsigma$.
+The second invariant of $\tsbold$, 
+\be
+J_2(\tsbold) \defe \half \left( 
+              \trace \left( \tsbold \cdot \tsbold \right) \right) 
+              = \half s_{ij} s_{ji} 
+\ee
+is interesting because we arrive at a quadratic form of $\tsbold$.  
+Returning to the thought experiment, we can now envision of 
+form of $\tsbold$ by way of $J_2(\tsbold)$ as valid for all 
+values Cauchy stress tensors $\vsigma$ and with plasticity occurring
+when 
+$J_2(\tsbold)$ reaches $J_2(\left. \tsbold \right|_y)$.
+Said equivalently, we can imagine a yield function, 
+as defined for scalars in (\ref{eq:yieldFunctionPerfectPlastic}), recast
+now for the entire stress tensor $\vsigma$ as
+\be
+ \Phi(\vsigma) \defe J_2(\tsbold(\vsigma)) - J_2(\left. \tsbold \right|_y)
+ \leq 0.
+\ee
+Now 
+\be
+J_2(\left. \tsbold \right|_y) 
+= \half \; (\sigma_y^2)/9 \; (4 + 1 + 1) = \sigma_y^2 / 3.
+\ee
+Thus
+\be
+ \Phi(\vsigma) \defe J_2(\tsbold(\vsigma)) - 
+ \frac{\sigma_y^2}{3} 
+ \leq 0.
+\ee
+Now, on the yield surface, $\Phi = 0$, which means
+\be
+ J_2(\tsbold(\left. \vsigma \right|_y)) 
+ = 
+ \frac{\sigma_y^2}{3} 
+ \implies 
+ \sqrt{ 3 J_2(\tsbold(\left. \vsigma \right|_y)) }
+ = 
+ \sigma_y.
+\ee
+This gives rise to the form of the yield function of
+so-called {\bf $J_2$ plasticity},
+\be
+\boxed{
+ \Phi(\vsigma) \defe \sqrt{ 3 J_2 (\tsbold(\vsigma)) } - \sigma_y 
+ \leq 0.
+}
+\ee
+The quantity $\sqrt{ 3 J_2 }$ is often referred to
+as the {\bf von Mises stress} or {\bf equivalent tensile stress}
+and denoted as $\sigma_{\mbox{\tiny VM}}$.
+Thus, the yield function may be equivalently written as
+\be
+ \Phi(\vsigma) \defe \sigma_{\mbox{\tiny VM}}(\vsigma) - \sigma_y 
+ \leq 0.
+\ee
