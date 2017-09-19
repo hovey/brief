@@ -10,8 +10,8 @@
 \subsubsection{Laboratory Fixed Coordinate Frame}
 The derivation that follows assumes a {\bf laboratory-fixed reference
 frame}, as shown in Fig.~\ref{fig:piston_shock_cv}.\footnote{A shock-fixed 
-reference frame derivation then is developed in a subsequent section.}
-Consider a rigid tube containing a rigid piston material at ambient
+reference frame derivation is developed in a subsequent section.}
+Consider a rigid tube containing a rigid piston and an ideal fluid at ambient
 density $\rho_0$ and ambient pressure $P_0$ at time $t=t_0$.  
 
 \begin{figure}[htb]
@@ -37,7 +37,7 @@ density $\rho_0$ and ambient pressure $P_0$ at time $t=t_0$.
   \label{fig:piston_shock_cv}
 \end{figure}
 
-Assume at time $t=t_0 + \Delta t$, the piston moves left-to-right
+Assume at time $t=(t_0 + \Delta t$), the piston moves left-to-right
 along the $x$-axis with speed $U_P$, measured in the fixed 
 laboratory reference frame.  
 Assume the piston speed $U_P$ causes a shock to propagate through
@@ -59,8 +59,9 @@ we assume body forces from gravity and electromagnetism are negligible.}
 
 Since the piston compresses the material in the tube, we know
 \begin{itemize}
-\item $\rho_0 < \rho_1$.
+\item $\rho_1 > \rho_0$,
 \end{itemize}
+where $\rho_1$ is the density of the material to the left of the shock.
 
 Allow some time interval $\Delta t$ to elapse, as illustrated 
 in Fig.~\ref{fig:piston_shock_cv}.  Consider the distances along the
@@ -108,11 +109,13 @@ Thus
 \ee
 or
 \be
- \boxed{\rho_0 U_S = \rho_1 \left(U_S - U_P\right).}
+ \boxed{\rho_0 U_S = \rho_1 \left(U_S - U_P\right), 
+ \hspace{1cm}
+ \mbox{\bf{(Conservation of Mass)}.}}
 \ee
 
 \subsubsection{Conservation of Momentum}
-The driving force from the piston on the material is $(P_1 - P_0) \cdot A$.
+The net driving force from the piston on the material is $(P_1 - P_0) \cdot A$.
 Conservation of momentum requires $F = d(ma)/dt$.  Written over the time
 interval $\Delta t$ and for constant mass, 
 conservation of momentum can be written
@@ -125,7 +128,9 @@ Rewriting this expression in terms of pressures and densities, we have
 \ee
 which gives
 \be
-\boxed{P_1 - P_0  = \rho_0 \; U_S \; U_P.}
+\boxed{P_1 - P_0  = \rho_0 \; U_S \; U_P,
+\hspace{1.0cm}
+\mbox{\bf{(Conservation of Momentum)}.}}
 \label{eq:cons_momentum}
 \ee
 
@@ -137,6 +142,10 @@ W_P = \underset{\mbox{\footnotesize force}}{\underbrace{P_1 \cdot A}}
 \cdot 
  \underset{\mbox{\footnotesize disp.}}{\underbrace{U_P \cdot \Delta t}}.
 \ee
+Note that the right boundary of the control volume, located at the 
+shock location, does not move, so the work across this boundary is 
+identically zero.
+
 The kinetic energy increase of the control volume is simply the one-half times
 the mass times the square of the change in velocity, thus
 \be
@@ -161,11 +170,13 @@ P_1 \cdot A \cdot U_P \cdot \Delta t =
 \ee
 or simply
 \be
-\boxed{P_1 \; U_P = \rho_0 \; U_S \left(\frac{U_P^2}{2} + e_1 - e_0\right).}
+\boxed{P_1 \; U_P = \rho_0 \; U_S \left(\frac{U_P^2}{2} + e_1 - e_0\right),
+\hspace{1.0cm}
+\mbox{\bf{(Conservation of Energy)}.}}
 \label{eq:cons_energy}
 \ee
 The foregoing equation can be written without kinematic variables 
-$U_S$ and $U_P$. Define the specific volume as
+$U_S$ and $U_P$. Define the {\bf specific volume} as
 \be
 V \defe \frac{1}{\rho}.
 \label{eq:specific_volume}
@@ -190,8 +201,16 @@ P_1 \; U_P
 \end{align}
 which simplifies to
 \be
-\boxed{e_1 - e_0 = \left(\frac{P_1 + P_1}{2}\right) \; (V_0 - V_1).}
+\boxed{e_1 - e_0 = \frac{-1}{2}
+\left(P_1 + P_0\right) \; (V_1 - V_0),
+\hspace{1.0cm}
+\mbox{\bf{(Hugoniot equation)}.}}
 \ee
+The Hugoniot equation is the Conservation of Energy jump condition with
+state variables alone; there are no kinematic variables in the equation.
+To plot the Hugoniot relationship in the $PV$ plane with $e_1 > e_0$, 
+the initial state
+$(V_0, P_0)$ must be known.
 
 \subsubsection{Alternative Formulations}
 Now we develop the {shock-fixed reference frame} equations for mass, 
