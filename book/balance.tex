@@ -1,0 +1,178 @@
+
+\section{Balance Laws}
+
+In this section, we posit the {\bf Master Balance Law} 
+in general form.  Also called ``conservation of anything,'' this
+description assumes an arbitrary control volume $V \in \realthree$
+with boundary $\partial V$.  What follows is the so-called 
+Eulerian formulation, illustrated in Fig.~\ref{fig:mass_balance}, 
+which assumes the control volume, 
+while arbitrary in its placement in space, is {\bf fixed} 
+in space.\footnote{The connection to the Lagrangian formulation, 
+in which the control is not fixed in space, but instead, 
+moves through space as the body to which it
+is attached moves through space, is examined in the sequel.} 
+\begin{figure}[htb]
+  \begin{center}
+    %\begin{overpic}[width=0.85\textwidth, grid, tics=10]{fig/mass_balance}
+    \begin{overpic}[width=0.85\textwidth]{fig/mass_balance}
+      \put(22, 36){flux in}
+      \put(85, 26){flux out}
+      \put(44,  2){$V$}
+      \put(54.5, 47){$\vnhat$ on $\partial V$}
+      \put(50.5,  24){$g$}
+      %
+    \end{overpic}
+  \end{center}
+  \caption{Concept of a fixed control volume of the Eulerian formulation.}
+  \label{fig:mass_balance}
+\end{figure}
+
+Now, let 
+\begin{itemize}
+\item $\phi(\vx, t)$ be the description of some physical quantity 
+per unit volume, which can in general be a scalar, vector, or tensor quantity, 
+
+\item $g(\vx, t)$ be the generation (depletion) {\em rate} of the 
+physical quantity per unit volume, 
+
+\item $f(\vx, t)$ be the physical quantity per unit area 
+that flows across the boundary with rate (velocity) $\vv(\vx, t)$, and 
+
+\item $\partial V$ be the boundary of the control volume, 
+with outward pointing surface normal unit vector $\vnhat(\vx, t)$.  
+\end{itemize} 
+The time rate of change of the quantity $\phi(\vx,t)$ within the 
+differential control volume $dV$ is then equal to 
+\begin{itemize}
+\item {\bf generation}---the rate at which the quantity is generated (or depleted) 
+within the control volume by the point source (point sink), plus
+\item {\bf flux}---the rate at which the quantity is either carried into (or out of) 
+the volume across the volume's differential surface area $dA$.
+\end{itemize}
+These words, stated mathematically, are
+\be
+ \underset{\mbox{\footnotesize rate}}{\underbrace{\frac{d}{dt} 
+ \int_{V} \phi(\vx,t) \; dV}}
+  \;\; = \;\;  
+   \underset{\mbox{\footnotesize source}}{\underbrace{\int_{V} 
+   g(\vx,t) \; dV}}
+   \;\; - \;\;
+   \underset{\mbox{\footnotesize flux}}{\underbrace{\int_{\partial V} 
+   \left[f(\vx,t) \; \vv(\vx,t) \right] \cdot \vnhat \; dA}}
+   ,
+\ee
+which is the general form of the 
+{\bf Master Balance Law}.  We adopt the following sign convention to impart consistency:
+\begin{itemize}
+\item For positive time rate of change of the quantity $\phi(\vx,t)$, 
+the generation $g(\vx,t)$ is trivially positive.  
+For quantity $f(\vx,t)$ carried
+{\em into} the control volume, the inner product of $\vv$ with $\vnhat$ is
+negative, thus a negative outside of the flux integral is used.  
+\item Likewise, for a negative time rate of change of quantity $\phi(\vx,t)$, 
+the generation $g(\vx,t)$ is negative.  And, for the quantity $f(\vx,t)$ 
+carried {\em out of} the control volume, the inner product of $\vv$ with
+$\vnhat$ is positive, thus the negative outside of the flux integral 
+provides sign consistency.  
+\end{itemize}
+
+\subsection{Balance Law Metaphor}
+Here we present the Master Balance Law by way of metaphor.  
+Let the volume $V$ be the geographic region of Oregon, 
+with boundary $\partial V$ that touches the state borders of
+Washington, Idaho, Nevada, and California 
+in the United States.\footnote{In this oversimplified
+metaphor, we assume flux does not occur via the western seaboard nor via the air.} 
+Let $\phi$ be the number of people living in the state of California.
+The change in population $\Delta \phi$ over some time interval $\Delta t$ 
+is equal to the 
+net generation rate $g$ (number of births less the number of deaths
+in the time interval), plus the net population flux rate $f \vv$
+(the number of people moving to California less
+the number of people moving from California within the time interval).
+
+\subsection{Conservation of Mass}
+Let us now apply the Master Balance Law to the physical 
+quantity of mass, and develop a relationship for conservation of
+mass, a concept where mass is neither created nor destroyed.  
+When we speak of the physical quantity of mass per unit volume, we 
+speak of density $\rho(\vx,t)$.  Thus, we substitute $\rho(\vx,t)$ 
+for $\phi(\vx,t)$ in the foregoing Master Balance Law.
+
+For mass to be conserved, 
+mass within a control volume is neither created nor destroyed, thus the source
+term is identically zero.  Thus, increases (decreases) in the mass rate 
+term are produced only by flux of mass in through (out from) the boundary. 
+The idea, stated mathematically, is
+\be
+ \underset{\mbox{\footnotesize rate}}{\underbrace{\frac{d}{dt} 
+ \int_{V} \rho(\vx,t) \; dV}}
+  \;\; = \;\;  
+   \underset{\mbox{\footnotesize source = 0}}{\underbrace{\int_{V} 
+   g(\vx,t) \; dV}}
+   \;\; - \;\;
+   \underset{\mbox{\footnotesize flux}}{\underbrace{\int_{\partial V} 
+   \left[\; \rho(\vx,t) \; \vv(\vx,t) \; \right] \cdot \vnhat(\vx,t) \; dA}}
+   .
+\ee
+The Divergence Theorem is used to write the flux term surface integral 
+as a volume integral, thus
+\be
+ \underset{\mbox{\footnotesize rate}}{\underbrace{\frac{d}{dt} 
+ \int_{V} \rho(\vx,t) \; dV}}
+  \;\; = \;\;  
+   0
+   \;\; - \;\;
+   \underset{\mbox{\footnotesize flux}}{\underbrace{\int_{V} 
+   \grad \cdot \left[\;\rho(\vx,t) \; \vv(\vx,t) \; \right] \; dV}}
+   .
+\ee
+Because $V$ is fixed in an inertial frame, the foregoing equation can be 
+rewritten with the rate time derivative inside the integral, thus
+\be
+ \int_{V} \left(
+   \frac{\partial \rho(\vx,t)}{\partial t} + \grad \cdot 
+   \left[ \; \rho(\vx,t) \;  \vv(\vx,t) \; \right] \; \right) \; dV 
+ = 
+ 0
+ .
+\ee
+Finally, arbitrariness of $B_t$ 
+requires that the integrand is identically zero, thus
+\be
+   \frac{\partial \rho(\vx,t)}{\partial t} + \grad \cdot 
+   \left[ \; \rho(\vx,t) \;  \vv(\vx,t) \; \right] 
+ = 
+ 0
+ \;\; \Longleftrightarrow \;\; \rho_{,t} + (\rho v_{i})_{,i} = 0,
+ \label{eq:mass_conservation}
+\ee
+which is the {\bf continuity equation}.  
+Some texts will recast the continuity equation by defining a 
+{\bf material derivative} of density as follows:  Since
+$\rho = \rho(\vx, t)$, then 
+\be
+ \dot \rho = \frac{\partial \rho}{\partial \vx} \frac{\partial \vx}{\partial t} 
+ + \frac{\partial \rho}{\partial t} \defe \frac{D \rho}{Dt}.
+\ee
+Expansion of (\ref{eq:mass_conservation}) then gives
+\be
+  \frac{\partial \rho}{\partial t} + 
+  \grad \rho \cdot \vv + \rho \grad \cdot \vv = 
+  \underset{\defe \; \dot \rho}{\underbrace{
+  \frac{\partial \rho}{\partial t} + 
+  \frac{\partial \rho}{\partial \vx} \frac{\partial \vx}{\partial t}}} +
+  \rho \grad \cdot \vv = 0,
+\ee
+or simply
+\be
+\dot \rho + \rho \grad \cdot \vv = 0.
+\ee
+
+\subsection{Conservation of Linear Momentum}
+
+\subsection{Conservation of Angular Momentum}
+
+\subsection{Conservation of Energy}
+
