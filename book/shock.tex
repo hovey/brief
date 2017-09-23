@@ -42,11 +42,16 @@ along the $x$-axis with speed $U_P$, measured in the fixed
 laboratory reference frame.  
 Assume the piston speed $U_P$ causes a shock to propagate through
 the material with speed $U_S$.  We require the following:
-\begin{itemize}
-  \item $0 < U_P < +\infty$
-  \item $0 < U_S < +\infty$
-  \item $U_P < U_S$
-\end{itemize}  
+%\begin{itemize}
+%  \item $0 < U_P < +\infty$
+%  \item $0 < U_S < +\infty$
+%  \item $U_P < U_S$ 
+%\end{itemize}  
+\begin{align}
+  0 < U_P &< +\infty \label{eq:up} \\
+  0 < U_S &< +\infty \label{eq:us} \\
+  U_P &< U_S \label{eq:upltus}
+\end{align}
 From these considerations, we conclude that the material to the left of the
 shock wave in Fig.~\ref{fig:piston_shock_cv} moves to the right at speed
 $U_S$.  The material to the right of the shock wave remains at 
@@ -113,6 +118,22 @@ or
  \hspace{1cm}
  \mbox{\bf{(Conservation of Mass)}.}}
 \ee
+Define the {\bf specific volume} as
+\be
+V \defe \frac{1}{\rho}.
+\label{eq:specific_volume}
+\ee
+Then, conservation of mass be rewritten as
+\be
+\boxed{
+V_1 = V_0 \left( 1 - \dst\frac{U_P}{U_S} \right),
+\hspace{1cm}\mbox{\bf{(Conservation of Mass, Volume Form)}.}}
+\label{eq:mass_conservation_alt}
+\ee
+From (\ref{eq:up})--(\ref{eq:upltus}), we know 
+$V_1 < V_0$, which makes sense since we are compressing
+the material and generally have the understanding that increased pressures
+causes decreased volumes.
 
 \subsubsection{Conservation of Momentum}
 The net driving force from the piston on the material is $(P_1 - P_0) \cdot A$.
@@ -132,6 +153,15 @@ which gives
 \hspace{1.0cm}
 \mbox{\bf{(Conservation of Momentum)}.}}
 \label{eq:cons_momentum}
+\ee
+Using (\ref{eq:specific_volume}), (\ref{eq:cons_momentum}) can be
+rewritten as
+\be
+\boxed{
+P_1 - P_0 = \dst\frac{U_S \; U_P}{V_0},
+\hspace{1.0cm}
+\mbox{\bf{(Conservation of Momentum, Volume Form)}.}}
+\label{eq:momentum_conservation_alt}
 \ee
 
 \subsubsection{Conservation of Energy}
@@ -176,11 +206,7 @@ or simply
 \label{eq:cons_energy}
 \ee
 The foregoing equation can be written without kinematic variables 
-$U_S$ and $U_P$. Define the {\bf specific volume} as
-\be
-V \defe \frac{1}{\rho}.
-\label{eq:specific_volume}
-\ee
+$U_S$ and $U_P$. 
 Next, note that conservation of mass can be rewritten as 
 \be
 \frac{U_P}{U_S} = 1 - \frac{\rho_0}{\rho_1}.
@@ -205,6 +231,7 @@ which simplifies to
 \left(P_1 + P_0\right) \; (V_1 - V_0),
 \hspace{1.0cm}
 \mbox{\bf{(Hugoniot equation)}.}}
+\label{eq:hugoniot}
 \ee
 The Hugoniot equation is the Conservation of Energy jump condition with
 state variables alone; there are no kinematic variables in the equation.
@@ -212,7 +239,90 @@ To plot the Hugoniot relationship in the $PV$ plane with $e_1 > e_0$,
 the initial state
 $(V_0, P_0)$ must be known.
 
+\subsubsection{Speed-Volume-Pressure Relationships}
+The alternative forms for mass conservation (\ref{eq:mass_conservation_alt})
+and momentum conservation (\ref{eq:momentum_conservation_alt}) readily 
+allow for the shock speed $U_S$ and particle speed $U_P$ to be written 
+in terms of volume and pressure.  These relationship are found to be
+\be
+ U_S = V_0 \sqrt{\dst\frac{P_1 - P_0}{-(V_1 - V_0)}} 
+     = V_0 \sqrt{\dst\frac{\Delta P}{-\Delta V}},
+	 \label{eq:shock_PV}
+\ee
+and
+\be
+ U_P = \sqrt{- (P_1 - P_0) \; (V_1 - V_0)} = \sqrt{- \Delta P \; \Delta V}.
+ \label{eq:particle_PV}
+\ee
+
+
 \subsubsection{Alternative Formulations}
 Now we develop the {shock-fixed reference frame} equations for mass, 
 momentum, and energy conservation.
+
+
+\subsection{$PV$ Diagram}
+The $PV$ diagram shows pressure $P$ as a function of volume $V$.  
+Thus, the state variables $P$ and $V$ are considered in isolation from the 
+other state and kinematic variables.  The initial laboratory state is
+denoted $(V_0, P_0)$.  A large compressive pressure $P_1$ is applied to the
+material, which causes the volume to shrink to $V_1$.  If this applied pressure
+$P_1$ causes a shock, we record the pressure and volume state, and then
+repeat the experiment at a different pressure, e.g., $P_2$.  
+Several compression experiments are run, and the $PV$ states that created
+a shock in the material are recorded in the $PV$ diagram.  
+
+For concreteness, 
+we show four experiments with applied pressures $P_1 \ldots P_4$ and 
+resultant volumes $V_1 \ldots V_4$, shown in Fig.~\ref{fig:PV_diagram}.
+Note that all experiments start from the same initial pressure $P_0$ 
+and initial volume $V_0$.  
+
+\begin{figure}[htb]
+  \begin{center}
+  %\begin{overpic}[width=0.8\textwidth, grid, tics=10]{fig/PV_diagram}
+  \begin{overpic}[width=0.8\textwidth]{fig/PV_diagram}
+    \put( 6, 2){$O$}
+    \put(76, 4){$V$}
+    \put( 6,74){$P$}
+    \put(15, 1){$V_4$}
+    \put(25, 1){$V_3$}
+    \put(32.5, 1){$V_2$}
+    \put(42.5, 1){$V_1$}
+    \put(60.5, 1){$V_0$}
+    \put( 2, 15){$P_0$}
+    \put( 2, 26){$P_1$}
+    \put( 2, 35.5){$P_2$}
+    \put( 2, 45){$P_3$}
+    \put( 2, 62){$P_4$} 
+    \put(27, 68.8){\bf Hugoniot}
+    \put(35, 55){slope $= \dst\frac{\Delta P}{\Delta V} = \frac{P_4 - P_0}{V_4 - V_0}$}
+    \put(64, 22){increasing shock speed $U_S$}
+  \end{overpic}
+  \end{center}
+  \caption{Pressure as a function of volume for the shock Hugoniot locus
+  of thermodynamic equilibrium states.} 
+  \label{fig:PV_diagram}
+\end{figure}
+
+
+
+These four thermodynamic states lie on a locus of all possible 
+thermodynamic states that can exist in the material behind a shock.  This
+locus is referred to as the {\bf shock Hugoniot}.  
+
+It is important to emphasize that the locus {\bf is not} the path taken
+by the material between two thermodynamic states.  
+
+Note that (\ref{eq:shock_PV}) describes the mathematical increase in shock
+speed with increasing slope 
+of the Hugoniot, indicated in Fig.~\ref{fig:PV_diagram}.
+Specifically, the slope of the Hugoniot goes as the negative squared value
+of the shock speed $U_S$ per initial volume $V_0$, or
+\be
+\dst\frac{\Delta P}{\Delta V} = -\left(\frac{U_S}{V_0}\right)^2.
+\ee
+
+
+\subsection{$PU_P$ Diagram}
 
