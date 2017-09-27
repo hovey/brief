@@ -3,7 +3,8 @@
 % DOCUMENT CLASS
 % --------------
 %\documentclass[10pt,twoside,letterpaper,fleqn]{report}
-\documentclass[12pt,a4paper,twoside,fleqn]{book}
+%\documentclass[12pt,a4paper,twoside,fleqn]{book}
+\documentclass[12pt,letterpaper,twoside,fleqn]{book}
 % A4 paper measures 210 × 297 millimeters (8.27 × 11.69 inches).
 
 
@@ -23,6 +24,7 @@
 %\usepackage[cleanup={.tex,.dvi,.ps,.log},process=all]{pstool}
 %\usepackage{showframe} % bounding boxes on all LaTeX text areas
 %\usepackage{subfigure} % requires \usepackage{epsfig} too
+\usepackage{cancel}
 
 % -------
 % INCLUDE
@@ -45,28 +47,29 @@
 % PAGE SETUP
 % ----------
 % =============================================
-% https://www.sharelatex.com/learn/Page_size_and_margins
+% https://www.sharelatex.com/learn/Page_size_and_margins (page was removed?)
+% https://en.wikibooks.org/wiki/LaTeX/Page_Layout
 % =============================================
 % 0
 %\setlength{\paperwidth}{8.5in}
 %\setlength{\paperheight}{11.0in}
 % 1
-\setlength{\hoffset}{-15mm}
+\setlength{\hoffset}{0.0in}
 % 2
-\setlength{\voffset}{0mm}
+\setlength{\voffset}{0in}
 % 3
-\setlength{\oddsidemargin}{15.0mm}
-\setlength{\evensidemargin}{15.0mm}
+\setlength{\oddsidemargin}{0.25in}
+\setlength{\evensidemargin}{0.25in}
 % 4
 \setlength{\topmargin}{-0.25in}
 % 5
 \setlength{\headheight}{0.125in}
 % 6
-\setlength{\headsep}{10mm}
+\setlength{\headsep}{0.25in}
 % 7
-\setlength{\textheight}{245mm}
+\setlength{\textheight}{8.5in}
 % 8
-\setlength{\textwidth}{160mm}
+\setlength{\textwidth}{6.0in}
 % 9
 \setlength{\marginparsep}{10pt}
 % 10 
@@ -129,8 +132,8 @@
 \setcounter{page}{1}
 \pagenumbering{arabic}
 %
-%\include{include/Hformatams}
-%\include{introduction}
+\include{include/Hformatams}
+\include{introduction}
 %
 %\include{formulation}
 %  \include{continuum}

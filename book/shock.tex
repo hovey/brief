@@ -1,3 +1,175 @@
+\newcommand{\svol}{\mathcal{V}}  % specific volume
+\newcommand{\senergy}{\mathcal{E}} % specific total energy
+
+
+
+\section{Elastodynamics}
+
+The bulk modulus $B$, a measure of local compressibility of a substance, is
+defined as the ratio of infinitesimal change in pressure $dP$ caused by an
+infinitesimal change in volume $dV$, at a given volume $V$
+\be 
+B \defe - V \dst\frac{dP}{dV}.
+\ee
+We require $B > 0$, and since $V > 0$, then $dP/dV < 0$.
+This results in behaviors observed physically, namely that, all else being
+equal, 
+\begin{itemize}
+\item increases in pressures cause decreases in volumes (and vice versa), and
+\item increases in volumes cause decreases in pressure (and vice versa).
+\end{itemize}
+Using the definition of density $\rho \defe m / V$, 
+\be
+\frac{d\rho}{dV} = \frac{-m}{V^2},
+\ee
+and
+\be
+\frac{dP}{dV} = \frac{dP}{d\rho}\frac{d\rho}{dV},
+\ee
+the bulk modulus $B$ may also be written as
+\be
+B = \rho \frac{dP}{d\rho}.
+\ee
+Since $B > 0$ and $\rho > 0$, then $dP/d\rho > 0$.  This result physically means
+that, all else being equal, 
+\begin{itemize}
+\item increases in pressure cause increases in density (and vice versa), and
+\item increases in density cause increases in pressure (and vice versa).
+\end{itemize}
+
+\section{Thermodynamics}
+
+
+\subsection{Properties}
+Thermodynamics properties can be divided into two categories: {\bf intrinsic} 
+and
+{\bf extrinsic}.  Intrinsic properties are 
+\begin{itemize}
+\item independent of, and therefore not 
+proportional to, the size or sample of the material,
+\item also known as {\em intensive} properties, and 
+\item also known as {\em bulk} properties.
+\end{itemize}
+In contrast, extrinsic properties are 
+\begin{itemize}
+\item dependent on, and therefore proportional
+to, the size or sample of the material, and 
+\item also known as {\em extensive} properties.
+\end{itemize}
+
+
+Figure~\ref{fig:intrinsic_props} demonstrates the independence of intrinsic
+properties and the dependence of extrinsic properties on the control volume, 
+designated with the dashed lines.  The original control volume, on the left
+side of the figure, is halved into two equal-sized control volumes on the 
+right side of the figure.  The intrinsic properties do not depend on the 
+size of the control volume.  The extrinsic properties, however, are now
+scaled by a factor of $\half$.
+\begin{figure}[htb]
+  \begin{center}
+  %\begin{overpic}[width=\textwidth, grid, tics=10]{fig/intrinsic_props}
+  \begin{overpic}[width=\textwidth]{fig/intrinsic_props}
+    \put( 0, 26){\bf{Intrinsic} (intensive, bulk)}
+    \put( 0, 23){pressure, density, temperature}
+    \put(48, 24){$P, \rho, T$}
+    \put(74.5, 24){$P, \rho, T$}
+    \put(88.5, 24){$P, \rho, T$}
+    \put( 0, 17){\bf{Extrinsic} (extensive)}
+    \put( 0, 14){mass, volume, energy}
+    \put(47.5, 15.5){$m, V, E$}
+    \put(72.5, 15.2){$\dst\frac{m}{2}, \frac{V}{2}, \frac{E}{2}$}
+    \put(87., 15.2){$\dst\frac{m}{2}, \frac{V}{2}, \frac{E}{2}$}
+    \put( 0,  8){\bf{Specific} (extrinsic/mass)}
+    \put( 0,  5){specific volume, specific energy}
+    \put(49.5,  7){$\svol, \senergy$}
+    \put(76.3,  7){$\svol, \senergy$}
+    \put(90.5,  7){$\svol, \senergy$}
+  \end{overpic}
+  \end{center}
+  \caption{Thermodynamic properties categorized as intrinsic, extrinsic, and
+  specific.}
+  \label{fig:intrinsic_props}
+\end{figure}
+It is often convenient to speak of extrinsic properties that are {\em 
+independent} of size or sample of the material.  To achieve this, the
+extrinsic properties are divided by the mass of the sample, referred to 
+as specific extrinsic properties.  Two common examples of specific properties
+are the {\bf specific volume} and {\bf specific energy}, defined as 
+\be
+\svol \defe \frac{V}{m} = \frac{1}{\rho},
+\label{eq:specific_volume}
+\ee
+and
+\be
+\senergy \defe \frac{E}{m}.
+\ee
+
+
+\subsection{First Law of Thermodynamics}
+The first law for a closed system states the change in internal
+energy $\Delta IE$ is equal to the net energy $Q$ added to the system as heat
+less the net work $W$ done {\bf by} the system.
+\be
+\Delta IE = Q - W.
+\ee
+This is the sign convention used by Joule and Clausius.
+A different sign convention, used by Max Planck, stated that 
+the change in internal energy $\Delta IE$ is equal to the net energy $Q$
+added to the system as heat plus the net work done {\bf on} the system.
+\be
+\Delta IE = Q + W.
+\ee
+Thus, all net transfers {\bf to} the system are {\bf positive}.  In 
+contrast, all net transfers {\bf from} the system are {\bf negative}.
+
+Then, the conservation of energy principle for open systems can be
+written as
+\be
+\Delta E = \Delta (KE + IE + PE) = Q + W,
+\ee
+where the total energy $E$ is the sum of the kinetic energy $KE$, 
+the internal energy $IE$, and the potential energy $PE$.  The
+change in total energy is equal to the net energy $Q$ added to the system
+as heat plus the net work $W$ done {\bf on} the system.
+
+Next, we introduce
+\begin{itemize}
+\item $d(\cdot)$ as the {\bf exact differential}, which does not depend on the 
+path taken through space of the thermodynamic parameters and depends only
+on the initial states, and
+\item $\delta(\cdot)$ as the {\bf inexact differential}, which depends on the
+path taken through space of thermodynamic parameters.
+\end{itemize}
+The balance law then states
+\be
+dE = \delta Q + \delta W.
+\ee
+
+
+\subsection{Second Law of Thermodynamics}
+The Second Law states that the infinitesimal increment of entropy $dS$ 
+of a system from an infinitesimal transfer of heat $\delta Q$, divided
+by the common temperature of the system and the surrounding that supplies the
+heat, satisfies
+\be
+dS \geq \dst\frac{\delta Q}{T}.
+\ee
+For a reversible process, 
+\be
+dS = \dst\frac{\delta Q}{T}.
+\ee
+For an irreversible process, 
+\be
+dS > \dst\frac{\delta Q}{T}.
+\ee
+
+\subsection{First and Second Laws Combined}
+For a reversible process, the first and second laws can be combined as
+\be
+\boxed{dE = T dS + \delta W, \hspace{1.0cm}\mbox{\bf 
+(1st and 2nd Law, Reversible Form)}.}
+\ee
+
 \section{Shock}
 
 \subsection{Introduction}
@@ -9,8 +181,9 @@
 \subsection{Conservation Laws for a Single Shock}
 \subsubsection{Laboratory Fixed Coordinate Frame}
 The derivation that follows assumes a {\bf laboratory-fixed reference
-frame}, as shown in Fig.~\ref{fig:piston_shock_cv}.\footnote{A shock-fixed 
+frame},\footnote{A shock-fixed 
 reference frame derivation is developed in a subsequent section.}
+as shown in Fig.~\ref{fig:piston_shock_cv}.
 Consider a rigid tube containing a rigid piston and an ideal fluid at ambient
 density $\rho_0$ and ambient pressure $P_0$ at time $t=t_0$.  
 
@@ -22,39 +195,34 @@ density $\rho_0$ and ambient pressure $P_0$ at time $t=t_0$.
     \put(95, 31){$x$}
     \put(15, 38){$y$}
     \put(12, 27){$z$}
-    \put(23,  9.5){$U_P \cdot \Delta t$}
-    \put(49,  9.5){$(U_P - U_P) \cdot \Delta t$}
+    \put(23,  9.5){$u_P \cdot \Delta t$}
+    \put(49,  9.5){$(U_S - u_P) \cdot \Delta t$}
     \put(44,  3.5){$U_S \cdot \Delta t$}
     \put( 2, 47){\footnotesize piston at time $t=t_0$}
     \put(28, 47){\footnotesize piston at time $t=(t_0 + \Delta t)$}
     \put(58, 47){\footnotesize shock with speed $U_S$ at $t=(t_0 + \Delta t)$}
-    \put(49, 30){$\rho_1, P_1, U_P$}
+    \put(49, 30){$\rho_1, P_1, u_P$}
     \put(85, 30){$\rho_0, P_0$}
   \end{overpic}
   \end{center}
   \caption{Piston moving left-to-right along the $x$-axis, with 
-  piston speed $U_P$, causing shock with shock speed $U_S$.}
+  piston speed $u_P$, causing shock with shock speed $U_S$.}
   \label{fig:piston_shock_cv}
 \end{figure}
 
 Assume at time $t=(t_0 + \Delta t$), the piston moves left-to-right
-along the $x$-axis with speed $U_P$, measured in the fixed 
+along the $x$-axis with speed $u_P$, measured in the fixed 
 laboratory reference frame.  
-Assume the piston speed $U_P$ causes a shock to propagate through
+Assume the piston speed $u_P$ causes a shock to propagate through
 the material with speed $U_S$.  We require the following:
-%\begin{itemize}
-%  \item $0 < U_P < +\infty$
-%  \item $0 < U_S < +\infty$
-%  \item $U_P < U_S$ 
-%\end{itemize}  
 \begin{align}
-  0 < U_P &< +\infty \label{eq:up} \\
+  0 < u_P &< +\infty \label{eq:up} \\
   0 < U_S &< +\infty \label{eq:us} \\
-  U_P &< U_S \label{eq:upltus}
+  u_P &< U_S \label{eq:upltus}
 \end{align}
 From these considerations, we conclude that the material to the left of the
 shock wave in Fig.~\ref{fig:piston_shock_cv} moves to the right at speed
-$U_S$.  The material to the right of the shock wave remains at 
+$u_p$.  The material to the right of the shock wave remains at 
 rest.\footnote{Furthermore, we assume the material throughout the tube and
 for all time is inviscid, non-diffusive, and non-reacting.  We assume 
 an adiabatic boundary, thus no
@@ -72,10 +240,10 @@ Allow some time interval $\Delta t$ to elapse, as illustrated
 in Fig.~\ref{fig:piston_shock_cv}.  Consider the distances along the
 $x$-axis, written as a multiplication of speeds and elapsed time.  
 In the time interval $\Delta t$, the piston moves along the $x$-axis
-a distance of $U_P \cdot \Delta t$.  
+a distance of $u_P \cdot \Delta t$.  
 In the same time interval, the shock wave moves along the $x$-axis
 a distance of $U_S \cdot \Delta t$.  Thus, the control volume at 
-$t=(t_0 + \Delta t)$ has an axial length of $(U_S - U_P) \cdot \Delta t$.
+$t=(t_0 + \Delta t)$ has an axial length of $(U_S - u_P) \cdot \Delta t$.
 
 From these axial lengths and piston cross-sectional area $A$, we can write
 the following relationships:
@@ -86,7 +254,7 @@ the following relationships:
 %
 \item[] $V_0 = \left.V\right|_{t=t_0} = A \cdot U_S \cdot \Delta t$,
 \item[] $V_1 = \left.V\right|_{t=(t_0 + \Delta t)} = A \cdot \left(
-U_S - U_P\right) \cdot \Delta t$,
+U_S - u_P\right) \cdot \Delta t$,
 \end{itemize}
 %
 \item density
@@ -98,7 +266,7 @@ U_S - U_P\right) \cdot \Delta t$,
 \item mass 
 \begin{itemize}
 \item[] $\rho_0 V_0 = \rho_0 \cdot A \cdot U_S \cdot \Delta t$, 
-\item[] $\rho_1 V_1 = \rho_1 \cdot A \cdot \left(U_S - U_P\right) \cdot 
+\item[] $\rho_1 V_1 = \rho_1 \cdot A \cdot \left(U_S - u_P\right) \cdot 
 \Delta t$.
 \end{itemize}
 %
@@ -109,29 +277,30 @@ Conservation of mass within the control volume requires that mass at
 time $t=(t_0 + \Delta t)$ be unchanged from mass at time $t=t_0$.  
 Thus
 \be
- \rho_0 \cdot A \cdot U_S \cdot \Delta t =
- \rho_1 \cdot A \cdot \left(U_S - U_P\right) \cdot \Delta t, 
+ \rho_0 \cdot \cancel{A} \cdot U_S \cdot \cancel{\Delta t} =
+ \rho_1 \cdot \cancel{A} \cdot \left(U_S - u_P\right) \cdot 
+ \cancel{\Delta t}, 
 \ee
 or
 \be
- \boxed{\rho_0 U_S = \rho_1 \left(U_S - U_P\right), 
+ \boxed{\rho_0 U_S = \rho_1 \left(U_S - u_P\right), 
  \hspace{1cm}
  \mbox{\bf{(Conservation of Mass)}.}}
 \ee
-Define the {\bf specific volume} as
+Using specific volume (\ref{eq:specific_volume}), 
+conservation of mass be rewritten as
 \be
-V \defe \frac{1}{\rho}.
-\label{eq:specific_volume}
+\svol_1 = \svol_0 \left( 1 - \dst\frac{u_P}{U_S} \right),
 \ee
-Then, conservation of mass be rewritten as
+or
 \be
 \boxed{
-V_1 = V_0 \left( 1 - \dst\frac{U_P}{U_S} \right),
+\svol_1 - \svol_0 = \dst\frac{-v_0 \; u_P}{U_S},
 \hspace{1cm}\mbox{\bf{(Conservation of Mass, Volume Form)}.}}
 \label{eq:mass_conservation_alt}
 \ee
 From (\ref{eq:up})--(\ref{eq:upltus}), we know 
-$V_1 < V_0$, which makes sense since we are compressing
+$\svol_1 < \svol_0$, which makes sense since we are compressing
 the material and generally have the understanding that increased pressures
 causes decreased volumes.
 
@@ -144,12 +313,13 @@ conservation of momentum can be written
  F \cdot \Delta t = m \cdot \Delta U.
 \ee
 Rewriting this expression in terms of pressures and densities, we have
-\be(P_1 - P_0) \cdot A \cdot \Delta t = \left(\rho_0 \cdot A \cdot U_S \cdot 
-\Delta T \right) \; \left(U_P - 0\right) 
+\be(P_1 - P_0) \cdot \cancel{A} 
+\cdot \cancel{\Delta t} = \left(\rho_0 \cdot \cancel{A} \cdot U_S \cdot 
+\cancel{\Delta t} \right) \; \left(u_P - 0\right) 
 \ee
 which gives
 \be
-\boxed{P_1 - P_0  = \rho_0 \; U_S \; U_P,
+\boxed{P_1 - P_0  = \rho_0 \; U_S \; u_P,
 \hspace{1.0cm}
 \mbox{\bf{(Conservation of Momentum)}.}}
 \label{eq:cons_momentum}
@@ -158,7 +328,7 @@ Using (\ref{eq:specific_volume}), (\ref{eq:cons_momentum}) can be
 rewritten as
 \be
 \boxed{
-P_1 - P_0 = \dst\frac{U_S \; U_P}{V_0},
+P_1 - P_0 = \dst\frac{U_S \; u_P}{\svol_0},
 \hspace{1.0cm}
 \mbox{\bf{(Conservation of Momentum, Volume Form)}.}}
 \label{eq:momentum_conservation_alt}
@@ -170,7 +340,7 @@ is given by
 \be
 W_P = \underset{\mbox{\footnotesize force}}{\underbrace{P_1 \cdot A}}
 \cdot 
- \underset{\mbox{\footnotesize disp.}}{\underbrace{U_P \cdot \Delta t}}.
+ \underset{\mbox{\footnotesize disp.}}{\underbrace{u_P \cdot \Delta t}}.
 \ee
 Note that the right boundary of the control volume, located at the 
 shock location, does not move, so the work across this boundary is 
@@ -182,121 +352,133 @@ the mass times the square of the change in velocity, thus
 KE = \half  \;
 \underset{\mbox{\footnotesize mass}}{\underbrace{\left(\rho_0 \cdot A 
 \cdot U_S \cdot \Delta t\right)}} \;
-\underset{\mbox{\footnotesize velocity}}{\underbrace{\left(U_P - 0
+\underset{\mbox{\footnotesize velocity}}{\underbrace{\left(u_P - 0
 \right)}}^2.
 \ee
 Finally, the increase in internal energy is just the internal energy 
-{\bf per unit mass}, $e$, multiplied by the mass, 
+{\bf per unit mass}, $\senergy$, multiplied by the mass, 
 \be
-IE = (e_1 - e_0)  \;
+IE = (\senergy_1 - \senergy_0)  \;
 \underset{\mbox{\footnotesize mass}}{\underbrace{\left(\rho_0
  \cdot A \cdot U_S \cdot \Delta t\right)}}.
 \ee
 Equating these quantities gives
 \be
-P_1 \cdot A \cdot U_P \cdot \Delta t = 
-\half \; \rho_0 \cdot A \cdot U_S \cdot \Delta t \cdot U_P^2 + 
-\left(e_1 - e_0\right) \; \rho_0 \cdot A \cdot U_S \cdot \Delta t
+P_1 \cdot \cancel{A} \cdot u_P \cdot \cancel{\Delta t} = 
+\half \; \rho_0 \cdot \cancel{A} \cdot U_S \cdot \cancel{\Delta t}
+\cdot u_P^2 + 
+\left(\senergy_1 - \senergy_0\right) \; \rho_0 
+\cdot \cancel{A} \cdot U_S \cdot 
+\cancel{\Delta t}
 \ee
 or simply
 \be
-\boxed{P_1 \; U_P = \rho_0 \; U_S \left(\frac{U_P^2}{2} + e_1 - e_0\right),
+\boxed{P_1 \; u_P = \rho_0 \; U_S \left(\frac{u_P^2}{2} + 
+\senergy_1 - \senergy_0\right),
 \hspace{1.0cm}
 \mbox{\bf{(Conservation of Energy)}.}}
 \label{eq:cons_energy}
 \ee
 The foregoing equation can be written without kinematic variables 
-$U_S$ and $U_P$. 
+$U_S$ and $u_P$. 
 Next, note that conservation of mass can be rewritten as 
 \be
-\frac{U_P}{U_S} = 1 - \frac{\rho_0}{\rho_1}.
+\frac{u_P}{U_S} = 1 - \frac{\rho_0}{\rho_1}.
 \label{eq:cons_mass_ratio}
 \ee
 Then, with (\ref{eq:cons_energy}),
 \begin{align}
-P_1 \; U_P 
+P_1 \; u_P 
 &\overset{(\ref{eq:cons_momentum})}{=} 
-\left(P_1 - P_0\right) \frac{U_P}{2} + \rho_0 \; U_S \; (e_1 - e_0), \\
-&= -P_0 \; U_P + 2 \; \rho_0 \; U_S \; (e_1 - e_0), \\
-(e_1 - e_0) &= \frac{U_P \; (P_1 + P_0)}{2 \; \rho_0 \; U_S}, \\
+\left(P_1 - P_0\right) \frac{u_P}{2} + \rho_0 \; U_S \; 
+(\senergy_1 - \senergy_0), \\
+&= -P_0 \; u_P + 2 \; \rho_0 \; U_S \; (\senergy_1 - \senergy_0), \\
+(\senergy_1 - \senergy_0) &= \frac{u_P \; (P_1 + P_0)}{2 \; \rho_0 \; U_S}, \\
 &\overset{(\ref{eq:cons_mass_ratio})}{=} 
 \left(\frac{P_1 + P_0}{2\;\rho_0}\right) \; 
 \left(1 - \frac{\rho_0}{\rho_1}\right), \\
 &\overset{(\ref{eq:specific_volume})}{=} 
-\left(\frac{P_1 + P_0}{2}\right) V_0 \left(1 - \frac{V_1}{V_0}\right), 
+\left(\frac{P_1 + P_0}{2/\svol_0}\right) 
+\left(1 - \frac{\svol_1}{\svol_0}\right), 
 \end{align}
 which simplifies to
 \be
-\boxed{e_1 - e_0 = \frac{-1}{2}
-\left(P_1 + P_0\right) \; (V_1 - V_0),
+\boxed{\senergy_1 - \senergy_0 = \frac{-1}{2}
+\left(P_1 + P_0\right) \; (\svol_1 - \svol_0),
 \hspace{1.0cm}
-\mbox{\bf{(Hugoniot equation)}.}}
+\mbox{\bf{(Rankine-Hugoniot curve)}.}}
 \label{eq:hugoniot}
 \ee
-The Hugoniot equation is the Conservation of Energy jump condition with
+The Rankine-Hugoniot equation is the Conservation of Energy jump condition with
 state variables alone; there are no kinematic variables in the equation.
-To plot the Hugoniot relationship in the $PV$ plane with $e_1 > e_0$, 
+To plot the Rankine-Hugoniot 
+relationship in the $P\svol$ plane with $\senergy_1 > \senergy_0$, 
 the initial state
-$(V_0, P_0)$ must be known.
+$(\svol_0, P_0)$ must be known.
 
 \subsubsection{Speed-Volume-Pressure Relationships}
 The alternative forms for mass conservation (\ref{eq:mass_conservation_alt})
-and momentum conservation (\ref{eq:momentum_conservation_alt}) readily 
-allow for the shock speed $U_S$ and particle speed $U_P$ to be written 
+and momentum conservation (\ref{eq:momentum_conservation_alt}), 
+when multiplied together or divided by one another, readily 
+allow for the shock speed $U_S$ and particle speed $u_P$ to be written 
 in terms of volume and pressure.  These relationship are found to be
 \be
- U_S = V_0 \sqrt{\dst\frac{P_1 - P_0}{-(V_1 - V_0)}} 
-     = V_0 \sqrt{\dst\frac{\Delta P}{-\Delta V}},
+ U_S = \svol_0 \sqrt{\dst\frac{P_1 - P_0}{-(\svol_1 - \svol_0)}} 
+     = \svol_0 \sqrt{\dst\frac{\Delta P}{-\Delta \svol}},
 	 \label{eq:shock_PV}
 \ee
 and
 \be
- U_P = \sqrt{- (P_1 - P_0) \; (V_1 - V_0)} = \sqrt{- \Delta P \; \Delta V}.
+ u_P = \sqrt{- (P_1 - P_0) \; (\svol_1 - \svol_0)} = 
+ \sqrt{- \Delta P \; \Delta \svol}.
  \label{eq:particle_PV}
 \ee
 
 
 \subsubsection{Alternative Formulations}
 Now we develop the {shock-fixed reference frame} equations for mass, 
-momentum, and energy conservation.
+momentum, and energy conservation. (To come.)
 
 
-\subsection{$PV$ Diagram}
-The $PV$ diagram shows pressure $P$ as a function of volume $V$.  
-Thus, the state variables $P$ and $V$ are considered in isolation from the 
+\subsection{$P\svol$ Diagram}
+The $P\svol$ diagram shows pressure $P$ as a function of specific volume 
+$\svol$.  
+Thus, the state variables $P$ and $\svol$ are considered in isolation from the 
 other state and kinematic variables.  The initial laboratory state is
-denoted $(V_0, P_0)$.  A large compressive pressure $P_1$ is applied to the
-material, which causes the volume to shrink to $V_1$.  If this applied pressure
+denoted $(\svol_0, P_0)$.  A large compressive pressure $P_1$ is applied to the
+material, which causes the volume to shrink to $\svol_1$.  
+If this applied pressure
 $P_1$ causes a shock, we record the pressure and volume state, and then
 repeat the experiment at a different pressure, e.g., $P_2$.  
-Several compression experiments are run, and the $PV$ states that created
-a shock in the material are recorded in the $PV$ diagram.  
+Several compression experiments are run, and the $P\svol$ states that created
+a shock in the material are recorded in the $P\svol$ diagram.  
 
 For concreteness, 
 we show four experiments with applied pressures $P_1 \ldots P_4$ and 
-resultant volumes $V_1 \ldots V_4$, shown in Fig.~\ref{fig:PV_diagram}.
+resultant volumes $\svol_1 \ldots \svol_4$, shown in Fig.~\ref{fig:PV_diagram}.
 Note that all experiments start from the same initial pressure $P_0$ 
-and initial volume $V_0$.  
+and initial specific volume $\svol_0$.  
 
 \begin{figure}[htb]
   \begin{center}
   %\begin{overpic}[width=0.8\textwidth, grid, tics=10]{fig/PV_diagram}
   \begin{overpic}[width=0.8\textwidth]{fig/PV_diagram}
     \put( 6, 2){$O$}
-    \put(76, 4){$V$}
+    \put(76, 4){$\svol$}
     \put( 6,74){$P$}
-    \put(15, 1){$V_4$}
-    \put(25, 1){$V_3$}
-    \put(32.5, 1){$V_2$}
-    \put(42.5, 1){$V_1$}
-    \put(60.5, 1){$V_0$}
+    \put(15, 1){$\svol_4$}
+    \put(25, 1){$\svol_3$}
+    \put(32.5, 1){$\svol_2$}
+    \put(42.5, 1){$\svol_1$}
+    \put(60.5, 1){$\svol_0$}
     \put( 2, 15){$P_0$}
     \put( 2, 26){$P_1$}
     \put( 2, 35.5){$P_2$}
     \put( 2, 45){$P_3$}
     \put( 2, 62){$P_4$} 
-    \put(27, 68.8){\bf Hugoniot}
-    \put(35, 55){slope $= \dst\frac{\Delta P}{\Delta V} = \frac{P_4 - P_0}{V_4 - V_0}$}
+    \put(27, 68.8){\bf Rankine-Hugoniot curve}
+    \put(35, 55){slope $= \dst\frac{\Delta P}{\Delta \svol} 
+    = \frac{P_4 - P_0}{\svol_4 - \svol_0}$ of the {\bf Rayleigh line}}
     \put(64, 22){increasing shock speed $U_S$}
   \end{overpic}
   \end{center}
@@ -309,20 +491,23 @@ and initial volume $V_0$.
 
 These four thermodynamic states lie on a locus of all possible 
 thermodynamic states that can exist in the material behind a shock.  This
-locus is referred to as the {\bf shock Hugoniot}.  
+locus is referred to as the {\bf shock Hugoniot}.  The curve connecting the
+locus is the {\bf Rankine-Hugoniot curve}.  The line connecting two end
+states is the {\bf Rayleigh line}.
 
-It is important to emphasize that the locus {\bf is not} the path taken
+It is important to emphasize that the Rankine-Hugoniot curve
+{\bf is not} the path taken
 by the material between two thermodynamic states.  
 
 Note that (\ref{eq:shock_PV}) describes the mathematical increase in shock
 speed with increasing slope 
 of the Hugoniot, indicated in Fig.~\ref{fig:PV_diagram}.
 Specifically, the slope of the Hugoniot goes as the negative squared value
-of the shock speed $U_S$ per initial volume $V_0$, or
+of the shock speed $U_S$ per initial specific volume $\svol_0$, or
 \be
-\dst\frac{\Delta P}{\Delta V} = -\left(\frac{U_S}{V_0}\right)^2.
+\dst\frac{\Delta P}{\Delta \svol} = -\left(\frac{U_S}{\svol_0}\right)^2.
 \ee
 
 
-\subsection{$PU_P$ Diagram}
+\subsection{$Pu_P$ Diagram}
 
