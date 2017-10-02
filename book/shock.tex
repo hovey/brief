@@ -1,6 +1,8 @@
 \newcommand{\svol}{\mathcal{V}}  % specific volume
 \newcommand{\senergy}{\mathcal{E}} % specific total energy
-
+\newcommand{\IE}{\mathcal{I}} % internal energy
+\newcommand{\KE}{\mathcal{K}} % kinetic energy
+\newcommand{\PE}{\mathcal{P}} % potential energy
 
 
 \section{Elastodynamics}
@@ -15,8 +17,10 @@ We require $B > 0$, and since $V > 0$, then $dP/dV < 0$.
 This results in behaviors observed physically, namely that, all else being
 equal, 
 \begin{itemize}
-\item increases in pressures cause decreases in volumes (and vice versa), and
-\item increases in volumes cause decreases in pressure (and vice versa).
+\item increase in pressure causes decrease in volume, and vice versa, 
+$\uparrow P \Longleftrightarrow \;\downarrow V$, and
+\item increase in volume causes decrease in pressure, and vice versa, 
+$\uparrow V \Longleftrightarrow \;\downarrow P$.
 \end{itemize}
 Using the definition of density $\rho \defe m / V$, 
 \be
@@ -41,27 +45,24 @@ that, all else being equal,
 
 
 \subsection{Properties}
-Thermodynamics properties can be divided into two categories: {\bf intrinsic} 
-and
-{\bf extrinsic}.  Intrinsic properties are 
+Thermodynamics properties can categorized as either {\bf intensive} 
+or {\bf extensive}.  
 \begin{itemize}
-\item independent of, and therefore not 
-proportional to, the size or sample of the material,
-\item also known as {\em intensive} properties, and 
-\item also known as {\em bulk} properties.
+\item Intensive properties are independent of, and therefore not 
+proportional to, the size or sample of the material.
+Intensive properties are also referred to as {\bf intrinsic} properties
+or, equivalently, as {\bf bulk} properties.
+\item In contrast, extensive properties are 
+dependent on, and therefore proportional
+to, the size or sample of the material.  
+Extrinsic properties are also referred to as {\bf extrinsic} properties.
 \end{itemize}
-In contrast, extrinsic properties are 
-\begin{itemize}
-\item dependent on, and therefore proportional
-to, the size or sample of the material, and 
-\item also known as {\em extensive} properties.
-\end{itemize}
-
 
 Figure~\ref{fig:intrinsic_props} demonstrates the independence of intrinsic
 properties and the dependence of extrinsic properties on the control volume, 
 designated with the dashed lines.  The original control volume, on the left
-side of the figure, is halved into two equal-sized control volumes on the 
+side of the figure, is divided into two equal-sized control volumes, as 
+shown on the 
 right side of the figure.  The intrinsic properties do not depend on the 
 size of the control volume.  The extrinsic properties, however, are now
 scaled by a factor of $\half$.
@@ -90,10 +91,14 @@ scaled by a factor of $\half$.
   specific.}
   \label{fig:intrinsic_props}
 \end{figure}
-It is often convenient to speak of extrinsic properties that are {\em 
-independent} of size or sample of the material.  To achieve this, the
-extrinsic properties are divided by the mass of the sample, referred to 
-as specific extrinsic properties.  Two common examples of specific properties
+
+It is often convenient to speak of extrinsic properties in away that makes
+them {\em independent} of size or sample of the material.  
+To achieve this, the
+extrinsic properties are divided by the mass of the sample. 
+This ratio is referred to 
+as the specific extrinsic property.  
+Two common examples of specific properties
 are the {\bf specific volume} and {\bf specific energy}, defined as 
 \be
 \svol \defe \frac{V}{m} = \frac{1}{\rho},
@@ -107,17 +112,17 @@ and
 
 \subsection{First Law of Thermodynamics}
 The first law for a closed system states the change in internal
-energy $\Delta IE$ is equal to the net energy $Q$ added to the system as heat
+energy $\Delta \IE$ is equal to the net energy $Q$ added to the system as heat
 less the net work $W$ done {\bf by} the system.
 \be
-\Delta IE = Q - W.
+\Delta \IE = Q - W.
 \ee
-This is the sign convention used by Joule and Clausius.
-A different sign convention, used by Max Planck, stated that 
-the change in internal energy $\Delta IE$ is equal to the net energy $Q$
+This was the sign convention used by Joule and Clausius.
+A different sign convention, used by Planck, stated that 
+the change in internal energy $\Delta \IE$ is equal to the net energy $Q$
 added to the system as heat plus the net work done {\bf on} the system.
 \be
-\Delta IE = Q + W.
+\Delta \IE = Q + W.
 \ee
 Thus, all net transfers {\bf to} the system are {\bf positive}.  In 
 contrast, all net transfers {\bf from} the system are {\bf negative}.
@@ -125,10 +130,10 @@ contrast, all net transfers {\bf from} the system are {\bf negative}.
 Then, the conservation of energy principle for open systems can be
 written as
 \be
-\Delta E = \Delta (KE + IE + PE) = Q + W,
+\Delta E = \Delta (\KE + \IE + \PE) = Q + W,
 \ee
-where the total energy $E$ is the sum of the kinetic energy $KE$, 
-the internal energy $IE$, and the potential energy $PE$.  The
+where the total energy $E$ is the sum of the kinetic energy $\KE$, 
+the internal energy $\IE$, and the potential energy $\PE$.  The
 change in total energy is equal to the net energy $Q$ added to the system
 as heat plus the net work $W$ done {\bf on} the system.
 
@@ -173,19 +178,25 @@ For a reversible process, the first and second laws can be combined as
 \subsection{Thermodynamic Potentials}
 \subsubsection{Variables}
 \begin{tabular}{cll}
-$P$ & pressure &  (units to come) \\
-$V$ & volume & \\
-$T$ & temperature & \\
-$S$ & entropy & 
+$P$ & pressure &  (N/m$^2$) \\
+$V$ & volume & (m$^3$)\\
+$T$ & temperature & (K) \\
+$S$ & entropy & (J/K) 
 \end{tabular}
 
 \subsubsection{Potentials}
-\begin{tabular}{cll}
-$E$ & internal energy & Joules \\
-$F$ & Helmholtz free energy & Joules \\
-$G$ & Gibbs free energy & Joules \\
-$H$ & enthalpy & Joules 
+
+\begin{tabular}{clll}
+$E$ & & (?internal only?) energy & (J) \\
+$F$ &$\defe \; E - TS$ & Helmholtz free energy & (J) \\
+$G$ &$\defe \; H - TS$ & Gibbs free energy & (J) \\
+$H$ &$\defe \; E + PV$ & enthalpy & (J) 
 \end{tabular}
+
+\vspace{2em}
+The {\bf Helmholtz} free energy $F$ is the Legendre transform
+of the (?internal?) energy $E$, where the entropy $S$ is replaced by
+the temperature $T$ as the independent variable.  
 
 \subsubsection{Differential Forms of Potentials}
 \begin{tabular}{rcrcrl}
@@ -195,6 +206,30 @@ $dG$ &=& $-S \;dT$ & $+$ & $V \;dP$   & xx \\
 $dH$ &=& $ V \;dP$ & $+$ & $T \;dS$   & xx 
 \end{tabular}
 
+\begin{figure}[htb]
+  \begin{center}
+  %\begin{overpic}[width=0.7\textwidth, grid, tics=10]{fig/thermo_potentials}
+  \begin{overpic}[width=0.7\textwidth]{fig/thermo_potentials}
+    \put(48, 61){$dE$}
+    \put(35, 48){$dF$}
+    \put(48, 35){$dG$}
+    \put(60, 48){$dH$}
+    \put(30, 65){$-dV$}
+    \put(14, 84){$P$}
+    \put(30, 32){$-dT$}
+    \put(14, 13){$S$}
+    \put(64, 32){$dP$}
+    \put(84, 13){$V$}
+    \put(64, 65){$dS$}
+    \put(84, 84){$T$}
+    \put(30, 76.5){\footnotesize negative}
+    \put(58, 76.5){\footnotesize positive}
+  \end{overpic}
+  \end{center}
+  \caption{Mnemonic for the quick recall of the thermodynamic potentials
+  in differential form.}
+  \label{fig:thermo_potentials}
+\end{figure}
 
 \subsection{Maxwell Equations}
 \begin{align}
@@ -213,7 +248,6 @@ $dH$ &=& $ V \;dP$ & $+$ & $T \;dS$   & xx
 \left( \frac{\partial H}{\partial P} \right)_S = V & \hspace{1.5cm}
 \left( \frac{\partial H}{\partial S} \right)_P = T 
 \end{align}
-
 
 \section{Shock}
 
