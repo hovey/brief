@@ -231,23 +231,89 @@ $dH$ &=& $ V \;dP$ & $+$ & $T \;dS$   & xx
   \label{fig:thermo_potentials}
 \end{figure}
 
-\subsection{Maxwell Equations}
+\subsection{Maxwell Relations}
+The Maxwell relations are a statement of equality between
+{\em first} derivative of a function because of a quality possessed by 
+the {\em second} derivative of that function.  Specifically, 
+the Maxwell relations equate {\em first} derivatives of the thermodynamic
+potential functions $E, F, G,$ and $H$, 
+because the {\em second} derivates of those
+same functions does not depend on the order of differentiation
+with respect to the thermodynamic variables $P, V, T,$ and $S$.
+
+The Maxwell relations make use of the {\bf Schwarz theorem}, which 
+states that if function $f : \real^2 \mapsto \real$ has continuous 
+second partial derivatives at a given point $\vp \in \real^2 = 
+\left\{p_1, p_2\right\}^T$,\footnote{This relationship can be 
+extended to general dimensionality of 
+$f : \real^n \mapsto \real$, but this higher dimensionality is not used
+in the development that follows.}
+then 
+\be
+ \dst\frac{\partial^2 f(\vp)}{\partial x_i \; \partial x_k} = 
+ \dst\frac{\partial^2 f(\vp)}{\partial x_k \; \partial x_i}
+ \hspace{1.0cm}\mbox{\bf (Commutative)}
+\ee
+The Schwarz theorem establishes that the result of differentiation
+of a function of two variables is independent of the order of 
+that differentiation.
+
+With this context in mind, consider now the {\em first} derivatives 
+of the thermodynamic potentials with respect to their natural variables.
+Specifically, we can write the four thermodynamic potentials as functions
+of their natural variables:
 \begin{align}
-\left( \frac{\partial E}{\partial S} \right)_V = T & \hspace{1.5cm}
-\left( \frac{\partial E}{\partial V} \right)_S = -P \\ 
+ E &= E(S, V), \\
+ F &= F(V, T), \\
+ G &= G(T, P), \\
+ H &= H(P, S). 
+\end{align}
+Next, we take {\em first} derivatives of these potentials:
+\begin{align}
+\left( \frac{\partial E}{\partial S} \right)_V = T, & \hspace{1.5cm}
+\left( \frac{\partial E}{\partial V} \right)_S = -P, \\ 
 & \nonumber \\ 
 %
-\left( \frac{\partial F}{\partial V} \right)_T = -P & \hspace{1.5cm}
-\left( \frac{\partial F}{\partial T} \right)_V = -S \\
+\left( \frac{\partial F}{\partial V} \right)_T = -P, & \hspace{1.5cm}
+\left( \frac{\partial F}{\partial T} \right)_V = -S, \\
 & \nonumber \\
 %
-\left( \frac{\partial G}{\partial T} \right)_P = -S & \hspace{1.5cm}
-\left( \frac{\partial G}{\partial P} \right)_T = V \\ 
+\left( \frac{\partial G}{\partial T} \right)_P = -S, & \hspace{1.5cm}
+\left( \frac{\partial G}{\partial P} \right)_T = V, \\ 
 & \nonumber \\ 
 %
-\left( \frac{\partial H}{\partial P} \right)_S = V & \hspace{1.5cm}
-\left( \frac{\partial H}{\partial S} \right)_P = T 
+\left( \frac{\partial H}{\partial P} \right)_S = V, & \hspace{1.5cm}
+\left( \frac{\partial H}{\partial S} \right)_P = T. 
 \end{align}
+Finally, we take {\em second} derivatives of the potential functions
+with respect to the natural variables, which
+allows for the {\em first} derivatives of the natural variables with 
+respect to the natural variables themselves to be equated, as follows:
+\be
+ \frac{\partial^2 E}{\partial V \; \partial S} \implies 
+ \left(\frac{  \partial T}{\partial V}\right)_S = 
+ \left(\frac{- \partial P}{\partial S}\right)_V
+\ee
+\be
+ \frac{\partial^2 F}{\partial T \; \partial V} \implies 
+ \left(\frac{- \partial P}{\partial T}\right)_V = 
+ \left(\frac{- \partial S}{\partial V}\right)_T
+\ee
+\be
+ \frac{\partial^2 G}{\partial P \; \partial T} \implies 
+ \left(\frac{- \partial S}{\partial P}\right)_T = 
+ \left(\frac{  \partial V}{\partial T}\right)_P
+\ee
+\be
+ \frac{\partial^2 H}{\partial S \; \partial P} \implies 
+ \left(\frac{  \partial V}{\partial S}\right)_P = 
+ \left(\frac{  \partial T}{\partial P}\right)_S
+\ee
+The foregoing equations are useful for eliminating entropy $S$, which 
+is difficult to measure in a laboratory setting, in favor of the 
+other natural variables pressure $P$, volume $V$, and temperature $T$, 
+all of which are relatively easier to measure.
+
 
 \section{Shock}
 
