@@ -1,6 +1,11 @@
 
 \section{Balance Laws}
 
+%\newcommand{\phibar}{\bar{\phi}}
+%\newcommand{\phistar}{\overset{*}{\phi}}
+\newcommand{\phistar}{\phi^*}
+\newcommand{\phihat}{\hat{\phi}}
+
 In this section, we posit the {\bf Master Balance Law} 
 in general form.  Also called ``conservation of anything,'' this
 description assumes an arbitrary control volume $V \in \realthree$
@@ -33,10 +38,10 @@ Now, let
 \item $\phi(\vx, t)$ be the description of some physical quantity 
 per unit volume, which can in general be a scalar, vector, or tensor quantity, 
 
-\item $g(\vx, t)$ be the generation (depletion) {\em rate} of the 
+\item $\phistar(\vx, t)$ be the generation (depletion) {\em rate} of the 
 physical quantity per unit volume, 
 
-\item $f(\vx, t)$ be the physical quantity per unit area 
+\item $\phihat(\vx, t)$ be the physical quantity per unit volume 
 that flows across the boundary with rate (velocity) $\vv(\vx, t)$, and 
 
 \item $\partial V$ be the boundary of the control volume, 
@@ -56,22 +61,25 @@ These words, stated mathematically, are
  \int_{V} \phi(\vx,t) \; dV}}
   \;\; = \;\;  
    \underset{\mbox{\footnotesize source}}{\underbrace{\int_{V} 
-   g(\vx,t) \; dV}}
+   \phistar(\vx,t) \; dV}}
    \;\; - \;\;
    \underset{\mbox{\footnotesize flux}}{\underbrace{\int_{\partial V} 
-   \left[f(\vx,t) \; \vv(\vx,t) \right] \cdot \vnhat \; dA}}
+   \left[\phihat(\vx,t) \; \vv(\vx,t) \right] \cdot \vnhat \; dA}}
    ,
 \ee
 which is the general form of the 
-{\bf Master Balance Law}.  We adopt the following sign convention to impart consistency:
+{\bf Master Balance Law}.  We adopt the following sign convention 
+to impart consistency:
 \begin{itemize}
 \item For positive time rate of change of the quantity $\phi(\vx,t)$, 
-the generation $g(\vx,t)$ is trivially positive.  
-For quantity $f(\vx,t)$ carried
+the generation $\phistar(\vx,t)$ is trivially positive.  
+For quantity $\phihat(\vx,t)$ carried
 {\em into} the control volume, the inner product of $\vv$ with $\vnhat$ is
 negative, thus a negative outside of the flux integral is used.  
-\item Likewise, for a negative time rate of change of quantity $\phi(\vx,t)$, 
-the generation $g(\vx,t)$ is negative.  And, for the quantity $f(\vx,t)$ 
+\item Likewise, for a negative time rate of change of 
+quantity $\phi(\vx,t)$, 
+the generation $\phistar(\vx,t)$ is negative.  
+And, for the quantity $\phihat(\vx,t)$ 
 carried {\em out of} the control volume, the inner product of $\vv$ with
 $\vnhat$ is positive, thus the negative outside of the flux integral 
 provides sign consistency.  
@@ -87,8 +95,8 @@ metaphor, we assume flux does not occur via the western seaboard nor via the air
 Let $\phi$ be the number of people living in the state of California.
 The change in population $\Delta \phi$ over some time interval $\Delta t$ 
 is equal to the 
-net generation rate $g$ (number of births less the number of deaths
-in the time interval), plus the net population flux rate $f \vv$
+net generation rate $\phistar$ (number of births less the number of deaths
+in the time interval), plus the net population flux rate $\phihat \vv$
 (the number of people moving to California less
 the number of people moving from California within the time interval).
 
@@ -110,7 +118,7 @@ The idea, stated mathematically, is
  \int_{V} \rho(\vx,t) \; dV}}
   \;\; = \;\;  
    \underset{\mbox{\footnotesize source = 0}}{\underbrace{\int_{V} 
-   g(\vx,t) \; dV}}
+   \rho^*(\vx,t) \; dV}}
    \;\; - \;\;
    \underset{\mbox{\footnotesize flux}}{\underbrace{\int_{\partial V} 
    \left[\; \rho(\vx,t) \; \vv(\vx,t) \; \right] \cdot \vnhat(\vx,t) \; dA}}
