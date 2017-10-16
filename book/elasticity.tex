@@ -1,0 +1,190 @@
+
+\section{Elastodynamics}
+
+
+
+
+\subsection{Nonlinear Elastodynamics}
+
+The bulk modulus $B$, a measure of local compressibility of a substance, is
+defined as the ratio of infinitesimal change in pressure $dP$ caused by an
+infinitesimal change in volume $dV$, at a given volume $V$
+\be 
+B \defe - V \dst\frac{dP}{dV}.
+\ee
+We require $B > 0$, and since $V > 0$, then $dP/dV < 0$.
+This results in behaviors observed physically, namely that, all else being
+equal, 
+\begin{itemize}
+\item increase in pressure causes decrease in volume, and vice versa, 
+$\uparrow P \Longleftrightarrow \;\downarrow V$, and
+\item increase in volume causes decrease in pressure, and vice versa, 
+$\uparrow V \Longleftrightarrow \;\downarrow P$.
+\end{itemize}
+Using the definition of density $\rho \defe m / V$, 
+\be
+\frac{d\rho}{dV} = \frac{-m}{V^2},
+\ee
+and
+\be
+\frac{dP}{dV} = \frac{dP}{d\rho}\frac{d\rho}{dV},
+\ee
+the bulk modulus $B$ may also be written as
+\be
+B = \rho \frac{dP}{d\rho}.
+\ee
+Since $B > 0$ and $\rho > 0$, then $dP/d\rho > 0$.  This result physically means
+that, all else being equal, 
+\begin{itemize}
+\item increases in pressure cause increases in density (and vice versa), and
+\item increases in density cause increases in pressure (and vice versa).
+\end{itemize}
+
+
+
+
+
+
+\subsection{Linear Elastodynamics}
+Linear elastodynamics begins with nonlinear elastodynamics, and adds progressively
+simplifying (and thus, restrictive) assumptions.  The first assumption will be regarding
+linearity of displacement gradients.  
+\begin{itemize}
+\item {\bf Assumption 1:} Second-order and higher displacment gradients are 
+neglible,  
+\end{itemize}
+which restricts the stress-response function to be a special 
+case of the fully general stress response function
+\be
+ \tPbold = \tPbold (\tFbold).
+\ee
+Rewriting the foregoing stress-response function in terms of the displacement 
+gradient,
+\be
+ \tPbold(\tFbold) = \tPbold(\vid + \Grad \vu),
+\ee
+gives an expression that can be cast in terms of a Taylor series expansion, 
+\begin{align}
+ f(x_0 + \Delta x) &= f(x_0) + f'(x_0) \Delta x + \frac{f''(x_0)}{2!} (\Delta x)^2 + 
+ \mbox{\footnotesize H.O.T.}, \\
+ &= \sum_{j=0}^{\infty} \frac{f^j(x_0)}{j!} (\Delta x)^j.
+\end{align}
+Then 
+\be
+ \tPbold(\vid + \Grad \vu) = \tPbold(\vid) + \frac{\partial \tPbold(\vid)}{\partial \tFbold}
+ \Grad \vu + \mathcal{O}\left[(\Grad \vu)^2\right].
+\ee
+Next, we make another assumption,
+\begin{itemize}
+\item {\bf Assumption 2:} The initial state is stress free, thus $\tPbold(\vid) = \vzero$.
+\end{itemize}
+The fourth-order elasticity tensor $\fotC$ is defined as,
+\be
+ \fotC \defe \frac{\partial \tPbold(\vid)}{\partial \tFbold}.
+\ee
+Symmetry of the elasticity tensor provides
+\be
+ \fotC \; : \; \Grad \vu \;\;=\;\; \fotC \; : \; \mbox{\sym}(\Grad \vu).
+\ee
+Finally, 
+\be 
+ \mbox{\sym}(\Grad \vu) = \half(\Grad \vu + \Grad \vu\transpose) = \ve{\epsilon}.
+\ee
+These results give
+\be
+\tPbold(\vid + \Grad \vu) = \vzero \;\;+\;\; \fotC \; : \; \ve{\epsilon} \;\;+\;\; 
+ \mbox{\footnotesize H.O.T.},
+\ee
+or simply
+\be
+\tPbold(\vid + \Grad \vu) \overset{{\mbox{\footnotesize(LIN)}}}{=} 
+\tPbold_{\mbox{\tiny{LIN}}} (\ve{\epsilon}) = \fotC \; : \; \ve{\epsilon}.
+\ee
+Next, we can make another limiting assumption, 
+\begin{itemize}
+\item {\bf Assumption 3:} The material is {\bf isotropic},
+\end{itemize}
+which allows the stress-repsonse function to be written in terms 
+of two Lam\'{e} parameters $\lambda$ and $\mu$ as
+\be
+ \tPbold_{\mbox{\tiny{LIN}}} (\ve{\epsilon}) 
+ = \lambda \; \trace(\ve{\epsilon}) \; \vid + 2 \; \mu \; \ve{\epsilon}.
+\ee
+Next, we make another assumption, 
+\begin{itemize}
+\item {\bf Assumption 4:} The material is {\bf homogeneous},
+\end{itemize}
+thus $\rho_0$, $\lambda$, and $\mu$ are constants with respect to the position $\vX$ in the
+body.
+
+In the conservation of momentum equation, the divergence of the stress tensor appears.
+Thus, we find
+\begin{align}
+\Grad \cdot \tPbold_{\mbox{\tiny{LIN}}} (\ve{\epsilon})
+&= \Grad \cdot \left(
+\lambda \; \trace(\ve{\epsilon}) \; \vid \;\;+\;\; 2 \; \mu \; \ve{\epsilon}
+\right) \\
+&= \lambda \; \Grad \left(\Grad \cdot \vu \right) \;\;+\;\; 
+\mu \left[ 
+ \Grad \cdot \left(\Grad \vu \right) + \Grad \left(\Grad \cdot \vu \right)
+\right], \\
+&= (\lambda + \mu) \; \Grad \left(\Grad \cdot \vu \right) \;\;+\;\; \mu \; \Grad \cdot \left(\Grad \vu \right).
+\end{align}
+Now, since
+\be
+\Grad \cdot \left( \Grad \vu \right) = \Grad \left( \Grad \cdot \vu \right) - 
+\left( \Grad \times \Grad \times \vu \right),
+\ee
+we can write
+\be
+\Grad \cdot \tPbold_{\mbox{\tiny{LIN}}} (\ve{\epsilon})
+ = \underset{\mbox{\footnotesize dilitational}}{\underbrace{(\lambda + 2\mu) \; \Grad \left(\Grad \cdot \vu \right)}}
+ \;\;-\;\; 
+ \underset{\mbox{\footnotesize rotational}}{\underbrace{\mu \; \left(\Grad \times \Grad \times \vu \right)}}
+\ee
+Finally, we make another assumption
+\begin{itemize}
+\item {\bf Assumption 5:} The {\bf body force} is 
+{\bf negligible}, thus $\vb_0 = \vzero$.
+\end{itemize}
+This final assumption allows the {\bf progressive wave equation for solids} to be 
+written as
+\be
+ \rho_0 \; \ddot{\vu}  
+ = 
+ \underset{\mbox{\footnotesize dilitational}}{\underbrace{(\lambda + 2\mu) \; \Grad \left(\Grad \cdot \vu \right)}}
+ \;\;-\;\; 
+ \underset{\mbox{\footnotesize rotational}}{\underbrace{\mu \; \left(\Grad \times \Grad \times \vu \right)}}
+\ee
+There are two wave speeds: the longitudinal sound speed $c_L$ and the transverse
+sound speed $c_T$.  
+\begin{align}
+ c_L &= \sqrt{\dst\frac{\lambda + 2 \; \mu}{\rho_0}} \hspace{1.0cm} \mbox{\bf (longitudinal
+ or P-wave)}, \\
+ c_T &= \sqrt{\dst\frac{\mu}{\rho_0}} \hspace{1.9cm} \mbox{\bf (transverse of S-wave)}.
+\end{align}
+The longitudinal sound speed is faster than the transverse sound speed.
+
+The bulk modoulus $B$ is related to the Lam\'{e} constants $\lambda$ and $\mu$ through
+\be
+B = \lambda + \frac{2\mu}{3}.
+\ee
+Substituting for $B$ in the longitudinal sound speed gives
+\be
+c_L = \sqrt{\dst\frac{B + 4 \; \mu / 3}{\rho_0}} \hspace{1.0cm} \mbox{\bf (longitudinal
+ or P-wave)}.
+\ee
+
+
+
+
+
+
+
+
+
+
+
+
+
+

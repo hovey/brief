@@ -1,0 +1,83 @@
+
+\section{Mathematical Preliminaries}
+%====================
+As defined by Gurtin,\footnote{Gurtin ME. An introduction to 
+continuum mechanics. Academic press; 1982, Vol.~158, Jan 12.}
+\begin{itemize}
+\item \lin =  the set of all tensors
+\item \linplus =  the set of all sensors $\vS$ with $\det \vS > 0$
+\item \sym =  set of all symmetric tensors
+\item \skw =  set of all skew tensors
+\item \psym =  set of all positive definite, symmetric tensors
+\item \orth =  set of all orthogonal tensors
+\item \orthplus =  set of all rotations  
+\end{itemize}
+
+
+
+As defined by Curnier,\footnote{Curnier A. Computational methods 
+in solid mechanics. Springer Science \& Business Media; 2012 Dec 6.}
+for all second-order tensors $\vS \in$~\lin, 
+the {\bf tracor} $\mathbb{T}$ and {\bf deviator} $\mathbb{D}$ 
+are fourth-order tensors are defined as
+\be
+ \mathbb{T} \defe \frac{1}{3} \delta_{ij} \delta_{kl} \; 
+ \veeihat \otimes
+ \veejhat \otimes 
+ \veekhat \otimes
+ \veelhat 
+\ee
+such that 
+\be
+ \mathbb{T} \; \vddiv \; \vS = \vS_{\smvol} 
+ \defe \frac{1}{3} \trace(\vS)\vid, 
+\ee
+and
+\be
+ \mathbb{D} \defe 
+ \left(
+ \frac{1}{2} \delta_{ik} \delta_{jl} +
+ \frac{1}{2} \delta_{il} \delta_{jk} - 
+ \frac{1}{3} \delta_{ij} \delta_{kl} \; 
+ \right)
+ \veeihat \otimes
+ \veejhat \otimes 
+ \veekhat \otimes
+ \veelhat 
+\ee
+such that
+\be
+ \mathbb{D} \; \vddiv \; \vS = \vS_{\smdev}, 
+ \defe \vS - \frac{1}{3} \trace(\vS)\vid.
+\ee
+Note, there are two other fourth-order tensors often used, 
+the {\bf symmetrizer} $\mathbb{S}$ and the {\bf skewer} $\mathbb{W}$
+defined, respectively, as 
+\be
+ \mathbb{S} \defe 
+ \frac{1}{2}
+ \left(
+ \delta_{ik} \delta_{jl} +
+ \delta_{il} \delta_{jk} 
+ \right)
+ \veeihat \otimes
+ \veejhat \otimes 
+ \veekhat \otimes
+ \veelhat,
+\ee
+and
+\be
+ \mathbb{W} \defe 
+ \frac{1}{2}
+ \left(
+ \delta_{ik} \delta_{jl} -
+ \delta_{il} \delta_{jk} 
+ \right)
+ \veeihat \otimes
+ \veejhat \otimes 
+ \veekhat \otimes
+ \veelhat.
+\ee
+
+
+

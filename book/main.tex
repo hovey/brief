@@ -31,7 +31,10 @@
 % -------
 
 %\include{include/Hformatams}
-\include{Hformatams}
+%\include{Hformatams}
+% 2017-10-16 Too many version of Hformatams floating around, so 
+% rename the format file used for the book to
+\include{h_math_ams}
 % BEGIN float definitions for boxes
 \usepackage{float}
 \floatstyle{boxed}
@@ -134,10 +137,12 @@
 %
 %\include{include/Hformatams}
 \include{introduction}
+  \include{math}
 %
 \include{formulation}
-%  \include{continuum}
+  \include{continuum}
   \include{balance} 
+  \include{elasticity}
 %  \include{plasticity}
 %  \include{contact002}
   \include{shock}

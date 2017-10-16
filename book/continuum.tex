@@ -255,7 +255,7 @@ From the displacement field in
 the relationship between the displacement gradient and the 
 deformation gradient is given by
 \be
-\Grad \vu = \Grad \vvarphi - \vid = \vF - \vid.
+\Grad \vu = \Grad \vvarphi - \vid = \tFbold - \vid.
 \ee
 
 \section{Strain}
@@ -269,7 +269,7 @@ strain tensor
  \;\; \Longleftrightarrow \;\;
  \tC_{IJ} 
  \defe 
- \tF_{Ii} \tF_{iJ}. 
+ \tF_{Ii} \; \tF_{iJ}. 
 \end{equation}
 The right Cauchy-Green strain tensor $\tCbold$ gets its name from the 
 fact that the deformation gradient $\tFbold$ sits to the right.  
@@ -294,7 +294,7 @@ sitting on the left.
 \be
  \tbbold \defe \tFbold \tFbold\transpose
  \;\; \Longleftrightarrow \;\;
- \tb_{ij} \defe \tF_{iJ} \tF_{Jj}.
+ \tb_{ij} \defe \tF_{iJ} \; \tF_{Jj}.
  \label{eq:left_cauchy_green}
 \ee
 Note that this strain measure is defined in the current 
@@ -350,8 +350,8 @@ $\ve{\epsilon}$ by combining (\ref{eq:left_cauchy_green}) and
 \begin{align}
  \tebold &=
      \half \left( \vid - \left[ \Grad \vvarphi 
-     (\Grad \vvarphi)\transpose \right]^{-1} \right) 
-     = 
+     (\Grad \vvarphi)\transpose \right]^{-1} \right) \nonumber \\
+     &= 
      \half \left( \delta_{ij} 
        - \left[ \frac{\partial \varphi_i}{\partial X_J}
                 \frac{\partial \varphi_j}{\partial X_J}
@@ -380,6 +380,38 @@ $\ve{\epsilon}$ by combining (\ref{eq:left_cauchy_green}) and
 \end{align}
 where higher-order (quadratic) term in (\ref{eq:b_expanded}) is set
 to zero to achieve (\ref{eq:small_strain_two}).
+
+
+\subsection{Seth-Hill Strain Tensor Family}
+Seth and Hill showed that the 
+Lagrangian (Green) and Eulerian (Almansi)
+strain tensors are special cases of the so-called
+Seth-Hill family of strain measures, defined as
+\be
+ \tEbold_{(m)} \defe \frac{1}{2 m}
+ \left(\tUbold^{2 m} - \vid \right)
+ = 
+ \frac{1}{2 m} 
+ \left(\tCbold^m - \vid \right).
+\ee
+Then
+\begin{align}
+ \tEbold_{(1)} = 
+ \half \left(\tUbold^{2} - \vid \right) = 
+ \half \left(\tCbold - \vid \right) 
+ & \hspace{1cm} \mbox{{\bf Lagrangian (Green)}}, \\
+ \tEbold_{(1/2)} = 
+ \left(\tUbold - \vid \right)  = 
+ \left(\sqrt{\tCbold} - \vid \right) 
+ & \hspace{1cm} \mbox{{\bf Biot}}, \\
+\tEbold_{(0)} = 
+ \ln\tUbold   = 
+ \half \ln\tCbold
+ & \hspace{1cm} \mbox{{\bf Logarithmic, Natural, True, Hencky}}, \\
+\tEbold_{(-1)} = \half 
+ \left(\vid - \tUbold^{(-2)} \right) 
+ & \hspace{1cm} \mbox{{\bf Eulerian (Almansi)}}.
+\end{align}
 
 
 \section{Stress}
