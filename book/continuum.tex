@@ -4,8 +4,7 @@
 Let body $\cB$ be an open, bounded subset of three-dimensional           
 Euclidean space $\realnsd$ with boundary $\partial \cB$.                 
 The number of space dimensions, $\nsd$, is assumed equal                    
-to three unless stated otherwise.\footnote{The current Python 
-implementation is limited to two space dimensions, not three.}
+to three unless stated otherwise.
 The boundary is decomposed within a particular space dimension into         
 two non-overlapping subdomains, $\Gamma_u$ and $\Gamma_{\sigma}$        
 where displacements or tractions are prescribed.  Thus                      
@@ -316,21 +315,22 @@ and is often used in defining constitutive
 law relationships because the measure, when linearized
 about the reference configuration, coincides with the
 small strain tensor of linear deformation elasticity, 
-denoted~$\ve{\epsilon}$.
+denoted~$\ve{\epsilon}$ and defined in (to come).
 This relationship can be seen as follows:
 \begin{align}
- \tEbold 
+ 2 \tEbold 
      &\overset{(\ref{eq:C_in_terms_of_u})}{=} 
-     \half \left( (\Grad \vu)\transpose \Grad \vu + 
-     \Grad \vu + (\Grad \vu)\transpose + \vid - \vid \right),
+     (\Grad \vu)\transpose \Grad \vu + 
+     \Grad \vu + (\Grad \vu)\transpose + \vid - \vid,
      \label{eq:E_expanded} \\
- \ve{\epsilon}  
-     &\overset{\tiny \mbox{LIN}}{=} 
-     \half \left(  
-     \Grad \vu + (\Grad \vu)\transpose \right),
+ %\ve{\epsilon}  
+ 2 \tEbold_{\tiny \mbox{LIN}}
+     %&\overset{\tiny \mbox{LIN}}{=} 
+     &= 
+     \Grad \vu + (\Grad \vu)\transpose,
      \label{eq:small_strain}
 \end{align}
-where higher-order (first) term in (\ref{eq:E_expanded}) is set
+where the higher-order (first) term in (\ref{eq:E_expanded}) is set
 to zero to achieve (\ref{eq:small_strain}).
 
 \subsection{Eulerian (Almansi) Strain Tensor}
@@ -348,39 +348,41 @@ can likewise be used to approximate the small strain tensor
 $\ve{\epsilon}$ by combining (\ref{eq:left_cauchy_green}) and
 (\ref{eq:deformation_gradient}) as follows:
 \begin{align}
- \tebold &=
-     \half \left( \vid - \left[ \Grad \vvarphi 
-     (\Grad \vvarphi)\transpose \right]^{-1} \right) \nonumber \\
+ 2 \tebold &=
+     \vid - \left[ \Grad \vvarphi 
+     (\Grad \vvarphi)\transpose \right]^{-1} \nonumber \\
      &= 
-     \half \left( \delta_{ij} 
+     \delta_{ij} 
        - \left[ \frac{\partial \varphi_i}{\partial X_J}
                 \frac{\partial \varphi_j}{\partial X_J}
-         \right]^{-1} \right) % \nonumber \\
+         \right]^{-1} % \nonumber \\
      =
-     \half \left( \delta_{ij} 
+      \delta_{ij} 
        - \left[ \frac{\partial X_J}{\partial \varphi_i}
                 \frac{\partial X_J}{\partial \varphi_j}
          \right] 
-	   \right) \nonumber \\ 
+	    \nonumber \\ 
      &\overset{(\ref{eq:displacement})}{=}
-     \half \left( \vid 
+      \vid 
        - \left[
                 (\vid - \grad \vu) (\vid - \grad \vu)\transpose
          \right]
-	   \right)  \nonumber \\ 
+	   \nonumber \\ 
      &=
-     \half \left(\grad \vu + \grad \vu\transpose - 
-     \grad \vu \grad \vu\transpose \right)
+     \grad \vu + \grad \vu\transpose - 
+     \grad \vu \grad \vu\transpose 
      \label{eq:b_expanded} \\
- \ve{\epsilon}  
-     &\overset{\tiny \mbox{LIN}}{=} 
-     \half \left(  
-     \grad \vu + (\grad \vu)\transpose \right),
+ %\ve{\epsilon}  
+ 2 \tebold_{\tiny \mbox{LIN}} 
+     %&\overset{\tiny \mbox{LIN}}{=} 
+     &=
+     \grad \vu + (\grad \vu)\transpose,
      \label{eq:small_strain_two}
 \end{align}
 where higher-order (quadratic) term in (\ref{eq:b_expanded}) is set
 to zero to achieve (\ref{eq:small_strain_two}).
 
+\subsection{When Strains are Small}
 
 \subsection{Seth-Hill Strain Tensor Family}
 Seth and Hill showed that the 
@@ -413,6 +415,130 @@ Then
  & \hspace{1cm} \mbox{{\bf Eulerian (Almansi)}}.
 \end{align}
 
+
+\subsubsection{The Linearized Lagrangian (Green) Strain Tensor 
+Creates Nonzero Strains under Rigid Body Rotations}
+
+Because it takes on nonzero values under finite rotation,
+the linearized strain tensor 
+should not be used for geometrically nonlinear analysis.
+These nonzero values are completely artificial and strictly
+an artifact of using a linear strain definition with
+geometrically nonlinear motions.   This result is shown as follows:
+
+Let $\tRbold = \tRbold(t)$ be a two-dimensional, 
+rigid body rotation parameterized by time $t$
+and scaled by constant $\omega = 2 \pi$~radians per second.  
+Then, the motion $\vvarphi$ of a body can be written as
+\be
+ \vvarphi(\vX, t) = \tRbold(t) \vX 
+ \;\; \Longleftrightarrow \;\;
+ \left\{
+ \begin{tabular}{c}
+ $x_1$ \\
+ $x_2$
+ \end{tabular}
+ \right\}
+ = 
+ \left[
+ \begin{tabular}{rr}
+ $\cos \omega t$ & $\sin \omega t$ \\
+ $-\sin \omega t$ & $\cos \omega t$ 
+ \end{tabular}
+ \right]
+ \left\{
+ \begin{tabular}{c}
+ $X_1$ \\
+ $X_2$
+ \end{tabular}
+ \right\}.
+\ee
+Then the deformation gradient $\tFbold = \tFbold(t)$ is a function of time
+alone,
+\be
+ \tFbold(t)
+ \;\; \Longleftrightarrow \;\;
+ \tF_{iJ} 
+ = 
+ \left[
+ \begin{tabular}{rr}
+ $\tF_{11}$ & $\tF_{12}$ \\
+ $\tF_{21}$ & $\tF_{22}$ 
+ \end{tabular}
+ \right]
+ =
+ \left[
+ \begin{tabular}{rr}
+ $\cos \omega t$ & $\sin \omega t$ \\
+ $-\sin \omega t$ & $\cos \omega t$ 
+ \end{tabular}
+ \right].
+\ee
+The linearized strain tensor is found to be 
+\begin{align}
+ 2 \tEbold_{\tiny \mbox{LIN}}
+ &= \Grad \vu + (\Grad \vu)\transpose, \\
+ &= \tFbold - \vid + 
+     \left(\tFbold - \vid \right)^T, \\
+ &= \tF_{iJ} - \delta_{iJ} + \tF_{Ji} - \delta_{Ji}, \\ 
+ &= 
+ \left[
+ \begin{tabular}{rr}
+ $\cos \omega t$ & $\sin \omega t$ \\
+ $-\sin \omega t$ & $\cos \omega t$ 
+ \end{tabular}
+ \right]
+ +   
+ \left[
+ \begin{tabular}{rr}
+ $\cos \omega t$ & $-\sin \omega t$ \\
+ $\sin \omega t$ & $\cos \omega t$ 
+ \end{tabular}
+ \right]
+ -   
+ \left[
+ \begin{tabular}{rr}
+ $2$ & $0$ \\
+ $0$ & $2$ 
+ \end{tabular}
+ \right], \\
+ &=
+ 2 \left( \cos \omega t - 1 \right) \vid.
+\end{align}
+Now, for small angles, $\omega t \approx 0$, which is
+for small deviations $x_1 \approx X_1$, $x_2 \approx X_2$, then
+$\tEbold_{\tiny \mbox{LIN}} = \ve{0}$ for rigid body rotations.
+However, for arbitrary finite angles, $\omega t \neq 0$,
+and the linearized strain tensor
+$\tEbold_{\tiny \mbox{LIN}}$ reports nonzero strain for rigid
+body rotations, which is nonsensical.
+
+A correct strain tensor will report zero strain for rigid body
+rotations.  One such strain tensor is the fully nonlinear Lagrangian
+(Green) strain tensor.  This result is shown as follows:
+\begin{align}
+ 2 \tEbold &= \tFbold\transpose\tFbold - \vid \\
+ &= 
+ \left[
+ \begin{tabular}{rr}
+ $\cos \omega t$ & $-\sin \omega t$ \\
+ $\sin \omega t$ & $\cos \omega t$ 
+ \end{tabular}
+ \right]
+ \left[
+ \begin{tabular}{rr}
+ $\cos \omega t$ & $\sin \omega t$ \\
+ $-\sin \omega t$ & $\cos \omega t$ 
+ \end{tabular}
+ \right]
+ -   
+ \left[
+ \begin{tabular}{rr}
+ $1$ & $0$ \\
+ $0$ & $1$ 
+ \end{tabular}
+ \right] = \ve{0}. 
+\end{align}
 
 \section{Stress}
 
