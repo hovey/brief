@@ -24,9 +24,9 @@ y_eul = 0.5*(1 - (1./x).^2);
 h=figure(1);
 clf;
 
-e2 = plot(x,y_lag,'Color','b','LineWidth',3);
+e2 = plot(x,y_lag,'Color','b','LineWidth',4);
 hold on;
-e1 = plot(x,y_eng,'Color','k','LineWidth',0.5);
+e1 = plot(x,y_eng,'Color','k','LineWidth',2);
 e0 = plot(x,y_log,'Color',DeepCadmiumRed,'LineStyle',':','LineWidth',3);
 en1 = plot(x,y_true,'Color',DarkGreen,'LineStyle','-.','LineWidth',2);
 en2 = plot(x,y_eul,'Color',MediumGray,'LineWidth',2','LineStyle','--');
@@ -45,7 +45,7 @@ yticks(-2:1:2);
 %yticklabels({'-2','','-1','','0','','1','','2'});
 xlabel('$\mbox{stretch} \; \lambda = \frac{\ell}{L_0}$','interpreter','latex');
 ylabel('$\mbox{strain} \; f(\lambda)$','interpreter','latex');
-legend({'Lagrange', 'Engineering (Biot)', ...
+legend({'Lagrangian', 'Engineering (Biot)', ...
     'Log (Hencky, Natural)', 'True', ...
     'Eulieran'}, ...
     'Location','SouthEast','interpreter','latex');

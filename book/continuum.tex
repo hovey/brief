@@ -385,9 +385,74 @@ $\ve{\epsilon}$ by combining (\ref{eq:left_cauchy_green}) and
 where higher-order (quadratic) term in (\ref{eq:b_expanded}) is set
 to zero to achieve (\ref{eq:small_strain_two}).
 
-\subsection{When Strains are Small}
+\subsection{Small Strain Theory}
+When displacement gradients are small in the reference configuration 
+\be
+\Grad \vu \ll 1,
+\ee 
+or in the current configuration, 
+\be
+\grad \vu \ll 1,
+\ee
+respectively, the nonlinear gradient terms 
+are negligible and the finite strain theory simplifies to small strain
+theory, which occurs when finite strain measures are linearized to 
+obtain
+$\tEbold_{\tiny \mbox{LIN}}$
+and 
+$\tabold_{\tiny \mbox{LIN}}$
+in the previous sections.
+
+Note that we have restricted the gradients of displacement, and not the
+displacement $\vu$ itself.  Thus, displacements between the reference and
+current configurations can be large (finite), but the gradients of the
+displacement either in the reference or current configuration are small.
+
+Section~\ref{section:rb_rotation_strain} will demonstrate that the 
+small strain tensors are not suitable to describe motion that
+contains finite rotation.  
+This makes sense because, in finite rotation, gradients of displacement
+are large, not small.  To adequately describe motion that includes 
+finite rotation, the fully nonlinear strain measured must be used.
+
+\subsection{Infinitesimal Strain Theory}
+If we further restrict the small strain theory such that the displacement
+is small compared to unity, 
+\be
+\vu \ll 1,
+\ee
+the infinitesimal strain theory
+is obtained, which has no distinction between Lagrangian and Eulerian 
+strain tensors.  
+
+In this case, the two small strain tensors, 
+$\tEbold_{\tiny \mbox{LIN}}$
+and 
+$\tabold_{\tiny \mbox{LIN}}$
+converge to a single definition of strain, called the infinitesimal
+strain tensor $\ve{\epsilon}$, defined as
+\be
+ \ve{\epsilon} \defe \dst\half(\grad \vu + (\grad \vu)\transpose).
+\ee
+Note that the $\Grad(\cdot)$ notation has been dropped since the
+distinction between the reference and current configurations is 
+nonexistent. Also, note that the factor of $\half$ appears because
+it then follows that the infinitesimal strain is simply the symmetric
+part of the displacement gradient, 
+\be
+ \ve{\epsilon} = \mbox{\sym}(\grad \vu).
+\ee
+Finally, note that the finite Lagrangian and Eulerian strain tensors
+were defined with the factor of $\half$ so that their expressions, 
+once linearized and subject to a small displacement assumption, simplify
+to exactly the infinitesimal strain tensor $\ve{\epsilon}$.
+
 
 \subsection{Seth-Hill Strain Tensor Family}
+We return to finite strain definitions, and show that the 
+Lagrangian and Eulerian strain tensors described above are two
+special cases of a family of finite strain tensors.
+
 Seth and Hill showed that the 
 Lagrangian (Green) and Eulerian (Almansi)
 strain tensors are special cases of the so-called
@@ -540,14 +605,16 @@ The figure illustrates several results:
    \item The Log, true, and Eulerian strains tend to $-\infty$. 
  \end{itemize}
  \item The engineering (Biot) strain is a linear function of 
- stretch $\lambda$; all other measures are nonlinear.
+ stretch $\lambda$; all other measures are nonlinear functions of
+ stretch $\lambda$.
 \end{itemize}
 
 
 \clearpage
 
-\subsubsection{The Linearized Lagrangian (Green) Strain Tensor 
+\subsection{The Linearized Lagrangian (Green) Strain Tensor 
 Creates Nonzero Strains under Rigid Body Rotations}
+\label{section:rb_rotation_strain}
 
 Because it takes on nonzero values under finite rotation,
 the linearized strain tensor 
