@@ -255,6 +255,7 @@ the relationship between the displacement gradient and the
 deformation gradient is given by
 \be
 \Grad \vu = \Grad \vvarphi - \vid = \tFbold - \vid.
+\label{eq:Gradu}
 \ee
 
 \section{Strain}
@@ -277,11 +278,12 @@ The right Cauchy-Green strain tensor can be written
 explicitly as reference gradients of the motion 
 $\vvarphi$ or displacement $\vu$:
 \begin{align}
-\tCbold &\overset{(\ref{eq:deformation_gradient})}{=} 
-(\Grad \vvarphi)\transpose \Grad \vvarphi \nonumber \\
-    &= (\Grad \vu + \vid)\transpose (\Grad \vu + \vid) \nonumber \\
-    &= (\Grad \vu)\transpose\Grad \vu + \Grad \vu + (\Grad \vu)\transpose 
-    + \vid
+\tCbold \overset{(\ref{eq:deformation_gradient})}{=} 
+(\Grad \vvarphi)\transpose \Grad \vvarphi 
+    &\overset{(\ref{eq:Gradu})}{=} 
+    (\vid + \Grad \vu)\transpose (\vid + \Grad \vu) \\
+    &= \vid + \Grad \vu + (\Grad \vu)\transpose 
+       + (\Grad \vu)\transpose\Grad \vu 
     \label{eq:C_in_terms_of_u}
 \end{align}
 
@@ -320,8 +322,9 @@ This relationship can be seen as follows:
 \begin{align}
  2 \tEbold 
      &\overset{(\ref{eq:C_in_terms_of_u})}{=} 
-     (\Grad \vu)\transpose \Grad \vu + 
-     \Grad \vu + (\Grad \vu)\transpose + \vid - \vid,
+     \vid + \Grad \vu + (\Grad \vu)\transpose + 
+     (\Grad \vu)\transpose \Grad \vu 
+     - \vid,
      \label{eq:E_expanded} \\
  %\ve{\epsilon}  
  2 \tEbold_{\tiny \mbox{LIN}}
@@ -330,17 +333,17 @@ This relationship can be seen as follows:
      \Grad \vu + (\Grad \vu)\transpose,
      \label{eq:small_strain}
 \end{align}
-where the higher-order (first) term in (\ref{eq:E_expanded}) is set
+where the higher-order (quadratic) term in (\ref{eq:E_expanded}) is set
 to zero to achieve (\ref{eq:small_strain}).
 
 \subsection{Eulerian (Almansi) Strain Tensor}
 The Eulerian (Almansi) strain tensor,
 \be
- \tebold 
+ \tabold 
  \defe 
  \half (\vid - \tbbold^{-1} )
  \;\; \Longleftrightarrow \;\;
- \te_{ij} 
+ \ta_{ij} 
  \defe 
  \half \left(\delta_{ij} - (\tb_{ij})^{-1}\right),
 \ee
@@ -348,7 +351,7 @@ can likewise be used to approximate the small strain tensor
 $\ve{\epsilon}$ by combining (\ref{eq:left_cauchy_green}) and
 (\ref{eq:deformation_gradient}) as follows:
 \begin{align}
- 2 \tebold &=
+ 2 \tabold &=
      \vid - \left[ \Grad \vvarphi 
      (\Grad \vvarphi)\transpose \right]^{-1} \nonumber \\
      &= 
@@ -373,7 +376,7 @@ $\ve{\epsilon}$ by combining (\ref{eq:left_cauchy_green}) and
      \grad \vu \grad \vu\transpose 
      \label{eq:b_expanded} \\
  %\ve{\epsilon}  
- 2 \tebold_{\tiny \mbox{LIN}} 
+ 2 \tabold_{\tiny \mbox{LIN}} 
      %&\overset{\tiny \mbox{LIN}}{=} 
      &=
      \grad \vu + (\grad \vu)\transpose,
@@ -390,31 +393,158 @@ Lagrangian (Green) and Eulerian (Almansi)
 strain tensors are special cases of the so-called
 Seth-Hill family of strain measures, defined as
 \be
- \tEbold_{(m)} \defe \frac{1}{2 m}
- \left(\tUbold^{2 m} - \vid \right)
- = 
- \frac{1}{2 m} 
- \left(\tCbold^m - \vid \right).
+ \tEbold_{(m)} \defe 
+ \left\{ 
+	 \begin{tabular}{ll}
+	   $\dst\frac{1}{m}\left(\tUbold^m - \vid \right)$ & for $m\neq0$, \\
+	   & \\
+	   $\ln\tUbold$ & for $m=0$.
+	 \end{tabular}
+ \right.
+ \label{eq:seth_hill}
 \ee
-Then
+The principal stretches $\lambda_k = \ell_k / L_0$, $0 < \lambda_k < \infty$,
+allow the strain measure $\tEbold_{(m)}$ to be written as principal
+strains, as a function of principal stretch, $f(\lambda_k)$:
 \begin{align}
- \tEbold_{(1)} = 
- \half \left(\tUbold^{2} - \vid \right) = 
- \half \left(\tCbold - \vid \right) 
- & \hspace{1cm} \mbox{{\bf Lagrangian (Green)}}, \\
- \tEbold_{(1/2)} = 
- \left(\tUbold - \vid \right)  = 
- \left(\sqrt{\tCbold} - \vid \right) 
- & \hspace{1cm} \mbox{{\bf Biot}}, \\
-\tEbold_{(0)} = 
- \ln\tUbold   = 
- \half \ln\tCbold
- & \hspace{1cm} \mbox{{\bf Logarithmic, Natural, True, Hencky}}, \\
-\tEbold_{(-1)} = \half 
- \left(\vid - \tUbold^{(-2)} \right) 
- & \hspace{1cm} \mbox{{\bf Eulerian (Almansi)}}.
+  \tEbold_{(m)} 
+  &= \sum_{k=1}^3 f(\lambda_k) \; \veeihat \otimes \veeihat
+  \;\;\Longleftrightarrow \;\; 
+  \nonumber \\
+  & 
+  \tE_{(m)\;ij} = f(\lambda_1)
+  \left[ 
+  \begin{tabular}{ccc}
+  1 & 0 & 0 \\ 
+  0 & 0 & 0 \\
+  0 & 0 & 0 
+  \end{tabular}
+  \right] 
+  + \; 
+  f(\lambda_2)
+  \left[ 
+  \begin{tabular}{ccc}
+  0 & 0 & 0 \\ 
+  0 & 1 & 0 \\
+  0 & 0 & 0 
+  \end{tabular}
+  \right] 
+  + \; 
+  f(\lambda_3)
+  \left[ 
+  \begin{tabular}{ccc}
+  0 & 0 & 0 \\ 
+  0 & 0 & 0 \\
+  0 & 0 & 1 
+  \end{tabular}
+  \right],
 \end{align}
+where
+\be
+ f(\lambda_k) \defe
+ \left\{ 
+	 \begin{tabular}{ll}
+	   $\dst\frac{1}{m}\left(\lambda_k^m - 1 \right)$ & for $m\neq0$, \\
+	   & \\
+	   $\ln(\lambda_k)$ & for $m=0$.
+	 \end{tabular}
+ \right.
+\ee
+For integer values of $m \in [-2, 2]$, 
+five common strain measures result, listed
+in Table~\ref{tab:table_of_strains}, in their three-dimensional and
+one-dimensional forms.
+\begin{table}[htb]
+\begin{center}
+\begin{tabular}{|c|c|c|c|} \hline
+ $m$ & {\bf Name} & {\bf 3D} & {\bf 1D} \\ \hline \hline
+ & & & \\
+ 2 & Lagrange (Green) 
+   & $\tEbold_{(2)} = \dst\frac{1}{2}\left(\tUbold^2 - \vid\right)$ 
+   & $\tE_{\tiny\mbox{LAG}} = 
+   \dst\frac{1}{2}\left[\left(\dst\frac{\ell}{L_0}\right)^2 - 1\right]$
+   \\
+   & & & \\ \hline
+ & & & \\
+ 1 & Engineering (Biot)
+   & $\tEbold_{(1)} = \tUbold - \vid$
+   & $\tE_{\tiny\mbox{ENG}} = \dst\frac{\ell - L_0}{L_0}$
+   \\
+   & & & \\ \hline
+ & & & \\
+ 0 & Log (Hencky, Natural)
+   & $\tEbold_{(0)} = \ln\tUbold$
+   & $\tE_{\tiny\mbox{LOG}} = \ln\left(\dst\frac{\ell}{L_0}\right)$
+   \\
+   & & & \\ \hline
+ & & & \\
+ -1 & True 
+   & $\tEbold_{(-1)} = \vid - \tUbold^{-1}$
+   & $\tE_{\tiny\mbox{TRUE}} = \dst\frac{\ell - L_0}{\ell}$
+   \\
+   & & & \\ \hline
+ & & & \\
+ -2 & Eulerian (Almansi) 
+   & $\tEbold_{(-2)} = \dst\frac{1}{2}\left(\vid - \tUbold^{-2}\right)$
+   & $\tE_{\tiny\mbox{EUL}} = \dst\frac{1}{2}
+   \left[ 1 - \left(\dst\frac{L_0}{\ell}\right)^2\right]$
+   \\
+   & & & \\ \hline
+\end{tabular}
+\end{center}
+\caption{Table of strains obtained from the Seth-Hill family.}
+\label{tab:table_of_strains}
+\end{table}
 
+As will be seen in section (to come), 
+\begin{itemize}
+\item The Lagrange (Green) strain tensor 
+will be the conjugate of the second Piola-Kirchhoff stress tensor,
+\item The deformation gradient will be the conjugate of the first
+Piola-Kirchhoff stress tensor,
+\item The engineering (Biot) strain tensor will be the conjugate of 
+the Jaumann (Biot) stress tensor, 
+\item The Eulerian (Almansi) strain tensor will be the conjugate of the 
+weighted convected stress tensor.
+\end{itemize} 
+\clearpage
+
+Figure~\ref{fig:strain_v_stretch}
+illustrates the one-dimensional strains as a function of
+stretch ratio $\lambda = \ell / L_0$.    
+\begin{figure}[htb]
+  \caption{One dimensional strain as a function of stretch ratio.}
+  \begin{center}
+    \includegraphics[width=0.8\textwidth]{fig/strain_v_stretch.pdf}
+  \end{center}
+  \label{fig:strain_v_stretch}
+\end{figure}
+The figure illustrates several results:
+\begin{itemize}
+ \item For small stretches, $\ell \approx L_0$,
+ \begin{itemize}
+ \item The stretch ratio is near unity, $\lambda \approx 1$, 
+    \item The strain values are small, $f(\lambda) \approx 0$,
+    \item The tangent of the strains with respect to the 
+    stretch ratio is near unity, $df / d\lambda \approx 1$.
+ \end{itemize}
+ \item For elongations, $\lambda > 1$, 
+ \begin{itemize}
+    \item The strain monotonically increases 
+    since $df / d\lambda > 0$ when $\lambda > 0$.
+ \end{itemize}
+ \item For extreme compressions, $\lambda \approx 0$,
+ \begin{itemize}
+   \item The Lagrangian (Green) strain goes to a value of $-\half$, 
+   \item The engineering (Biot) strain tensor goes to a value of $-1$, 
+   \item The Log, true, and Eulerian strains tend to $-\infty$. 
+ \end{itemize}
+ \item The engineering (Biot) strain is a linear function of 
+ stretch $\lambda$; all other measures are nonlinear.
+\end{itemize}
+
+
+\clearpage
 
 \subsubsection{The Linearized Lagrangian (Green) Strain Tensor 
 Creates Nonzero Strains under Rigid Body Rotations}
