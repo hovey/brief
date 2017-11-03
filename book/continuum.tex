@@ -37,7 +37,9 @@ is referred to as a configuration or
 placement.  To each configuration, we assign a displacement
 field $\vu: \cB \mapsto \realthree$ such that 
 \be
-\vu(\vX,t) = \vvarphi(\vX,t) - \vX.
+\vu(\vX,t) = \vvarphi(\vX,t) - \vX 
+\;\;\Longleftrightarrow\;\;
+u_i = \varphi_i - \delta_{iJ} X_J.
 \label{eq:displacement}
 \ee
 Thus, the current configuration $\vvarphi$ is simply a function 
@@ -46,7 +48,9 @@ placement $\vX$,
 plus a displacement $\vu$, which is {\bf function}
 of placement $\vX$ and time $t$:
 \be
-\vvarphi(\vX,t) = \vX + \vu(\vX,t).
+\vvarphi(\vX,t) = \vX + \vu(\vX,t)
+\;\; \Longleftrightarrow \;\;
+\varphi_i = \delta_{iJ} X_J + u_i.
 \label{eq:displacement_vvarphi}
 \ee
 It is important to
@@ -254,7 +258,11 @@ From the displacement field in
 the relationship between the displacement gradient and the 
 deformation gradient is given by
 \be
-\Grad \vu = \Grad \vvarphi - \vid = \tFbold - \vid.
+\Grad \vu = \Grad \vvarphi - \vid = \tFbold - \vid
+\;\; \Longleftrightarrow \;\;
+\dst\frac{\partial u_i}{\partial X_J} = 
+\dst\frac{\partial \varphi_i}{\partial X_J} - 
+\delta_{iJ}.
 \label{eq:Gradu}
 \ee
 

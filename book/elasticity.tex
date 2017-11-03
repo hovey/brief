@@ -50,7 +50,7 @@ Linear elastodynamics begins with nonlinear elastodynamics, and adds progressive
 simplifying (and thus, restrictive) assumptions.  The first assumption will be regarding
 linearity of displacement gradients.  
 \begin{itemize}
-\item {\bf Assumption 1:} Second-order and higher displacment gradients are 
+\item {\bf Assumption 1:} Second-order and higher displacement gradients are 
 neglible,  
 \end{itemize}
 which restricts the stress-response function to be a special 
@@ -97,8 +97,8 @@ These results give
 \ee
 or simply
 \be
-\tPbold(\vid + \Grad \vu) \overset{{\mbox{\footnotesize(LIN)}}}{=} 
-\tPbold_{\mbox{\tiny{LIN}}} (\ve{\epsilon}) = \fotC \; : \; \ve{\epsilon}.
+\tPbold(\vid + \Grad \vu) \overset{{\mbox{\tiny(LIN)}}}{=} 
+\tPbold_{\tiny \mbox{LIN}} (\ve{\epsilon}) = \fotC \; : \; \ve{\epsilon}.
 \ee
 Next, we can make another limiting assumption, 
 \begin{itemize}
@@ -171,7 +171,8 @@ B = \lambda + \frac{2\mu}{3}.
 \ee
 Substituting for $B$ in the longitudinal sound speed gives
 \be
-c_L = \sqrt{\dst\frac{B + 4 \; \mu / 3}{\rho_0}} \hspace{1.0cm} \mbox{\bf (longitudinal
+c_L = \sqrt{\dst\frac{B + 
+\frac{4}{3} \; \mu }{\rho_0}} \hspace{1.0cm} \mbox{\bf (longitudinal
  or P-wave)}.
 \ee
 
