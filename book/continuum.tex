@@ -1,22 +1,22 @@
 
 \section{Bodies and Particles}
 
-Let body $\cB$ be an open, bounded subset of three-dimensional           
-Euclidean space $\realnsd$ with boundary $\partial \cB$.                 
+Let body $\vB$ be an open, bounded subset of three-dimensional           
+Euclidean space $\realnsd$ with boundary $\partial \vB$.                 
 The number of space dimensions, $\nsd$, is assumed equal                    
 to three unless stated otherwise.
 The boundary is decomposed within a particular space dimension into         
 two non-overlapping subdomains, $\Gamma_u$ and $\Gamma_{\sigma}$        
 where displacements or tractions are prescribed.  Thus                      
-$\partial \Omega = \Gamma_u \union \Gamma_{\sigma}$ and 
+$\partial \vB = \Gamma_u \union \Gamma_{\sigma}$ and 
 $\Gamma_u \intersection \Gamma_{\sigma} = \emptyset$.           
 Set closure is denoted                                                      
-$\bar{\cB} = \cB \union \partial \cB$.                             
+$\bar{\vB} = \vB \union \partial \vB$.                             
 Let the body be composed of a closed set of particles with 
 coordinates $\vX$ in the reference configuration.  The particle
 has coordinates $\vX = \{X_1, X_2, X_3\}^T$ as measured from
 some origin $O$ in the dextral, orthonormal inertial reference
-from $\vE_1, \vE_2, \vE_3$.
+from $\veEihat, \veEjhat, \veEkhat$.
 
 
 \section{Motion}
@@ -301,8 +301,8 @@ sitting on the left.
 Note that this strain measure is defined in the current 
 configuration.
 
-\subsection{Lagrangian (Green) Strain Tensor}
-The Lagrangian (Green) strain tensor,
+\subsection{Green-Lagrange}
+The Green-Lagrange strain tensor,
 \begin{equation}
  \tEbold 
  \defe
@@ -336,14 +336,14 @@ This relationship can be seen as follows:
 where the higher-order (quadratic) term in (\ref{eq:E_expanded}) is set
 to zero to achieve (\ref{eq:small_strain}).
 
-\subsection{Eulerian (Almansi) Strain Tensor}
-The Eulerian (Almansi) strain tensor,
+\subsection{Almansi-Euler}
+The Almansi-Euler strain tensor,
 \be
- \tabold 
+ \tebold 
  \defe 
  \half (\vid - \tbbold^{-1} )
  \;\; \Longleftrightarrow \;\;
- \ta_{ij} 
+ \te_{ij} 
  \defe 
  \half \left(\delta_{ij} - (\tb_{ij})^{-1}\right),
 \ee
@@ -351,7 +351,7 @@ can likewise be used to approximate the small strain tensor
 $\ve{\epsilon}$ by combining (\ref{eq:left_cauchy_green}) and
 (\ref{eq:deformation_gradient}) as follows:
 \begin{align}
- 2 \tabold &=
+ 2 \tebold &=
      \vid - \left[ \Grad \vvarphi 
      (\Grad \vvarphi)\transpose \right]^{-1} \nonumber \\
      &= 
@@ -376,7 +376,7 @@ $\ve{\epsilon}$ by combining (\ref{eq:left_cauchy_green}) and
      \grad \vu \grad \vu\transpose 
      \label{eq:b_expanded} \\
  %\ve{\epsilon}  
- 2 \tabold_{\tiny \mbox{LIN}} 
+ 2 \tebold_{\tiny \mbox{LIN}} 
      %&\overset{\tiny \mbox{LIN}}{=} 
      &=
      \grad \vu + (\grad \vu)\transpose,
@@ -400,7 +400,7 @@ theory, which occurs when finite strain measures are linearized to
 obtain
 $\tEbold_{\tiny \mbox{LIN}}$
 and 
-$\tabold_{\tiny \mbox{LIN}}$
+$\tebold_{\tiny \mbox{LIN}}$
 in the previous sections.
 
 Note that we have restricted the gradients of displacement, and not the
@@ -428,7 +428,7 @@ strain tensors.
 In this case, the two small strain tensors, 
 $\tEbold_{\tiny \mbox{LIN}}$
 and 
-$\tabold_{\tiny \mbox{LIN}}$
+$\tebold_{\tiny \mbox{LIN}}$
 converge to a single definition of strain, called the infinitesimal
 strain tensor $\ve{\epsilon}$, defined as
 \be
@@ -454,7 +454,7 @@ Lagrangian and Eulerian strain tensors described above are two
 special cases of a family of finite strain tensors.
 
 Seth and Hill showed that the 
-Lagrangian (Green) and Eulerian (Almansi)
+Green-Lagrange and Almansi-Euler 
 strain tensors are special cases of the so-called
 Seth-Hill family of strain measures, defined as
 \be
@@ -468,16 +468,16 @@ Seth-Hill family of strain measures, defined as
  \right.
  \label{eq:seth_hill}
 \ee
-The principal stretches $\lambda_k = \ell_k / L_0$, $0 < \lambda_k < \infty$,
+The principal stretches $\lambda_I = \ell_k / L_0$, $0 < \lambda_I < \infty$,
 allow the strain measure $\tEbold_{(m)}$ to be written as principal
-strains, as a function of principal stretch, $f(\lambda_k)$:
+strains, as a function of principal stretch, $f(\lambda_I)$:
 \begin{align}
   \tEbold_{(m)} 
-  &= \sum_{k=1}^3 f(\lambda_k) \; \veeihat \otimes \veeihat
+  &= \sum_{I=1}^3 f(\lambda_I) \; \veEihat \otimes \veEihat
   \;\;\Longleftrightarrow \;\; 
   \nonumber \\
   & 
-  \tE_{(m)\;ij} = f(\lambda_1)
+  \tE_{(m)\;IJ} = f(\lambda_1)
   \left[ 
   \begin{tabular}{ccc}
   1 & 0 & 0 \\ 
@@ -506,12 +506,12 @@ strains, as a function of principal stretch, $f(\lambda_k)$:
 \end{align}
 where
 \be
- f(\lambda_k) \defe
+ f(\lambda_I) \defe
  \left\{ 
 	 \begin{tabular}{ll}
-	   $\dst\frac{1}{m}\left(\lambda_k^m - 1 \right)$ & for $m\neq0$, \\
+	   $\dst\frac{1}{m}\left(\lambda_I^m - 1 \right)$ & for $m\neq0$, \\
 	   & \\
-	   $\ln(\lambda_k)$ & for $m=0$.
+	   $\ln(\lambda_I)$ & for $m=0$.
 	 \end{tabular}
  \right.
 \ee
@@ -524,7 +524,7 @@ one-dimensional forms.
 \begin{tabular}{|c|c|c|c|} \hline
  $m$ & {\bf Name} & {\bf 3D} & {\bf 1D} \\ \hline \hline
  & & & \\
- 2 & Lagrange (Green) 
+ 2 & Green-Lagrange 
    & $\tEbold_{(2)} = \dst\frac{1}{2}\left(\tUbold^2 - \vid\right)$ 
    & $\tE_{\tiny\mbox{LAG}} = 
    \dst\frac{1}{2}\left[\left(\dst\frac{\ell}{L_0}\right)^2 - 1\right]$
@@ -549,7 +549,7 @@ one-dimensional forms.
    \\
    & & & \\ \hline
  & & & \\
- -2 & Eulerian (Almansi) 
+ -2 & Almansi-Euler 
    & $\tEbold_{(-2)} = \dst\frac{1}{2}\left(\vid - \tUbold^{-2}\right)$
    & $\tE_{\tiny\mbox{EUL}} = \dst\frac{1}{2}
    \left[ 1 - \left(\dst\frac{L_0}{\ell}\right)^2\right]$
@@ -563,13 +563,13 @@ one-dimensional forms.
 
 As will be seen in section (to come), 
 \begin{itemize}
-\item The Lagrange (Green) strain tensor 
+\item The Green-Lagrange strain tensor 
 will be the conjugate of the second Piola-Kirchhoff stress tensor,
 \item The deformation gradient will be the conjugate of the first
 Piola-Kirchhoff stress tensor,
 \item The engineering (Biot) strain tensor will be the conjugate of 
 the Jaumann (Biot) stress tensor, 
-\item The Eulerian (Almansi) strain tensor will be the conjugate of the 
+\item The Almansi-Euler strain tensor will be the conjugate of the 
 weighted convected stress tensor.
 \end{itemize} 
 \clearpage
@@ -600,7 +600,7 @@ The figure illustrates several results:
  \end{itemize}
  \item For extreme compressions, $\lambda \approx 0$,
  \begin{itemize}
-   \item The Lagrangian (Green) strain goes to a value of $-\half$, 
+   \item The Green-Lagrange strain goes to a value of $-\half$, 
    \item The engineering (Biot) strain tensor goes to a value of $-1$, 
    \item The Log, true, and Eulerian strains tend to $-\infty$. 
  \end{itemize}
@@ -612,7 +612,7 @@ The figure illustrates several results:
 
 \clearpage
 
-\subsection{The Linearized Lagrangian (Green) Strain Tensor 
+\subsection{The Linearized Green-Lagrange Strain Tensor 
 Creates Nonzero Strains under Rigid Body Rotations}
 \label{section:rb_rotation_strain}
 
@@ -711,8 +711,9 @@ $\tEbold_{\tiny \mbox{LIN}}$ reports nonzero strain for rigid
 body rotations, which is nonsensical.
 
 A correct strain tensor will report zero strain for rigid body
-rotations.  One such strain tensor is the fully nonlinear Lagrangian
-(Green) strain tensor.  This result is shown as follows:
+rotations.  One such strain tensor is the fully nonlinear 
+Green-Lagrange
+strain tensor.  This result is shown as follows:
 \begin{align}
  2 \tEbold &= \tFbold\transpose\tFbold - \vid \\
  &= 
