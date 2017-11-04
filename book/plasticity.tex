@@ -1,4 +1,4 @@
-\section{Plasticity}
+\chapter{Plasticity}
 
 We first focus on plasticity in one dimension, 
 as opposed to fully three-dimensional plasticity, 
@@ -7,7 +7,7 @@ as mathematically simple as possible.
 After the concepts are clear, the extension of the mathematics from
 one- to three-dimensions can be made naturally.  
 
-\subsection{Perfect Plasticity}
+\section{Perfect Plasticity}
 The extension of elasticity to plasticity is made by way of 
 {\em perfect} plasticity.
 Conceptually, perfect plasticity in the constitutive stress-strain 
@@ -19,7 +19,7 @@ Increases in strain produce no increase in stress
 beyond the yield stress.  
 
 
-\subsubsection{Deformation Measures}
+\subsection{Deformation Measures}
 Let the body $\Omega$ have strain measure 
 $\hstrain : \Omega \rightarrow \real$ 
 in one dimension be defined as a ratio of change in length, that is 
@@ -38,7 +38,7 @@ plastic strain $\hstrainp$,
 \ee
 
 
-\subsubsection{Constitutive Law}
+\subsection{Constitutive Law}
 Then, the traditional stress-strain relationship, $\sigma = E \hstraine$, 
 can be rewritten as
 \be
@@ -165,7 +165,7 @@ flow, as seen below in~(\ref{eq:PhiChainRule}).
 %\end{figure}
 %
 
-\subsubsection{Yield Function}
+\subsection{Yield Function}
 The stress $\sigma$ in the frictional device can never greater in 
 absolute value than the yield stress (also known
 as flow stress) $\sigma_y \in \realplus$.
@@ -193,7 +193,7 @@ non-plastic strain via elastic unloading occurs.
    \right.
 \end{align}
 
-\subsubsection{Plastic Flow Rule, Loading/Unloading Conditions}
+\subsection{Plastic Flow Rule, Loading/Unloading Conditions}
 We next define how, on the yield surface, the plastic strain evolves 
 through time, which is called the 
 {\bf plastic flow rule}.  A reasonable first approximation for the 
@@ -307,7 +307,7 @@ the {\bf persistency (or consistency) condition}
 
 
 
-\subsubsection{Determination of Plastic Multiplier}
+\subsection{Determination of Plastic Multiplier}
 As of yet, the value of the plastic multiplier $\gammadot$ 
 has remained undetermined.  For non-trivial $\gammadot$, we
 know $\Phidot = 0$ by the persistency condition.  
@@ -355,7 +355,7 @@ are remarkable for the following reasons:  During plastic flow,
  developments and in particular in~(\ref{eq:gammaDotHardening}).
 \end{itemize}
 
-\subsection{Hardening Plasticity}
+\section{Hardening Plasticity}
 
 Hardening plasticity is considered an extension of perfect plasticity.  With 
 perfect plasticity, the slope of stress-strain relationship at yielding is
@@ -363,7 +363,7 @@ identically zero.  With hardening plasticity, the slope becomes
 positive.\footnote{For completeness, we note that softening plasticity occurs
 when the slope becomes negative.}   
 
-\subsubsection{Remarks on Loss of Stability}
+\subsection{Remarks on Loss of Stability}
 Perfect plasticity allows for the notion of unbounded 
 strains when stress is at the yield stress. 
 The slope of the stress-strain curve for strains 
@@ -413,7 +413,7 @@ mass matrices comes at the cost of increased expense to compute
 and store the same, and to incorporate
 a time stepping algorithm, such as the Newmark methods.
 
-\subsubsection{Yield Function}
+\subsection{Yield Function}
 The departure of hardening plasticity from perfect plasticity 
 begins with the yield function.
 The {\bf yield function} from perfect 
@@ -449,7 +449,7 @@ and the {\bf persistency condition} is written as
  \gammadot \; \Phidot(\sigma, \alpha) = 0.
 \ee
 
-\subsubsection{Determination of Plastic Multiplier}
+\subsection{Determination of Plastic Multiplier}
 Like perfect plasticity, strain-hardening plasticity uses the time derivative
 of the yield function to generate an expression for the plastic multiplier
 $\gammadot$, which ultimately leads to a relationship between stress rates and
@@ -483,7 +483,7 @@ total strain (rate) to plastic slip:
  \item If $H \gg E$, then very little $\hstraindot$ goes into plastic slip.
 \end{itemize}
 
-\subsubsection{Elasto-Plastic Tangent}
+\subsection{Elasto-Plastic Tangent}
 The elasto-plastic tangent is found by 
 observing $\sigmadot = \frac{d\sigma}{d\hstrain} \hstraindot$.  
 Starting with the elastic stress-strain relationship
@@ -636,7 +636,7 @@ to the incremental plastic strain $\partial\hstrainp$ is given by
 \end{figure}
 
 
-\subsection{Elasto-Plastic 2D Truss Element}
+\section{Elasto-Plastic 2D Truss Element}
 
 Consider the two-dimensional truss member shown in 
 Fig.~\ref{fig:nonlinear_truss}.
@@ -863,7 +863,7 @@ shown in the elasto-plastic region of Fig.~\ref{fig:stress_strain_harden}~(a).
 
 
 % ========================
-\subsection{From 1D to 3D}
+\section{From 1D to 3D}
 In one-dimensional plasticity, we spoke of the Cauchy stress scalar
 $\sigma \in \real$ with positive values describing tension (resulting
 in elongations) and compression (resulting in contractions).  
@@ -905,7 +905,7 @@ Cauchy stress tensor is defined as
 \tsbold \defe \vsigma - \vsigmavol = \vsigma + P \; \vid.
 \ee 
 
-\subsubsection{Uniaxial Tension Test}
+\subsection{Uniaxial Tension Test}
 With these definitions at hand, we are now poised to demonstrate
 how the results of a uniaxial tension test at the plastic limit
 are used to generalize a theory of small-strain plasticity to

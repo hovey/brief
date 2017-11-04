@@ -16,7 +16,8 @@
 \usepackage{datetime}  \renewcommand{\dateseparator}{-}
 \usepackage{epsfig}
 %\usepackage{include/fancyheadings}
-\usepackage{fancyheadings}
+%\usepackage{fancyheadings}
+\usepackage{fancyhdr}
 %\usepackage{multirow}
 \usepackage[percent]{overpic}
 \usepackage{pifont} % required for dingbats
@@ -27,6 +28,7 @@
 \usepackage{cancel}
 %\usepackage{bbm}
 \usepackage{bbold}
+\usepackage{enumitem}
 
 % -------
 % INCLUDE
@@ -44,7 +46,7 @@
 %\newfloat{Box}{tbh}{lob}[chapter]
 \newfloat{hboxfloat}{tbh}{lob}
 \floatname{hboxfloat}{Box}
-\restylefloat{table}   % To re-style the 'table' float
+%\restylefloat{table}   % To re-style the 'table' float
 % END float definitions for boxes
 
 
@@ -105,17 +107,31 @@
 %\pagestyle{empty} % before redefining, empty head and foot
 %\chead{\sc{\small  \titlestring
 %   \hfill \footnotesize \thepage}}
-%\lhead[\small AAA \section]{\small \titlestring}
+%\lhead[\small \thesection ]{\small \titlestring}
+%\lhead[\thepage]{\chaptermark}
+%\rhead[\thesection]{\thepage}
+%\chead{} % leave empty
+%\rhead[\thesubsection]{\thepage}
 %\chead{} % leave empty
 %\rhead[\small CCC]{\sc{\small \thepage}}
-\lfoot[\small \thepage]{\yyyymmdddate\today}
-\rfoot[\yyyymmdddate\today]{\thepage}
-\cfoot{} % leave empty
+%\lhead[square bracket]{squiggly backet}
+%\rhead[]{\titlestring}
+%\chead{} % leave empty
+%\lfoot[\small \thepage]{\yyyymmdddate\today}
+%\rfoot[\yyyymmdddate\today]{\thepage}
+%\cfoot{} % leave empty
 %\cfoot{ \sc{\small c.b.~hovey} \hfill \footnotesize \today}
 
-\setlength{\footrulewidth}{0.4pt}
+%\setlength{\footrulewidth}{0.4pt}
 
-\pagestyle{fancyplain}
+\fancyhead{} % clear all header fields
+\fancyhead[LE,RO]{\thepage}
+\fancyhead[LO]{\rightmark}
+\fancyhead[RE]{\leftmark}
+\fancyfoot{} % clear all footer fields
+\fancyfoot[LE,RO]{\scriptsize \yyyymmdddate\today}
+\fancyfoot[LO,RE]{\scriptsize \titlestring \; \copyright \; \authorstring }
+\pagestyle{fancy}
 
 
 % ==========================================
@@ -134,26 +150,28 @@
 \include{front}
 \include{preface}
 %
+\newpage
 \setcounter{page}{1}
 \pagenumbering{arabic}
 %
 %\include{include/Hformatams}
 
-\include{nomenclature}
-\include{introduction}
+\include{notation}
+% \include{introduction} % no longer relevant, eventually completely exclude
   \include{math}
 %
-\include{formulation}
+%\include{formulation}
   \include{continuum}
   \include{balance} 
+  \include{thermodynamics}
   \include{elasticity}
   \include{plasticity}
   \include{contact002}
   \include{shock}
 %
-\include{implementation}
-  \include{element}
-  \include{plasticity_time_step}
+%\include{implementation}
+%  \include{element}
+%  \include{plasticity_time_step}
 %%
 \end{document}
 

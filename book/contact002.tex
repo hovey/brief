@@ -1,19 +1,24 @@
-
+\chapter{Contact}
 
 %====================
 \section{One Dimensional Contact}
 %====================
 
-\subsection{Concepts}
-\subsubsection{Gap and Penetration}
-Consider two bodies $\cA$ and $\cB$ in moving in inertial reference from $\cF$ with origin
+\subsection{Concepts of Gap and Penetration}
+Consider two bodies $\cA$ and $\cB$ in moving in inertial reference from 
+$\cF$ with origin
 $O$ and basis vector $\vefa$, as shown in Fig.~\ref{fig:1D_contact}.
-Let point $P$ be located on the right-hand-side of body $\cA$, denoting the first contact surface
+Let point $P$ be located on the right-hand-side of body $\cA$, 
+denoting the first contact surface
 $\partial \cA$.
-Let point $Q$ be located on the left-hand-side of body $\cB$, denoting the second contact surface
-$\partial \cB$.  Let the contact boundaries be denoted as $\Gamma_c = \partial \cA \union \partial \vB$. 
-Let the time evolution from $t=0$ (initial) to $t=T$ (final) be denoted as $\interval = [0, T] \subset \realplus$.
-At the initial time $t=0$, these two points are located by $X^{OP}$ and $X^{OQ}$, respectively.
+Let point $Q$ be located on the left-hand-side of body $\cB$, 
+denoting the second contact surface
+$\partial \cB$.  Let the contact boundaries be denoted 
+as $\Gamma_c = \partial \cA \union \partial \vB$. 
+Let the time evolution from $t=0$ (initial) to $t=T$ (final) 
+be denoted as $\interval = [0, T] \subset \realplus$.
+At the initial time $t=0$, these two points are located 
+by $X^{OP}$ and $X^{OQ}$, respectively.
 %\begin{figure}[htb]
 %  \psfrag{A}{$\cA$}
 %  \psfrag{a}{$\vefa$}
@@ -105,23 +110,29 @@ Note that
  p(t=0) = p_0 = - g_0, \hspace{1cm} p_0 < 0.
 \ee
 
-\subsubsection{Non-Penetration}
-The penetration of body $\cA$ and body $\cB$, shown (for example) at $t=t_2$ in Fig.~\ref{fig:1D_contact}, is prevented
-by constraining the gap $g$ (or, equivalently, the penetration $p$) as follows:
+\subsection{Non-Penetration}
+The penetration of body $\cA$ and body $\cB$, shown 
+(for example) at $t=t_2$ in Fig.~\ref{fig:1D_contact}, is prevented
+by constraining the gap $g$ (or, equivalently, the 
+penetration $p$) as follows:
 \begin{align}
  g &\geq 0, \\
  p &\leq 0.
 \end{align}
 
-Theses two inequality conditions are {\bf unilateral constraints} on the motion $\vvarphi$.  To illustrate
-the unilateral constraint concept in a concrete sense, consider $\cB$ in Fig.~\ref{fig:1D_contact} to be 
-stationary for all time.  Thus $u^Q_t = 0$, and we can abbreviate the displacement of body $\cA$ as 
+Theses two inequality conditions are {\bf unilateral constraints} 
+on the motion $\vvarphi$.  To illustrate
+the unilateral constraint concept in a concrete sense, consider $\cB$ 
+in Fig.~\ref{fig:1D_contact} to be 
+stationary for all time.  Thus $u^Q_t = 0$, and we can abbreviate the 
+displacement of body $\cA$ as 
 $u^P_t = u$.  The gap and penetration functions are then
 \begin{align}
  g(u) & = g_0 - u, \\
  p(u) & = -g(u) = u - g_0 = u + p_0.
 \end{align}
-Assume, for concreteness $g_0 = 1$~m.  The gap and penetration functions are then shown in
+Assume, for concreteness $g_0 = 1$~m.  The gap and penetration functions 
+are then shown in
 Fig.~\ref{fig:1D_gap_penetration}.
 
 \begin{figure}[htb]
@@ -147,8 +158,12 @@ Fig.~\ref{fig:1D_gap_penetration}.
 
 
 \subsection{Example with Spring and Weight}
-We start by considering a spring mass system, with spring constant $k$, mass $m$, gravitational field
-$-g \; \vefb$, with the spring initially unstretched at $t=t_0 = 0$, as shown in Fig.~\ref{fig:1D_spring_mass}.  While this example does not yet have contact, it sets the context of energy minimization as method used to find static equilibrium.  
+We start by considering a spring mass system, 
+with spring constant $k$, mass $m$, gravitational field
+$-g \; \vefb$, with the spring initially 
+unstretched at $t=t_0 = 0$, as shown in Fig.~\ref{fig:1D_spring_mass}.  
+While this example does not yet have contact, it sets the context of 
+energy minimization as method used to find static equilibrium.  
 
 \begin{figure}[htb]
   \psfrag{0}{$0$} \psfrag{1}{$1$} 
@@ -168,13 +183,19 @@ $-g \; \vefb$, with the spring initially unstretched at $t=t_0 = 0$, as shown in
  \label{fig:1D_spring_mass}
 \end{figure}
 
-For concreteness, let $k=2$~N/m, $m=0.2$~kg, and $g=10$~m/s${^2}$, (for simplicity, rounded up from $9.81$~m/s${^2}$).  Let displacement $u$ of the mass, initially at $0$, be measured in the $\vefb$ axis.  
-The internal energy (IE) of the spring as a function of $u$ is given by $\Pi_{k}(u) = \half k u^2$.
-The potential energy (PE) of the mass as a function of $u$ is given by $\Pi_{m}(u) = m g u$.
+For concreteness, let $k=2$~N/m, $m=0.2$~kg, and $g=10$~m/s${^2}$, 
+(for simplicity, rounded up from $9.81$~m/s${^2}$).  
+Let displacement $u$ of the mass, initially at $0$, 
+be measured in the $\vefb$ axis.  
+The internal energy (IE) of the spring as a 
+function of $u$ is given by $\Pi_{k}(u) = \half k u^2$.
+The potential energy (PE) of the mass as a 
+function of $u$ is given by $\Pi_{m}(u) = m g u$.
 Minimization of the potential energy gives
 \begin{align}
  \delta \Pi = & \; \delta \left(\Pi_{k}(u) + \Pi_{m}(u) \right) = 
- \delta \left(\half k u^2 + m g u \right) = \left( k u + m g \right) \delta u \setequal 0, \\
+ \delta \left(\half k u^2 + m g u \right) = 
+ \left( k u + m g \right) \delta u \setequal 0, \\
  \implies u = & \; \frac{-m g}{k} = \frac{-0.2 \cdot 10}{2} = -1.
 \end{align}
 
@@ -190,21 +211,38 @@ Minimization of the potential energy gives
  \label{fig:1D_spring_mass_plot}
 \end{figure}
 
-Fig.~\ref{fig:1D_spring_mass_plot} shows the spring internal energy, $\Pi_{k}(u)$, in dashed blue, which shows a minimum 
-at $u=0$, and a symmetric, parabolic response for nonzero displacements, as expected.
-The potential energy due to the mass, $\Pi_{m}(u)$, is shown in dot-dash green, which shows a linear relationship in $u$ with intercept $0$ and slope $m g = 0.2 \cdot 10 = 2$~N.
+Fig.~\ref{fig:1D_spring_mass_plot} shows the spring internal 
+energy, $\Pi_{k}(u)$, in dashed blue, which shows a minimum 
+at $u=0$, and a symmetric, parabolic response 
+for nonzero displacements, as expected.
+The potential energy due to the mass, $\Pi_{m}(u)$, is shown 
+in dot-dash green, which shows a linear relationship 
+in $u$ with intercept $0$ and slope $m g = 0.2 \cdot 10 = 2$~N.
 
-The addition of the two aforementioned potentials, $\Pi(u) = \Pi_{k}(u) + \Pi_{m}(u)$, is shown in solid red.
+The addition of the two aforementioned potentials, 
+$\Pi(u) = \Pi_{k}(u) + \Pi_{m}(u)$, is shown in solid red.
 The system potential, $\Pi(u)$, has a minimum at $u=-1$~m, as expected.
-Next, we used this concept of minimizing potential energy in the context of contact.
+Next, we used this concept of minimizing potential 
+energy in the context of contact.
 
-\subsection{Example with Spring and Rigid Wall}
-Consider a spring, shown in Fig.~\ref{fig:1D_spring_wall}, with elastic constant $k = 2$~N/m, undeformed length $L_0 = 2$~m subjected to a prescribed displacement in the amount of $\bar{u} = 2$~m on the left-hand-side.\footnote{This example follows Laursen TA (2013), {\em Computational contact and impact mechanics: fundamentals of modeling interfacial phenomena in nonlinear finite element analysis.} Springer Science \& Business Media, page 87.}
-A rigid wall is $g_0 = X^{PQ} = 1$~m from the right-hand-side of the spring at $t=0$.
-At $t=t_1$, the spring has undergone its prescribed displacement and penetrates the wall by amount $p$.  
-In this configuration, internal energy $\Pi$ for the spring for the as a function of $u = u^P$ is given by
+\section{Example with Spring and Rigid Wall}
+Consider a spring, shown in Fig.~\ref{fig:1D_spring_wall}, 
+with elastic constant $k = 2$~N/m, undeformed length $L_0 = 2$~m 
+subjected to a prescribed displacement in the 
+amount of $\bar{u} = 2$~m on the 
+left-hand-side.\footnote{This example follows Laursen TA (2013), 
+{\em Computational contact and impact mechanics: fundamentals 
+of modeling interfacial phenomena in nonlinear 
+finite element analysis.} Springer Science \& Business Media, page 87.}
+A rigid wall is $g_0 = X^{PQ} = 1$~m 
+from the right-hand-side of the spring at $t=0$.
+At $t=t_1$, the spring has undergone its prescribed 
+displacement and penetrates the wall by amount $p$.  
+In this configuration, internal energy $\Pi$ for the 
+spring for the as a function of $u = u^P$ is given by
 \be
- \Pi(u) = \frac{1}{2} \; k \; \delta^2 = \frac{1}{2} \; 2 \; (u - \bar{u})^2 = (u - 2)^2 \; (\mbox{Nm}).
+ \Pi(u) = \frac{1}{2} \; k \; \delta^2 = 
+ \frac{1}{2} \; 2 \; (u - \bar{u})^2 = (u - 2)^2 \; (\mbox{Nm}).
 \ee
 
 \begin{figure}[htb]
@@ -246,8 +284,8 @@ In this configuration, internal energy $\Pi$ for the spring for the as a functio
 
 
 
-\subsubsection{Principle of Minimum Potential Energy}
-\subsubsection{Principle of Minimum Potential Energy with Lagrange Multiplier Enforcement}
+\subsection{Principle of Minimum Potential Energy}
+\subsection{Lagrange Multiplier Enforcement}
 
 
 \begin{figure}[htb]
@@ -308,8 +346,8 @@ In this configuration, internal energy $\Pi$ for the spring for the as a functio
 \end{figure}
 
 
-\subsubsection{Principle of Minimum Potential Energy with Penalty Enforcement}
-\subsubsection{Principle of Minimum Potential Energy with Augmented Lagrange Multiplier Enforcement}
+\subsection{Penalty Enforcement}
+\subsection{Augmented Lagrange Multiplier Enforcement}
 
 
 
@@ -320,7 +358,6 @@ In this configuration, internal energy $\Pi$ for the spring for the as a functio
 %====================
 
 
-\end{document}
 
 
 
