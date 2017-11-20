@@ -1,4 +1,6 @@
+% ==============
 \chapter{Motion}
+% ==============
 \section{Bodies and Particles}
 
 Let body $\vB$ be an open, bounded subset of three-dimensional           
@@ -24,22 +26,22 @@ Let the arbitrary time interval be defined as
 $\interval \defe [t_0,T]$.\footnote{Note that $t_0$, while
 typically zero, may be any real number.}  
 Let the motion, a one parameter family of configurations, 
-$\vvarphi : \cB \times \interval \mapsto \realthree$ 
+$\vvarphi : \vB \times \interval \mapsto \realthree$ 
 map the material particle
 $\vX$ into the current configuration $\vx$ such that
 \be
 \vx = \vvarphi(\vX,t) = \vvarphi_t(\vX).
 \ee
 
-A motion evaluated
+A motion $\vvarphi$ evaluated
 at a particular time $t \in \interval$ 
 is referred to as a configuration or
 placement.  To each configuration, we assign a displacement
-field $\vu: \cB \mapsto \realthree$ such that 
+field $\vu: \vB \mapsto \realthree$ such that 
 \be
-\vu(\vX,t) = \vvarphi(\vX,t) - \vX 
+\vu(\vX,t) \defe \vvarphi(\vX,t) - \vX 
 \;\;\Longleftrightarrow\;\;
-u_i = \varphi_i - \delta_{iJ} X_J.
+u_i \defe \varphi_i - \delta_{iJ} X_J.
 \label{eq:displacement}
 \ee
 Thus, the current configuration $\vvarphi$ is simply a function 
@@ -57,7 +59,7 @@ It is important to
 emphasize that the displacement remains a function $\vu = \vu(\vX, t)$
 of reference configuration $\vX$ and time $t$.  The displacement
 function $\vu$ is not a simple (constant) displacement, which 
-we refer to as ``offset'' in Section~\ref{section:offset}.
+we refer to as ``offset'' and describe in Section~\ref{section:offset}.
 
 \subsection{Linear Motions}
 In this section, we consider the equation of a line
@@ -106,6 +108,7 @@ $\vb = \vzero$, then $\vu = \vzero$.
 In this case $\vvarphi = \vX$ and the motion is trivial (and
 uninteresting).  Nonetheless, this is a simple first case to consider.
 
+\clearpage
 \subsection{Offset}
 \label{section:offset}
 Next, consider $\vb \neq \vzero$, while
@@ -115,24 +118,27 @@ $\vb = \langle b_1, b_2 \rangle\transpose =
 \langle 3, 2 \rangle\transpose$.
 In this case, we see the placement $\vvarphi$ moves right and up
 on the page, relative to the reference configuration $\vX$, by 
-an amount of 3 and 2, respectively.
+an amount of 3 and 2, respectively.  
+The reference configuration is shown in blue.  
+The current configuration is shown in red.
 \begin{figure}[htb]
-  \caption{Current configuration shown in red, with reference 
-  configuration shown in blue and retained for context.}
+  \caption{Illustration of an offset motion.}
   \begin{center}
     \includegraphics[width=\textwidth]{fig/configuration_current.pdf}
   \end{center}
   \label{fig:configuration_current}
 \end{figure}
 
+\subsection{Rotation}
+To come.
 
 \clearpage
-\subsection{Stretch}
+\subsection{Dilatational (Volumetric) Stretch}
 Consider now $\tMbold = \lambda \vid$ and $\vb = \vzero$.  
 This describes {\bf volumetric} response, also known 
-as a {\bf dilitational} response.  The parameter $\lambda \in \real$
+as a {\bf dilatational} response.  The parameter $\lambda \in \real$
 causes the current configuration to change volume as
-\begin{itemize}
+\begin{itemize}[noitemsep]
  \item $\lambda > 0$ expansion,
  \item $\lambda = 0$ identity,
  \item $\lambda < 0$ contraction.
@@ -143,20 +149,20 @@ reference to current configurations.  In the case that $\lambda \rightarrow
 -\infty$, the volume grows to zero.
 For concreteness, consider $\lambda = 2$.  The volumetric expansion
 is shown in Fig.~\ref{fig:configuration_volumetric}.
+The reference configuration, shown in blue, has area of~4.
+The current configuration, shown in red, has area of~16.
 
 \begin{figure}[htb]
-  \caption{Current configuration shown in red, with reference 
-  configuration shown in blue and retained for context.}
+  \caption{Illustration of a dilatational (volumetric) motion.}
   \begin{center}
-    \includegraphics[width=\textwidth]{fig/configuration_volumetric.pdf}
+    \includegraphics[width=0.9\textwidth]{fig/configuration_volumetric.pdf}
   \end{center}
   \label{fig:configuration_volumetric}
 \end{figure}
 
-The area in the reference configuration was $2 \times 2 = 4$, 
-whereas the area in the current configuration was $4 \times 4 = 16$.   
 
-
+\clearpage
+\subsection{Isochoric (Deviatoric) Stretch}
 Next consider a slightly different form of $\tMbold$, such that
 \be
  \tMbold 
@@ -170,22 +176,21 @@ Next consider a slightly different form of $\tMbold$, such that
 \ee
 We keep the offset as $\vb = \vzero$.
 
-For concreteness, consider $\lambda_1 = 2$
-and $\lambda_2 = \half$.   The combined expansion and compression
-is shown in Fig.~\ref{fig:configuration_stretch}.
+For concreteness, consider $\lambda_1 = 2$ (expansion)
+and $\lambda_2 = \half$ (compression), as shown
+in Fig.~\ref{fig:configuration_stretch}.
 
 \begin{figure}[htb]
-  \caption{Current configuration shown in red, with reference 
-  configuration shown in blue and retained for context.}
+  \caption{Illustration of an isochoric (deviatoric) motion.}
   \begin{center}
     \includegraphics[width=\textwidth]{fig/configuration_stretch.pdf}
   \end{center}
   \label{fig:configuration_stretch}
 \end{figure}
 
-The area in the reference configuration was $2 \times 2 = 4$, 
-whereas the area in the current configuration was $4 \times 1 = 4$.   
-Out of coincidence, we have chosen stretches along the 
+The area in the reference configuration is $2 \times 2 = 4$, 
+whereas the area in the current configuration is $4 \times 1 = 4$.   
+For the sake of illustration, we have chosen stretches along the 
 two axes such that the area does not change although the dimensions
 and thus shape have changed.  This is an example of an 
 {\bf isochoric} motion.  The roots {\em iso- (equal)} and {\em choro- (space)} 
@@ -197,7 +202,7 @@ taken between the reference and current configuration.  To
 get that detail, we would need to introduce the time parameter $t$, 
 which we have suppressed for now.  
 However, if we were to say the time interval is simply two points 
-$t_0$ and $t_1$, we can create (the rather course) path between these
+$t_0$ and $t_1$, we can create the path between these
 two states $0$ and $1$, and connect with the isochoric process
 $PV$ diagram in thermodynamics, shown in Fig.~\ref{fig:PV_isochoric}.
 
@@ -215,11 +220,13 @@ connection may be tenuous at the moment.  Nonetheless, we
 introduce this connection now to motivate the single idea that
 isochoric motions will play an important role in our later work.
 
-\subsection{Rotation}
 
+
+
+\clearpage
 \section{Deformation Gradient}
-To each configuration, we define a deformation gradient 
-$\tFbold: \cB \times \interval \mapsto \Mthreeplus$ 
+To each configuration $\vvarphi$, we define a deformation gradient 
+$\tFbold: \vB \times \interval \mapsto \Mthreeplus$ 
 such that
 \begin{equation}
 \tFbold 
@@ -235,22 +242,13 @@ Remarks:
 \begin{itemize}
 \item Lower case indices represent components of tensors in the
 current configuration whereas upper case indices represent
-components of tensors in the reference configuration.  Real, 
-square matrices of dimension three and positive determinants
+components of tensors in the reference configuration.  
+\item Real, square matrices of dimension three and positive determinants
 are denoted $\Mthreeplus$.  
-\item We define gradients taken in the reference configuration 
-as $\Grad(\cdot) = \partial (\cdot) / \partial X_J$ 
-to distinguish from gradients taken in the current
-configuration, denoted simply as $\grad(\cdot) = 
-\partial (\cdot) / \partial x_j$.
-\item All configurations must be admissible in the sense that the Jacobian
-of the deformation $J$ much be positive
-\begin{equation}
- J \defe \det \tFbold > 0.
-\end{equation}
-This requirement keeps the deformations from mapping the body to
-a single, infinitesimally small point ($J=0$) or turning the
-body inside-out ($J<0$).  
+\item $\Grad(\cdot) = \partial (\cdot) / \partial X_J$ denote
+gradients taken in the reference configuration.
+\item $\grad(\cdot) = \partial (\cdot) / \partial x_j$ denote
+gradients taken in the current configuration. 
 \end{itemize}
 
 From the displacement field in 
@@ -266,8 +264,65 @@ deformation gradient is given by
 \label{eq:Gradu}
 \ee
 
+\section{Jacobian of the Deformation Gradient}
+The Jacobian of the deformation gradient, 
+\begin{equation}
+ J \defe \det \tFbold,
+\end{equation}
+describes the (generally non-uniform) volumetric expansion or 
+contraction of the motion from the reference configuration $\vX$.
+
+\noindent Remarks:
+\begin{itemize}
+\item All configurations must be admissible in the sense that the Jacobian
+of the deformation must be positive ($J > 0$).
+This requirement keeps the deformations from mapping the body to
+a single, infinitesimally small point ($J=0$) or turning the
+body inside-out ($J<0$).  
+\item Isochoric (deviatoric) motions preserve volume, thus a Jacobian
+of unity ($J=1$) describes
+an isochoric motion.
+\end{itemize}
+
+\begin{table}[htb]
+\caption{Jacobian measure to categorize deformations.}
+\begin{center}
+\begin{tabular}{|c|c|c|c|c|} \hline
+ $J<0$ & $J=0$ & $0<J<1$ & $J=1$ & $J>1$ \\ %\hline \hline
+ {\bf inadmissible}
+ & {\bf inadmissible}
+ & {\bf compression} 
+ & {\bf isochoric} 
+ & {\bf expansion} 
+ \\ \hline \hline
+  &  &  & offset &  \\ 
+  &  &  & rotation &  \\ 
+  &  &  & isochoric stretch &  \\ \hline
+ body 
+ & body 
+ & body's  
+ & body's 
+ & body's
+ \\
+ has turned 
+ & has shrunk 
+ & total volume 
+ & total volume
+ & total volume \\ 
+ inside-out 
+ & to zero volume 
+ & has decreased 
+ & is preserved 
+ & has increased \\ \hline
+\end{tabular}
+\end{center}
+\end{table}
+
+
+
+
 \chapter{Strain}
-\section{Right Cauchy-Green}
+\section{Right Cauchy-Green Strain}
 A standard strain measure is the right Cauchy-Green
 strain tensor
 \begin{equation}
@@ -290,16 +345,22 @@ $\vvarphi$ or displacement $\vu$:
 (\Grad \vvarphi)\transpose \Grad \vvarphi 
     &\overset{(\ref{eq:Gradu})}{=} 
     (\vid + \Grad \vu)\transpose (\vid + \Grad \vu) \\
-    &= \vid + \Grad \vu + (\Grad \vu)\transpose 
-       + (\Grad \vu)\transpose\Grad \vu 
+    &= 
+    \vid 
+    + 
+    \underset{\mbox{\footnotesize 1st order}}{\underbrace{\Grad \vu 
+                                 + (\Grad \vu)\transpose}}
+    + 
+    \underset{\mbox{\footnotesize 
+    2nd order}}{\underbrace{(\Grad \vu)\transpose\Grad \vu}}
     \label{eq:C_in_terms_of_u}
 \end{align}
 
-\section{Left Cauchy-Green}
+\section{Left Cauchy-Green Strain}
 In contrast, a left Cauchy-Green
 strain tensor $\tbbold$ can be defined with the 
 deformation gradient $\tFbold$
-sitting on the left.
+sitting on the left, 
 \be
  \tbbold \defe \tFbold \tFbold\transpose
  \;\; \Longleftrightarrow \;\;
@@ -309,7 +370,7 @@ sitting on the left.
 Note that this strain measure is defined in the current 
 configuration.
 
-\section{Green-Lagrange}
+\section{Green-Lagrange Strain}
 The Green-Lagrange strain tensor,
 \begin{equation}
  \tEbold 
@@ -325,7 +386,8 @@ and is often used in defining constitutive
 law relationships because the measure, when linearized
 about the reference configuration, coincides with the
 small strain tensor of linear deformation elasticity, 
-denoted~$\ve{\epsilon}$ and defined in (to come).
+denoted~$\ve{\epsilon}$ and defined 
+in~(\ref{eq:infinitesimal_strain}).
 This relationship can be seen as follows:
 \begin{align}
  2 \tEbold 
@@ -344,7 +406,7 @@ This relationship can be seen as follows:
 where the higher-order (quadratic) term in (\ref{eq:E_expanded}) is set
 to zero to achieve (\ref{eq:small_strain}).
 
-\section{Almansi-Euler}
+\section{Almansi-Euler Strain}
 The Almansi-Euler strain tensor,
 \be
  \tebold 
@@ -393,7 +455,7 @@ $\ve{\epsilon}$ by combining (\ref{eq:left_cauchy_green}) and
 where higher-order (quadratic) term in (\ref{eq:b_expanded}) is set
 to zero to achieve (\ref{eq:small_strain_two}).
 
-\section{Small Strain Theory}
+\section{Small Strain}
 When displacement gradients are small in the reference configuration 
 \be
 \Grad \vu \ll 1,
@@ -421,9 +483,11 @@ small strain tensors are not suitable to describe motion that
 contains finite rotation.  
 This makes sense because, in finite rotation, gradients of displacement
 are large, not small.  To adequately describe motion that includes 
-finite rotation, the fully nonlinear strain measured must be used.
+finite rotation, the fully nonlinear strain measure, 
+such as the Seth-Hill strain family 
+(see Section~\ref{section:seth_hill}), must be used.
 
-\section{Infinitesimal Strain Theory}
+\section{Infinitesimal Strain}
 If we further restrict the small strain theory such that the displacement
 is small compared to unity, 
 \be
@@ -441,6 +505,7 @@ converge to a single definition of strain, called the infinitesimal
 strain tensor $\ve{\epsilon}$, defined as
 \be
  \ve{\epsilon} \defe \dst\half(\grad \vu + (\grad \vu)\transpose).
+ \label{eq:infinitesimal_strain}
 \ee
 Note that the $\Grad(\cdot)$ notation has been dropped since the
 distinction between the reference and current configurations is 
@@ -456,7 +521,8 @@ once linearized and subject to a small displacement assumption, simplify
 to exactly the infinitesimal strain tensor $\ve{\epsilon}$.
 
 
-\section{Seth-Hill Strain Tensor Family}
+\section{Seth-Hill Strain Family}
+\label{section:seth_hill}
 We return to finite strain definitions, and show that the 
 Lagrangian and Eulerian strain tensors described above are two
 special cases of a family of finite strain tensors.

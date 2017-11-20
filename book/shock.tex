@@ -7,8 +7,9 @@
 \section{Definition of a Shock}
 
 \section{Conservation Laws for a Single Shock}
-\subsection{Laboratory Fixed Coordinate Frame}
-The derivation that follows assumes a {\bf laboratory-fixed reference
+\subsection{Eulerian (Laboratory Fixed) Coordinate Frame}
+The derivation that follows an Eulerian 
+description, which assumes a {\bf laboratory-fixed reference
 frame},\footnote{A shock-fixed 
 reference frame derivation is developed in a subsequent section.}
 as shown in Fig.~\ref{fig:piston_shock_cv}.
@@ -231,8 +232,8 @@ P_1 \; u_P
 \end{align}
 which simplifies to
 \be
-\boxed{\senergy_1 - \senergy_0 = \frac{-1}{2}
-\left(P_1 + P_0\right) \; (\svol_1 - \svol_0),
+\boxed{\senergy_1 - \senergy_0 = \frac{1}{2}
+\left(P_1 + P_0\right) \; (\svol_0 - \svol_1),
 \hspace{1.0cm}
 \mbox{\bf{(Rankine-Hugoniot curve)}.}}
 \label{eq:hugoniot}
@@ -243,6 +244,27 @@ To plot the Rankine-Hugoniot
 relationship in the $P\svol$ plane with $\senergy_1 > \senergy_0$, 
 the initial state
 $(\svol_0, P_0)$ must be known.
+
+\subsection{Simplified Forms}
+To create shock waves in solids, the shock pressure $P_1$ is 
+typically far greater than the initial pressure $P_0$.  
+Often the initial pressure $P_0$ is ambient atmospheric pressure, 
+which is small enough compared to $P_1$ that $P_0$ can be ignored.
+
+Also, the internal energy per unit mass $\senergy_0$ can be set 
+to zero because it is a thermodynamic variable, and can be set
+relative to any datum.  
+
+With $P_0 = $ and $\senergy_0 = 0$, the foregoing conservation 
+equations simplify to
+
+\begin{align}
+P_1 = \rho_0 \; U_S \; u_p 
+& \hspace{1cm} {\mbox{\bf (Conservation of Momentum $P_0 = \senergy_0 = 0$)}} \\
+\senergy_1 = \frac{P_1}{2} (\svol_0 - \svol_1) 
+& \hspace{1cm} {\mbox{\bf (Conservation of Energy $P_0 = \senergy_0 = 0$)}}
+\end{align}
+
 
 \subsection{Speed-Volume-Pressure Relationships}
 The alternative forms for mass conservation (\ref{eq:mass_conservation_alt})
