@@ -605,19 +605,19 @@ one-dimensional forms.
    \\
    & & & \\ \hline
  & & & \\
- 1 & Engineering (Biot, Nominal)
+ 1 & engineering (Biot, nominal)
    & $\tEbold_{(1)} = \tUbold - \vid$
    & $\tE_{\tiny\mbox{ENG}} = \dst\frac{\ell - L_0}{L_0}$
    \\
    & & & \\ \hline
  & & & \\
- 0 & Log (Hencky, Natural)
+ 0 & log (Hencky, natural)
    & $\tEbold_{(0)} = \ln\tUbold$
    & $\tE_{\tiny\mbox{LOG}} = \ln\left(\dst\frac{\ell}{L_0}\right)$
    \\
    & & & \\ \hline
  & & & \\
- -1 & True 
+ -1 & true 
    & $\tEbold_{(-1)} = \vid - \tUbold^{-1}$
    & $\tE_{\tiny\mbox{TRUE}} = \dst\frac{\ell - L_0}{\ell}$
    \\
@@ -641,7 +641,7 @@ As will be seen in section (to come),
 will be the conjugate of the second Piola-Kirchhoff stress tensor,
 \item The deformation gradient will be the conjugate of the first
 Piola-Kirchhoff stress tensor,
-\item The engineering (Biot) strain tensor will be the conjugate of 
+\item The engineering (Biot, nominal) strain tensor will be the conjugate of 
 the Jaumann (Biot) stress tensor, 
 \item The Almansi-Euler strain tensor will be the conjugate of the 
 weighted convected stress tensor.
@@ -675,10 +675,10 @@ The figure illustrates several results:
  \item For extreme compressions, $\lambda \approx 0$,
  \begin{itemize}
    \item The Green-Lagrange strain goes to a value of $-\half$, 
-   \item The engineering (Biot) strain tensor goes to a value of $-1$, 
-   \item The Log, true, and Eulerian strains tend to $-\infty$. 
+   \item The engineering (Biot, nominal) strain tensor goes to a value of $-1$, 
+   \item The log, true, and Eulerian strains tend to $-\infty$. 
  \end{itemize}
- \item The engineering (Biot) strain is a linear function of 
+ \item The engineering (Biot, nominal) strain is a linear function of 
  stretch $\lambda$; all other measures are nonlinear functions of
  stretch $\lambda$.
 \end{itemize}
