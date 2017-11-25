@@ -1,0 +1,307 @@
+\chapter{Fluids}
+
+The central concepts for fluids are 
+\begin{itemize}[noitemsep]
+\item derivation of the governing equations of motion in the current
+configuration,
+\item a stress response function that is decomposed into volumetric and
+deviatoric parts,
+\item a volumetric stress response function that is either incompressible
+or compressible, and 
+\item a deviatoric stress response that is either (a) free from 
+shear or (b) supports shear through 
+dependence on velocity gradients.
+\end{itemize}
+
+
+
+
+\section{Incompressible, Inviscid (Ideal) Fluid}
+The incompressible, inviscid (ideal) fluid begins with the three
+following assumptions:
+\be
+\begin{tabular}{cl|l}
+ &
+ {\bf Assumption} 
+ & 
+ {\bf Result}  \\ \hline \hline
+ (1) 
+ & 
+ The reference mass density is uniform. 
+ & 
+ $\rho_0(\vX) = \bar\rho_0 > 0$ 
+ \\ \hline
+ (2) 
+ &
+ The material is incompressible.
+ & 
+ $\grad \cdot \vv(\vx, t) = 0$
+ \\ \hline
+ (3)
+ &
+ The Cauchy stress is spherical only.
+ & 
+ \multirow{ 2}{*}{$\vsigma(\vx, t) = - P(\vx, t) \; \vid$} \\
+ 
+ &
+ The stress has no deviatoric response.
+ & 
+\end{tabular}
+\label{eq:incompressible_inviscid}
+\ee
+
+\begin{Hresult}
+The current mass density $\rho$ is a positive constant equal to the
+reference mass density.  
+Thus $\rho(\vx, t) = \rho_0(\vX) = \bar\rho_0 > 0$.
+\end{Hresult}
+
+\begin{Hproof}
+Use conservation of mass in Eulerian form 
+(\ref{eq:mass_conservation}),
+\be
+\frac{\partial \rho(\vx, t)}{\partial t} + \grad \cdot [
+\rho(\vx, t) \; \vv(\vx, t) ] = 0.
+\ee
+Expand the divergence operator $\grad \cdot [ \; \cdot \; ]$ on the 
+product of density and velocity,
+\be
+\underset{=\dot\rho \;\; (\ref{eq:total_time_derivative_scalar})}{\underbrace{
+\frac{\partial \rho(\vx, t)}{\partial t} 
++ [ \grad \rho(\vx, t) ] \; \vv(\vx, t)  
+}}
++  \rho(\vx, t) \; 
+\underset{=0 \;\; (\ref{eq:incompressible_inviscid})}
+{\underbrace{\grad \cdot \vv(\vx, t)}}
+= 0.
+\ee
+Thus,
+\be
+\dot{\rho}(\vx, t) = 0,
+\ee
+and expressed in the reference configuration variable $\vX$,
+\be
+\frac{\partial \rho(\vvarphi(\vX, t), t)}{\partial t} = 0.
+\ee
+Since the time variation is zero, at the initial time $t=0$,
+\be
+\rho(\vvarphi(\vX, 0), 0) 
+= \rho(\vX, 0) = \rho_0(\vX) = \bar\rho_0,
+\ee
+\be
+\therefore \; \rho(\vx, t) =  \bar\rho_0 > 0.
+\ee
+Thus the current mass density $\rho(\vx, t)$ 
+is uniform and constant for all time.
+\end{Hproof}
+
+\begin{Hresult}
+The {\bf Euler equations} for an {\bf ideal fluid} can then be written as
+\be
+\boxed{
+\bar\rho_0 
+\left[ 
+\frac{\partial \vv}{\partial t} 
++ 
+\left[\grad \vv\right]
+\; \vv
+\right] 
+= -\grad P + \bar\rho_0 \; \vb
+\;\; \Longleftrightarrow \;\;
+\bar\rho_0 
+\left[
+ v_{i,t} + v_{i,j} \; v_j
+\right]
+= 
+- P_{,i} 
++
+\bar\rho_0 \;
+b_i
+}
+\ee
+with
+\be
+\boxed{
+\grad \cdot \vv = 0
+\;\; \Longleftrightarrow \;\;
+v_{i,i} = 0
+}
+\ee
+where functional dependence on the current configuration, 
+$f = f(\vx, t)$, 
+is assumed, but not explicitly written for the sake of brevity.
+\end{Hresult}
+
+\begin{Hproof}
+The appearance of $\rho(\vx, t)$ in the current configuration balance
+of linear momentum is substituted with $\bar\rho_0$, 
+\be
+\bar\rho_0 \;\dot{\vv}(\vx, t) 
+= \grad \cdot \vsigma(\vx, t) + \bar\rho_0 \; \vb(\vx, t).
+\ee
+The $\grad \cdot \vsigma$ term 
+reduces to $\grad \cdot (-P \vid) = - \grad P$.
+The spatial body force per unit mass is $\vb(\vx, t)$.
+The material time derivative is written explicitly as
+\be
+\dot{\vv}(\vx, t) 
+= \frac{\partial \vv(\vx, t)}{\partial t} 
++ [\grad \vv(\vx, t)] \; \vv(\vx, t).
+\ee
+The Euler equations for an ideal fluid can then be written as
+\be
+\bar\rho_0 \left[ 
+\frac{\partial \vv(\vx, t)}{\partial t} 
++ 
+\left[\grad \vv(\vx, t)\right] \; \vv(\vx, t)
+\right] 
+= -\grad P(\vx, t) + \bar\rho_0 \; \vb(\vx, t), 
+\ee
+with the incompressibility constraint, 
+\be
+\grad \cdot \vv(\vx, t)= 0.
+\ee
+used to obtain the foregoing result.
+\end{Hproof}
+
+\begin{Hremark}
+\begin{itemize}[noitemsep]
+\item The ideal fluid does not support shear stresses.
+\item There is no explicit relationship between pressure $P$ and 
+density $\bar\rho_0$.
+\item There is no explicit relationship between pressure $P$ and 
+velocity $\vv$.
+\end{itemize}
+\end{Hremark}
+
+\section{Compressible, Inviscid Fluid}
+The compressible, inviscid fluid releases the constant density and 
+incompressibility
+assumptions of an ideal fluid.
+To accommodate the compressibility behavior, the pressure becomes a function
+of density, $P = P(\rho(\vx, t), t)$, with the added constraint that
+changes in pressure with respect to changes in density must be positive.
+This relationship is illustrated in 
+Figure~\ref{fig:P_rho_diagram} 
+(compare to Figure~\ref{fig:PV_diagram}).
+\be
+\begin{tabular}{cl|l}
+ &
+ {\bf Assumption} 
+ & 
+ {\bf Result}  \\ \hline \hline
+ (1) 
+ & 
+ The Cauchy stress is spherical only, 
+ & 
+ \multirow{ 3}{*}{$\vsigma(\vx, t) = - P(\rho(\vx, t),t) \; \vid$} \\
+ 
+ &
+ and is a function of density. 
+ & 
+ \\
+ 
+ &
+ The stress has no deviatoric response.
+ & 
+ \\ \hline
+ (2)
+ & 
+ The change in pressure with respect to  
+ &
+ \multirow{ 2}{*}{$\dst\frac{\partial P}{\partial \rho} > 0$}
+ \\
+ &
+ change in density is positive.
+ & 
+\end{tabular}
+\label{eq:compressible_inviscid}
+\ee
+
+
+\begin{figure}[htb]
+  \begin{center}
+  %\begin{overpic}[width=0.7\textwidth, grid, tics=10]{fig/P_rho_diagram}
+  \begin{overpic}[width=0.7\textwidth]{fig/P_rho_diagram}
+    \put( 4.5, 56){$P$}
+    \put(96,  7){$\rho$}
+    \put(54,  2){$\rho_0$}
+    \put( 0, 18.5){$P_0$}
+    \put(65, 13){slope $=\dst\frac{\partial P}{\partial \rho} > 0$}
+    \put( 8,  2){expansion}
+    \put(66,  2){compression}
+  \end{overpic}
+  \end{center}
+  \caption{Pressure as a function of density for a compressible, inviscid
+  fluid.}
+  \label{fig:P_rho_diagram}
+\end{figure}
+
+\begin{Hresult}
+The {\bf elastic fluid equations} can then be written as
+\be
+\boxed{
+\rho
+\left[ 
+\frac{\partial \vv}{\partial t} 
++ 
+\left[\grad \vv\right]
+\; \vv
+\right] 
+= -\dst\frac{\partial P}{\partial \rho} \grad \rho + \rho \; \vb
+\;\; \Longleftrightarrow \;\;
+\rho
+\left[
+ v_{i,t} + v_{i,j} \; v_j
+\right]
+= 
+- \dst\frac{\partial P}{\partial \rho} \rho_{,i} 
++
+\rho \;
+b_i
+}
+\ee
+with
+\be
+\boxed{
+\dst\frac{\partial \rho}{\partial t} 
++
+\grad \cdot
+( \rho \; \vv) 
+= 
+0
+\;\; \Longleftrightarrow \;\;
+\rho_{,t}
++ 
+(\rho \; v_{i})_{,i} = 0
+}
+\ee
+where functional dependence on the current configuration, 
+$f = f(\vx, t)$, 
+is assumed, but not explicitly written for the sake of brevity.
+\end{Hresult}
+
+\begin{Hremark}
+\begin{itemize}[noitemsep]
+\item The elastic fluid is compressible, and thus allows
+volume and density changes.
+\item The elastic fluid does not support shear stresses.
+\item There is an explicit relationship between pressure $P$ and 
+density $\bar\rho$, and the derivative of this relationship must
+be greater than zero.  
+\item There is no explicit relationship between pressure $P$ and 
+velocity $\vv$.
+\item The elastic fluid is the starting point for the discussion of
+shock waves in condensed matter (see Chapter~\ref{chapter:shock}).
+\end{itemize}
+\end{Hremark}
+
+
+\section{Incompressible, Viscid Fluid (Newtonian Fluid)}
+
+\section{Compressible, Viscid Fluid}
+
+
+
+
+

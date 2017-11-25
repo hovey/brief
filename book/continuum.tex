@@ -231,14 +231,15 @@ such that
 \begin{equation}
 \tFbold 
 \defe 
-\Grad \vvarphi
+\Grad \vvarphi(\vX, t)
 \;\; \Longleftrightarrow \;\;
 \tF_{iJ} 
 \defe 
 \frac{\partial \varphi_i}{\partial X_J}.
 \label{eq:deformation_gradient}
 \end{equation}
-Remarks:
+%Remarks:
+\begin{Hremark}
 \begin{itemize}
 \item Lower case indices represent components of tensors in the
 current configuration whereas upper case indices represent
@@ -250,6 +251,7 @@ gradients taken in the reference configuration.
 \item $\grad(\cdot) = \partial (\cdot) / \partial x_j$ denote
 gradients taken in the current configuration. 
 \end{itemize}
+\end{Hremark}
 
 From the displacement field in 
 (\ref{eq:displacement}), we see that 
@@ -272,7 +274,8 @@ The Jacobian of the deformation gradient,
 describes the (generally non-uniform) volumetric expansion or 
 contraction of the motion from the reference configuration $\vX$.
 
-\noindent Remarks:
+%\noindent Remarks:
+\begin{Hremark}
 \begin{itemize}
 \item All configurations must be admissible in the sense that the Jacobian
 of the deformation must be positive ($J > 0$).
@@ -283,6 +286,7 @@ body inside-out ($J<0$).
 of unity ($J=1$) describes
 an isochoric motion.
 \end{itemize}
+\end{Hremark}
 
 \begin{table}[htb]
 \caption{Jacobian measure to categorize deformations.}
@@ -318,7 +322,47 @@ an isochoric motion.
 \end{center}
 \end{table}
 
+\section{Rates}
 
+\subsubsection{Total Time Derivative}
+Let $\phi(\vx,t)$ be an arbitrary spatial scalar field and
+let $\vphi(\vx,t)$ be an arbitrary spatial vector field.
+For a body with spatial velocity $\vv(\vx, t)$, the total
+time derivative of the scalar field $\phi$ is given by
+\be
+\boxed{
+ \dot{\phi}(\vx, t) =
+ \phi_{,t} 
+  + \grad \phi 
+ \cdot \vv
+\;\; \Longleftrightarrow \;\;
+ \dot{\phi} =  
+ \frac{\partial \phi}{\partial t} 
+ + 
+ \frac{\partial \phi}{\partial x_i} \frac{\partial x_i}{\partial t}.
+}
+ \label{eq:total_time_derivative_scalar}
+\ee
+The total time derivate of the vector field $\vphi$ is given by
+\be
+\boxed{
+ \dot{\vphi}(\vx, t) = 
+ \vphi_{,t} 
+ + [\grad \vphi] \; \vv
+\;\; \Longleftrightarrow \;\;
+ \dot{\phi}_i 
+ = 
+ \frac{\partial \phi_i}{\partial t} 
+ + 
+ \frac{\partial \phi_i}{\partial x_j} \frac{\partial x_j}{\partial t}.
+ \label{eq:total_time_derivative_vector}
+}
+\ee
+\begin{Hremark}
+Some texts prefer the notation $\vv \cdot \grad \vphi$ to
+$[\grad \vphi] \; \vv$, used in 
+(\ref{eq:total_time_derivative_vector}).
+\end{Hremark}
 
 
 \chapter{Strain}

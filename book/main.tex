@@ -18,7 +18,7 @@
 %\usepackage{include/fancyheadings}
 %\usepackage{fancyheadings}
 \usepackage{fancyhdr}
-%\usepackage{multirow}
+\usepackage{multirow}
 \usepackage[percent]{overpic}
 \usepackage{pifont} % required for dingbats
 \usepackage{psfrag}
@@ -29,7 +29,8 @@
 %\usepackage{bbm}
 \usepackage{bbold}
 \usepackage{enumitem}
-
+%\usepackage[usenames, dvipsnames]{color}
+%\definecolor{hg}{gray}{0.6} % Hovey gray
 % -------
 % INCLUDE
 % -------
@@ -97,7 +98,7 @@
 % HEADER AND FOOTER
 % -----------------
 
-\newcommand{\titlestring}{Nonlinear Solid Mechanics}  
+\newcommand{\titlestring}{Continuum Mechanics}  
 \newcommand{\authorstring}{C.B. Hovey}
 \title{\titlestring}
 \author{\authorstring}
@@ -164,6 +165,7 @@
   \include{continuum}
   \include{balance} 
   \include{thermodynamics}
+  \include{fluids}
   \include{elasticity}
   \include{plasticity}
   \include{contact002}
