@@ -65,7 +65,10 @@ These words, stated mathematically, are
    \phistar(\vx,t) \; dV}}
    \;\; - \;\;
    \underset{\mbox{\footnotesize flux}}{\underbrace{\int_{\partial V} 
-   \left[\phihat(\vx,t) \; \vv(\vx,t) \right] \cdot \vnhat \; dA}}
+   %\left(
+   \phihat(\vx,t) \; \vv(\vx,t) 
+   %\right) 
+   \cdot \vnhat \; dA}}
    ,
 \ee
 which is the general form of the 
@@ -122,7 +125,8 @@ The idea, stated mathematically, is
    \rho^*(\vx,t) \; dV}}
    \;\; - \;\;
    \underset{\mbox{\footnotesize flux}}{\underbrace{\int_{\partial V} 
-   \left[\; \rho(\vx,t) \; \vv(\vx,t) \; \right] \cdot \vnhat(\vx,t) \; dA}}
+   %\left[\; \rho(\vx,t) \; \vv(\vx,t) \; \right] \cdot \vnhat(\vx,t) \; dA}}
+   \rho(\vx,t) \; \vv(\vx,t) \cdot \vnhat(\vx,t) \; dA}}
    .
 \ee
 The Divergence Theorem is used to write the flux term surface integral 
@@ -134,7 +138,8 @@ as a volume integral, thus
    0
    \;\; - \;\;
    \underset{\mbox{\footnotesize flux}}{\underbrace{\int_{V} 
-   \grad \cdot \left[\;\rho(\vx,t) \; \vv(\vx,t) \; \right] \; dV}}
+   %\grad \cdot \left[\;\rho(\vx,t) \; \vv(\vx,t) \; \right] \; dV}}
+   \grad \cdot \left(\;\rho(\vx,t) \; \vv(\vx,t) \; \right) \; dV}}
    .
 \ee
 Because $V$ is fixed in an inertial frame, the foregoing equation can be 
@@ -142,7 +147,8 @@ rewritten with the rate time derivative inside the integral, thus
 \be
  \int_{V} \left(
    \frac{\partial \rho(\vx,t)}{\partial t} + \grad \cdot 
-   \left[ \; \rho(\vx,t) \;  \vv(\vx,t) \; \right] \; \right) \; dV 
+   %\left[ \; \rho(\vx,t) \;  \vv(\vx,t) \; \right] \; \right) \; dV 
+   \left( \; \rho(\vx,t) \;  \vv(\vx,t) \; \right) \; \right) \; dV 
  = 
  0
  .
@@ -151,7 +157,8 @@ Finally, arbitrariness of $B_t$
 requires that the integrand is identically zero, thus
 \be
    \frac{\partial \rho(\vx,t)}{\partial t} + \grad \cdot 
-   \left[ \; \rho(\vx,t) \;  \vv(\vx,t) \; \right] 
+   %\left[ \; \rho(\vx,t) \;  \vv(\vx,t) \; \right] 
+   \left( \; \rho(\vx,t) \;  \vv(\vx,t) \; \right)
  = 
  0
  \;\; \Longleftrightarrow \;\; \rho_{,t} + (\rho \; v_{i})_{,i} = 0,

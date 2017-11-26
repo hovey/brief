@@ -13,9 +13,6 @@ shear or (b) supports shear through
 dependence on velocity gradients.
 \end{itemize}
 
-
-
-
 \section{Incompressible, Inviscid (Ideal) Fluid}
 The incompressible, inviscid (ideal) fluid begins with the three
 following assumptions:
@@ -90,6 +87,7 @@ Since the time variation is zero, at the initial time $t=0$,
 \ee
 \be
 \therefore \; \rho(\vx, t) =  \bar\rho_0 > 0.
+\label{eq:rho_x_t_rho0}
 \ee
 Thus the current mass density $\rho(\vx, t)$ 
 is uniform and constant for all time.
@@ -237,6 +235,34 @@ Figure~\ref{fig:P_rho_diagram}
   \label{fig:P_rho_diagram}
 \end{figure}
 
+\begin{Hremark}
+Some comments regarding Figure~\ref{fig:P_rho_diagram} are 
+necessary.  Most importantly, we are discussing the $P(\rho)$ relationship
+near a reference density $\rho_0$, at reference pressure $P_0$.
+Near $\rho_0$, the slope is
+positive, and increases as $\rho$ increases.  While the slope likewise
+decreases as $\rho$ decreases, the slope remains positive for
+all values of $\rho$, assumed as a positive, real value.
+
+The character of $P(\rho)$ at the extreme values of $\rho$, zero and
+infinity, are shown in general terms only.  The density of a fluid
+can tend toward zero, but as the pressure tends toward zero (a vacuum), 
+the fluid will disassociate and the continuity assumption underlying
+continuum mechanics ceases to be valid.  Thus, the $P(\rho)$ curve is
+plotted with a hole where the $P$ and $\rho$ axes intersect.
+
+Conversely, as the density of the fluid tends toward infinity, so too 
+does the pressure.  While no vertical density asymptote is shown
+in Figure~\ref{fig:P_rho_diagram}, it is implied because density 
+increasing without bounds seems nonphysical.  The sharp upward 
+bend of $P(\rho)$ suggests this asymptotic behavior.
+
+Finally, the general behavior that the slope of the $P(\rho)$ curve
+always be positive follows from the notion that an increase in pressure
+on a fluid should cause increase in density, and vice versa.  Thus, 
+the slope of the curve should never be zero or negative.
+\end{Hremark}
+
 \begin{Hresult}
 The {\bf elastic fluid equations} can then be written as
 \be
@@ -260,6 +286,7 @@ The {\bf elastic fluid equations} can then be written as
 \rho \;
 b_i
 }
+\label{eq:elastic_fluid_momentum}
 \ee
 with
 \be
@@ -275,6 +302,7 @@ with
 + 
 (\rho \; v_{i})_{,i} = 0
 }
+\label{eq:elastic_fluid_mass}
 \ee
 where functional dependence on the current configuration, 
 $f = f(\vx, t)$, 
@@ -296,6 +324,182 @@ shock waves in condensed matter (see Chapter~\ref{chapter:shock}).
 \end{itemize}
 \end{Hremark}
 
+
+\subsection{The Wave Equation}
+Now we add additional assumptions to the assumptions of a 
+compressible, inviscid fluid, listed in 
+(\ref{eq:compressible_inviscid}).
+
+
+\be
+\begin{tabular}{cl|l}
+ &
+ {\bf Assumption} 
+ & 
+ {\bf Result}  \\ \hline \hline
+ (1) 
+ & 
+ Body forces are negligible compared 
+ & 
+ \multirow{ 2}{*}{$\vb(\vx, t) = \ve{0}$} 
+ \\
+ % 
+ &
+ to internal and inertial forces.
+ & 
+ \\ 
+ \hline
+ (2)
+ & 
+ Change in pressure with respect to change 
+ &
+ \multirow{ 2}{*}{$\dst\frac{\partial P}{\partial \rho} = c^2$}
+ \\
+ &
+ in density is a positive (squared) constant.
+ & 
+ \\
+ \hline
+ (3)
+ & 
+ Uniform density as in (\ref{eq:rho_x_t_rho0})
+ &
+ $\rho(\vx,t) = \bar\rho_0$
+ \\
+ \hline
+ (4)
+ & 
+ Quiescent initial velocity 
+ &
+ $\vv(\vx,0) = \ve{0}$
+ \\
+ \hline
+ (5)
+ & 
+ The velocity field is a perturbation $\epsilon$
+ &
+ \multirow{ 2}{*}{$\vv(\vx,t) = \epsilon \; \vv(\vx,0)$}
+ \\
+ % 
+ & 
+ of the initial velocity, where $0 \leq \epsilon \ll 1$ 
+ &
+ %
+ \\
+ \hline
+ (6)
+ & 
+ The velocity field has continuous second 
+ &
+ \multirow{ 2}{*}{$\dst\frac{\partial}{\partial t}
+ \left(\grad \cdot \vv \right)
+ = 
+ \grad \cdot \left(\dst\frac{\partial \vv}{\partial t}\right)$} \\
+ % 
+ & 
+ partial derivatives, see (\ref{eq:schwarz})
+ &
+ %
+ \\
+ \hline
+\end{tabular}
+\label{eq:wave_equation_assumptions}
+\ee
+With these additional assumptions, the {\bf elastic fluid
+equations} become the {\bf wave equations}.
+
+\begin{Hresult}
+The {\bf wave equation} can be written as
+\be
+\boxed{
+\dst\frac{\partial^2 \rho(\vx,t)}{\partial t^2} 
+= 
+c^2 \; \Delta \rho(\vx, t)
+\;\; \Longleftrightarrow \;\;
+\rho_{,tt} = c^2 \; \rho_{,ii}
+}
+\ee
+where 
+\be
+ c^2 = \left.
+ \dst\frac{\partial P}{\partial \rho}
+ \right|_{\rho = \bar\rho_0}
+\ee
+and $c$ is called the {\bf sound speed} at $\bar\rho_0$.
+\end{Hresult}
+
+\begin{Hproof}
+Use conservation of momentum in the current configuration
+(\ref{eq:elastic_fluid_momentum})
+with the 
+assumptions in 
+(\ref{eq:wave_equation_assumptions})
+of
+negligible body force, constant $\partial P / \partial \rho$,
+and uniform density, 
+\be
+\bar\rho_0
+\left[ 
+\frac{\partial \vv(\vx, t)}{\partial t} 
++ 
+\left[\grad \vv(\vx,t)\right]
+\; \vv(\vx, t)
+\right] 
+= -c^2 \; \grad \rho(\vx, t).
+\ee
+Eliminate the $[\grad \vv] \; \vv$ term because
+$\vv(\vx, t) = \epsilon \; \vv(\vx, 0) \approx \ve{0}$, and 
+take the divergence,
+\be
+\bar\rho_0
+\left[\grad \cdot \dst\frac{\partial \vv(\vx,t)}{\partial t} \right]
+=
+-c^2 \; \grad \cdot \grad \rho(\vx, t).
+\label{eq:wave_equation_div}
+\ee
+Use conservation of mass from 
+(\ref{eq:elastic_fluid_mass})
+\be
+\dst\frac{\partial \rho(\vx,t)}{\partial t} 
++
+\grad \cdot
+( \bar\rho_0 \; \vv(\vx,t)) 
+= 
+0,
+\ee
+and take the time derivative, 
+\be
+\dst\frac{\partial^2 \rho(\vx,t)}{\partial t^2} 
++
+\bar\rho_0  \;
+\dst\frac{\partial}{\partial t}
+(\grad \cdot \vv(\vx,t))
+= 
+0.
+\ee
+Use the continuous second partial derivative assumption 
+of
+(\ref{eq:wave_equation_assumptions})
+to rewrite the foregoing equation as
+\be
+\dst\frac{\partial^2 \rho(\vx, t)}{\partial t^2} 
+=
+-\bar\rho_0  \;
+\grad \cdot
+\left(\dst\frac{\partial \vv(\vx, t)}{\partial t}\right).
+\ee
+Finally, substitute the foregoing equation into 
+(\ref{eq:wave_equation_div})
+gives
+\be
+\dst\frac{\partial^2 \rho(\vx, t)}{\partial t^2} 
+=
+c^2 \; \grad \cdot \grad \rho(\vx, t)
+= 
+c^2 \; \Delta \rho(\vx, t),
+\ee
+which is the wave equation.
+\end{Hproof}
 
 \section{Incompressible, Viscid Fluid (Newtonian Fluid)}
 
