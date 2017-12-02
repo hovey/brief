@@ -106,12 +106,47 @@ the number of people moving from Oregon within the time interval).
 
 \section{Conservation of Mass}
 Let us now apply the Master Balance Law to the physical 
-quantity of mass, and develop a relationship for conservation of
-mass, a concept where mass is neither created nor destroyed.  
-When we speak of the physical quantity of mass per unit volume, we 
-speak of density $\rho(\vx,t)$.  Thus, we substitute $\rho(\vx,t)$ 
+quantity of mass, and develop a relationship for 
+{\bf conservation of mass},
+a concept where mass is neither created nor destroyed.  
+The physical quantity of mass per unit volume is 
+density $\rho(\vx,t)$.  Thus, we substitute $\rho(\vx,t)$ 
 for $\phi(\vx,t)$ in the foregoing Master Balance Law.
 
+\be
+\begin{tabular}{cl|l}
+ &
+ {\bf Assumption}
+ &
+ {\bf Result} \\ \hline \hline
+ (1) 
+ &
+ Mass is neither created nor destroyed.
+ &
+ $\rho^*(\vx,t) = 0$
+ \\ \hline
+ (2)
+ &
+ Mass can flow in and out of the boundaries.
+ &
+ $\rho(\vx, t) \vv(\vx, t) \cdot \hat{\vn}(\vx, t) \neq 0$
+\end{tabular}
+\ee
+
+\begin{Hresult}
+Conservation of mass in the current configuration is stated as 
+\be
+   \frac{\partial \rho(\vx,t)}{\partial t} + \grad \cdot 
+   %\left[ \; \rho(\vx,t) \;  \vv(\vx,t) \; \right] 
+   \left( \; \rho(\vx,t) \;  \vv(\vx,t) \; \right)
+ = 
+ 0
+ \;\; \Longleftrightarrow \;\; \rho_{,t} + (\rho \; v_{i})_{,i} = 0.
+ \label{eq:mass_conservation}
+\ee
+\end{Hresult}
+
+\begin{Hproof}
 For mass to be conserved, 
 mass within a control volume is neither created nor destroyed, thus the source
 term is identically zero.  Thus, increases (decreases) in the mass rate 
@@ -162,9 +197,14 @@ requires that the integrand is identically zero, thus
  = 
  0
  \;\; \Longleftrightarrow \;\; \rho_{,t} + (\rho \; v_{i})_{,i} = 0,
- \label{eq:mass_conservation}
+ \label{eq:mass_conservation_two}
 \ee
-which is the {\bf continuity equation}.  
+which is the result.
+\end{Hproof}
+
+
+\begin{Hremark}
+Conservation of mass is also called the {\bf continuity equation}.  
 Some texts will recast the continuity equation by defining a 
 {\bf material derivative} of density as follows:  Since
 $\rho = \rho(\vx, t)$, then 
@@ -172,11 +212,12 @@ $\rho = \rho(\vx, t)$, then
  \dot \rho = \frac{\partial \rho}{\partial \vx} \frac{\partial \vx}{\partial t} 
  + \frac{\partial \rho}{\partial t} \defe \frac{D \rho}{Dt}.
 \ee
-Expansion of (\ref{eq:mass_conservation}) then gives
+With arguments $(\vx, t)$ suppressed for brevity, (\ref{eq:mass_conservation}) 
+can be expanded to give 
 \be
   \frac{\partial \rho}{\partial t} + 
-  \grad \rho \cdot \vv + \rho \grad \cdot \vv = 
-  \underset{\defe \; \dot \rho}{\underbrace{
+  \grad \rho \cdot \vv + \rho \; \grad \cdot \vv = 
+  \underset{\defe \; \dot\rho}{\underbrace{
   \frac{\partial \rho}{\partial t} + 
   \frac{\partial \rho}{\partial \vx} \frac{\partial \vx}{\partial t}}} +
   \rho \grad \cdot \vv = 0,
@@ -185,10 +226,42 @@ or simply
 \be
 \dot \rho + \rho \grad \cdot \vv = 0.
 \ee
+\end{Hremark}
+
 
 \section{Conservation of Linear Momentum}
 
 \section{Conservation of Angular Momentum}
 
+\be
+\begin{tabular}{cl|l}
+ &
+ {\bf Assumption}
+ &
+ {\bf Result} \\ \hline \hline
+ (1) 
+ &
+ Point couples are zero. 
+ &
+ $\vsigma(\vx, t) = [\vsigma(\vx, t)]\transpose$  
+ \\ 
+\end{tabular}
+\ee
+
+
 \section{Conservation of Energy}
+\be
+\begin{tabular}{cl|l}
+ &
+ {\bf Assumption}
+ &
+ {\bf Result} \\ \hline \hline
+ (1) 
+ &
+ Energy is neither created nor destroyed.
+ &
+  
+ \\ 
+\end{tabular}
+\ee
 
