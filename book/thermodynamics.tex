@@ -70,18 +70,25 @@ and
 
 
 \section{First Law of Thermodynamics}
+\begin{itemize}
+\item A closed system can exchange heat and work
+with its surroundings, but cannot exchange mass.
+
+\item An open system can exchange heat, work, and mass with its surroundings.
+\end{itemize}
+
 The first law for a closed system states the change in internal
-energy $\Delta \IE$ is equal to the net energy $Q$ added to the system as heat
+energy $\Delta U$ is equal to the net energy $Q$ added to the system as heat
 less the net work $W$ done {\bf by} the system.
 \be
-\Delta \IE = Q - W.
+\Delta U = Q - W.
 \ee
 This was the sign convention used by Joule and Clausius.
 A different sign convention, used by Planck, stated that 
-the change in internal energy $\Delta \IE$ is equal to the net energy $Q$
+the change in internal energy $\Delta U$ is equal to the net energy $Q$
 added to the system as heat plus the net work done {\bf on} the system.
 \be
-\Delta \IE = Q + W.
+\Delta U = Q + W.
 \ee
 Thus, all net transfers {\bf to} the system are {\bf positive}.  In 
 contrast, all net transfers {\bf from} the system are {\bf negative}.
@@ -89,11 +96,11 @@ contrast, all net transfers {\bf from} the system are {\bf negative}.
 Then, the conservation of energy principle for open systems can be
 written as
 \be
-\Delta E = \Delta (\KE + \IE + \PE) = Q + W,
+\Delta E = \Delta (K + U) = Q + W,
 \ee
-where the total energy $E$ is the sum of the kinetic energy $\KE$, 
-the internal energy $\IE$, and the potential energy $\PE$.  The
-change in total energy is equal to the net energy $Q$ added to the system
+where the total energy $E$ is the sum of the kinetic energy $K$ and 
+the internal energy $U$.
+The change in total energy is equal to the net energy $Q$ added to the system
 as heat plus the net work $W$ done {\bf on} the system.
 
 Next, we introduce
@@ -109,6 +116,25 @@ The balance law then states
 dE = \delta Q + \delta W.
 \ee
 
+\subsubsection{First Law in Rate Form}
+We will be interested in the change in energy over a unit of time.
+Thus, it is useful to write the First Law of Thermodynamics in
+terms of time derivatives.
+\be
+\frac{dE}{dt} = \delta \dot Q + \delta \dot W
+\ee
+
+
+\subsubsection{Continuum Description}
+Now we write explicit continuum descriptions for each of the 
+terms in the balance law
+\be
+\frac{d}{dt} ( K + U ) = \delta \dot Q + \delta \dot W.
+\ee
+The kinetic energy is given by
+\be
+K = \int_V \half \; \rho(\vx, t) \; \vv(\vx, t) \cdot \vv(\vx, t) \; dV 
+\ee
 
 \section{Second Law of Thermodynamics}
 The Second Law states that the infinitesimal increment of entropy $dS$ 
@@ -136,6 +162,7 @@ For a reversible process, the first and second laws can be combined as
 
 \section{Thermodynamic Potentials}
 \subsection{Variables}
+
 \begin{tabular}{cll}
 $P$ & pressure &  (N/m$^2$) \\
 $V$ & volume & (m$^3$)\\
@@ -144,32 +171,34 @@ $S$ & entropy & (J/K)
 \end{tabular}
 
 \subsection{Potentials}
+Thermodynamic potentials consider a thermodynamically closed system, 
+thus the energy $E = (K + U)$ is considered only as internal energy $U$.
 
 \begin{tabular}{clll}
-$E$ & & (?internal only?) energy & (J) \\
-$\helmholtz$ &$\defe \; E - TS$ & Helmholtz free energy & (J) \\
+$U$ & & internal energy & (J) \\
+$\helmholtz$ &$\defe \; U - TS$ & Helmholtz free energy & (J) \\
 $\gibbs$ &$\defe \; \helmholtz - TS$ & Gibbs free energy & (J) \\
-$\enthalpy$ &$\defe \; E + PV$ & enthalpy & (J) 
+$\enthalpy$ &$\defe \; U + PV$ & enthalpy & (J) 
 \end{tabular}
 
 \vspace{2em}
 The {\bf Helmholtz} free energy $\helmholtz$ is the Legendre transform
-of the (?internal?) energy $E$, where the entropy $S$ is replaced by
+of the internal energy $U$, where the entropy $S$ is replaced by
 the temperature $T$ as the independent variable.  
 
 \subsection{Differential Forms of Potentials}
 \begin{tabular}{rcrcrl}
-$dE$ &=& $ T \;dS$ & $-$ & $P \;dV$   & to come \\
-$d\helmholtz$ &=& $-P \;dV$ & $-$ & $S \;\;dT$ & xx \\
-$d\gibbs$ &=& $-S \;dT$ & $+$ & $V \;dP$   & xx \\
-$d\enthalpy$ &=& $ V \;dP$ & $+$ & $T \;dS$   & xx 
+$dU$ &=& $ T \;dS$ & $-$ & $P \;dV$   &  \\
+$d\helmholtz$ &=& $-P \;dV$ & $-$ & $S \;\;dT$ &  \\
+$d\gibbs$ &=& $-S \;dT$ & $+$ & $V \;dP$   &  \\
+$d\enthalpy$ &=& $ V \;dP$ & $+$ & $T \;dS$ &  
 \end{tabular}
 
 \begin{figure}[htb]
   \begin{center}
   %\begin{overpic}[width=0.7\textwidth, grid, tics=10]{fig/thermo_potentials}
   \begin{overpic}[width=0.7\textwidth]{fig/thermo_potentials}
-    \put(48, 61){$dE$}
+    \put(48, 61){$dU$}
     \put(35, 48){$d\helmholtz$}
     \put(48, 35){$d\gibbs$}
     \put(60, 48){$d\enthalpy$}
@@ -185,7 +214,7 @@ $d\enthalpy$ &=& $ V \;dP$ & $+$ & $T \;dS$   & xx
     \put(58, 76.5){\footnotesize positive}
   \end{overpic}
   \end{center}
-  \caption{Mnemonic for the quick recall of the thermodynamic potentials
+  \caption{Mnemonic for the thermodynamic potentials
   in differential form.}
   \label{fig:thermo_potentials}
 \end{figure}
@@ -195,7 +224,7 @@ The Maxwell relations are a statement of equality between
 {\em first} derivative of a function because of a quality possessed by 
 the {\em second} derivative of that function.  Specifically, 
 the Maxwell relations equate {\em first} derivatives of the thermodynamic
-potential functions $E, \helmholtz, \gibbs,$ and $\enthalpy$, 
+potential functions $U, \helmholtz, \gibbs,$ and $\enthalpy$, 
 because the {\em second} derivates of those
 same functions does not depend on the order of differentiation
 with respect to the thermodynamic variables $P, V, T,$ and $S$.
@@ -223,15 +252,15 @@ of the thermodynamic potentials with respect to their natural variables.
 Specifically, we can write the four thermodynamic potentials as functions
 of their natural variables:
 \begin{align}
- E &= E(S, V), \\
+ U &= U(S, V), \\
  \helmholtz &= \helmholtz(V, T), \\
  \gibbs &= \gibbs(T, P), \\
  \enthalpy &= \enthalpy(P, S). 
 \end{align}
 Next, we take {\em first} derivatives of these potentials:
 \begin{align}
-\left( \frac{\partial E}{\partial S} \right)_V = T, & \hspace{1.5cm}
-\left( \frac{\partial E}{\partial V} \right)_S = -P, \\ 
+\left( \frac{\partial U}{\partial S} \right)_V = T, & \hspace{1.5cm}
+\left( \frac{\partial U}{\partial V} \right)_S = -P, \\ 
 & \nonumber \\ 
 %
 \left( \frac{\partial \helmholtz}{\partial V} \right)_T = -P, & \hspace{1.5cm}
@@ -250,24 +279,32 @@ with respect to the natural variables, which
 allows for the {\em first} derivatives of the natural variables with 
 respect to the natural variables themselves to be equated, as follows:
 \be
- \frac{\partial^2 E}{\partial V \; \partial S} \implies 
- \left(\frac{  \partial T}{\partial V}\right)_S = 
- \left(\frac{- \partial P}{\partial S}\right)_V
+ \frac{\partial^2 U}{\partial V \; \partial S} 
+ \;\;\implies \;\;
+ + \left(\frac{ \partial T}{\partial V}\right)_S 
+ \;\; = \;\;
+ - \left(\frac{ \partial P}{\partial S}\right)_V
 \ee
 \be
- \frac{\partial^2 \helmholtz}{\partial T \; \partial V} \implies 
- \left(\frac{- \partial P}{\partial T}\right)_V = 
- \left(\frac{- \partial S}{\partial V}\right)_T
+ \frac{\partial^2 \helmholtz}{\partial T \; \partial V} 
+ \;\;\implies \;\;
+ - \left(\frac{ \partial P}{\partial T}\right)_V 
+ \;\; = \;\;
+ - \left(\frac{ \partial S}{\partial V}\right)_T
 \ee
 \be
- \frac{\partial^2 \gibbs}{\partial P \; \partial T} \implies 
- \left(\frac{- \partial S}{\partial P}\right)_T = 
- \left(\frac{  \partial V}{\partial T}\right)_P
+ \frac{\partial^2 \gibbs}{\partial P \; \partial T} 
+ \;\;\implies \;\;
+ - \left(\frac{ \partial S}{\partial P}\right)_T 
+ \;\; = \;\;
+ + \left(\frac{ \partial V}{\partial T}\right)_P
 \ee
 \be
- \frac{\partial^2 \enthalpy}{\partial S \; \partial P} \implies 
- \left(\frac{  \partial V}{\partial S}\right)_P = 
- \left(\frac{  \partial T}{\partial P}\right)_S
+ \frac{\partial^2 \enthalpy}{\partial S \; \partial P} 
+ \;\;\implies \;\;
+ + \left(\frac{ \partial V}{\partial S}\right)_P 
+ \;\; = \;\;
+ + \left(\frac{ \partial T}{\partial P}\right)_S
 \ee
 The foregoing equations are useful for eliminating entropy $S$, which 
 is difficult to measure in a laboratory setting, in favor of the 
