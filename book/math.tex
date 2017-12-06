@@ -1,6 +1,28 @@
 \chapter{Math}
 \section{Mathematical Preliminaries}
 %====================
+\subsection{Continuity of Derivatives}
+Several results will make use
+of the {\bf Schwarz theorem}, which 
+states that if function $f : \real^2 \mapsto \real$ has continuous 
+second partial derivatives at a given point $\vp \in \real^2 = 
+\left\{p_1, p_2\right\}^T$,\footnote{This relationship can be 
+extended to general dimensionality of 
+$f : \real^n \mapsto \real$, but this higher dimensionality is not used
+in the development that follows.}
+then 
+\be
+ \dst\frac{\partial^2 f(\vp)}{\partial x_i \; \partial x_k} = 
+ \dst\frac{\partial^2 f(\vp)}{\partial x_k \; \partial x_i}
+ \hspace{1.0cm}\mbox{\bf (Commutative)}
+ \label{eq:schwarz}
+\ee
+The Schwarz theorem establishes that the result of differentiation
+of a function of two variables is independent of the order of 
+that differentiation.
+
+
+\subsection{Vector Spaces}
 As defined by Gurtin,\footnote{Gurtin ME. An introduction to 
 continuum mechanics. Academic press; 1982, Vol.~158, Jan 12.}
 \begin{itemize}
