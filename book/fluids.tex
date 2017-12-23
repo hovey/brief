@@ -8,14 +8,15 @@ configuration,
 deviatoric parts,
 \item a volumetric stress response function that is either incompressible
 or compressible, and 
-\item a deviatoric stress response that is either (a) free from 
-shear or (b) supports shear through 
-dependence on velocity gradients.
+\item a deviatoric stress response that, 
+through dependence on velocity gradients, 
+is either free from shear (inviscid) or 
+supports shear (viscid).
 \end{itemize}
 
 \section{Incompressible, Inviscid (Ideal) Fluid}
-The incompressible, inviscid (ideal) fluid begins with the three
-following assumptions:
+The incompressible, inviscid (ideal) has three
+assumptions:
 \be
 \begin{tabular}{cl|l}
  &
@@ -48,7 +49,7 @@ following assumptions:
 \ee
 
 \begin{Hresult}
-The current mass density $\rho$ is a positive constant equal to the
+The current mass density $\rho$ is a positive constant, equal to the
 reference mass density.  
 Thus $\rho(\vx, t) = \rho_0(\vX) = \bar\rho_0 > 0$.
 \end{Hresult}
@@ -80,7 +81,7 @@ and expressed in the reference configuration variable $\vX$,
 \be
 \frac{\partial \rho(\vvarphi(\vX, t), t)}{\partial t} = 0.
 \ee
-Since the time variation is zero, at the initial time $t=0$,
+Since the time variation is zero at the initial time $t=0$,
 \be
 \rho(\vvarphi(\vX, 0), 0) 
 = \rho(\vX, 0) = \rho_0(\vX) = \bar\rho_0,
@@ -173,14 +174,14 @@ velocity $\vv$.
 \end{Hremark}
 
 \section{Compressible, Inviscid Fluid}
-The compressible, inviscid fluid releases the constant density and 
+The compressible, inviscid fluid eliminates the constant density and 
 incompressibility
 assumptions of an ideal fluid.
 To accommodate the compressibility behavior, the pressure becomes a function
 of density, $P = P(\rho(\vx, t), t)$, with the added constraint that
 changes in pressure with respect to changes in density must be positive.
-This relationship is illustrated in 
 Figure~\ref{fig:P_rho_diagram} 
+illustrates this relationship
 (compare to Figure~\ref{fig:PV_diagram}).
 \be
 \begin{tabular}{cl|l}
@@ -236,16 +237,17 @@ Figure~\ref{fig:P_rho_diagram}
 \end{figure}
 
 \begin{Hremark}
-Some comments regarding Figure~\ref{fig:P_rho_diagram} are 
-necessary.  Most importantly, we are discussing the $P(\rho)$ relationship
+Refer to Figure~\ref{fig:P_rho_diagram}.
+We discuss the $P(\rho)$ relationship
 near a reference density $\rho_0$, at reference pressure $P_0$.
 Near $\rho_0$, the slope is
-positive, and increases as $\rho$ increases.  While the slope likewise
-decreases as $\rho$ decreases, the slope remains positive for
-all values of $\rho$, assumed as a positive, real value.
+positive, increases as $\rho$ increases, 
+and decreases and $\rho$ decreases.
+The slope remains positive for
+all values of $\rho$, which is a positive, real value.
 
 The character of $P(\rho)$ at the extreme values of $\rho$, zero and
-infinity, are shown in general terms only.  The density of a fluid
+infinity, are shown in general terms only.  The density of the fluid
 can tend toward zero, but as the pressure tends toward zero (a vacuum), 
 the fluid will disassociate and the continuity assumption underlying
 continuum mechanics ceases to be valid.  Thus, the $P(\rho)$ curve is
@@ -257,10 +259,17 @@ in Figure~\ref{fig:P_rho_diagram}, it is implied because density
 increasing without bounds seems nonphysical.  The sharp upward 
 bend of $P(\rho)$ suggests this asymptotic behavior.
 
-Finally, the general behavior that the slope of the $P(\rho)$ curve
+The general behavior that the slope of the $P(\rho)$ curve
 always be positive follows from the notion that an increase in pressure
 on a fluid should cause increase in density, and vice versa.  Thus, 
 the slope of the curve should never be zero or negative.
+
+Finally, unlike the first derivative $\partial P / \partial \rho > 0$, 
+the second derivative 
+$\partial^2 P / \partial \rho^2$ 
+has no requirements of positivity, even though 
+$P(\rho)$ is shown
+in Figure~\ref{fig:P_rho_diagram} as a convex function.
 \end{Hremark}
 
 \begin{Hresult}
@@ -315,7 +324,7 @@ is assumed, but not explicitly written for the sake of brevity.
 volume and density changes.
 \item The elastic fluid does not support shear stresses.
 \item There is an explicit relationship between pressure $P$ and 
-density $\bar\rho$, and the derivative of this relationship must
+density $\rho$, and the first derivative of this relationship must
 be greater than zero.  
 \item There is no explicit relationship between pressure $P$ and 
 velocity $\vv$.
