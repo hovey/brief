@@ -3,30 +3,33 @@
 % ==============
 \section{Bodies and Particles}
 
-Let body $\vB$ be an open, bounded subset of three-dimensional           
-Euclidean space $\realnsd$ with boundary $\partial \vB$.                 
+Let body $\cB$ be an open, bounded subset of three-dimensional           
+Euclidean space $\realnsd$ with boundary $\partial \cB$.                 
 The number of space dimensions, $\nsd$, is assumed equal                    
 to three unless stated otherwise.
 The boundary is decomposed within a particular space dimension into         
 two non-overlapping subdomains, $\Gamma_u$ and $\Gamma_{\sigma}$        
 where displacements or tractions are prescribed.  Thus                      
-$\partial \vB = \Gamma_u \union \Gamma_{\sigma}$ and 
+$\partial \cB = \Gamma_u \union \Gamma_{\sigma}$ and 
 $\Gamma_u \intersection \Gamma_{\sigma} = \emptyset$.           
 Set closure is denoted                                                      
-$\bar{\vB} = \vB \union \partial \vB$.                             
+$\bar{\cB} = \cB \union \partial \cB$.                             
 Let the body be composed of a closed set of particles with 
 coordinates $\vX$ in the reference configuration.  The particle
 has coordinates $\vX = \{X_1, X_2, X_3\}^T$ as measured from
 some origin $O$ in the dextral, orthonormal inertial reference
-from $\veEihat, \veEjhat, \veEkhat$.
+%from $\veEihat, \veEjhat, \veEkhat$ attached to inertial
+from $\vefa, \vefb, \vefc$ attached to inertial
+reference frame $\cF$.
 
 
 \section{Motion}
 Let the arbitrary time interval be defined as
-$\interval \defe [t_0,T]$.\footnote{Note that $t_0$, while
-typically zero, may be any real number.}  
+$\interval \defe [t_0,t_f]$, initial to final
+time, inclusive.\footnote{Note that $t_0$, while
+typically zero, may be any real number less than $t_f$.}  
 Let the motion, a one parameter family of configurations, 
-$\vvarphi : \vB \times \interval \mapsto \realthree$ 
+$\vvarphi : \cB \times \interval \mapsto \realthree$ 
 map the material particle
 $\vX$ into the current configuration $\vx$ such that
 \be
@@ -37,7 +40,7 @@ A motion $\vvarphi$ evaluated
 at a particular time $t \in \interval$ 
 is referred to as a configuration or
 placement.  To each configuration, we assign a displacement
-field $\vu: \vB \mapsto \realthree$ such that 
+field $\vu: \cB \mapsto \realthree$ such that 
 \be
 \vu(\vX,t) \defe \vvarphi(\vX,t) - \vX 
 \;\;\Longleftrightarrow\;\;
@@ -89,15 +92,15 @@ To explore some motions, we shall consider the two-dimensional
 body shown in Fig.~\ref{fig:configuration_reference}.  
 
 \begin{figure}[h!]
+  \begin{center}
+    \includegraphics[width=\textwidth]{fig/configuration_reference.pdf}
+  \end{center}
   \caption{Reference configuration of a body defined by particles
   with $X_1 \in [-1, 1]$ and $X_2 \in [-1, 1]$.  With the 
   continuum body is composed of an infinite number of particles, 
   only nine particles are shown for the sake of simplicity.  Eight of
   the nine particles shown are on the boundary of the body, and a 
   single particle at the geometric center is the ninth particle.}
-  \begin{center}
-    \includegraphics[width=\textwidth]{fig/configuration_reference.pdf}
-  \end{center}
   \label{fig:configuration_reference}
 \end{figure}
 
@@ -122,15 +125,201 @@ an amount of 3 and 2, respectively.
 The reference configuration is shown in blue.  
 The current configuration is shown in red.
 \begin{figure}[htb]
-  \caption{Illustration of an offset motion.}
   \begin{center}
     \includegraphics[width=\textwidth]{fig/configuration_current.pdf}
   \end{center}
+  \caption{Illustration of an offset motion.}
   \label{fig:configuration_current}
 \end{figure}
 
+\clearpage
 \subsection{Rotation}
-To come.
+To motivate rotations of deformable bodies, we start with two simpler
+cases: general motion two particles instead of bodies, 
+and general motion of rigid bodies instead of 
+deformable bodies.  These two specific cases will then be building blocks
+for the more general case of rotation of a deformable body, with 
+and without stretch.
+
+We first consider two particles, and 
+describe absolute motion versus relative motion of particles.
+Then, we connect two particles to create a two-particle body, and show
+how a rigid body assumption leads to the absence of relative
+translation between the particles of a body.  
+While the absence of 
+relative translation leads to the absence of absolute {\bf translation} between
+two particles, remarkably, two particles can still move relative to
+each other without violating the rigid body assumption and produce 
+absolute translation through {\bf rotation} of the rigid body.
+
+Finally, we connect these two ideas---translation of particles and rotation
+of a rigid body---to describe the general case described as a particle
+moving on a rigid body.  This formulation will then be further generalized
+to describe motion composed of {\em both} rotation and stretch of a 
+deformable body.
+
+\subsubsection{Translation of Particles}
+Consider two particles $P$ and $Q$ located in the in the 
+inertial reference from $\cF$ and located with position vectors
+$\vX_{P}$ and $\vX_{Q}$ from origin $O$.
+
+For the time being, assume we know how particle $Q$ moves
+in frame $\cF$ and how particle $P$ moves {\em relative} to 
+particle $Q$.  Given these two knowns, we wish to construct 
+an absolute relationship for how particle $P$ moves in the
+inertial reference frame $\cF$.
+
+To achieve this, 
+we write the {\bf loop vector},
+\be
+\vX_{P} = \vX_{Q} + \vX_{P/Q}
+\label{eq:loop_vector}
+\ee
+in the reference configuration, which stays that distance 
+to point~$P$
+from the origin~$O$
+is equal to the 
+distance 
+to point~$Q$ 
+from the origin~$O$ 
+plus the distance 
+to point~$P$ 
+from point~$Q$.\footnote{This term, $\vX_{P/Q}$, is written in a 
+way that is reminiscent of 
+{\bf conditional probabilities}, that is ``the distance to 
+point~$P$ {\em given} point~$Q$.}
+Note, we could have written $\vX_P$ explicitly as $\vX_{P/O}$, but
+drop the notation of the origin $O$ when it is used as the datum.
+This relationship extend to the 
+current configuration through the absolute and relative displacement
+measures. The current placement of $P$,  
+$\vx_{P}$, is the superposition  
+of the current placement of $Q$ with the current placement of
+$P$ {\em relative} to the current placement of $Q$. 
+Explicitly,
+\be
+\vx_{P}(\vX, t) = \vX_{Q} + \vu_Q(\vX, t) + 
+                  \vX_{P/Q} + \vu_{P/Q}(\vX, t).
+\label{eq:loop_current}
+\ee
+The velocity of point $P$ is constructed by time-differentiating
+(\ref{eq:loop_current}) to obtain
+\be
+\dot\vx_{P} = 
+\frac{\partial \vu_Q}{\partial \vX_Q}
+\cancelto{0}{\frac{\partial \vX_Q}{\partial t}} + 
+\frac{\partial \vu_Q}{\partial t} 
+\;\;+\;\;
+\frac{\partial \vu_{P/Q}}{\partial \vX_{P/Q}}
+{\frac{\partial \vX_Q}{\partial t}} +
+\frac{\partial \vu_{P/Q}}{\partial t}.
+\ee
+Substituting (\ref{eq:loop_vector}) gives
+\be
+\dot\vx_{P} = 
+\frac{\partial \vu_Q}{\partial \vX_Q}
+\cancelto{0}{\frac{\partial \vX_Q}{\partial t}} + 
+\frac{\partial \vu_Q}{\partial t} 
+\;\;+\;\;
+\frac{\partial \vu_{P/Q}}{\partial \vX_{P/Q}}
+\left(
+ \cancelto{0}{\frac{\partial \vX_P}{\partial t}} - 
+ \cancelto{0}{\frac{\partial \vX_Q}{\partial t}}
+\;\;\;\right)
++ 
+\frac{\partial \vu_{P/Q}}{\partial t}.
+\ee
+Thus, the absolute velocity of point $P$ 
+simply the absolute velocity of point $Q$ plus the 
+relative velocity of point $P$ taken with respect to point $Q$,
+\be
+\vv_{P} = \vv_Q + \vv_{P/Q},
+\ee
+Similarly, for 
+the accelerations,
+\be
+\va_{P} = \va_Q + \va_{P/Q}.
+\ee
+The canonical example of relative position, velocity, and acceleration
+is that of a person, $P$, walking down the aisle of a passenger 
+train $Q$.  The current position of the passenger in the inertial
+reference $\vx_P$ is equal to the superposition of the 
+current position of the train car in the inertial reference frame
+$\vx_Q$ plus the position of the person {\em relative}
+to the train car, $\vx_{P/Q}$.  This relationship, and the 
+corresponding velocity and acceleration relationship, are 
+stated explicitly as
+\begin{align}
+ \vx_P & = \vx_Q + \vx_{P/Q}, \\
+ \vv_P & = \vv_Q + \vv_{P/Q}, \\
+ \va_P & = \va_Q + \va_{P/Q}. 
+\end{align}
+
+
+
+%
+\subsubsection{Rotation of a Rigid Body}
+Next, we construct a rigid body by rigidly connecting particle 
+$P$ and particle $Q$.  Thus, we have a body $\cB$ consisting of two 
+particles.  Unlike particles, which have only three translation 
+degrees of freedom, 
+rigid bodies have six degrees of freedom: 
+three translations and three rotations.
+
+In the previous section, translation of particle $P$ 
+required that either translation of particle $Q$,
+or translation of particle $P$ {\em relative} to particle $Q$.
+This last term, translation of particle $P$ relative to particle
+$Q$, can be interpreted as a positive or negative {\bf stretch} 
+between $P$ and $Q$ as motion from the reference configuration to the
+current configuration occurs.
+
+In this current section, we have constructed a rigid body out of
+and between particles $P$ and $Q$.  Intuition then suggests 
+positive or negative stretch between the two points can not occur, the
+distance between particles $P$ and $Q$ in body $\cB$ is constant 
+for all time.  
+
+Remarkably, motion of particle $P$ can still occur not only as a consequence
+of translations of particle $Q$, but also from rotations of body $\cB$
+about an axis that contains $Q$.  In fact, because of superposition
+of these two effects, even if particle $Q$ never moves, particle $P$ 
+can move by virtue of rotations.
+
+\subsubsection{Particle Moving on a Rigid Body}
+
+\subsubsection{Rotation and Stretch of a Deformable Body}
+
+
+\begin{figure}[htb]
+  \begin{center}
+    %\begin{overpic}[width=\textwidth, grid, tics=10]{fig/rigid_rotation}
+    \begin{overpic}[width=\textwidth]{fig/rigid_rotation}
+      \put(14, 16){$O$}
+      \put(11, 18){$\cF$}
+      \put(28, 20){$\vefa$}
+      \put(13, 35){$\vefb$}
+      \put( 2,  6){$\vefc$}
+      \put(69, 83){$\vnhat$}
+      \put(50, 30){$\vr^{OQ}$}
+      \put(55, 40){$\vr^{Qp}$}
+      \put(45, 40){$\vr^{QP}$}
+      \put(27, 46){$\vr^{OP}$}
+      \put(34.5, 42){$\vr^{Op}$}
+      \put(58, 35){$Q$}
+      \put(36, 56){$P$}
+      \put(46, 51){$p$}
+      \put(55.5, 52.3){$\theta$}
+      \put(30, 55){$\cB$}
+      \put(23, 60){$\partial \cB$}
+    \end{overpic}
+    %\includegraphics[width=\textwidth]{fig/rigid_rotation.pdf}
+  \end{center}
+  \caption{To come.}
+  \label{fig:rigid_rotation}
+\end{figure}
+
+
 
 \clearpage
 \subsection{Dilatational (Volumetric) Stretch}
@@ -153,10 +342,10 @@ The reference configuration, shown in blue, has area of~4.
 The current configuration, shown in red, has area of~16.
 
 \begin{figure}[htb]
-  \caption{Illustration of a dilatational (volumetric) motion.}
   \begin{center}
     \includegraphics[width=0.9\textwidth]{fig/configuration_volumetric.pdf}
   \end{center}
+  \caption{Illustration of a dilatational (volumetric) motion.}
   \label{fig:configuration_volumetric}
 \end{figure}
 
@@ -181,10 +370,10 @@ and $\lambda_2 = \half$ (compression), as shown
 in Fig.~\ref{fig:configuration_stretch}.
 
 \begin{figure}[htb]
-  \caption{Illustration of an isochoric (deviatoric) motion.}
   \begin{center}
     \includegraphics[width=\textwidth]{fig/configuration_stretch.pdf}
   \end{center}
+  \caption{Illustration of an isochoric (deviatoric) motion.}
   \label{fig:configuration_stretch}
 \end{figure}
 
@@ -207,11 +396,11 @@ two states $0$ and $1$, and connect with the isochoric process
 $PV$ diagram in thermodynamics, shown in Fig.~\ref{fig:PV_isochoric}.
 
 \begin{figure}[htb]
-  \caption{Isochoric process from initial state (reference configuration) $0$ to
-  final state (current configuration) $1$.}
   \begin{center}
     \includegraphics[width=\textwidth]{fig/PV_isochoric.pdf}
   \end{center}
+  \caption{Isochoric process from initial state (reference configuration) $0$ to
+  final state (current configuration) $1$.}
   \label{fig:PV_isochoric}
 \end{figure}
 
