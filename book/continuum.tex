@@ -34,6 +34,7 @@ map the material particle
 $\vX$ into the current configuration $\vx$ such that
 \be
 \vx = \vvarphi(\vX,t) = \vvarphi_t(\vX).
+\label{eq:motion}
 \ee
 
 A motion $\vvarphi$ evaluated
@@ -64,6 +65,16 @@ of reference configuration $\vX$ and time $t$.  The displacement
 function $\vu$ is not a simple (constant) displacement, which 
 we refer to as ``offset'' and describe in Section~\ref{section:offset}.
 
+\subsection{Inverse Motions}
+The map from $\vX$ to $\vx$ is one-to-one and invertable.  
+We write the inverse map, from $\vx$ to $\vX$ as follows,
+\be
+\vX = \vvarphi^{-1}(\vx,t) = \vvarphi^{-1}_t(\vx),
+\label{eq:motion_inverse}
+\ee
+which maps the current configuration back to the reference 
+configuration.
+
 \subsection{Linear Motions}
 In this section, we consider the equation of a line
 \be
@@ -74,16 +85,17 @@ as\footnote{
 For the time being, we will not be concerned with time $t$, so we
 eliminate it from our notation for the sake of brevity.}
 \be
-\vx = \vvarphi(\vX) = 
-\underbrace{\; \tMbold \; \vX \;}_{\text{linear in $\vX$}} 
-+ 
-\underbrace{\vb}_{\text{constant}} 
-\stackrel{\mbox{\scriptsize set}}{=} \vX + \vu(\vX).
+\vx = \vvarphi(\vX, t) = 
+\underbrace{\; \tMbold(t) \; \vX \;}_{\text{linear in $\vX$}} 
+\;\;\; + 
+\underbrace{\vb(t)}_{\text{constant in $\vX$}} 
+\stackrel{\mbox{\scriptsize set}}{=} \;\;\; \vX + \vu(\vX, t).
 \ee
 Then the displacement can be written as
 \begin{align}
- \vu(\vX) &= \tMbold \vX + \vb - \vX, \\
-          &= (\tMbold - \vid) \vX + \vb. \label{eq:displacement_M}
+ \vu(\vX, t) &= \tMbold(t) \vX + \vb(t) - \vX, \\
+          &= \left[\tMbold(t) - \vid\right] 
+          \vX + \vb(t). \label{eq:displacement_M}
 \end{align}
 In the following sections, we will be exploring the
 effect of ``slope'' $\tMbold$ and 
@@ -258,7 +270,7 @@ stated explicitly as
 
 
 %
-\subsubsection{Rotation of a Rigid Body}
+\subsubsection{Rotation of a Rigid Body with Two Fixed Particles}
 Next, we construct a rigid body by rigidly connecting particle 
 $P$ and particle $Q$.  Thus, we have a body $\cB$ consisting of two 
 particles.  Unlike particles, which have only three translation 
@@ -285,6 +297,260 @@ of translations of particle $Q$, but also from rotations of body $\cB$
 about an axis that contains $Q$.  In fact, because of superposition
 of these two effects, even if particle $Q$ never moves, particle $P$ 
 can move by virtue of rotations.
+
+
+
+\begin{Hresult}
+A special case of a motion $\vvarphi$ 
+that is a rigid body motion has the form 
+\be
+  \vvarphi(\vX,t) = \tRbold(t) \vX + \vb(t)
+  \;\;\Longleftrightarrow\;\;
+  \varphi_i = \tR_{iJ} X_J + b_i.
+  \label{eq:rigid_body_motion}
+\ee
+\end{Hresult}
+
+\begin{Hresult}
+The material velocity $\vV$ of the rigid body motion has the form
+\be
+  \vV(\vX,t) = \dot{\tRbold}(t) \vX + \dot{\vb}(t)
+  \;\;\Longleftrightarrow\;\;
+  V_I = \delta_{Ii} \dot{\tR}_{iJ} X_J + \delta_{Ii} \dot{b}_i.
+  \label{eq:material_velocity}
+\ee
+\end{Hresult}
+
+\begin{Hresult}
+The material acceleration $\vA$ of the rigid body motion has the form
+\be
+  \vA(\vX,t) = \ddot{\tRbold}(t) \vX + \ddot{\vb}(t)
+  \;\;\Longleftrightarrow\;\;
+  A_I = \delta_{Ii} \ddot{\tR}_{iJ} X_J + \delta_{Ii} \ddot{b}_i.
+  \label{eq:material_acceleration}
+\ee
+\end{Hresult}
+
+It is more common to see the velocity and acceleration of the rigid
+body expressed in the current configuration, as opposed to the reference 
+configuration, as 
+in (\ref{eq:material_velocity}) 
+and (\ref{eq:material_acceleration}).
+
+
+
+
+\begin{Hresult}
+The current velocity $\vv$ of the rigid body motion has the form
+\be
+  \vv(\vx,t) = \vomega (t) \times 
+  \left[ \;
+  \vx - \vb(t)
+  \; \right]
+  + 
+  \dot{\vb}(t)
+  \;\;\Longleftrightarrow\;\;
+  v_i = \epsilon_{ijk} \; \omega_j
+  \left[ \;
+  x_k - b_k
+  \; \right]
+  + 
+  \dot{b}_i
+  \label{eq:current_velocity}
+\ee
+\end{Hresult}
+
+\begin{Hremark}
+From time-to-time, and for
+the sake of brevity, 
+we avoid writing explicit dependence on time, $t$.
+Thus, we write vector functions
+simply as function of $\vX$ or $\vx$, and where dependence on $t$ 
+is implied where appropriate.
+\end{Hremark}
+
+\begin{Hproof}
+Rewrite rigid body motion (\ref{eq:rigid_body_motion})
+in the current configuration $\vx$
+\be
+  \vx = \tRbold \; \vvarphi^{-1}(\vx) + \vb 
+\ee
+or
+\be
+  \vvarphi^{-1}(\vx) = 
+  \tRbold^{-1} \left( \vx - \vb \right). 
+\ee
+Since $\tRbold^{-1} = \tRbold^T$, 
+\be
+  \vvarphi^{-1}(\vx) = 
+  \tRbold(t)^T \left( \vx - \vb \right). 
+  \label{eq:inverse_rigid_motion}
+\ee
+Write the velocity in the current configuration, 
+$\vv(\vx,t)$, using (\ref{eq:material_velocity}) 
+and use explicit time dependence on $t$ for clarity,
+\be
+\vv(\vx, t) = 
+\vV(\vvarphi^{-1}(\vx, t), t) = 
+\dot{\tRbold}(t) \; \vvarphi^{-1}(\vx, t) + \dot{\vb}(t).
+\ee
+Substitute (\ref{eq:inverse_rigid_motion}),
+\be
+\vv(\vx) = 
+\underset{\vomegahat}{\underbrace{\dot{\tRbold} \; \tRbold^T}}
+\left( \vx - \vb \right) 
++ \dot{\vb}, 
+\label{eq:velocity_current_penultimate}
+\ee
+where
+\be
+ \vomegahat \; \vz = \vomega \times \vz = \dot{\tRbold} \tRbold^T \; \vz,
+ \label{eq:omega_hat}
+\ee
+for all vectors $\vz$.
+With (\ref{eq:omega_hat}), 
+(\ref{eq:velocity_current_penultimate}) can be written as
+\be
+\vv(\vx) = 
+\vomega \times 
+\left( \vx - \vb \right) 
++ \dot{\vb}, 
+\ee
+which is the result.
+\end{Hproof}
+
+\begin{Hresult}
+The current acceleration $\va$ of the rigid body motion has the form
+\be
+  \va(\vx,t) = \valpha (t) \times 
+  \left[ \;
+  \vx - \vb(t)
+  \; \right]
+  + 
+  \vomega (t) \times 
+  \left( 
+  \vomega (t) \times 
+  \left[ \;
+  \vx - \vb(t)
+  \; \right]
+  \right)
+  + 
+  \ddot{\vb}(t)
+  \label{eq:current_acceleration}
+\ee
+\be
+\;\;\Longleftrightarrow\;\;
+  a_i = \epsilon_{ijk} \; \alpha_j
+  \left[ \;
+  x_k - b_k
+  \; \right]
+  + 
+  \epsilon_{ijk} \; 
+  \epsilon_{klm} \;
+  \omega_j \;
+  \omega_l \;
+  \left[ \;
+  x_m - b_m
+  \; \right]
+  +
+  \ddot{b}_i
+\ee
+\end{Hresult}
+
+
+\begin{Hproof}
+Start with (\ref{eq:velocity_current_penultimate}) and differentiate
+with respect to time, 
+\be
+\va(\vx, t)
+= 
+\frac{d}{dt}
+\vv(\vx, t)
+ = 
+\frac{d}{dt}
+\left(
+\dot{\tRbold} \; \tRbold^T
+\left( \vx - \vb \right) 
++ \dot{\vb}\right). 
+\ee
+Then expand,
+\be
+\va(\vx, t)
+= 
+\ddot{\tRbold} \; \tRbold^T
+\left( \vx - \vb \right) 
++ 
+\dot{\tRbold} \; \dot{\tRbold}^T
+\left( \vx - \vb \right) 
++
+\dot{\tRbold} \; \tRbold^T
+\left( \dot{\vx} - \dot{\vb} \right) 
++
+\ddot{\vb}. 
+\label{eq:acceleration_current_penultimate}
+\ee
+The first two terms on the right-hand-side of
+(\ref{eq:acceleration_current_penultimate}) 
+can be combined and simplified to
+\be
+\left[
+\ddot{\tRbold} \; \tRbold^T 
++ 
+\dot{\tRbold} \; \dot{\tRbold}^T
+\right] \; (\;\cdot\;)
+= 
+\frac{d}{dt}\;
+\left[
+\dot{\tRbold} \; \tRbold^T
+\right]
+\; (\;\cdot\;)
+= 
+\frac{d}{dt}\;[\;\widehat{\vomega}\;]
+\; (\;\cdot\;)
+=
+[\;\widehat{\valpha} \;] \; (\;\cdot\;),
+\ee
+where $(\;\cdot\;)$ stands in for the $(\vx - \vb)$ vector.
+The third term on the right-hand-side of 
+(\ref{eq:acceleration_current_penultimate}), with
+substitution of
+(\ref{eq:velocity_current_penultimate}),
+can be rewritten as
+\be
+\dot{\tRbold} \; \tRbold^T
+\left( \dot{\vx} - \dot{\vb} \right) 
+= 
+\dot{\tRbold} \; \tRbold^T
+\left(  
+\dot{\tRbold} \; \tRbold^T
+\left(\vx - \vb \right)
+\right) 
+= 
+\vomega \times
+\left(
+\vomega \times (\;\cdot\;)
+\right).
+\ee
+Combining these successive terms gives
+\be
+  \va(\vx) = \valpha  \times 
+  \left( \;
+  \vx - \vb
+  \; \right)
+  + 
+  \vomega \times 
+  \left( 
+  \; \vomega \times 
+  \left( \;
+  \vx - \vb
+  \; \right)
+  \right)
+  + 
+  \ddot{\vb},
+\ee
+which is the result.
+\end{Hproof}
+
 
 \subsubsection{Particle Moving on a Rigid Body}
 
