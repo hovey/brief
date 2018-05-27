@@ -1314,5 +1314,77 @@ strain tensor.  This result is shown as follows:
 
 \chapter{Stress}
 
+\section{Introduction}
+{\bf Stress} can generally be thought of as a ratio
+of force to area.  The greater the force for a given area, the higher
+the stress.  The greater the area for a given force, the lower the
+stress.  
 
+Forces and areas are vector quantifies, 
+with magnitude and direction.  
+
+The force magnitude, a scalar value, must be zero or positive.  
+Negative force values are disallowed because the force magnitude
+is the length of the force vector, 
+which is independent of force direction.
+
+The area magnitude, a scalar value, must be positive.
+A zero area value is disallowed because division by zero is
+undefined.  Negative area values are disallowed because the 
+area magnitude is the length of the area vector, 
+which is independent of area direction.  
+
+The force direction is described by a unit vector in a particular
+reference frame.  The unit vector endows 
+the force vector signs, negative and positive, to indicate
+direction with the reference frame.  
+
+Similarly, the area direction is described by a unit vector
+in a particular reference frame.  This reference frame is typically
+the same reference frame used to describe the force.  However, if
+the two references are not the same, then a basis transformation may
+be used to put both vectors into the same reference frame. 
+
+\begin{table}[htb]
+\begin{center}
+\begin{tabular}{|c|c|c|c|} \hline
+     & & {\bf Name} & {\bf Name} \\ 
+ $m$ & & and & and \\ 
+     & & {\bf Strain Tensor} & {\bf Stress Tensor} \\ \hline \hline
+ & & Green-Lagrange & Piola-Kirchhoff Two \\
+ 2 & Green-Lagrange Strain 
+   & $\tEbold_{(2)} = \dst\frac{1}{2}\left(\tUbold^2 - \vid\right)$ 
+   & $\ve{\Sigma} = J \;\tFbold^{-1} \ve{\sigma} \tFbold\;\minustranspose$
+   \\
+   & & & \\ \hline
+ & & engineering (Biot, nominal) & \\
+ 1 & engineering (Biot, nominal)
+   & $\tEbold_{(1)} = \tUbold - \vid$
+   & $aaa$ 
+   \\
+   & & & \\ \hline
+ & & & \\
+ 0 & log (Hencky, natural)
+   & $\tEbold_{(0)} = \ln\tUbold$
+   & $bbb$
+   \\
+   & & & \\ \hline
+ & & & \\
+ -1 & true 
+   & $\tEbold_{(-1)} = \vid - \tUbold^{-1}$
+   & $ccc$
+   \\
+   & & & \\ \hline
+ & & & \\
+ -2 & Almansi-Euler 
+   & $\tEbold_{(-2)} = \dst\frac{1}{2}\left(\vid - \tUbold^{-2}\right)$
+   & $ddd$
+   \\
+   & & & \\ \hline
+\end{tabular}
+\end{center}
+\caption{Table of Seth-Hill family of strains 
+and the stress conjugates.}
+\label{tab:table_of_strains}
+\end{table}
 
