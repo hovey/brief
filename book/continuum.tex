@@ -1132,17 +1132,18 @@ one-dimensional forms.
    & & & \\ \hline
 \end{tabular}
 \end{center}
-\caption{Table of strains obtained from the Seth-Hill family.}
+\caption{Strains obtained from the Seth-Hill family.}
 \label{tab:table_of_strains}
 \end{table}
 
-As will be seen in section (to come), 
+As will be seen in Section~\ref{section:conjugates}, 
 \begin{itemize}
 \item The Green-Lagrange strain tensor 
 will be the conjugate of the second Piola-Kirchhoff stress tensor,
 \item The deformation gradient will be the conjugate of the first
 Piola-Kirchhoff stress tensor,
-\item The engineering (Biot, nominal) strain tensor will be the conjugate of 
+\item The engineering (Biot, nominal) strain tensor 
+will be the conjugate of 
 the Jaumann (Biot) stress tensor, 
 \item The Almansi-Euler strain tensor will be the conjugate of the 
 weighted convected stress tensor.
@@ -1345,46 +1346,234 @@ the same reference frame used to describe the force.  However, if
 the two references are not the same, then a basis transformation may
 be used to put both vectors into the same reference frame. 
 
+\section{Stress Measures}
 \begin{table}[htb]
 \begin{center}
 \begin{tabular}{|c|c|c|c|} \hline
-     & & {\bf Name} & {\bf Name} \\ 
- $m$ & & and & and \\ 
-     & & {\bf Strain Tensor} & {\bf Stress Tensor} \\ \hline \hline
- & & Green-Lagrange & Piola-Kirchhoff Two \\
- 2 & Green-Lagrange Strain 
+     & {\bf Name} & {\bf Name} \\ 
+ $m$ & and & and \\ 
+     & {\bf Strain Tensor} & {\bf Stress Tensor} \\ \hline \hline
+ & Green-Lagrange & Piola-Kirchhoff Two \\
+ 2  
    & $\tEbold_{(2)} = \dst\frac{1}{2}\left(\tUbold^2 - \vid\right)$ 
    & $\ve{\Sigma} = J \;\tFbold^{-1} \ve{\sigma} \tFbold\;\minustranspose$
    \\
-   & & & \\ \hline
- & & engineering (Biot, nominal) & \\
- 1 & engineering (Biot, nominal)
+   & & \\ \hline
+ & engineering (Biot, nominal) & Biot (Jaumann) \\
+ 1  
    & $\tEbold_{(1)} = \tUbold - \vid$
-   & $aaa$ 
-   \\
-   & & & \\ \hline
- & & & \\
- 0 & log (Hencky, natural)
+   & $\tBbold = 
+   \half \left(\ve{\Sigma} \tUbold + \tUbold \ve{\Sigma} \right)$
+  \\
+   & & \\ \hline
+ & log (Hencky, natural) & \\
+ 0  
    & $\tEbold_{(0)} = \ln\tUbold$
    & $bbb$
    \\
-   & & & \\ \hline
- & & & \\
- -1 & true 
+   & & \\ \hline
+ & true & Swainger \\
+ -1  
    & $\tEbold_{(-1)} = \vid - \tUbold^{-1}$
-   & $ccc$
+   & $SW = \half J \left(\tUbold \hat{\ve{\sigma}} + 
+           \hat{\ve{\sigma}} \tUbold \right)$
    \\
-   & & & \\ \hline
- & & & \\
- -2 & Almansi-Euler 
+   & & \\ \hline
+ & Almansi-Euler & Almansi\\
+ -2  
    & $\tEbold_{(-2)} = \dst\frac{1}{2}\left(\vid - \tUbold^{-2}\right)$
-   & $ddd$
+   & $\tAbold = J \tFbold\transpose \ve{\sigma} \tFbold$
    \\
-   & & & \\ \hline
+   & & \\ \hline
 \end{tabular}
 \end{center}
-\caption{Table of Seth-Hill family of strains 
-and the stress conjugates.}
-\label{tab:table_of_strains}
+\caption{Seth-Hill family of strains 
+and their respective stress conjugates.}
+\label{tab:table_of_conjugate_stress}
+\end{table}
+
+The {\bf Kirchhoff stress} $\ve{\tau}$ (also known as the 
+weighted Cauchy stress) is defined as
+\be
+ \ve{\tau} \defe J \; \ve{\sigma}. 
+\ee
+The Kirchhoff stress is often used in metal plasticity formulations.
+
+The {\bf Corotational Cauchy stress} (also known as the back-rotated
+Cauchy stress) is defined as
+\be
+ \hat{\ve{\sigma}} \defe \tRbold\transpose \ve{\sigma} \tRbold
+\ee
+
+The {\bf Piola-Kirchhoff One stress $\tPbold$} is defined as
+\be
+ \tPbold \defe J \; \ve{\sigma} \tFbold \; \minustranspose.
+\ee
+
+The {\bf Piola-Kirchhoff Two stress $\ve{\Sigma}$} is defined as
+\be
+ \ve{\Sigma} 
+ \defe J \; \tFbold^{-1} \ve{\sigma} \tFbold \; \minustranspose.
+\ee
+Thus
+\be
+ \tPbold = \tFbold \ve{\Sigma}.
+\ee
+
+
+\section{Stress Rates}
+Stress rates arise when the stress depends on variables that have
+time dependency.  Viscoelastic material behavior, for example, will
+exhibit strains, and thus stresses, with time dependence.  
+
+Interestingly, while the Cauchy stress $\ve{\sigma}$ is objective, 
+the Cauchy stress rate $\sigmadot$ is not objective.  
+
+\begin{Hresult}
+The Cauchy stress $\ve{\sigma}$ is objective.
+\end{Hresult}
+
+\begin{Hproof}
+The traction vector $\vt$ is the inner product of the 
+Cauchy stress tensor $\ve{\sigma}$ and the outward surface
+normal vector $\vnhat$.
+The same traction vector in a different reference frame is
+$\vt^* = \ve{\sigma}^* \vnhat^*$.
+Since vectors transform between reference frames by through 
+a rotation tensor $\tRbold$, 
+ $\vt^* = \tRbold \vt$
+and
+ $\vnhat^* = \tRbold \vnhat$.
+Substituting these two vector transformations in the second
+observer's frame of reference gives
+\be
+\tRbold \vt = \ve{\sigma}^* \tRbold \vnhat
+\ee
+but $\tRbold \vt = \tRbold \ve{\sigma} \vnhat$, so
+$\tRbold \ve{\sigma} \vnhat = \ve{\sigma}^* \tRbold \vnhat$ for all
+$\vnhat$, thus
+\be
+\ve{\sigma}^* = \tRbold \ve{\sigma} \tRbold\transpose,
+\ee
+which is how second-order tensors transform when they are objective.
+Thus $\ve{\sigma}$ is objective.
+\end{Hproof}
+
+\begin{Hresult}
+The Cauchy stress rate $\vsigmadot$ is not objective.
+\end{Hresult}
+See Chapter~\ref{chapter:objectivity} for details.
+
+\chapter{Objectivity}
+\label{chapter:objectivity}
+
+\section{Introduction}
+For two reference frames, $\cF$ and $\cF^*$, the base vectors
+for $\cF$, $\vefa$, $\vefb$, and $\vefc$ transform through a rigid
+body rotation $\tRbold$, such that $\vefa^* = \tRbold \vefa$, 
+$\vefb^* = \tRbold \vefb$, and $\vefc^* = \tRbold \vefc$.
+
+A vector quantity $\va$ is objective if 
+\be
+ \va^* = \tRbold \va.
+\ee
+
+A tensor quantity $\tabold$ is objective if
+\be
+ \tabold^* = \tRbold \tabold \tRbold\transpose.
+\ee
+
+The following two sections record quantities that
+{\bf are} and {\bf are not} objective.
+
+\section{Quantities that are Objective}
+\begin{description}[noitemsep,align=right,labelwidth=1.5cm,labelsep=0.8cm]
+\item [$\vu$] particle displacement 
+\item [$\tCbold$] right Cauchy-Green strain
+\item [$\tVbold$] left stretch 
+\item [$\tdbold$] stretch rate 
+\item [$\ve{\sigma}$] Cauchy stress 
+\item [$\ve{\Sigma}$] Piola-Kirchhoff Two
+\end{description}
+
+\section{Quantities that are not Objective}
+\begin{description}[noitemsep,align=right,labelwidth=1.5cm,labelsep=0.8cm]
+\item [$\vv$] particle velocity
+\item [$\va$] particle acceleration
+\item [$\tFbold$] deformation gradient 
+\item [$\tUbold$] right stretch 
+\item [$\grad \vv$] spatial velocity gradient
+\item [$\twbold$] rotation rate 
+\item [$\vsigmadot$] Cauchy stress rate
+\item [$\tPbold$] Piola-Kirchhoff One
+\end{description}
+
+
+\section{Convected Rates of Change}
+
+\section{Corotated Rates of Change}
+An objective vector $\va$ 
+\be
+ \va^* = \tRbold \va,
+\ee
+and an objective tensor quantity $\tabold$ 
+\be
+ \tabold^* = \tRbold \tabold \tRbold\transpose,
+\ee
+generally do {\bf not} maintain their objectivity through
+time differentiation, viz.,
+\be
+ \dot{\va}^* = \dot{\tRbold} \va + \tRbold \dot{\va},
+\ee
+and
+\be
+ \dot{\tabold}^* = 
+ \dot{\tRbold} \tabold \tRbold\transpose + 
+ \tRbold \dot{\tabold} \tRbold\transpose + 
+ \tRbold \tabold \dot{\tRbold}\transpose.
+\ee
+
+But, material vector fields can be endowed with objectivity.
+For vector $\va$, the 
+corotational rate $\mathring{\va}$ is defined as
+\be
+ \mathring{\va} \defe \dot{\va} - \twbold \; \va,
+\ee
+where $\twbold$ is the rotation rate.
+
+For a second-order tensor $\tabold$, the 
+corotational rate $\mathring{\tabold}$ is defined as
+\be
+ \mathring{\tabold} \defe \dot{\tabold} - \twbold \; \tabold
+ + \tabold \; \twbold,
+\ee
+which is referred to as the Jaumann-Zaremba rate.
+
+\chapter{Energy}
+\section{Conjugates}
+\label{section:conjugates}
+Energy conjugates
+
+\begin{table}[htb]
+\begin{center}
+\begin{tabular}{|cl|} \hline
+     & {\bf Stress Power} \\ \hline \hline
+     &  \\
+ $\mathcal{P}$ 
+   & $=\;\;\;\dst\int_{V} \ve{\sigma} : \grad\vv \; dV $ \\
+   & \\
+   & $=\;\;\;\dst\int_{V_0} \ve{\tau} : \grad\vv \; dV_0 $ \\
+   & \\ 
+   & $=\;\;\;\dst\int_{V_0} \tBbold : \dot{\tUbold} \; dV_0 $ \\
+   & \\ 
+   & $=\;\;\;\dst\int_{V_0} \tPbold : \dot{\tFbold} \; dV_0 $ \\
+   & \\ 
+   & $=\;\;\;\dst\int_{V_0} \ve{\Sigma} : \dot{\tEbold} \; dV_0 $ \\
+   & \\ \hline
+\end{tabular}
+\end{center}
+\caption{Strain rates  
+and their respective stress conjugates.}
+\label{tab:table_of_conjugate_power}
 \end{table}
 

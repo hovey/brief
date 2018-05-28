@@ -62,7 +62,8 @@ use this section as a reference.
 \item [$\tFbold = \Grad \vvarphi$] deformation gradient 
 \item 
 \item [$\tRbold$] rotation
-\item [$\tUbold$] stretch
+\item [$\tUbold$] left-stretch
+\item [$\tVbold$] right-stretch
 \end{description}
 
 \subsubsection*{Strain}
@@ -78,17 +79,28 @@ use this section as a reference.
 \item [$\lambda_I$] principal stretch ratio
 \item
 \item [$\ve{\epsilon}$] infinitesimal
+\item
+\item [$\dot{\tFbold}$] material velocity gradient
+\item
+\item [$\grad \vv$] spatial velocity gradient
+\item [$\tdbold$] stretch rate (rate of deformation, rate of stretch)
+\item [$\twbold$] rotation rate (spin, rate of rotation, vorticity)
 \end{description}
 
 \subsubsection*{Stress}
 
 \begin{description}[noitemsep,align=right,labelwidth=1.5cm,labelsep=0.8cm]
 \item [$\ve{\sigma}$] Cauchy
+\item [$\hat{\ve{\sigma}}$] Corotational Cauchy stress
+\item
 \item [$\ve{\tau}$] Kirchhoff
+\item [$\tBbold$] Biot (Jaumann)
 \item
 \item [$\tPbold$] Piola-Kirchhoff One
 \item [$\ve{\Sigma}$] Piola-Kirchhoff Two
 %\item [$\tSbold$] Piola-Kirchhoff Two
+\item
+\item [$\tAbold$] Almansi
 \end{description}
 
 
