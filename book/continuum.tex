@@ -406,7 +406,8 @@ Substitute (\ref{eq:inverse_rigid_motion}),
 \ee
 where
 \be
- \vomegahat \; \vz = \vomega \times \vz = \dot{\tRbold} \tRbold^T \; \vz,
+ \vomegahat \; \vz = \vomega \times \vz = \dot{\tRbold} \; 
+ \tRbold^T \; \vz,
  \label{eq:omega_hat}
 \ee
 for all vectors $\vz$.
@@ -1514,23 +1515,23 @@ The following two sections record quantities that
 \section{Corotated Rates of Change}
 An objective vector $\va$ 
 \be
- \va^* = \tRbold \va,
+ \va^* = \tRbold \; \va,
 \ee
 and an objective tensor quantity $\tabold$ 
 \be
- \tabold^* = \tRbold \tabold \tRbold\transpose,
+ \tabold^* = \tRbold \; \tabold \; \tRbold\transpose,
 \ee
 generally do {\bf not} maintain their objectivity through
 time differentiation, viz.,
 \be
- \dot{\va}^* = \dot{\tRbold} \va + \tRbold \dot{\va},
+ \dot{\va}^* = \dot{\tRbold} \; \va + \tRbold \; \dot{\va},
 \ee
 and
 \be
  \dot{\tabold}^* = 
- \dot{\tRbold} \tabold \tRbold\transpose + 
- \tRbold \dot{\tabold} \tRbold\transpose + 
- \tRbold \tabold \dot{\tRbold}\transpose.
+ \dot{\tRbold} \; \tabold \; \tRbold\transpose + 
+ \tRbold \; \dot{\tabold} \; \tRbold\transpose + 
+ \tRbold \; \tabold \; \dot{\tRbold}\transpose.
 \ee
 
 But, material vector fields can be endowed with objectivity.
