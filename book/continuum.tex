@@ -23,12 +23,12 @@ from $\vefa, \vefb, \vefc$ attached to inertial
 reference frame $\cF$.
 
 
-\section{Motion}
+\section{General Motion}
 Let the arbitrary time interval be defined as
 $\interval \defe [t_0,t_f]$, initial to final
 time, inclusive.\footnote{Note that $t_0$, while
 typically zero, may be any real number less than $t_f$.}  
-Let the motion, a one parameter family of configurations, 
+Let the {\bf motion}, a one parameter family of configurations, 
 $\vvarphi : \cB \times \interval \mapsto \realthree$ 
 map the material particle
 $\vX$ into the current configuration $\vx$ such that
@@ -39,8 +39,8 @@ $\vX$ into the current configuration $\vx$ such that
 
 A motion $\vvarphi$ evaluated
 at a particular time $t \in \interval$ 
-is referred to as a configuration or
-placement.  To each configuration, we assign a displacement
+is referred to as a {\bf configuration} or
+{\bf placement}.  To each configuration, we assign a {\bf displacement}
 field $\vu: \cB \mapsto \realthree$ such that 
 \be
 \vu(\vX,t) \defe \vvarphi(\vX,t) - \vX 
@@ -61,13 +61,129 @@ of placement $\vX$ and time $t$:
 \ee
 It is important to
 emphasize that the displacement remains a function $\vu = \vu(\vX, t)$
-of reference configuration $\vX$ and time $t$.  The displacement
-function $\vu$ is not a simple (constant) displacement, which 
-we refer to as ``offset'' and describe in Section~\ref{section:offset}.
+of reference configuration $\vX$ and time $t$.  
+%
+% This is call {\bf translation}.  
+%A specialized case of translation, 
+%where the displacement
+%function $\vu = \bar{\vu}$ is constant is called {\bf offset}.
+%See Section~\ref{section:offset} for more details.
+
+
+\section{Deformation Gradient}
+To each configuration $\vvarphi$, we define a deformation gradient 
+$\tFbold: \vB \times \interval \mapsto \Mthreeplus$ 
+such that
+\begin{equation}
+\tFbold 
+\defe 
+\Grad \vvarphi(\vX, t)
+\;\; \Longleftrightarrow \;\;
+\tF_{iJ} 
+\defe 
+\frac{\partial \varphi_i}{\partial X_J}.
+\label{eq:deformation_gradient}
+\end{equation}
+%Remarks:
+\begin{Hremark}
+\begin{itemize}
+\item Lower case indices represent components of tensors in the
+current configuration whereas upper case indices represent
+components of tensors in the reference configuration.  
+\item Real, square matrices of dimension three and positive determinants
+are denoted $\Mthreeplus$.  
+\item $\Grad(\cdot) = \partial (\cdot) / \partial X_J$ denote
+gradients taken in the reference configuration.
+\item $\grad(\cdot) = \partial (\cdot) / \partial x_j$ denote
+gradients taken in the current configuration. 
+\end{itemize}
+\end{Hremark}
+
+From the displacement field in 
+(\ref{eq:displacement}), we see that 
+the relationship between the displacement gradient and the 
+deformation gradient is given by
+\be
+\Grad \vu = \Grad \vvarphi - \vid = \tFbold - \vid
+\;\; \Longleftrightarrow \;\;
+\dst\frac{\partial u_i}{\partial X_J} = 
+\dst\frac{\partial \varphi_i}{\partial X_J} - 
+\delta_{iJ}.
+\label{eq:Gradu}
+\ee
+
+\section{Jacobian of the Deformation Gradient}
+The Jacobian of the deformation gradient, 
+\begin{equation}
+ J \defe \det \tFbold,
+\end{equation}
+describes the (generally non-uniform) volumetric expansion or 
+contraction of the motion from the reference configuration $\vX$.
+
+%\noindent Remarks:
+\begin{Hremark}
+\begin{itemize}
+\item All configurations must be admissible in the sense that the Jacobian
+of the deformation must be positive ($J > 0$).
+This requirement keeps the deformations from mapping the body to
+a single, infinitesimally small point ($J=0$) or turning the
+body inside-out ($J<0$).  
+\item Isochoric motions preserve volume, thus a Jacobian
+of unity ($J=1$) describes an isochoric motion.
+\item Table~\ref{tab:jacobian_categories} describes the categories
+of motions (deformations) by Jacobian measure.  
+\end{itemize}
+\end{Hremark}
+
+\begin{table}[htb]
+\caption{Jacobian measure to categorize deformations.}
+\label{tab:jacobian_categories}
+\begin{center}
+\begin{tabular}{|c|c|c|c|c|} \hline
+ $J<0$ & $J=0$ & $0<J<1$ & $J=1$ & $J>1$ \\ %\hline \hline
+ {\bf inadmissible}
+ & {\bf inadmissible}
+ & {\bf contraction} 
+ & {\bf isochoric} 
+ & {\bf expansion} 
+ \\ \hline \hline
+  &  &  & translation &  \\ 
+  &  &  & rotation &  \\ 
+  &  &  & isochoric stretch & \\ 
+  &  &  & isochoric shear   & \\ \hline
+ body 
+ & body 
+ & body's  
+ & body's 
+ & body's
+ \\
+ has turned 
+ & has shrunk 
+ & total volume 
+ & total volume
+ & total volume \\ 
+ inside-out 
+ & to zero volume 
+ & has decreased 
+ & is preserved 
+ & has increased \\ \hline
+\end{tabular}
+\end{center}
+\end{table}
+
+
+
+
+\section{Specific Motions}
 
 \subsection{Inverse Motions}
-The map from $\vX$ to $\vx$ is one-to-one and invertable.  
-We write the inverse map, from $\vx$ to $\vX$ as follows,
+Next we explore specific cases of general motions.  
+One type of specific motion is the {\bf inverse motion}, which allows
+for a map from the current configuration back to the reference
+configuration.
+
+The map from $\vX$ to $\vx$ is one-to-one and invertible.  
+We write the inverse map, from $\vx$ to $\vX$ as
 \be
 \vX = \vvarphi^{-1}(\vx,t) = \vvarphi^{-1}_t(\vx),
 \label{eq:motion_inverse}
@@ -75,61 +191,142 @@ We write the inverse map, from $\vx$ to $\vX$ as follows,
 which maps the current configuration back to the reference 
 configuration.
 
-\subsection{Linear Motions}
-In this section, we consider the equation of a line
+
+\subsection{Homogeneous Motions}
+Another type of specific motion is a {\bf homogeneous motion}, which 
+is linear with respect to the reference configuration $\vX$.  
+Consider a Taylor series expansion of the motion about a point 
+$\vX_0$,
 \be
-y = f(x) =  m x + b,
+ \vvarphi(\vX) = \vvarphi(\vX_0) + \tFbold(\vX_0) (\vX - \vX_0) + 
+ \mbox{\small H.O.T.}
+ \label{eq:Taylor_F}
 \ee
-as inspiration for writing (\ref{eq:displacement_vvarphi}) 
-as\footnote{
-For the time being, we will not be concerned with time $t$, so we
-eliminate it from our notation for the sake of brevity.}
+When the deformation gradient $\tFbold$ is constant, thus the 
+higher order terms ({\small H.O.T.}) are zero.  Thus, a homogeneous
+motion requires that
 \be
-\vx = \vvarphi(\vX, t) = 
-\underbrace{\; \tMbold(t) \; \vX \;}_{\text{linear in $\vX$}} 
-\;\;\; + 
-\underbrace{\vb(t)}_{\text{constant in $\vX$}} 
-\stackrel{\mbox{\scriptsize set}}{=} \;\;\; \vX + \vu(\vX, t).
+ \vvarphi(\vX) = \vvarphi(\vX_0) + \tFbold(\vX_0) (\vX - \vX_0) 
+ \;\; \forall \;\; \{\vX \mbox{ and } \vX_0\} \in \cB.
+ \label{eq:homogeneous_motion}
 \ee
-Then the displacement can be written as
-\begin{align}
- \vu(\vX, t) &= \tMbold(t) \vX + \vb(t) - \vX, \\
-          &= \left[\tMbold(t) - \vid\right] 
-          \vX + \vb(t). \label{eq:displacement_M}
-\end{align}
-In the following sections, we will be exploring the
-effect of ``slope'' $\tMbold$ and 
-``intercept'' $\vb$ on displacements $\vu$. 
-To explore some motions, we shall consider the two-dimensional
-body shown in Fig.~\ref{fig:configuration_reference}.  
+
+Homogeneous motions will consist of several subtypes of isochoric 
+motions, such as translations, rotations, and special case stretches.  
+Figure \ref{fig:motion_family} illustrates the inheritance relationship
+between motions and is explicated here:
+
+\begin{Hremark}
+\begin{itemize}
+\item Homogeneous motions are a subset of general motions.
+All homogeneous motions are motions, but not all motions are homogeneous
+motions.
+\item A homogeneous motion that is free from fixed points is a 
+{\bf translation}.  
+When a body translates, no part of the body is fixed in space.
+\item A homogeneous motion that has a fixed point will 
+be either a {\bf rotation} or a {\bf stretch}.  
+\item Translations and rotations
+are rigid body motions, which are in contrast to deformable body
+motions, which occur as stretches.  
+\item Stretches may be volume preserving (isochoric, $J=1$), or
+non-isochoric ($J\neq1$).  All rigid body motions are isochoric.
+\item Isochoric deformations often occur as shear, but there is one
+special case deformation, absent of shear, that occurs when the volume
+is preserved through expansion along one principal axis, and contraction 
+along the other two principal axes.
+\item The foregoing descriptions are explained in greater detail in
+the following sections.
+\end{itemize}
+\end{Hremark}
+
+%Next, we describe a set of motions that are linear with respect
+%to the reference configuration $\vX$, which will be found to be
+%translations, rotations, dilatational stretch, and isochoric stretch.
 
 \begin{figure}[ht!]
   \begin{center}
-    \includegraphics[width=\textwidth,natwidth=576,natheight=432]{fig/configuration_reference.pdf}
+    %\begin{overpic}[width=\textwidth,grid,tics=10,natwidth=620,natheight=564]{fig/motion_family.pdf}
+    \begin{overpic}[width=\textwidth,natwidth=620,natheight=564]{fig/motion_family.pdf}
+      \put( 95, 21){$J$}
+      \put(  5, 32){$J=1$}
+      \put( 75.5, 45){$\frac{\Delta V}{V}$}
+      \put( 16.9, 57.3){$\bar{\vu}$}
+      \put( 35, 56.4){$\tRbold$}
+      \put( 52.5, 56.4){$\tUbold \; \tvbold$}
+    \end{overpic}
   \end{center}
-  \caption{Reference configuration of a body defined by particles
-  with $X_1 \in [-1, 1]$ and $X_2 \in [-1, 1]$.  With the 
-  continuum body is composed of an infinite number of particles, 
-  only nine particles are shown for the sake of simplicity.  Eight of
-  the nine particles shown are on the boundary of the body, and a 
-  single particle at the geometric center is the ninth particle.}
-  \label{fig:configuration_reference}
+  \caption{Taxonomy of general motions.}
+  \label{fig:motion_family}
 \end{figure}
 
-The most elementary displacement is homogeneous, when 
-$\tMbold = \vid$ 
-and
-$\vb = \vzero$, then $\vu = \vzero$.
-In this case $\vvarphi = \vX$ and the motion is trivial (and
-uninteresting).  Nonetheless, this is a simple first case to consider.
+
+%\subsection{Linear Motions}
+%In this section, we consider the equation of a line
+%\be
+%y = f(x) =  m x + b,
+%\ee
+%as inspiration for writing (\ref{eq:displacement_vvarphi}) 
+%as\footnote{
+%For the time being, we will not be concerned with time $t$, so we
+%eliminate it from our notation for the sake of brevity.}
+%\be
+%\vx = \vvarphi(\vX, t) = 
+%\underbrace{\; \tMbold(t) \; \vX \;}_{\text{linear in $\vX$}} 
+%\;\;\; + 
+%\underbrace{\vb(t)}_{\text{constant in $\vX$}} 
+%\stackrel{\mbox{\scriptsize set}}{=} \;\;\; \vX + \vu(\vX, t).
+%\ee
+%Then the displacement can be written as
+%\begin{align}
+% \vu(\vX, t) &= \tMbold(t) \vX + \vb(t) - \vX, \\
+%          &= \left[\tMbold(t) - \vid\right] 
+%          \vX + \vb(t). \label{eq:displacement_M}
+%\end{align}
+%In the following sections, we will be exploring the
+%effect of ``slope'' $\tMbold$ and 
+%``intercept'' $\vb$ on displacements $\vu$. 
+%To explore some motions, we shall consider the two-dimensional
+%body shown in Fig.~\ref{fig:configuration_reference}.  
+%
+%\begin{figure}[ht!]
+%  \begin{center}
+%    \includegraphics[width=\textwidth,natwidth=576,natheight=432]{fig/configuration_reference.pdf}
+%  \end{center}
+%  \caption{Reference configuration of a body defined by particles
+%  with $X_1 \in [-1, 1]$ and $X_2 \in [-1, 1]$.  With the 
+%  continuum body is composed of an infinite number of particles, 
+%  only nine particles are shown for the sake of simplicity.  Eight of
+%  the nine particles shown are on the boundary of the body, and a 
+%  single particle at the geometric center is the ninth particle.}
+%  \label{fig:configuration_reference}
+%\end{figure}
+%
+%The most elementary displacement is homogeneous, when 
+%$\tMbold = \vid$ 
+%and
+%$\vb = \vzero$, then $\vu = \vzero$.
+%In this case $\vvarphi = \vX$ and the motion is trivial (and
+%uninteresting).  Nonetheless, this is a simple first case to consider.
 
 \clearpage
-\subsection{Offset}
+\subsection{Translation}
 \label{section:offset}
-Next, consider $\vb \neq \vzero$, while
-retaining $\tMbold = \vid$.   For the concrete example 
-in Fig.~(\ref{fig:configuration_current}), let 
-$\vb = \langle b_1, b_2 \rangle\transpose = 
+A translation is a homogeneous deformation of the form
+\be
+ \vvarphi(\vX) = \bar{\vu} + \vX.
+\ee
+This deformation occurs when the displacement 
+$\vu(\vX, t$) is a constant 
+$\bar{\vu}$, 
+and thus not a function of 
+reference position $\vX$ or time $t$.
+
+%Next, consider $\vb \neq \vzero$, while
+%retaining $\tMbold = \vid$.   
+For the concrete example 
+in Figure~(\ref{fig:configuration_current}), let 
+$\bar{\vu} = \langle \bar{u}_1, \bar{u}_2 \rangle\transpose = 
 \langle 3, 2 \rangle\transpose$.
 In this case, we see the placement $\vvarphi$ moves right and up
 on the page, relative to the reference configuration $\vX$, by 
@@ -138,14 +335,37 @@ The reference configuration is shown in blue.
 The current configuration is shown in red.
 \begin{figure}[htb]
   \begin{center}
-    \includegraphics[width=\textwidth,natwidth=576,natheight=432]{fig/configuration_current.pdf}
+    \includegraphics[width=0.8\textwidth,natwidth=576,natheight=432]{fig/configuration_current.pdf}
   \end{center}
-  \caption{Illustration of an offset motion.}
+  \caption{Illustration of a translational motion.}
   \label{fig:configuration_current}
 \end{figure}
 
+\subsection{Fixed Point}
+A fixed point deformation is a homogeneous deformation of the 
+form
+\be
+ \vvarphi(\vX) = \vY + \tFbold(\vX - \vY).
+\ee
+The deformation is fixed in the sense that $\vvarphi(\vY) = \vY$.
+
+
 \clearpage
 \subsection{Rotation}
+A rotation is a homogeneous deformation of the form
+\be
+ \vvarphi(\vX) = \vY + \tRbold(\vX - \vY),
+\ee
+where the rotation occurs about the point $\vY$.
+
+A rigid body motion, consisting of body translation and rotation, 
+has the form
+\be
+ \vvarphi(\vX) = \bar{\vu} + \vY + \tRbold(\vX - \vY), 
+\ee
+where the translation is $\bar{\vu}$ and the rotation occurs around
+point $\vY$.
+
 To motivate rotations of deformable bodies, we start with two simpler
 cases: general motion two particles instead of bodies, 
 and general motion of rigid bodies instead of 
@@ -588,54 +808,23 @@ which is the result.
   \label{fig:rigid_rotation}
 \end{figure}
 
-
-
 \clearpage
-\subsection{Dilatational (Volumetric) Stretch}
-Consider now $\tMbold = \lambda \vid$ and $\vb = \vzero$.  
-This describes {\bf volumetric} response, also known 
-as a {\bf dilatational} response.  The parameter $\lambda \in \real$
-causes the current configuration to change volume as
-\begin{itemize}[noitemsep]
- \item $\lambda > 0$ expansion,
- \item $\lambda = 0$ identity,
- \item $\lambda < 0$ contraction.
-\end{itemize}
-Notice that $\lambda$ describes the ``slope'' of the mapping from
-reference to current configurations.  In the case that $\lambda \rightarrow
-+\infty$, the volume grows infinite.  In the case that $\lambda \rightarrow
--\infty$, the volume grows to zero.
-For concreteness, consider $\lambda = 2$.  The volumetric expansion
-is shown in Fig.~\ref{fig:configuration_volumetric}.
-The reference configuration, shown in blue, has area of~4.
-The current configuration, shown in red, has area of~16.
-
-\begin{figure}[htb]
-  \begin{center}
-    \includegraphics[width=0.9\textwidth,natwidth=576,natheight=432]{fig/configuration_volumetric.pdf}
-  \end{center}
-  \caption{Illustration of a dilatational (volumetric) motion.}
-  \label{fig:configuration_volumetric}
-\end{figure}
-
-
-\clearpage
-\subsection{Isochoric (Deviatoric) Stretch}
-Next consider a slightly different form of $\tMbold$, such that
+\subsection{Isochoric (Poisson Special Case) Stretch}
+Next consider a slightly different form of $\tFbold$, such that
 \be
- \tMbold 
+ \tFbold 
  = 
  \left[
  \begin{tabular}{cc}
-  $\lambda_1$ & 0 \\
-  0 & $\lambda_2$
+  $\lambda$ & 0 \\
+  0 & $\dst\frac{1}{\lambda}$
  \end{tabular}
  \right].
 \ee
-We keep the offset as $\vb = \vzero$.
+We keep the translation as $\vu = \vzero$.
 
 For concreteness, consider $\lambda_1 = 2$ (expansion)
-and $\lambda_2 = \half$ (compression), as shown
+and $\lambda_2 = \half$ (contraction), as shown
 in Fig.~\ref{fig:configuration_stretch}.
 
 \begin{figure}[htb]
@@ -654,6 +843,19 @@ and thus shape have changed.  This is an example of an
 {\bf isochoric} motion.  The roots {\em iso- (equal)} and {\em choro- (space)} 
 describe a process from initial state $0$ to final state $1$
 where the volume remains constant.  
+
+In three dimensions, this case becomes
+\be
+ \tFbold 
+ = 
+ \left[
+ \begin{tabular}{ccc}
+  $\lambda_1$ & 0 & 0 \\
+  0 & $\dst\frac{1}{\sqrt{\lambda}}$ & 0 \\
+  0 & 0 & $\dst\frac{1}{\sqrt{\lambda}}$
+ \end{tabular}
+ \right].
+\ee
 
 Now, the motion as we have described it, doesn't yet show the {\em path}
 taken between the reference and current configuration.  To 
@@ -680,105 +882,35 @@ isochoric motions will play an important role in our later work.
 
 
 
-
-\clearpage
-\section{Deformation Gradient}
-To each configuration $\vvarphi$, we define a deformation gradient 
-$\tFbold: \vB \times \interval \mapsto \Mthreeplus$ 
-such that
-\begin{equation}
-\tFbold 
-\defe 
-\Grad \vvarphi(\vX, t)
-\;\; \Longleftrightarrow \;\;
-\tF_{iJ} 
-\defe 
-\frac{\partial \varphi_i}{\partial X_J}.
-\label{eq:deformation_gradient}
-\end{equation}
-%Remarks:
-\begin{Hremark}
-\begin{itemize}
-\item Lower case indices represent components of tensors in the
-current configuration whereas upper case indices represent
-components of tensors in the reference configuration.  
-\item Real, square matrices of dimension three and positive determinants
-are denoted $\Mthreeplus$.  
-\item $\Grad(\cdot) = \partial (\cdot) / \partial X_J$ denote
-gradients taken in the reference configuration.
-\item $\grad(\cdot) = \partial (\cdot) / \partial x_j$ denote
-gradients taken in the current configuration. 
+\subsection{Dilatational (Volumetric) Stretch}
+Consider now $\tFbold = \lambda \vid$ and $\vu = \vzero$.  
+This describes {\bf volumetric} response, also known 
+as a {\bf dilatational} response.  The parameter $\lambda \in \real$
+causes the current configuration to change volume as
+\begin{itemize}[noitemsep]
+ \item $\lambda > 0$ expansion,
+ \item $\lambda = 0$ identity,
+ \item $\lambda < 0$ contraction.
 \end{itemize}
-\end{Hremark}
+Notice that $\lambda$ describes the ``slope'' of the mapping from
+reference to current configurations.  In the case that $\lambda \rightarrow
++\infty$, the volume grows infinite.  In the case that $\lambda \rightarrow
+-\infty$, the volume grows to zero.
+For concreteness, consider $\lambda = 2$.  The volumetric expansion
+is shown in Fig.~\ref{fig:configuration_volumetric}.
+The reference configuration, shown in blue, has area of~4.
+The current configuration, shown in red, has area of~16.
 
-From the displacement field in 
-(\ref{eq:displacement}), we see that 
-the relationship between the displacement gradient and the 
-deformation gradient is given by
-\be
-\Grad \vu = \Grad \vvarphi - \vid = \tFbold - \vid
-\;\; \Longleftrightarrow \;\;
-\dst\frac{\partial u_i}{\partial X_J} = 
-\dst\frac{\partial \varphi_i}{\partial X_J} - 
-\delta_{iJ}.
-\label{eq:Gradu}
-\ee
+\begin{figure}[htb]
+  \begin{center}
+    \includegraphics[width=0.9\textwidth,natwidth=576,natheight=432]{fig/configuration_volumetric.pdf}
+  \end{center}
+  \caption{Illustration of a dilatational (volumetric) motion.}
+  \label{fig:configuration_volumetric}
+\end{figure}
 
-\section{Jacobian of the Deformation Gradient}
-The Jacobian of the deformation gradient, 
-\begin{equation}
- J \defe \det \tFbold,
-\end{equation}
-describes the (generally non-uniform) volumetric expansion or 
-contraction of the motion from the reference configuration $\vX$.
 
-%\noindent Remarks:
-\begin{Hremark}
-\begin{itemize}
-\item All configurations must be admissible in the sense that the Jacobian
-of the deformation must be positive ($J > 0$).
-This requirement keeps the deformations from mapping the body to
-a single, infinitesimally small point ($J=0$) or turning the
-body inside-out ($J<0$).  
-\item Isochoric (deviatoric) motions preserve volume, thus a Jacobian
-of unity ($J=1$) describes
-an isochoric motion.
-\end{itemize}
-\end{Hremark}
 
-\begin{table}[htb]
-\caption{Jacobian measure to categorize deformations.}
-\begin{center}
-\begin{tabular}{|c|c|c|c|c|} \hline
- $J<0$ & $J=0$ & $0<J<1$ & $J=1$ & $J>1$ \\ %\hline \hline
- {\bf inadmissible}
- & {\bf inadmissible}
- & {\bf compression} 
- & {\bf isochoric} 
- & {\bf expansion} 
- \\ \hline \hline
-  &  &  & offset &  \\ 
-  &  &  & rotation &  \\ 
-  &  &  & isochoric stretch &  \\ \hline
- body 
- & body 
- & body's  
- & body's 
- & body's
- \\
- has turned 
- & has shrunk 
- & total volume 
- & total volume
- & total volume \\ 
- inside-out 
- & to zero volume 
- & has decreased 
- & is preserved 
- & has increased \\ \hline
-\end{tabular}
-\end{center}
-\end{table}
 
 \section{Rates}
 
@@ -1096,6 +1228,8 @@ five common strain measures result, listed
 in Table~\ref{tab:table_of_strains}, in their three-dimensional and
 one-dimensional forms.
 \begin{table}[htb]
+\caption{Strains obtained from the Seth-Hill family.}
+\label{tab:table_of_strains}
 \begin{center}
 \begin{tabular}{|c|c|c|c|} \hline
  $m$ & {\bf Name} & {\bf 3D} & {\bf 1D} \\ \hline \hline
@@ -1133,8 +1267,6 @@ one-dimensional forms.
    & & & \\ \hline
 \end{tabular}
 \end{center}
-\caption{Strains obtained from the Seth-Hill family.}
-\label{tab:table_of_strains}
 \end{table}
 
 As will be seen in Section~\ref{section:conjugates}, 
@@ -1155,11 +1287,11 @@ Figure~\ref{fig:strain_v_stretch}
 illustrates the one-dimensional strains as a function of
 stretch ratio $\lambda = \ell / L_0$.    
 \begin{figure}[htb]
-  \caption{One dimensional strain as a function of stretch ratio.}
   \begin{center}
     \includegraphics[width=0.8\textwidth,natwidth=612,natheight=792]{fig/strain_v_stretch.pdf}
   \end{center}
   \label{fig:strain_v_stretch}
+  \caption{One dimensional strain as a function of stretch ratio.}
 \end{figure}
 The figure illustrates several results:
 \begin{itemize}
@@ -1349,6 +1481,9 @@ be used to put both vectors into the same reference frame.
 
 \section{Stress Measures}
 \begin{table}[htb]
+\caption{Seth-Hill family of strains 
+and their respective stress conjugates.}
+\label{tab:table_of_conjugate_stress}
 \begin{center}
 \begin{tabular}{|c|c|c|c|} \hline
      & {\bf Name} & {\bf Name} \\ 
@@ -1388,9 +1523,6 @@ be used to put both vectors into the same reference frame.
    & & \\ \hline
 \end{tabular}
 \end{center}
-\caption{Seth-Hill family of strains 
-and their respective stress conjugates.}
-\label{tab:table_of_conjugate_stress}
 \end{table}
 
 The {\bf Kirchhoff stress} $\ve{\tau}$ (also known as the 
