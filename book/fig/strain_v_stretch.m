@@ -1,7 +1,8 @@
 %% Path
 clear;
 % relative paths can terminates early; so use absolute
-path_home = '/Users/chovey/Brief/book/fig';
+%path_home = '/Users/chovey/Brief/book/fig';
+path_home = '/Users/Apollo/Brief/book/fig';
 addpath(path_home);
 
 pdf_output = 1; % 0 for no pdf output, 1 for pdf output
@@ -47,7 +48,7 @@ xlabel('$\mbox{stretch} \; \lambda = \frac{\ell}{L_0}$','interpreter','latex');
 ylabel('$\mbox{strain} \; f(\lambda)$','interpreter','latex');
 legend({'Green-Lagrange', 'engineering (Biot, nominal)', ...
     'log (Hencky, natural)', 'true', ...
-    'Amansi-Euler'}, ...
+    'Almansi-Euler'}, ...
     'Location','SouthEast','interpreter','latex');
 
 

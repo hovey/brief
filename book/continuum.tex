@@ -1288,7 +1288,8 @@ illustrates the one-dimensional strains as a function of
 stretch ratio $\lambda = \ell / L_0$.    
 \begin{figure}[htb]
   \begin{center}
-    \includegraphics[width=0.8\textwidth,natwidth=612,natheight=792]{fig/strain_v_stretch.pdf}
+    %\includegraphics[width=0.8\textwidth,natwidth=612,natheight=792]{fig/strain_v_stretch.pdf}
+    \includegraphics[width=\textwidth,natwidth=612,natheight=792]{fig/strain_v_stretch.pdf}
   \end{center}
   \label{fig:strain_v_stretch}
   \caption{One dimensional strain as a function of stretch ratio.}
@@ -1318,7 +1319,34 @@ The figure illustrates several results:
  stretch $\lambda$.
 \end{itemize}
 
+\subsection{Reasonable Requirements on $f(\lambda)$}
+This section is based on Neff~(2013),\footnote{Neff, P (2013).  The 
+Hencky strain measure the geodesic distance to SO($n$), at 6.}
+which presented ``reasonable requirements'' on $f(\lambda) : \realplus
+\mapsto \real$.
 
+
+
+\begin{tabular}{rl}
+$f$ is smooth & true for all in Table~\ref{tab:table_of_strains} \\
+$f$ is monotonically increasing & true for all \\
+$\left. f \right|_{\lambda = 1} = 0$ & true for all \\
+$\left. f' \right|_{\lambda = 1} = 1$ & true for all \\
+As $\lambda \rightarrow \infty$, $f \rightarrow +\infty$ & false for true
+and
+Almansi-Euler strains \\
+As $\lambda \rightarrow 0^+$, $f \rightarrow -\infty$ & false for 
+Green-Lagrange and engineering strains \\
+$-f(\lambda) = f\left(\frac{1}{\lambda}\right)$ & 
+true for Hencky and Ba\v{z}ant strains \\
+$f(\lambda^{\alpha}) = \alpha f(\lambda)$ & true for only the Hencky strain, 
+$\alpha \in \real$
+\end{tabular}
+
+
+Note: the Ba\v{z}ant strain, 
+defined as $f(\lambda) = \half\left(\lambda - \frac{1}{\lambda}\right)$, 
+is not considered herein.
 \clearpage
 
 \section{Strain Tensors and Finite Rotations}
