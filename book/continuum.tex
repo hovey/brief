@@ -1040,8 +1040,8 @@ This relationship can be seen as follows:
 where the higher-order (quadratic) term in (\ref{eq:E_expanded}) is set
 to zero to achieve (\ref{eq:small_strain}).
 
-\section{Almansi-Euler Strain}
-The Almansi-Euler strain tensor,
+\section{Euler-Almansi Strain}
+The Euler-Almansi strain tensor,
 \be
  \tebold 
  \defe 
@@ -1162,7 +1162,7 @@ Lagrangian and Eulerian strain tensors described above are two
 special cases of a family of finite strain tensors.
 
 Seth and Hill showed that the 
-Green-Lagrange and Almansi-Euler 
+Green-Lagrange and Euler-Almansi 
 strain tensors are special cases of the so-called
 Seth-Hill family of strain measures, defined as
 \be
@@ -1212,7 +1212,7 @@ strains, as a function of principal stretch, $f(\lambda_I)$:
   \end{tabular}
   \right],
 \end{align}
-where
+where the {\bf stretch function}
 \be
  f(\lambda_I) \defe
  \left\{ 
@@ -1259,7 +1259,7 @@ one-dimensional forms.
    \\
    & & & \\ \hline
  & & & \\
- -2 & Almansi-Euler 
+ -2 & Euler-Almansi 
    & $\tEbold_{(-2)} = \dst\frac{1}{2}\left(\vid - \tUbold^{-2}\right)$
    & $\tE_{\tiny\mbox{EUL}} = \dst\frac{1}{2}
    \left[ 1 - \left(\dst\frac{L_0}{\ell}\right)^2\right]$
@@ -1278,7 +1278,7 @@ Piola-Kirchhoff stress tensor,
 \item The engineering (Biot, nominal) strain tensor 
 will be the conjugate of 
 the Jaumann (Biot) stress tensor, 
-\item The Almansi-Euler strain tensor will be the conjugate of the 
+\item The Euler-Almansi strain tensor will be the conjugate of the 
 weighted convected stress tensor.
 \end{itemize} 
 \clearpage
@@ -1319,7 +1319,7 @@ The figure illustrates several results:
  stretch $\lambda$.
 \end{itemize}
 
-\subsection{Reasonable Requirements on $f(\lambda)$}
+\subsection{Reasonable Requirements on the Stretch Function}
 This section is based on Neff~(2013),\footnote{Neff, P (2013).  The 
 Hencky strain measure the geodesic distance to SO($n$), at 6.}
 which presented ``reasonable requirements'' on $f(\lambda) : \realplus
@@ -1334,7 +1334,7 @@ $\left. f \right|_{\lambda = 1} = 0$ & true for all \\
 $\left. f' \right|_{\lambda = 1} = 1$ & true for all \\
 As $\lambda \rightarrow \infty$, $f \rightarrow +\infty$ & false for true
 and
-Almansi-Euler strains \\
+Euler-Almansi strains \\
 As $\lambda \rightarrow 0^+$, $f \rightarrow -\infty$ & false for 
 Green-Lagrange and engineering strains \\
 $-f(\lambda) = f\left(\frac{1}{\lambda}\right)$ & 
@@ -1543,7 +1543,7 @@ and their respective stress conjugates.}
            \hat{\ve{\sigma}} \tUbold \right)$
    \\
    & & \\ \hline
- & Almansi-Euler & Almansi\\
+ & Euler-Almansi & Almansi\\
  -2  
    & $\tEbold_{(-2)} = \dst\frac{1}{2}\left(\vid - \tUbold^{-2}\right)$
    & $\tAbold = J \tFbold\transpose \ve{\sigma} \tFbold$
@@ -1587,8 +1587,30 @@ Stress rates arise when the stress depends on variables that have
 time dependency.  Viscoelastic material behavior, for example, will
 exhibit strains, and thus stresses, with time dependence.  
 
-Interestingly, while the Cauchy stress $\ve{\sigma}$ is objective, 
-the Cauchy stress rate $\sigmadot$ is not objective.  
+\chapter{Objectivity}
+\label{chapter:objectivity}
+
+\section{Introduction}
+\begin{itemize}
+\item For two reference frames, $\cF$ and $\cF^*$, the base vectors
+for $\cF$, $\vefa$, $\vefb$, and $\vefc$ transform through a rigid
+body rotation $\tRbold$, such that 
+\be
+\vefa^* = \tRbold \vefa, \;\;\;
+\vefb^* = \tRbold \vefb, \;\;\; \mbox{and} \;\;\;
+\vefc^* = \tRbold \vefc.
+\ee
+%
+\item A vector quantity $\va$ is objective if 
+\be
+ \va^* = \tRbold \va.
+\ee
+%
+\item A tensor quantity $\tabold$ is objective if
+\be
+ \tabold^* = \tRbold \tabold \tRbold\transpose.
+\ee
+\end{itemize}
 
 \begin{Hresult}
 The Cauchy stress $\ve{\sigma}$ is objective.
@@ -1620,55 +1642,33 @@ which is how second-order tensors transform when they are objective.
 Thus $\ve{\sigma}$ is objective.
 \end{Hproof}
 
-\begin{Hresult}
-The Cauchy stress rate $\vsigmadot$ is not objective.
-\end{Hresult}
-See Chapter~\ref{chapter:objectivity} for details.
 
-\chapter{Objectivity}
-\label{chapter:objectivity}
+\section{Two-Point Tensors Transform as Vectors}
+\begin{itemize}
 
-\section{Introduction}
-For two reference frames, $\cF$ and $\cF^*$, the base vectors
-for $\cF$, $\vefa$, $\vefb$, and $\vefc$ transform through a rigid
-body rotation $\tRbold$, such that $\vefa^* = \tRbold \vefa$, 
-$\vefb^* = \tRbold \vefb$, and $\vefc^* = \tRbold \vefc$.
+\item The deformation gradient is a two-point tensor, 
+with one coordinate in the reference configuration
+and the other in the current configuration.  
+The reference configuration
+is inherently independent since it is tied to the observer.  
+The current configuration makes the deformation gradient 
+transform as a vector, not a tensor.  
+For more information, see Holzapfel at 189.
 
-A vector quantity $\va$ is objective if 
-\be
- \va^* = \tRbold \va.
-\ee
+\item The rotation is a two-point tensor, 
+moving between the reference configuration and 
+the current configuration.
+The rotation thus transforms as a vector, not a tensor.  
+For more information, see Holzapfel at 190.
 
-A tensor quantity $\tabold$ is objective if
-\be
- \tabold^* = \tRbold \tabold \tRbold\transpose.
-\ee
+\item The first Piola-Kirchhoff
+stress tensor is a two-point tensor.  
+Like the deformation gradient and
+rotation, mentioned above, PK1 transforms 
+as a vector, not a tensor.
+See Holzapfel at 191 for more detail.
 
-The following two sections record quantities that
-{\bf are} and {\bf are not} objective.
-
-\section{Quantities that are Objective}
-\begin{description}[noitemsep,align=right,labelwidth=1.5cm,labelsep=0.8cm]
-\item [$\vu$] particle displacement 
-\item [$\tCbold$] right Cauchy-Green strain
-\item [$\tVbold$] left stretch 
-\item [$\tdbold$] stretch rate 
-\item [$\ve{\sigma}$] Cauchy stress 
-\item [$\ve{\Sigma}$] Piola-Kirchhoff Two
-\end{description}
-
-\section{Quantities that are not Objective}
-\begin{description}[noitemsep,align=right,labelwidth=1.5cm,labelsep=0.8cm]
-\item [$\vv$] particle velocity
-\item [$\va$] particle acceleration
-\item [$\tFbold$] deformation gradient 
-\item [$\tUbold$] right stretch 
-\item [$\grad \vv$] spatial velocity gradient
-\item [$\twbold$] rotation rate 
-\item [$\vsigmadot$] Cauchy stress rate
-\item [$\tPbold$] Piola-Kirchhoff One
-\end{description}
-
+\end{itemize}
 
 \section{Convected Rates of Change}
 

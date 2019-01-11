@@ -47,33 +47,49 @@ use this section as a reference.
 \begin{description}[noitemsep,align=right,labelwidth=1.5cm,labelsep=0.8cm]
 \item [$\vX$] position of material particle in reference configuration
 \item [$\vx$] position of material particle in current configuration
-\item [$\vu$] displacement vector from $\vX$ to $\vx$
+\item [$\vU$] displacement vector from $\vX$ to $\vx$, objective
 \item [$\vvarphi$] motion of material particle $\vX$ 
 \item 
 \item [$\ve{\varphi}_*(\;\cdot\;)$] push forward operator
 \item [$\ve{\varphi}^{-1}_*(\;\cdot\;)$] pull back operator
 \item 
+\item [$\vv$] velocity of material particle in current 
+configuration, non-objective
+\item [$\va$] acceleration of material particle in current 
+configuration, non-objective
+\item 
 \item [$\Grad (\;\cdot\;)$] gradient operator in the reference configuration
 \item [$\grad (\;\cdot\;)$] gradient operator in the current configuration
 \item 
-\item [$\Grad \vu$] displacement gradient in the reference configuration
-\item [$\grad \vu$] displacement gradient in the current configuration
+\item [$\Grad \vU$] displacement gradient in the 
+reference configuration, 
+$\Grad \vU = \tFbold - \vid$
+\item [$\grad \vu$] displacement gradient in the 
+current configuration, 
+$\grad \vu = \vid - \tFbold\inverse$
 \item 
-\item [$\tFbold = \Grad \vvarphi$] deformation gradient 
+\item [$\tFbold = \Grad \vvarphi$] deformation gradient,
+$\tFbold = \tVbold \tRbold = \tRbold \tUbold$, non-symmetric, 
+two-point tensor, objective (transforms as a vector, not a tensor)
 \item 
-\item [$\tRbold$] rotation
-\item [$\tUbold$] left-stretch
-\item [$\tvbold$] right-stretch
+\item [$\tRbold$] rotation, objective (transforms as a vector, 
+not a tensor)
+\item [$\tVbold$] left-stretch, objective
+\item [$\tUbold$] right-stretch, objective
 \end{description}
 
 \subsubsection*{Strain}
 
 \begin{description}[noitemsep,align=right,labelwidth=1.5cm,labelsep=0.8cm]
-\item [$\tCbold$] right Cauchy-Green
-\item [$\tbbold$] left Cauchy-Green
+\item [$\tCbold$] right Cauchy-Green, 
+$\tCbold = \tFbold\transpose\tFbold$, symmetric, positive definite, objective
+\item [$\tbbold$] left Cauchy-Green, 
+$\tbbold = \tFbold \tFbold \transpose$, symmetric, positive definite, objective
 \item 
-\item [$\tEbold$] Green-Lagrange 
-\item [$\tebold$] Almansi-Euler
+\item [$\tEbold$] Green-Lagrange, 
+$\tEbold = \half \left(\tCbold - \vid \right)$,
+objective
+\item [$\tebold$] Euler-Almansi, objective
 \item
 \item [$\tEbold_{(m)}$] Seth-Hill
 \item [$\lambda_I$] principal stretch ratio
@@ -82,22 +98,27 @@ use this section as a reference.
 \item
 \item [$\dot{\tFbold}$] material velocity gradient
 \item
-\item [$\grad \vv$] spatial velocity gradient
-\item [$\tdbold$] stretch rate (rate of deformation, rate of stretch)
-\item [$\twbold$] rotation rate (spin, rate of rotation, vorticity)
+\item [$\grad \vv$] spatial velocity gradient, non-symmetric, 
+non-objective, covariant
+\item [$\tdbold$] stretch rate (rate of deformation, 
+rate of stretch), symmetric, objective, covariant
+\item [$\twbold$] rotation rate (spin, rate of rotation, 
+vorticity), skew-symmetric, non-objective, covariant
 \end{description}
 
 \subsubsection*{Stress}
 
 \begin{description}[noitemsep,align=right,labelwidth=1.5cm,labelsep=0.8cm]
-\item [$\ve{\sigma}$] Cauchy
+\item [$\ve{\sigma}$] Cauchy, objective
 \item [$\hat{\ve{\sigma}}$] Corotational Cauchy stress
+\item [$\dot{\ve{\sigma}}$] Cauchy stress rate, non-objective
 \item
 \item [$\ve{\tau}$] Kirchhoff
 \item [$\tBbold$] Biot (Jaumann)
 \item
-\item [$\tPbold$] Piola-Kirchhoff One
-\item [$\ve{\Sigma}$] Piola-Kirchhoff Two
+\item [$\tPbold$] Piola-Kirchhoff One, objective (transforms as
+a vector, not a tensor)
+\item [$\ve{\Sigma}$] Piola-Kirchhoff Two, objective
 %\item [$\tSbold$] Piola-Kirchhoff Two
 \item
 \item [$\tAbold$] Almansi
