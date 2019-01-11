@@ -1,16 +1,25 @@
 \chapter{Formulation}
 
-\section{Places}
+\section{Fixed Places}
 
 \begin{itemize}
 
-\item Let $\mathfrak{X}$ denote a fixed place, which will be understood as a
-fundamental and elementary answer to the question of ``where?'' without 
-recourse to concepts of location or position, which require at least 
-two fixed places to be defined.
+\item Let $\mathfrak{X}$ denote a {\bf fixed place}, 
+which will be understood as a
+fundamental and elementary answer to the question of ``Where?''
 
-\item Let $\mathbb{S}$ denote space, defined as the infinite set of fixed places
+\item For now, a fixed place is understood without 
+recourse to concepts of location or position, which require at least 
+{\em two} fixed places to be defined (the subject fixed place itself and 
+an origin's fixed place).
+
+\item Let $\mathbb{S}$ denote {\bf space}, 
+defined as the infinite set of fixed places
 $\mathfrak{X}$.
+
+\item With the notions of space coordinates, introduced in the following 
+section, we can further think of a fixed place as a location 
+that has an immutable position. 
 
 \end{itemize}
 
@@ -27,28 +36,57 @@ vectors}, $\veeonehat, \veetwohat, \veethreehat$, called the
 such that 
 $\veeonehat \times \veetwohat = \veethreehat$, 
 $\veetwohat \times \veethreehat = \veeonehat$, and
-$\veethreehat \times \veeonehat = \veetwohat$, or more simply, that
+$\veethreehat \times \veeonehat = \veetwohat$, or in a more
+compact notation, that
 $\veeihat \times \veejhat = \veekhat$.
 
+\item The term {\bf orthonormal} indicates that the basis vectors are
+straight and are mutually perpendicular.  
+
+\item The term {\bf unit} indicates the length of each vector is unity.
+Thus, 
+\be
+\norm{\veeonehat} \;\;=\;\;\norm{\veetwohat} \;\;=\;\; 
+\norm{\veethreehat} \;\;= 1.
+\ee
+Whereas the notation $\ve{e}$ denotes a vector of unspecified 
+length, the overhat notation
+$\hat{\ve{e}}$ denotes a {\em unit} vector.
+
 \item The origin $O$ and the spatial basis vectors $\veeonehat, \veetwohat, 
-\veethreehat$ together the {\bf spatial coordinate system} $S$, which is
+\veethreehat$ together compose the {\bf spatial coordinate system} $S$, which is
 a one-to-one correspondence between fixed places $\mathfrak{X}$
 in space $\mathbb{S}$ and their {\bf spatial coordinates} $\vx$.
 
 \item The spatial coordinates are an ordered set of three real numbers
 $\{x_1, x_2, x_3\}\transpose$ measured in a particular coordinate system
 from the coordinate system's origin to the fixed place $\mathfrak{X}$
-in space $\mathbb{S}$.
+in space $\mathbb{S}$.  
+
+
 \item A place $\mathfrak{X}$ in space $\mathbb{S}$ 
-is located the spatial coordinate system $S$ by the 
+is {\em located} the spatial coordinate system $S$ by the 
 particular spatial
 coordinate $\vx$, written explicitly as
 \be
 \vx = x_1 \veeonehat + x_2 \veetwohat + x_3 \veethreehat = x_i \veeihat.
 \ee
+Thus, spatial coordinates locate the position of a of place
+$\mathfrak{X}$ in space $\mathbb{S}$.
+
+\item Thus the coordinate system $S$ is a map from 
+a place $\mathfrak{X}$, which is a member of space $\mathbb{S}$, to a 
+coordinate in real, three-dimensional space.  
+Mathematically, we write, for $\mathfrak{X} \in \mathbb{S}$ and 
+$\vx \in \realthree$,
+\be
+ S : \mathfrak{X} \mapsto \vx.
+\ee
+
 \item Since, at the present moment, 
 we have only introduced one coordinate system (and thus only
-one set of basis vectors), we need not designate the basis vectors explicitly, 
+one origin and one set of basis vectors), 
+we need not designate the basis vectors explicitly, 
 and may simply write 
 \be
 \vx = \{x_1, x_2, x_3\}\transpose
@@ -62,5 +100,9 @@ later, when two or more coordinate systems are present to describe
 places in space.  In this latter case, 
 the explicit basis vectors or the explicit coordinate system must be 
 stated to avoid confusion.  
+
+\item To explicitly state the coordinate system in which the coordinates
+are measures, we indicate the basis vector
+
 
 \end{itemize}
