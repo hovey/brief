@@ -1,0 +1,69 @@
+\chapter{Modern Portfolio Theory}
+% See https://en.wikipedia.org/wiki/Outline_of_finance#Portfolio_theory
+
+\section{Portfolio and Assets}
+
+Let a portfolio $P$ be a collection of $n$ individual assets 
+with present values $a_1, a_2, \ldots a_n$.
+Assets have units of 
+U.S.~dollars (USD).\footnote{When the asset is stock, bond, or 
+other instrument that consists of 
+fractional ownership (shares) denominated by price per share, 
+then the present value of the asset is simply the number of shares
+held (holdings) in the portfolio multiplied by the price per share of that
+holding.}
+
+The present valuation of the portfolio, $PV(P)$, is given as
+\be
+ PV(P) = \sum_{i=1}^n a_i.
+\ee
+
+\section{Portfolio Weighting}
+
+The relative weight $w_i$ of each asset $a_i$ is simply the fraction 
+of the asset's present value to the portfolio's present value, thus
+\be
+ w_i = \frac{a_i}{PV} = \frac{a_i}{\sum_{i=1}^n a_i}.
+\ee
+The sum of all weights, must equal one (1).
+\be
+ \sum_{i=1}^n w_i = \sum_{i=1}^n \frac{a_i}{PV} = \frac{1}{PV} \sum_{i=1}^n a_i 
+ = \frac{PV}{PV} = 1.
+\ee
+
+\section{Portfolio Return}
+
+The present value of each asset is determined by two factors:  
+(1) the present value 
+
+\begin{itemize}
+ \item Let the number of assets $n$ be any finite positive integer greater than or equal to 1, $n \in J \subset [1, +\infty)$.
+ \item Each asset identifier $i$ is a positive integer, $i \in J+$.
+ \item The present value price per share $p_i$ of each asset $a_i$ is a positive real number $\realplus$ denominated in U.S. dollars and cents (\$), with units of price per share.
+\end{itemize}
+
+\section{Portfolio and Holdings}
+Let a portfolio $P$ be a collection of assets $a_1 \ldots a_n$.
+Let $h_i$ be the holding of each asset $a_i$.  The units of each holding is 
+number of shares.  The units of each asset $a_i$, in present value, is dollars per
+share.  Thus, the present value of each holding is $h_i a_i$.  
+
+For a portfolio composed of two or more holdings, the present value of the 
+total portfolio $PV(P)$ is given as the inner product of the vector of holdings
+with the vector of assets, 
+
+\be
+ PV(P) = \vh \cdot \va.
+\ee
+
+\section{Weighting}
+
+Let each individual asset $a_i$ be weighted by $w_i$, which is the weight relative to the sum of all assets $[a_1, a_n]$.
+
+\begin{itemize}
+ \item Each relative weight $w_i$ ("weight") is a finite positive real number $\realplus$, such that $0 \leq w_i < +\infty$, with units of number of shares per number of shares (shares of an individual asset per shares of total assets).
+ \item The sum of all weights be me identically one (1).
+ \begin{equation}
+ \sum_{i=1}^n w_i = 1.
+ \end{equation}
+\end{itemize}
