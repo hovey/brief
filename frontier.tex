@@ -1,5 +1,125 @@
+\chapter{Probability Theory}
+
+\section{Expectation}
+
+\subsubsection{Finite Case}
+Let $X$ be a random variable with a finite number of outcomes $x_i$
+for $i=1,\ldots,n$ with probability $p_i$.  The {\bf expectation} 
+of $X$ is defined as
+\be
+\E(X) \defe \sum_{i=1}^n p_i \; x_i.
+\ee
+Because the sum of all probabilities is identically 1, 
+\be
+\sum_{i=1}^n p_i = 1,
+\ee
+the expected
+value is considered the {\bf weighted average}, where each $p_i$ is the 
+{\bf weight}.
+
+\begin{Hremark}
+The weighted average is also known as the {\bf first moment}, which is 
+analogous to the {\bf center of mass} of a rigid body.
+\end{Hremark}
+
+\subsubsection{Equal Likelihood}
+For the special case where each probability is equally likely, 
+\be
+p_1 = p_2 = \cdots = p_n = \frac{1}{n},
+\ee
+the expectation of $x$ is specialized to the form,
+\be
+\E(X) = \frac{1}{n} \sum_{i=1}^n \; x_i.
+\ee
+and is referred to as the {\bf simple average}.
+
+\begin{Hremark}
+The expectation of $X$, also known as the weighted average of $X$, should
+not be confused with the simple average of $X$.  The latter is a special
+case of the former.
+\end{Hremark}
+
+\section{Covariance}
+
+For two jointly distributed real-valued random variables $x$ and $y$, with
+{\bf expected values}\footnote{Also known as {\bf mean values}.} 
+$\E(x)$ and $\E(y)$, respectively, the {\bf covariance} is defined as
+\begin{align}
+\cov(x,y) \; \defe \; & \; \E\left[ 
+(x - \E(x)) \; (y - \E(y))
+\right] \\
+ & \; \E(xy) - \E(x) \E(y) - \E(x) \E(y) + \E(x) \E(y) \\
+ & \; \E(xy) - \E(x) \E(y).
+\end{align}
+
+\subsubsection{Discrete Random Variables}
+Let the random variable pair $(x,y)$ take on values $(x_i, y_i)$ for
+$i=1,\ldots,n$ with probability $p_i$.  The covariance is defined as
+\be
+\cov(x,y) \defe \sum_{i=1}^n \; p_i \; \left(
+x_i - \E(x)
+\right)
+\;
+\left(
+y_i - \E(y)
+\right).
+\label{eq:cov_discrete}
+\ee
+If the probability of each outcome is equal, the $p_i = 1/n$, and
+(\ref{eq:cov_discrete}) becomes
+\be
+\cov(x,y) = \frac{1}{n} \; \sum_{i=1}^n \; \left(
+x_i - \E(x)
+\right)
+\;
+\left(
+y_i - \E(y)
+\right).
+\label{eq:cov_discrete_equal}
+\ee
+
+\subsection{Pearson Correlation Coefficient}
+The {\bf Pearson correlation coefficient} (PCC)\footnote{Also known as the
+Pearson's $r$ coefficient, Pearson product-moment correlation
+coefficient (PPMCC), and the bivariate correlation.} is a 
+measure of the linear correlation between two variables 
+$X$ and $Y$.  
+
+When a pair of random variables $(X,Y)$ are applied to a population, the PCC
+is called the {\bf population correlation coefficient} and denoted as 
+$\rho_{X,Y}$ and is defined as 
+\be
+\rho_{X,Y} = \frac{\cov(X,Y)}{\sigma_X \; \sigma_Y}, 
+\ee
+where 
+\begin{itemize}
+\item \cov is the covariance of $X$ and $Y$, 
+\item $\sigma_X$ is the standard deviation of $X$, and 
+\item $\sigma_Y$ is the standard deviation of $Y$.
+\end{itemize}
+The PCC is bounded as
+\be
+-1 \leq \rho_{X,Y} \leq 1.
+\ee
+\begin{itemize}
+\item A value of -1 indicates complete negative linear correlation.
+\item A value of  0 indicates the absence of linear correlation.
+\item A value of +1 indicates complete positive linear correlation.
+\end{itemize}
+
 \chapter{Modern Portfolio Theory}
 % See https://en.wikipedia.org/wiki/Outline_of_finance#Portfolio_theory
+% Also Bessel's correction for sample means and deviations.
+% https://en.wikipedia.org/wiki/Bessel%27s_correction
+
+\section{Cross-Correlation}
+In signal processing, {\bf cross-correlation}\footnote{Cross-correlation is
+also called the {\bf sliding dot product} or {\bf sliding inner product}}
+is a measure of similarity of two signals.  
+
+In probability theory, cross-correlation refers to the correlations between
+two random variables $X$ and $Y$.
+
 
 \section{Portfolio and Assets}
 
@@ -33,37 +153,38 @@ The sum of all weights, must equal one (1).
 
 \section{Portfolio Return}
 
-The present value of each asset is determined by two factors:  
-(1) the present value 
-
-\begin{itemize}
- \item Let the number of assets $n$ be any finite positive integer greater than or equal to 1, $n \in J \subset [1, +\infty)$.
- \item Each asset identifier $i$ is a positive integer, $i \in J+$.
- \item The present value price per share $p_i$ of each asset $a_i$ is a positive real number $\realplus$ denominated in U.S. dollars and cents (\$), with units of price per share.
-\end{itemize}
-
-\section{Portfolio and Holdings}
-Let a portfolio $P$ be a collection of assets $a_1 \ldots a_n$.
-Let $h_i$ be the holding of each asset $a_i$.  The units of each holding is 
-number of shares.  The units of each asset $a_i$, in present value, is dollars per
-share.  Thus, the present value of each holding is $h_i a_i$.  
-
-For a portfolio composed of two or more holdings, the present value of the 
-total portfolio $PV(P)$ is given as the inner product of the vector of holdings
-with the vector of assets, 
-
+Let $\E(R_P)$ and $\E(R_i)$ the be expected periodic return $R_P$ 
+of the portfolio $P$ and 
+expected periodic return $R_i$ on an asset $a_i$, 
+respectively.\footnote{The period
+is typically stated annually, quarterly, or yearly.}
+The expected portfolio return is then simply the weighted sum of each 
+asset's return, 
 \be
- PV(P) = \vh \cdot \va.
+\E(R_P) = \sum_{i=1}^n w_i \; \E(R_i).
 \ee
 
-\section{Weighting}
+Let the mean periodic return $\bar{R}(a_i)$ of asset $a_i$ is
+given by observing the return at $K$ times during the periodic return 
+interval, 
+\be
+\bar{R}(a_i) = \frac{1}{K} \sum_{k=1}^K R_k(a_i).
+\ee
+For clarity, the notation $f(a_i)$ to denote {\em on a per-asset basis} 
+is assumed, as written hereinafter simply as $f$.
+Then the mean periodic return is given as
+\be
+ \bar{R} = \frac{1}{K} \sum_{k=1}^K R_k.
+\ee
+Let $\var(R) = s^2$ be the (sample) variance of periodic returns on an 
+asset $a_i$, given by
+\be
+ \var(R) = s^2 = \frac{1}{K-1} \sum_{k=1}^K \left(R_k - \bar{R}\right)^2.
+\ee
+The (sample) standard deviation $s$ is the positive square root of the 
+(sample) variance $s^2$,
+\be
+ s = \sqrt{\frac{1}{K-1} \sum_{k=1}^K \left(R_k - \bar{R}\right)^2}.
+\ee
 
-Let each individual asset $a_i$ be weighted by $w_i$, which is the weight relative to the sum of all assets $[a_1, a_n]$.
 
-\begin{itemize}
- \item Each relative weight $w_i$ ("weight") is a finite positive real number $\realplus$, such that $0 \leq w_i < +\infty$, with units of number of shares per number of shares (shares of an individual asset per shares of total assets).
- \item The sum of all weights be me identically one (1).
- \begin{equation}
- \sum_{i=1}^n w_i = 1.
- \end{equation}
-\end{itemize}
