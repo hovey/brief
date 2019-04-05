@@ -2,16 +2,17 @@
 
 \section{Expectation}
 
-\subsubsection{Finite Case}
+\subsubsection{Non-Equal Likelihood}
+
 Let $X$ be a random variable with a finite number of outcomes $x_i$
 for $i=1,\ldots,n$ with probability $p_i$.  The {\bf expectation} 
 of $X$ is defined as
 \be
-\E(X) \defe \sum_{i=1}^n p_i \; x_i.
+\ex \defe \sum_{i=1}^n p_i \; x_i.
 \ee
-Because the sum of all probabilities is identically 1, 
+Because the sum of all probabilities is identically equal to unity,
 \be
-\sum_{i=1}^n p_i = 1,
+\sum_{i=1}^n p_i = 1.0,
 \ee
 the expected
 value is considered the {\bf weighted average}, where each $p_i$ is the 
@@ -26,54 +27,102 @@ analogous to the {\bf center of mass} of a rigid body.
 For the special case where each probability is equally likely, 
 \be
 p_1 = p_2 = \cdots = p_n = \frac{1}{n},
+\label{eq:equal_probability}
 \ee
-the expectation of $x$ is specialized to the form,
+the expectation of $\ex$ has the specialized form $\mu$,
 \be
-\E(X) = \frac{1}{n} \sum_{i=1}^n \; x_i.
+\mu \defe \ex \overset{(\ref{eq:equal_probability})}{=} 
+\frac{1}{n} \sum_{i=1}^n \; x_i.
+\label{eq:simple_average}
 \ee
 and is referred to as the {\bf simple average}.
 
 \begin{Hremark}
-The expectation of $X$, also known as the weighted average of $X$, should
-not be confused with the simple average of $X$.  The latter is a special
-case of the former.
+The expectation $\ex$, 
+also known as the weighted average of $X$, should
+not be confused with $\mu$, the simple average of $X$.  
+The latter is a special
+case of the former, as just demonstrated in the above sections.
+\end{Hremark}
+
+\section{Variance}
+
+\subsection{Non-Equal Likelihood}
+
+The {\bf Variance} of $X$ is defined as 
+\begin{align}
+\var(X) \; \defe \; & \; 
+	\E\left[ (X - \ex)^2 \right], \\
+ & \; \E\left[ (X - \ex) \; (X - \ex) \right], \nonumber \\ 
+ & \; \E\left[ X^2 - \ex \; X + \ex \; \ex \right], \nonumber \\
+ & \; \E[X^2] - 2 \; \ex \; + \ex \; \ex,  \nonumber \\
+ & \; \E[X^2] - \ex. \label{eq:variance}
+\end{align}
+
+\subsubsection{Equal Likelihood}
+For the special case where each probability is equally likely, 
+(\ref{eq:variance}) takes the form
+\be
+\sigma^2 \defe \ex \overset{(\ref{eq:variance})}{=} 
+\sum_{i=1}^n \; p_i x^2_i - \mu^2 = \frac{1}{n} \sum_{i=1}^n \; x^2_i - \mu^2,
+\label{eq:simple_variance}
+\ee
+and is referred to as the {\bf simple variance}.
+
+\begin{Hremark}
+The form of (\ref{eq:simple_variance}) is often stated in slightly
+different form, 
+\begin{align}
+\frac{1}{n} \sum_{i=1}^n \; x^2_i - \mu^2 & =
+\frac{1}{n} \sum_{i=1}^n \; x^2_i - 2 \mu^2 + \mu^2, \\
+& \overset{(\ref{eq:simple_average})}{=} \frac{1}{n} \sum_{i=1}^n \; x^2_i -
+    \frac{2\mu}{n} \sum_{i=1}^n \; x_i +
+	\frac{n \mu^2}{n}, \\
+& = \frac{1}{n} \sum_{i=1}^n \left( x^2_i - 2 \mu x_i + \mu^2 \right), \\
+& = \frac{1}{n} \sum_{i=1}^n \left( x_i - \mu \right)^2.
+\end{align}
+This form, while perhaps easier to conceptualize, is relatively
+less efficient to implement since the latter requires $n$ subtractions 
+whereras the former requires only a single subtraction.
 \end{Hremark}
 
 \section{Covariance}
+\subsubsection{Non-Equal Likelihood}
 
-For two jointly distributed real-valued random variables $x$ and $y$, with
+For two jointly distributed real-valued random variables $X$ and $Y$, with
 {\bf expected values}\footnote{Also known as {\bf mean values}.} 
-$\E(x)$ and $\E(y)$, respectively, the {\bf covariance} is defined as
+$\ex$ and $\ey$, respectively, the {\bf covariance} is defined as
 \begin{align}
-\cov(x,y) \; \defe \; & \; \E\left[ 
-(x - \E(x)) \; (y - \E(y))
-\right] \\
- & \; \E(xy) - \E(x) \E(y) - \E(x) \E(y) + \E(x) \E(y) \\
- & \; \E(xy) - \E(x) \E(y).
+\cov(X,Y) \; \defe \; & \; \E\left[ 
+(X - \ex)) \; (X - \ey))
+\right], \\
+ & \; \exy - \ex \ey - \ex \ey + \ex \ey, \\
+ & \; \exy - \ex \ey.
 \end{align}
 
-\subsubsection{Discrete Random Variables}
-Let the random variable pair $(x,y)$ take on values $(x_i, y_i)$ for
+Let the random variable pair $(X,Y)$ take on values $(x_i, y_i)$ for
 $i=1,\ldots,n$ with probability $p_i$.  The covariance is defined as
 \be
-\cov(x,y) \defe \sum_{i=1}^n \; p_i \; \left(
-x_i - \E(x)
+\cov(X,Y) \defe \sum_{i=1}^n \; p_i \; \left(
+x_i - \ex
 \right)
 \;
 \left(
-y_i - \E(y)
+y_i - \ey
 \right).
 \label{eq:cov_discrete}
 \ee
+
+\subsubsection{Non-Equal Likelihood}
 If the probability of each outcome is equal, the $p_i = 1/n$, and
 (\ref{eq:cov_discrete}) becomes
 \be
-\cov(x,y) = \frac{1}{n} \; \sum_{i=1}^n \; \left(
-x_i - \E(x)
+\cov(X,Y) = \frac{1}{n} \; \sum_{i=1}^n \; \left(
+x_i - \ex
 \right)
 \;
 \left(
-y_i - \E(y)
+y_i - \ey
 \right).
 \label{eq:cov_discrete_equal}
 \ee
@@ -93,7 +142,7 @@ $\rho_{X,Y}$ and is defined as
 \ee
 where 
 \begin{itemize}
-\item \cov is the covariance of $X$ and $Y$, 
+\item $\cov$ is the covariance of $X$ and $Y$, 
 \item $\sigma_X$ is the standard deviation of $X$, and 
 \item $\sigma_Y$ is the standard deviation of $Y$.
 \end{itemize}
