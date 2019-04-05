@@ -96,8 +96,8 @@ $\ex$ and $\ey$, respectively, the {\bf covariance} is defined as
 \cov(X,Y) \; \defe \; & \; \E\left[ 
 (X - \ex)) \; (X - \ey))
 \right], \\
- & \; \exy - \ex \ey - \ex \ey + \ex \ey, \\
- & \; \exy - \ex \ey.
+ & \; \exy - \ex \; \ey - \ex \; \ey + \ex \; \ey, \\
+ & \; \exy - \ex \; \ey.
 \end{align}
 
 Let the random variable pair $(X,Y)$ take on values $(x_i, y_i)$ for
@@ -155,6 +155,17 @@ The PCC is bounded as
 \item A value of  0 indicates the absence of linear correlation.
 \item A value of +1 indicates complete positive linear correlation.
 \end{itemize}
+
+\begin{Hremark}
+	The covariance of a variable with itself is simply the variance
+	of the variable.  So, $\cov(X, X) = \var(X)$.
+\end{Hremark}
+
+\begin{Hremark}
+	When $\exy \approx \ex \; \ey$, then the $\cov(X,Y) = \exy - \ex \; \ey$ 
+	is prone to so-called ``catastrophic cancellation'' with floating point
+	calculations.  A numerically stable algorithm should be used.
+\end{Hremark}
 
 \chapter{Modern Portfolio Theory}
 % See https://en.wikipedia.org/wiki/Outline_of_finance#Portfolio_theory
@@ -235,5 +246,4 @@ The (sample) standard deviation $s$ is the positive square root of the
 \be
  s = \sqrt{\frac{1}{K-1} \sum_{k=1}^K \left(R_k - \bar{R}\right)^2}.
 \ee
-
 
