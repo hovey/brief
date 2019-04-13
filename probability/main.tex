@@ -39,7 +39,8 @@
 %\include{Hformatams}
 % 2017-10-16 Too many version of Hformatams floating around, so 
 % rename the format file used for the book to
-\include{book/h_math_ams}
+%\include{h_math_ams}
+\input{../book/h_math_ams} % reach back into the book, for D.R.Y. singleton
 % BEGIN float definitions for boxes
 \usepackage{float}
 \floatstyle{boxed}
@@ -98,7 +99,7 @@
 % HEADER AND FOOTER
 % -----------------
 
-\newcommand{\titlestring}{Portfolio Analysis}  
+\newcommand{\titlestring}{Probability Analysis}  
 \newcommand{\authorstring}{C.B. Hovey}
 \newcommand{\yearstring}{2019}
 \title{\titlestring}
