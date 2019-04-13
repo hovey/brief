@@ -1,0 +1,80 @@
+\chapter{Modern Portfolio Theory}
+% See https://en.wikipedia.org/wiki/Outline_of_finance#Portfolio_theory
+% Also Bessel's correction for sample means and deviations.
+% https://en.wikipedia.org/wiki/Bessel%27s_correction
+
+\section{Cross-Correlation}
+In signal processing, {\bf cross-correlation}\footnote{Cross-correlation is
+also called the {\bf sliding dot product} or {\bf sliding inner product}}
+is a measure of similarity of two signals.  
+
+In probability theory, cross-correlation refers to the correlations between
+two random variables $X$ and $Y$.
+
+
+\section{Portfolio and Assets}
+
+Let a portfolio $P$ be a collection of $n$ individual assets 
+with present values $a_1, a_2, \ldots a_n$.
+Assets have units of 
+U.S.~dollars (USD).\footnote{When the asset is stock, bond, or 
+other instrument that consists of 
+fractional ownership (shares) denominated by price per share, 
+then the present value of the asset is simply the number of shares
+held (holdings) in the portfolio multiplied by the price per share of that
+holding.}
+
+The present valuation of the portfolio, $PV(P)$, is given as
+\be
+ PV(P) = \sum_{i=1}^n a_i.
+\ee
+
+\section{Portfolio Weighting}
+
+The relative weight $w_i$ of each asset $a_i$ is simply the fraction 
+of the asset's present value to the portfolio's present value, thus
+\be
+ w_i = \frac{a_i}{PV} = \frac{a_i}{\sum_{i=1}^n a_i}.
+\ee
+The sum of all weights, must equal one (1).
+\be
+ \sum_{i=1}^n w_i = \sum_{i=1}^n \frac{a_i}{PV} = \frac{1}{PV} \sum_{i=1}^n a_i 
+ = \frac{PV}{PV} = 1.
+\ee
+
+\section{Portfolio Return}
+
+Let $\E(R_P)$ and $\E(R_i)$ the be expected periodic return $R_P$ 
+of the portfolio $P$ and 
+expected periodic return $R_i$ on an asset $a_i$, 
+respectively.\footnote{The period
+is typically stated annually, quarterly, or yearly.}
+The expected portfolio return is then simply the weighted sum of each 
+asset's return, 
+\be
+\E(R_P) = \sum_{i=1}^n w_i \; \E(R_i).
+\ee
+
+Let the mean periodic return $\bar{R}(a_i)$ of asset $a_i$ is
+given by observing the return at $K$ times during the periodic return 
+interval, 
+\be
+\bar{R}(a_i) = \frac{1}{K} \sum_{k=1}^K R_k(a_i).
+\ee
+For clarity, the notation $f(a_i)$ to denote {\em on a per-asset basis} 
+is assumed, as written hereinafter simply as $f$.
+Then the mean periodic return is given as
+\be
+ \bar{R} = \frac{1}{K} \sum_{k=1}^K R_k.
+\ee
+Let $\var(R) = s^2$ be the (sample) variance of periodic returns on an 
+asset $a_i$, given by
+\be
+ \var(R) = s^2 = \frac{1}{K-1} \sum_{k=1}^K \left(R_k - \bar{R}\right)^2.
+\ee
+The (sample) standard deviation $s$ is the positive square root of the 
+(sample) variance $s^2$,
+\be
+ s = \sqrt{\frac{1}{K-1} \sum_{k=1}^K \left(R_k - \bar{R}\right)^2}.
+\ee
+
