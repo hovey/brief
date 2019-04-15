@@ -162,8 +162,261 @@ The PCC is bounded as
 \end{Hremark}
 
 \begin{Hremark}
-	When $\exy \approx \ex \; \ey$, then the $\cov(X,Y) = \exy - \ex \; \ey$ 
-	is prone to so-called ``catastrophic cancellation'' with floating point
-	calculations.  A numerically stable algorithm should be used.
+	When $\exy \approx \ex \; \ey$, 
+	then the $\cov(X,Y) = \exy - \ex \; \ey$ 
+	is prone to so-called ``catastrophic 
+	cancellation'' with floating point
+	calculations.  A numerically stable algorithm 
+	should be used.
 \end{Hremark}
 
+\section{Cross Correlation}
+
+The cross correlation is a measure of the {\em similarity  
+in time}
+of two time series signals.  It is often referred to as
+the ``sliding dot product'' of two time series, for reasons
+that become apparent below.
+
+Assume some time-varying signal $x(t)$ occurring over
+time interval $[t_0, t_f]$. 
+Let the amplitude of $x(t)$ be measured at $n-1$ uniform, 
+discrete times in the interval, such that
+\begin{align}
+ x(t)  = & 
+ \left. x \right|_{t_0} + 
+ \left. x \right|_{t_1} + 
+ \left. x \right|_{t_2} + 
+ \cdots + 
+ \left. x \right|_{t_f} \\
+ = & 
+ x_0 \; \delta(t_0) + 
+ x_1 \; \delta(t_1) + 
+ x_2 \; \delta(t_2) + 
+ \cdots \nonumber \\ 
+ & + 
+ x_{n-3} \; \delta(t_{n-3}) + 
+ x_{n-2} \; \delta(t_{n-2}) + 
+ x_{n-1} \; \delta(t_{n-1}),
+\end{align}
+where $\delta$ is the Dirac delta function.
+Let the ordered collection (array) of signal 
+amplitudes be $X$, such that 
+\be
+X = \left[ 
+x_0, x_1, x_2, \ldots, 
+ x_{n-3},
+ x_{n-2},
+ x_{n-1}
+\right], 
+\ee
+which occurs in time, synchronized to the ordered
+collection (array) of times $T$,
+\be
+T = \left[ 
+t_0, t_1, t_2, \ldots,
+ t_{n-3},
+ t_{n-2},
+ t_{n-1}
+\right].
+\ee
+Notice that $\Delta t = t_1 - t_0 = t_2 - t_1 = \cdots
+t_{n-1} - t_{n-2}$ and that the signal
+$x(t)$ is sampled at a frequency 
+of $\frac{1}{\Delta t}$~Hz.
+
+Let some filter function (weighting function) 
+$w(t)$ exist on, and be synchronized with, 
+the time interval $T$.
+Let the ordered collection (array) of signal weights
+$W$ be 
+\be
+W = \left[ 
+w_0, w_1, w_2, \ldots, 
+w_{n-3},
+w_{n-2},
+w_{n-1},
+\right], 
+\ee
+some of which may be trivially zero.
+Notice that the length of the three arrays is equal to 
+the total number of sample points $n$.  That is, 
+\be
+\mbox{len}(X) =
+\mbox{len}(T) =
+\mbox{len}(W) = n.
+\ee
+Finally, let the cross correlation function $y(t)$ 
+be the sliding inner product of the signal $x(t)$ with
+the weighting function $w(t)$ such that 
+\be
+y(t) = \int_0^{t_f} x(t) \; w(t - \tau) \; d\tau,
+\ee
+which is the filter {\bf slide-forward option}, and 
+\be
+y(t) = \int_{-t_f}^{0} x(t) \; w(t - \tau) \; d\tau 
+\ee
+is the {\bf slide-backward operation}. 
+The two forgoing operations
+can be combined to generally be the {\bf 
+sliding dot product operation} as 
+\be
+y(t) = \int_{-t_f}^{t_f} x(t) \; w(t - \tau) \; d\tau.
+\ee
+In the discrete sense, 
+\be
+Y_i = W_{ij} X_j,
+\ee
+which takes the explicit form,
+\be
+\begin{tabular}{c}
+slide- \\
+forward \\
+operation \\ 
+$\vdots$ \\
+len = $n$\\
+\hline
+slide- \\
+backward \\
+operation \\
+$\vdots$ \\
+len = $n-1$
+\end{tabular}
+\hspace{0.5cm}
+%
+\left\{
+\begin{tabular}{c}
+$y_0$ \\
+$y_1$ \\
+$y_2$ \\ 
+$\vdots$ \\
+$y_{n-1}$ \\
+\hline
+$y_{-1}$ \\
+$y_{-2}$ \\
+$y_{-3}$ \\
+$\vdots$ \\
+$y_{-(n-1)}$ 
+\end{tabular}
+\right\}_{(2n-1 \times 1)}
+= \nonumber
+\ee 
+\be
+\left[
+\begin{tabular}{ccccccc}
+$w_0$ & 
+$w_1$ & 
+$w_2$ & 
+$\cdots$ & 
+$w_{n-3}$ & 
+$w_{n-2}$ & 
+$w_{n-1}$  
+ \\
+0 & 
+$w_0$ & 
+$w_1$ & 
+$w_2$ & 
+$\cdots$ & 
+$w_{n-3}$ & 
+$w_{n-2}$ 
+ \\
+0 & 
+0 & 
+$w_0$ & 
+$w_1$ & 
+$w_2$ & 
+$\cdots$ & 
+$w_{n-3}$ 
+ \\
+ & 
+ & 
+ & 
+$\ddots$ & 
+ & 
+ & 
+$\vdots$ 
+\\
+ & 
+ & 
+ & 
+ & 
+$\ddots$ & 
+ & 
+$\vdots$ 
+ \\
+ & 
+ & 
+ & 
+ & 
+ & 
+$\ddots$ & 
+$\vdots$ 
+ \\
+0 & 
+0 & 
+0 & 
+0  & 
+0 & 
+$\cdots$ & 
+$w_0$ 
+ \\ \hline
+$w_1$ & 
+$w_2$ & 
+$\cdots$ & 
+$w_{n-3}$ & 
+$w_{n-2}$ & 
+$w_{n-1}$ & 
+0 
+\\
+$w_2$ & 
+$\cdots$ & 
+$w_{n-3}$ & 
+$w_{n-2}$ & 
+$w_{n-1}$ & 
+0 & 
+0
+\\
+$\vdots$ & 
+$w_{n-3}$ & 
+$w_{n-2}$ & 
+$w_{n-1}$ & 
+0 & 
+0 & 
+0 
+\\
+$\vdots$ & 
+ & 
+\reflectbox{$\ddots$} & 
+ & 
+ & 
+ & 
+\\
+$\vdots$ & 
+\reflectbox{$\ddots$} & 
+ & 
+ & 
+ & 
+ & 
+ 
+\\
+$w_{n-1}$ & 
+0 & 
+0 & 
+0 & 
+0 & 
+0 & 
+0 
+\end{tabular}
+\right]_{(2n-1 \times n)}
+\left\{
+\begin{tabular}{c}
+$x_0$ \\ 
+$x_1$ \\ 
+$x_2$ \\ 
+$\vdots$ \\ 
+$x_{n-3}$ \\ 
+$x_{n-2}$ \\ 
+$x_{n-1}$ \\ 
+\end{tabular}
+\right\}_{(n \times 1)}
+\ee
