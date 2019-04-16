@@ -170,99 +170,100 @@ The PCC is bounded as
 	should be used.
 \end{Hremark}
 
-\section{Cross Correlation}
+\section{Cross Correlation (Series Dot Product)}
 
 The cross correlation is a measure of the {\em similarity  
 in time}
 of two time series signals.  It is often referred to as
-the ``sliding dot product'' of two time series, for reasons
-that become apparent below.
+the {\em dot product} of two time series because 
+the cross correlation operation is a dot production operation.
 
-Assume some time-varying signal $x(t)$ occurring over
-time interval $[t_0, t_f]$. 
-Let the amplitude of $x(t)$ be measured at $n-1$ uniform, 
-discrete times in the interval, such that
+\subsection{Vector Dot Product}
+Consider two vectors $\vu$ and $\vw$ in three-dimensional
+space, measured from the same origin and with the same 
+coordinate system, with components,
 \begin{align}
- x(t)  = & 
- \left. x \right|_{t_0} + 
- \left. x \right|_{t_1} + 
- \left. x \right|_{t_2} + 
- \cdots + 
- \left. x \right|_{t_f} \\
- = & 
- x_0 \; \delta(t_0) + 
- x_1 \; \delta(t_1) + 
- x_2 \; \delta(t_2) + 
- \cdots \nonumber \\ 
- & + 
- x_{n-3} \; \delta(t_{n-3}) + 
- x_{n-2} \; \delta(t_{n-2}) + 
- x_{n-1} \; \delta(t_{n-1}),
+\vu & = \left[ \; u_1, u_2, u_3 \; \right], \\
+\vw & = \left[ \; w_1, w_2, w_3 \; \right]. \\
 \end{align}
-where $\delta$ is the Dirac delta function.
-Let the ordered collection (array) of signal 
-amplitudes be $X$, such that 
+The dot product of the two vectors is simply,
+\begin{align}
+ \vu \cdot \vw = u_i \; w_i 
+ & = u_1 \; w_1 + u_2 \; w_2 + u_3 \; w_3 \\
+ \mbox{or generally} 
+ & = 
+ \sum_{i=1}^n u_i \; w_i.
+\end{align}
+Next, consider $\vu(t)$ and $\vw(t)$ be two time-varying
+signals, occurring over time interval $[\;t_0, t_f\;]$. 
+Let the amplitudes of $\vu(t)$ 
+and $\vw(t)$ be measured from zero to $t_f$ at $n$ equally
+distributed points such that the signals are sampled 
+at $n$ uniform discrete times in the interval.
+The two vectors are written explicitly as
+\begin{align}
+\vu & = 
+\left[ 
+\; u_0, u_1, u_2, \ldots, 
+ u_{n-3},
+ u_{n-2},
+ u_{n-1}
+ \;
+\right],  \\
+\vw & = 
+\left[ 
+\; w_0, w_1, w_2, \ldots, 
+ w_{n-3},
+ w_{n-2},
+ w_{n-1}
+ \;
+\right].
+\end{align}
+\begin{Hremark}
+To account for the {\em initial condition} of the time series, 
+we decrement the counter, 
 \be
-X = \left[ 
-x_0, x_1, x_2, \ldots, 
- x_{n-3},
- x_{n-2},
- x_{n-1}
-\right], 
+1 \ldots n,
 \ee
-which occurs in time, synchronized to the ordered
-collection (array) of times $T$,
+to become 
 \be
-T = \left[ 
-t_0, t_1, t_2, \ldots,
+0 \ldots n-1.
+\ee
+In both of these cases, the number of sample 
+points is identical, but the indexing is different by one (1). 
+\end{Hremark}
+
+\begin{Hremark}
+Notice that the two signals 
+$\vu(t)$ and $\vw(t)$ are {\em synchronized} in time
+such that 
+\be
+\vt= \left[ 
+\; t_0, t_1, t_2, \ldots,
  t_{n-3},
  t_{n-2},
  t_{n-1}
+ \;
 \right].
 \ee
 Notice that $\Delta t = t_1 - t_0 = t_2 - t_1 = \cdots
-t_{n-1} - t_{n-2}$ and that the signal
-$x(t)$ is sampled at a frequency 
+t_{n-1} - t_{n-2}$ and that the signals
+are sampled at a frequency 
 of $\frac{1}{\Delta t}$~Hz.
+\end{Hremark}
 
-Let some filter function (weighting function) 
-$w(t)$ exist on, and be synchronized with, 
-the time interval $T$.
-Let the ordered collection (array) of signal weights
-$W$ be 
-\be
-W = \left[ 
-w_0, w_1, w_2, \ldots, 
-w_{n-3},
-w_{n-2},
-w_{n-1},
-\right], 
-\ee
-some of which may be trivially zero.
-Notice that the length of the three arrays is equal to 
-the total number of sample points $n$.  That is, 
-\be
-\mbox{len}(X) =
-\mbox{len}(T) =
-\mbox{len}(W) = n.
-\ee
-Finally, let the cross correlation function $y(t)$ 
-be the sliding inner product of the signal $x(t)$ with
-the weighting function $w(t)$ such that 
-\be
-y(t) = \int_0^{t_f} x(t) \; w(t - \tau) \; d\tau,
-\ee
-which is the filter {\bf slide-forward option}, and 
-\be
-y(t) = \int_{-t_f}^{0} x(t) \; w(t - \tau) \; d\tau 
-\ee
-is the {\bf slide-backward operation}. 
-The two forgoing operations
-can be combined to generally be the {\bf 
-sliding dot product operation} as 
-\be
-y(t) = \int_{-t_f}^{t_f} x(t) \; w(t - \tau) \; d\tau.
-\ee
+\subsection{Series Dot Product}
+The dot product of these two signals is
+\begin{align}
+ \vu \cdot \vw = u_i \; w_i 
+ & = u_0 \; w_0 + u_1 \; w_1 + u_2 \; w_2 + \cdots + 
+ u_{n-1} \; w_{n-1} \\
+ \mbox{or generally} 
+ & = 
+ \sum_{i=0}^{n-1} u_i \; w_i.
+\end{align}
+
+\subsection{Discrete Case in Matrix Form}
 In the discrete sense, 
 \be
 Y_i = W_{ij} X_j,
@@ -420,3 +421,23 @@ $x_{n-1}$ \\
 \end{tabular}
 \right\}_{(n \times 1)}
 \ee
+
+\subsection{Continuous Case Generalized from the Discrete Case}
+Finally, let the cross correlation function $y(t)$ 
+be the sliding inner product of the signal $x(t)$ with
+the weighting function $w(t)$ such that 
+\be
+y(t) = \int_0^{t_f} x(t) \; w(t - \tau) \; d\tau,
+\ee
+which is the filter {\bf slide-forward option}, and 
+\be
+y(t) = \int_{-t_f}^{0} x(t) \; w(t - \tau) \; d\tau 
+\ee
+is the {\bf slide-backward operation}. 
+The two forgoing operations
+can be combined to generally be the {\bf 
+sliding dot product operation} as 
+\be
+y(t) = \int_{-t_f}^{t_f} x(t) \; w(t - \tau) \; d\tau.
+\ee
+
