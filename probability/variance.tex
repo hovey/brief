@@ -1,0 +1,124 @@
+\section{Variance}
+
+\subsection{Non-Equal Likelihood}
+
+The {\bf Variance} of $X$ is defined as 
+\begin{align}
+\var(X) \; \defe \; & \; 
+	\E\left[ (X - \ex)^2 \right], \\
+ & \; \E\left[ (X - \ex) \; (X - \ex) \right], \nonumber \\ 
+ & \; \E\left[ X^2 - \ex \; X + \ex \; \ex \right], \nonumber \\
+ & \; \E[X^2] - 2 \; \ex \; + \ex \; \ex,  \nonumber \\
+ & \; \E[X^2] - \ex. \label{eq:variance}
+\end{align}
+
+\subsubsection{Equal Likelihood}
+For the special case where each probability is equally likely, 
+(\ref{eq:variance}) takes the form
+\be
+\sigma^2 \defe \ex \overset{(\ref{eq:variance})}{=} 
+\sum_{i=1}^n \; p_i x^2_i - \mu^2 = \frac{1}{n} \sum_{i=1}^n \; x^2_i - \mu^2,
+\label{eq:simple_variance}
+\ee
+and is referred to as the {\bf simple variance}.
+
+\begin{Hremark}
+The form of (\ref{eq:simple_variance}) is often stated in slightly
+different form, 
+\begin{align}
+\frac{1}{n} \sum_{i=1}^n \; x^2_i - \mu^2 & =
+\frac{1}{n} \sum_{i=1}^n \; x^2_i - 2 \mu^2 + \mu^2, \\
+& \overset{(\ref{eq:simple_average})}{=} \frac{1}{n} \sum_{i=1}^n \; x^2_i -
+    \frac{2\mu}{n} \sum_{i=1}^n \; x_i +
+	\frac{n \mu^2}{n}, \\
+& = \frac{1}{n} \sum_{i=1}^n \left( x^2_i - 2 \mu x_i + \mu^2 \right), \\
+& = \frac{1}{n} \sum_{i=1}^n \left( x_i - \mu \right)^2.
+\end{align}
+This form, while perhaps easier to conceptualize, is relatively
+less efficient to implement since the latter requires $n$ subtractions 
+whereras the former requires only a single subtraction.
+\end{Hremark}
+
+\section{Covariance}
+\subsubsection{Non-Equal Likelihood}
+
+For two jointly distributed real-valued random variables $X$ and $Y$, with
+{\bf expected values}\footnote{Also known as {\bf mean values}.} 
+$\ex$ and $\ey$, respectively, the {\bf covariance} is defined as
+\begin{align}
+\cov(X,Y) \; \defe \; & \; \E\left[ 
+(X - \ex)) \; (X - \ey))
+\right], \\
+ & \; \exy - \ex \; \ey - \ex \; \ey + \ex \; \ey, \\
+ & \; \exy - \ex \; \ey.
+\end{align}
+
+Let the random variable pair $(X,Y)$ take on values $(x_i, y_i)$ for
+$i=1,\ldots,n$ with probability $p_i$.  The covariance is defined as
+\be
+\cov(X,Y) \defe \sum_{i=1}^n \; p_i \; \left(
+x_i - \ex
+\right)
+\;
+\left(
+y_i - \ey
+\right).
+\label{eq:cov_discrete}
+\ee
+
+\subsubsection{Non-Equal Likelihood}
+If the probability of each outcome is equal, the $p_i = 1/n$, and
+(\ref{eq:cov_discrete}) becomes
+\be
+\cov(X,Y) = \frac{1}{n} \; \sum_{i=1}^n \; \left(
+x_i - \ex
+\right)
+\;
+\left(
+y_i - \ey
+\right).
+\label{eq:cov_discrete_equal}
+\ee
+
+\subsection{Pearson Correlation Coefficient}
+The {\bf Pearson correlation coefficient} (PCC)\footnote{Also known as the
+Pearson's $r$ coefficient, Pearson product-moment correlation
+coefficient (PPMCC), and the bivariate correlation.} is a 
+measure of the linear correlation between two variables 
+$X$ and $Y$.  
+
+When a pair of random variables $(X,Y)$ are applied to a population, the PCC
+is called the {\bf population correlation coefficient} and denoted as 
+$\rho_{X,Y}$ and is defined as 
+\be
+\rho_{X,Y} = \frac{\cov(X,Y)}{\sigma_X \; \sigma_Y}, 
+\ee
+where 
+\begin{itemize}
+\item $\cov$ is the covariance of $X$ and $Y$, 
+\item $\sigma_X$ is the standard deviation of $X$, and 
+\item $\sigma_Y$ is the standard deviation of $Y$.
+\end{itemize}
+The PCC is bounded as
+\be
+-1 \leq \rho_{X,Y} \leq 1.
+\ee
+\begin{itemize}
+\item A value of -1 indicates complete negative linear correlation.
+\item A value of  0 indicates the absence of linear correlation.
+\item A value of +1 indicates complete positive linear correlation.
+\end{itemize}
+
+\begin{Hremark}
+	The covariance of a variable with itself is simply the variance
+	of the variable.  So, $\cov(X, X) = \var(X)$.
+\end{Hremark}
+
+\begin{Hremark}
+	When $\exy \approx \ex \; \ey$, 
+	then the $\cov(X,Y) = \exy - \ex \; \ey$ 
+	is prone to so-called ``catastrophic 
+	cancellation'' with floating point
+	calculations.  A numerically stable algorithm 
+	should be used.
+\end{Hremark}

@@ -1,0 +1,453 @@
+\section{Cross Correlation (Series Dot Product)}
+
+The cross correlation is a measure of the {\em similarity  
+in time}
+of two time series signals.  It is often referred to as
+the {\em dot product} of two time series because 
+the cross correlation operation is a dot production operation.
+
+\subsection{Vector Dot Product}
+Consider two vectors $\va$ and $\vb$ in three-dimensional
+space, measured from the same origin and with the same 
+coordinate system, with components,
+\begin{align}
+\va & = \left[ \; a_1, a_2, a_3 \; \right], \\
+\vb & = \left[ \; b_1, b_2, b_3 \; \right]. \\
+\end{align}
+The dot product of the two vectors is simply,
+\begin{align}
+ \va \cdot \vb = a_i \; b_i 
+ & = a_1 \; b_1 + a_2 \; b_2 + a_3 \; b_3 \\
+ \mbox{or generally} 
+ & = 
+ \sum_{i=1}^n a_i \; b_i.
+\end{align}
+
+Next, consider $\va(t)$ and $\vb(t)$ be two time-varying
+signals, occurring over time interval $[\;t_0, t_f\;]$. 
+Let the amplitudes of $\va(t)$ 
+and $\vb(t)$ be measured from zero to $t_f$ at $n$ equally
+distributed points such that the signals are sampled 
+at $n$ uniform discrete times in the interval.
+The two vectors are written explicitly as
+\begin{align}
+\va & = 
+\left[ 
+\; a_0, a_1, a_2, \ldots, 
+ a_{n-3},
+ a_{n-2},
+ a_{n-1}
+ \;
+\right],  \\
+\vb & = 
+\left[ 
+\; b_0, b_1, b_2, \ldots, 
+ b_{n-3},
+ b_{n-2},
+ b_{n-1}
+ \;
+\right].
+\end{align}
+
+\begin{Hremark}
+To account for the {\em initial condition} of the time series, 
+we decrement the counter, 
+\be
+1 \ldots n,
+\ee
+to become 
+\be
+0 \ldots n-1.
+\ee
+In both of these cases, the number of sample 
+points is identical, but the indexing is different by one (1). 
+\end{Hremark}
+
+\begin{Hremark}
+Notice that the two signals 
+$\va(t)$ and $\vb(t)$ are {\em synchronized} in time
+such that 
+\be
+\vt= \left[ 
+\; t_0, t_1, t_2, \ldots,
+ t_{n-3},
+ t_{n-2},
+ t_{n-1}
+ \;
+\right].
+\ee
+Notice that $\Delta t = t_1 - t_0 = t_2 - t_1 = \cdots
+t_{n-1} - t_{n-2}$ and that the signals
+are sampled at a frequency 
+of $\frac{1}{\Delta t}$~Hz.
+\end{Hremark}
+
+\subsection{Series Dot Product}
+The dot product of these two signals is
+\begin{align}
+ \va \cdot \vb = a_i \; b_i 
+ & = a_0 \; b_0 + a_1 \; b_1 + a_2 \; b_2 + \cdots + 
+ a_{n-1} \; b_{n-1} \\
+ \mbox{or generally} 
+ & = 
+ \sum_{i=0}^{n-1} a_i \; b_i.
+\end{align}
+For comparison of two time series, the dot product will be referred 
+to as the {\bf cross correlation score}.
+
+\begin{Hexample}
+	{
+    This example is a reproduction of the cross correlation example
+	from https://anomaly.io/understand-auto-cross-correlation-normalized-shift/.
+	Let vectors $\va$, $\vb$, and $\vc$ be defined as follows,
+	\begin{align}
+		\va &= [\; 1, 2, -2, 4, 2, 3, 1, 0 \;] \\
+		\vb &= [\; 2, 3, -2, 3, 2, 4, 1, -1 \; ] \\
+		\vc &= [\; -2, 0, 4, 0, 1, 1, 0, -2 \;]
+	\end{align}
+	Then the cross-correlation score between $\va$ and $\vb$ is found to be 
+	high, 
+	\be
+	\va \cdot \vb = 41; 
+	\ee
+	whereas, the cross-correlation score between $\va$ and $\vc$ is found to 
+	be low, 
+	\be
+	\va \cdot \vc = -5.
+	\ee
+	}
+\end{Hexample}
+
+\subsection{Limitation of Cross Correlation}
+A significant limitation of the cross correlation method is its 
+dependence on {\em amplitude}:
+\begin{itemize}
+\item Large postive magnitude increase the cross correlation.
+\item Large negative magnitude decrease the cross correlation.
+\item A cross correlation score shouldn't get better (positive) or
+worse (negative) if the amplitude of the signal is increased. 
+\item Shape similarity is obfuscasted by amplitude dependence.  For 
+example, the three cross correlation scores generated from comparison 
+of three signals, $A \sin(t)$, $B \sin(t)$, and $C \sin(t)$, 
+all of the same shape, $\sin(t)$, but with unique
+amplitudes $A, B, C$, will report that two out of the three signals are 
+better correlated by virtue of their closer amplitudes.  In a sense, 
+this result is satisfactory, since amplitude distinguishes one signal
+from another.  However, this result is incomplete, since the amplitude 
+dependence obfuscastes the fact that all three signals have the same 
+basic shape.
+\item Shape similarity obfuscation is easily seen with shape 
+self-similarity, that is, using the same signal for both vectors in the
+cross correlation.  In this case 
+\be
+  \va \cdot \va > \va \cdot \frac{\va}{2}, 
+\ee
+which is a sensible outcome, but not helpful to distinguish shape
+similarity.
+\end{itemize}
+
+To remedy the shortcoming of cross correlation caused by amplitude
+dependence, {\bf vector normalization} is employed, as explained 
+in a following section.  Prior to this, however, we make a brief 
+introduction to the p-norm.
+
+\subsection{p-norm}
+For any any number $p \in \real$ and $p \geq 1$, the {\bf p-norm} 
+is defined as
+\be
+ \parallel \va \parallel_p
+ \; \defe \left( 
+ \sum_{i=0}^{n-1} \mid a_i \mid^p 	 
+ \right)^{\frac{1}{p}}.
+\ee
+
+\begin{Hexample}
+	{
+		The L2-norm, also called the {\bf Euclidean norm}, is defined as 
+		\be
+		 \parallel \va \parallel_2
+		 \; \defe \left( 
+		 \sum_{i=0}^{n-1} \mid a_i \mid^2 	 
+		 \right)^{\frac{1}{2}},
+		\ee
+		and has the physical interpretation as the length of the vector
+		on which the L2-norm operates.
+	
+		\medskip
+
+		The L1-norm, also called the {\bf Manhattan taxicab norm}, is 
+		defined as 
+		\be
+		 \parallel \va \parallel_1
+		 \; \defe \left( 
+		 \sum_{i=0}^{n-1} \mid a_i \mid 	 
+		 \right),
+		\ee
+		and has the physical interpretation as the cumulative length 
+		(mileage) accumulated for each segement $a_i$.
+
+		\medskip
+
+		The {\bf absolute value} is the L1-norm on a one-dimensional
+		vector space, 
+		\be
+		 \parallel \va \parallel_1
+		 \; \defe \left( 
+		 \sum_{i=0}^{0} \mid a_i \mid 	 
+		 \right) 
+		 = 
+		 \; \mid a_0 \mid,
+		\ee
+	}
+\end{Hexample}
+
+\subsection{Normalized Cross Correlation}
+When vector normalization is used with cross correlation, the resulting
+method is referred to as {\em normalized cross correlation}.  
+Normalized cross correlation is the same as cross correlation with 
+one exception, the vectors used in the dot product are normalized by 
+their L2-norm.  
+
+The normalized cross correlation for the three-dimensional vectors
+$\va$ and $\vb$ is defined as 
+\begin{align}
+\frac{\va}{\parallel \va \parallel}_2
+\cdot
+\frac{\vb}{\parallel \vb \parallel}_2
+& \defe 
+\frac{a_i}{\sqrt{\sum_{i=1}^n a_i \; a_i}} 
+\cdot
+\frac{b_i}{\sqrt{\sum_{i=1}^n b_i \; b_i}}  \\
+& = 
+\frac{a_1 \; b_1 + a_2 \; b_2 + a_3 \; b_3}{
+    \left(\sqrt{a_1^2 + a_2^2 + a_3^2}\right) \; 
+    \left(\sqrt{b_1^2 + b_2^2 + b_3^2}\right)}. 
+\end{align}
+The foregoing result generalizes to time series $\va(t)$ and $\vb(t)$ 
+as 
+\begin{align}
+\frac{\va}{\parallel \va \parallel} 
+\cdot
+\frac{\vb}{\parallel \vb \parallel} 
+& \defe 
+  \frac{\dst\sum_{i=0}^{n-1} a_i \; b_i}
+  {\left(\sqrt{\dst\sum_{i=0}^{n-1} a_i^2}\right) \; 
+   \left(\sqrt{\dst\sum_{i=0}^{n-2} b_i^2}\right)} 
+\end{align}
+
+Consider again the vectors $\va$, $\vb$, and $\vc$ from 
+Example~1.
+
+\begin{Hexample}
+	{
+    Consider again the vectors $\va$, $\vb$, and $\vc$ from 
+    Example~1.
+	The {\em normalized} cross-correlation score between $\va$ and $\vb$ is found to be 
+	high (relative to a maximum of 1.0), 
+	\be
+    \frac{\va}{\parallel \va \parallel} \cdot 
+    \frac{\vb}{\parallel \vb \parallel} = \frac{41}{\sqrt{39} \; \sqrt{48}} 
+    = 0.947;
+	\ee
+    whereas, the {\em normalized} cross-correlation score between $\va$ and $\vc$ 
+    is found to 
+	be low (relative to no correlation for 0.0), 
+	\be
+    \frac{\va}{\parallel \va \parallel}
+    \cdot 
+    \frac{\vc}{\parallel \vc \parallel} = \frac{-5}{\sqrt{39} \; \sqrt{26}} = -0.157.
+	\ee
+	}
+\end{Hexample}
+
+The {\bf benefits} of {\em normalized} cross-correlation are two-fold:  
+Amplitude independence and unit normal scoring.  Amplitude independence 
+is seen as 
+\be
+\va \cdot \va = \va \cdot \frac{\va}{2}.
+\ee
+The normalized cross-correlation score now ranges betweeen -1 and +1.
+\begin{itemize}
+ \item +1 is perfect correlation,
+ \item 0 is no correlation, and
+ \item -1 is anti-correlation (correlated, but in opposite phase).
+\end{itemize}
+
+\subsection{Discrete Case in Matrix Form}
+In the discrete sense, 
+\be
+Y_i = W_{ij} X_j,
+\ee
+which takes the explicit form,
+\be
+\begin{tabular}{c}
+slide- \\
+forward \\
+operation \\ 
+$\vdots$ \\
+len = $n$\\
+\hline
+slide- \\ 
+backward \\
+operation \\
+$\vdots$ \\
+len = $n-1$
+\end{tabular}
+\hspace{0.5cm}
+%
+\left\{
+\begin{tabular}{c}
+$y_0$ \\
+$y_1$ \\
+$y_2$ \\ 
+$\vdots$ \\
+$y_{n-1}$ \\
+\hline
+$y_{-1}$ \\
+$y_{-2}$ \\
+$y_{-3}$ \\
+$\vdots$ \\
+$y_{-(n-1)}$ 
+\end{tabular}
+\right\}_{(2n-1 \times 1)}
+= \nonumber
+\ee 
+\be
+\left[
+\begin{tabular}{ccccccc}
+$w_0$ & 
+$w_1$ & 
+$w_2$ & 
+$\cdots$ & 
+$w_{n-3}$ & 
+$w_{n-2}$ & 
+$w_{n-1}$  
+ \\
+0 & 
+$w_0$ & 
+$w_1$ & 
+$w_2$ & 
+$\cdots$ & 
+$w_{n-3}$ & 
+$w_{n-2}$ 
+ \\
+0 & 
+0 & 
+$w_0$ & 
+$w_1$ & 
+$w_2$ & 
+$\cdots$ & 
+$w_{n-3}$ 
+ \\
+ & 
+ & 
+ & 
+$\ddots$ & 
+ & 
+ & 
+$\vdots$ 
+\\
+ & 
+ & 
+ & 
+ & 
+$\ddots$ & 
+ & 
+$\vdots$ 
+ \\
+ & 
+ & 
+ & 
+ & 
+ & 
+$\ddots$ & 
+$\vdots$ 
+ \\
+0 & 
+0 & 
+0 & 
+0  & 
+0 & 
+$\cdots$ & 
+$w_0$ 
+ \\ \hline
+$w_1$ & 
+$w_2$ & 
+$\cdots$ & 
+$w_{n-3}$ & 
+$w_{n-2}$ & 
+$w_{n-1}$ & 
+0 
+\\
+$w_2$ & 
+$\cdots$ & 
+$w_{n-3}$ & 
+$w_{n-2}$ & 
+$w_{n-1}$ & 
+0 & 
+0
+\\
+$\vdots$ & 
+$w_{n-3}$ & 
+$w_{n-2}$ & 
+$w_{n-1}$ & 
+0 & 
+0 & 
+0 
+\\
+$\vdots$ & 
+ & 
+\reflectbox{$\ddots$} & 
+ & 
+ & 
+ & 
+\\
+$\vdots$ & 
+\reflectbox{$\ddots$} & 
+ & 
+ & 
+ & 
+ & 
+ 
+\\
+$w_{n-1}$ & 
+0 & 
+0 & 
+0 & 
+0 & 
+0 & 
+0 
+\end{tabular}
+\right]_{(2n-1 \times n)}
+\left\{
+\begin{tabular}{c}
+$x_0$ \\ 
+$x_1$ \\ 
+$x_2$ \\ 
+$\vdots$ \\ 
+$x_{n-3}$ \\ 
+$x_{n-2}$ \\ 
+$x_{n-1}$ \\ 
+\end{tabular}
+\right\}_{(n \times 1)}
+\ee
+
+\subsection{Continuous Case Generalized from the Discrete Case}
+Finally, let the cross correlation function $y(t)$ 
+be the sliding inner product of the signal $x(t)$ with
+the weighting function $w(t)$ such that 
+\be
+y(t) = \int_0^{t_f} x(t) \; w(t - \tau) \; d\tau,
+\ee
+which is the filter {\bf slide-forward option}, and 
+\be
+y(t) = \int_{-t_f}^{0} x(t) \; w(t - \tau) \; d\tau 
+\ee
+is the {\bf slide-backward operation}. 
+The two forgoing operations
+can be combined to generally be the {\bf 
+sliding dot product operation} as 
+\be
+y(t) = \int_{-t_f}^{t_f} x(t) \; w(t - \tau) \; d\tau.
+\ee
+
