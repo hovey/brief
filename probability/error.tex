@@ -1,0 +1,67 @@
+\section{Error and Error Rate}
+
+\subsection{Error}
+
+The {\bf error} $\ve{e}(t)$ between two signals 
+$\va(t)$ and $\vb(t)$ is 
+defined as the difference between the two signals, 
+\be
+\ve{e}(t) \defe \abs{\va(t) - \vb(t)}.
+\ee
+Note that $\ve{e} \geq \ve{0} \;\; \forall \;\; t$.
+If $\vb$ exactly follows $\va$ at every time step, then the
+error is zero, as expected.  
+
+\begin{Hexample}
+{
+Let vectors $\va$ and $\vb$ be defined as follows,
+\begin{align}
+ \va & = [\; 20, 20, 20, 20 \;] \\
+ \vb & = [\; 18, 18, 18, 18 \;] 
+\end{align}
+Then the error $\ve{e}$ is found to be,
+\be
+ \ve{e} = [\; 2, 2, 2, 2 \;]
+\ee
+In this example, assuming $\va$ is the ground truth, $\vb$ 
+underestimates $\va$ by $2$ at every sample.  This is an 
+example of {\bf systemic error}, where there is a consistent
+offset between the two signals, and an offset adjustment (the
+offset value of $2$ in this case) would eliminate all error 
+between the two signals.
+}
+\end{Hexample}
+
+\subsection{Error Rate}
+
+Next, we would like to have a scalar value to describe the 
+error over the entire sample, which is measured at each sample
+point and has dimension $n$. 
+
+We defined the {\bf accumulated error}, 
+$\sum \ve{e}$, as the sum of the errors
+of each of the measurement,
+\be
+\sum \ve{e} \defe \sum_{i=0}^{n-1} \abs{e_i} = 
+\abs{a_i - b_i}.
+\ee
+A serious problem with accumulated error is that the error 
+increases the more times the signals are measured. 
+
+\begin{Hexample}
+{
+\begin{itemize}
+\item In the preceding example, 
+if the signals were measured at only 
+one sample, the accumulated error would be $2$.  
+\item Similarly, 
+if two samples were taken, the accumulated error would be $4$.
+\item For three samples, the accumulated error would be $6$.  
+\item For 
+the example as stated above, with four samples, the accumulated
+error is $8$.  
+\end{itemize}
+This pattern shows the limitation of accumulated error: that
+it is dependent on sample size.
+}
+\end{Hexample}
