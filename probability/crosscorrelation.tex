@@ -1,12 +1,13 @@
-\section{Cross Correlation (Series Dot Product)}
+\section{Cross-Correlation (Series Dot Product)}
 
-The cross correlation is a measure of the {\em similarity  
+The cross-correlation is a measure of the {\em similarity  
 in time}
 of two time series signals.  It is often referred to as
 the {\em dot product} of two time series because 
-the cross correlation operation is a dot production operation.
+the cross-correlation operation is a dot production operation.
 
 \subsection{Vector Dot Product}
+\label{section:vdp}
 Consider two vectors $\va$ and $\vb$ in three-dimensional
 space, measured from the same origin and with the same 
 coordinate system, with components,
@@ -21,7 +22,7 @@ The dot product of the two vectors is simply,
  \mbox{or generally} 
  & = 
  \sum_{i=1}^n a_i \; b_i.
-\end{align}
+\end{align} 
 
 Next, consider $\va(t)$ and $\vb(t)$ be two time-varying
 signals, occurring over time interval $[\;t_0, t_f\;]$. 
@@ -60,7 +61,7 @@ to become
 0 \ldots n-1.
 \ee
 In both of these cases, the number of sample 
-points is identical, but the indexing is different by one (1). 
+points is identical, but the indexing is different by one. 
 \end{Hremark}
 
 \begin{Hremark}
@@ -93,11 +94,11 @@ The dot product of these two signals is
  \sum_{i=0}^{n-1} a_i \; b_i.
 \end{align}
 For comparison of two time series, the dot product will be referred 
-to as the {\bf cross correlation score}.
+to as the {\bf cross-correlation score}.
 
 \begin{Hexample}
 	{
-    This example is a reproduction of the cross correlation example
+    This example is a reproduction of the cross-correlation example
 	from https://anomaly.io/understand-auto-cross-correlation-normalized-shift/.
 	Let vectors $\va$, $\vb$, and $\vc$ be defined as follows,
 	\begin{align}
@@ -118,16 +119,16 @@ to as the {\bf cross correlation score}.
 	}
 \end{Hexample}
 
-\subsection{Limitation of Cross Correlation}
-A significant limitation of the cross correlation method is its 
+\subsection{Limitation of Cross-Correlation}
+A significant limitation of the cross-correlation method is its 
 dependence on {\em amplitude}:
 \begin{itemize}
-\item Large postive magnitude increase the cross correlation.
-\item Large negative magnitude decrease the cross correlation.
-\item A cross correlation score shouldn't get better (positive) or
-worse (negative) if the amplitude of the signal is increased. 
+\item Large postive magnitudes increase the cross-correlation.
+\item Large negative magnitudes decrease the cross-correlation.
+\item A cross-correlation score shouldn't get better (positive) or
+worse (negative) if the amplitude of the signal is increased or decreased.
 \item Shape similarity is obfuscasted by amplitude dependence.  For 
-example, the three cross correlation scores generated from comparison 
+example, the three cross-correlation scores generated from comparison 
 of three signals, $A \sin(t)$, $B \sin(t)$, and $C \sin(t)$, 
 all of the same shape, $\sin(t)$, but with unique
 amplitudes $A, B, C$, will report that two out of the three signals are 
@@ -137,8 +138,8 @@ from another.  However, this result is incomplete, since the amplitude
 dependence obfuscastes the fact that all three signals have the same 
 basic shape.
 \item Shape similarity obfuscation is easily seen with shape 
-self-similarity, that is, using the same signal for both vectors in the
-cross correlation.  In this case 
+{\em self}-similarity, that is, using the {\em same} signal for both vectors in the
+cross-correlation.  In this case 
 \be
   \va \cdot \va > \va \cdot \frac{\va}{2}, 
 \ee
@@ -146,7 +147,7 @@ which is a sensible outcome, but not helpful to distinguish shape
 similarity.
 \end{itemize}
 
-To remedy the shortcoming of cross correlation caused by amplitude
+To remedy the shortcoming of cross-correlation caused by amplitude
 dependence, {\bf vector normalization} is employed, as explained 
 in a following section.  Prior to this, however, we make a brief 
 introduction to the p-norm.
@@ -201,14 +202,14 @@ is defined as
 	}
 \end{Hexample}
 
-\subsection{Normalized Cross Correlation}
-When vector normalization is used with cross correlation, the resulting
-method is referred to as {\em normalized cross correlation}.  
-Normalized cross correlation is the same as cross correlation with 
-one exception, the vectors used in the dot product are normalized by 
-their L2-norm.  
+\subsection{Normalized Cross-Correlation}
+When vector normalization is used with cross-correlation, the resulting
+method is referred to as {\em normalized cross-correlation}.  
+Normalized cross-correlation is the same as cross-correlation with 
+one exception: The vectors used in the dot product are normalized by 
+their respective L2-norm.  
 
-The normalized cross correlation for the three-dimensional vectors
+The normalized cross-correlation for the three-dimensional vectors
 $\va$ and $\vb$ is defined as 
 \begin{align}
 \frac{\va}{\parallel \va \parallel}_2
@@ -232,7 +233,7 @@ as
 & \defe 
   \frac{\dst\sum_{i=0}^{n-1} a_i \; b_i}
   {\left(\sqrt{\dst\sum_{i=0}^{n-1} a_i^2}\right) \; 
-   \left(\sqrt{\dst\sum_{i=0}^{n-2} b_i^2}\right)} 
+   \left(\sqrt{\dst\sum_{i=0}^{n-1} b_i^2}\right)} 
 \end{align}
 
 Consider again the vectors $\va$, $\vb$, and $\vc$ from 
@@ -273,22 +274,48 @@ The normalized cross-correlation score now ranges betweeen -1 and +1.
  \item -1 is anti-correlation (correlated, but in opposite phase).
 \end{itemize}
 
-\subsection{Discrete Case in Matrix Form}
-In the discrete sense, 
-\be
-Y_i = W_{ij} X_j,
-\ee
-which takes the explicit form,
+\subsection{Normalized Cross-Correlation with Time Shift}
+The motivation for {\bf normalization} was to remove amplitude effects 
+from the cross-correlation score.  These effects are seen along the
+$y-$axis.  A complementary effect, called {\bf phase effect}, can 
+exist along the $x-$axis. 
+
+Specifically, two time series may be highly correlated, or even
+identical, but if out of phase, will cause the cross-correlation and 
+the normalized cross-correlation to report a score of zero. 
+
+To remedy this outcome, a second strategy can be formulated.  
+In previous sections, 
+the dot product and the normalized dot product were used for 
+cross-correlation and normalized cross-correlation, respectively.
+Now, we will shift one of the two signals incrementally in time to 
+both the left and the right, to create what is referred to as the
+{\bf sliding dot product} and {\bf sliding normalized dot product}, 
+respectively.
+
+Conceptually, the sliding dot product strategy computes the dot product
+between two time series for all combination of $a_i$ and $b_i$ to determine
+if a {\bf phase lead} or {\bf phase lag}
+ results in a better correlation score.
+
+The result of the sliding dot product is an expansion of inner products, 
+called {\bf cross-correlation coefficients}, which will be labeled as 
+vector $\vc$, with dimension $2n-1$, generated by the sliding 
+mechanism. The sliding dot product is illustrated 
+in matrix form, where time series
+$\vb$ slides forward and backward incrementally in time, relative to time 
+series $\va$.
+This operation takes the explicit form,
 \be
 \begin{tabular}{c}
-slide- \\
-forward \\
+initial condition, len = 1 \\
+\hline
+slide-forward \\
 operation \\ 
 $\vdots$ \\
-len = $n$\\
+len = $n-1$\\
 \hline
-slide- \\ 
-backward \\
+slide-backward \\ 
 operation \\
 $\vdots$ \\
 len = $n-1$
@@ -297,17 +324,17 @@ len = $n-1$
 %
 \left\{
 \begin{tabular}{c}
-$y_0$ \\
-$y_1$ \\
-$y_2$ \\ 
-$\vdots$ \\
-$y_{n-1}$ \\
+$c_0$ \\
 \hline
-$y_{-1}$ \\
-$y_{-2}$ \\
-$y_{-3}$ \\
+$c_1$ \\
+$c_2$ \\ 
 $\vdots$ \\
-$y_{-(n-1)}$ 
+$c_{n-1}$ \\
+\hline
+$c_{-1}$ \\
+$c_{-2}$ \\
+$\vdots$ \\
+$c_{-(n-1)}$ 
 \end{tabular}
 \right\}_{(2n-1 \times 1)}
 = \nonumber
@@ -315,29 +342,30 @@ $y_{-(n-1)}$
 \be
 \left[
 \begin{tabular}{ccccccc}
-$w_0$ & 
-$w_1$ & 
-$w_2$ & 
+$b_0$ & 
+$b_1$ & 
+$b_2$ & 
 $\cdots$ & 
-$w_{n-3}$ & 
-$w_{n-2}$ & 
-$w_{n-1}$  
+$b_{n-3}$ & 
+$b_{n-2}$ & 
+$b_{n-1}$  
+ \\
+ \hline
+0 & 
+$b_0$ & 
+$b_1$ & 
+$b_2$ & 
+$\cdots$ & 
+$b_{n-3}$ & 
+$b_{n-2}$ 
  \\
 0 & 
-$w_0$ & 
-$w_1$ & 
-$w_2$ & 
-$\cdots$ & 
-$w_{n-3}$ & 
-$w_{n-2}$ 
- \\
 0 & 
-0 & 
-$w_0$ & 
-$w_1$ & 
-$w_2$ & 
+$b_0$ & 
+$b_1$ & 
+$b_2$ & 
 $\cdots$ & 
-$w_{n-3}$ 
+$b_{n-3}$ 
  \\
  & 
  & 
@@ -369,31 +397,31 @@ $\vdots$
 0  & 
 0 & 
 $\cdots$ & 
-$w_0$ 
+$b_0$ 
  \\ \hline
-$w_1$ & 
-$w_2$ & 
+$b_1$ & 
+$b_2$ & 
 $\cdots$ & 
-$w_{n-3}$ & 
-$w_{n-2}$ & 
-$w_{n-1}$ & 
+$b_{n-3}$ & 
+$b_{n-2}$ & 
+$b_{n-1}$ & 
 0 
 \\
-$w_2$ & 
+$b_2$ & 
 $\cdots$ & 
-$w_{n-3}$ & 
-$w_{n-2}$ & 
-$w_{n-1}$ & 
+$b_{n-3}$ & 
+$b_{n-2}$ & 
+$b_{n-1}$ & 
 0 & 
 0
 \\
 $\vdots$ & 
-$w_{n-3}$ & 
-$w_{n-2}$ & 
-$w_{n-1}$ & 
-0 & 
-0 & 
-0 
+& 
+& 
+\reflectbox{$\ddots$} & 
+& 
+& 
+
 \\
 $\vdots$ & 
  & 
@@ -410,7 +438,7 @@ $\vdots$ &
  & 
  
 \\
-$w_{n-1}$ & 
+$b_{n-1}$ & 
 0 & 
 0 & 
 0 & 
@@ -421,19 +449,56 @@ $w_{n-1}$ &
 \right]_{(2n-1 \times n)}
 \left\{
 \begin{tabular}{c}
-$x_0$ \\ 
-$x_1$ \\ 
-$x_2$ \\ 
+$a_0$ \\ 
+$a_1$ \\ 
+$a_2$ \\ 
 $\vdots$ \\ 
-$x_{n-3}$ \\ 
-$x_{n-2}$ \\ 
-$x_{n-1}$ \\ 
+$a_{n-3}$ \\ 
+$a_{n-2}$ \\ 
+$a_{n-1}$ \\ 
 \end{tabular}
 \right\}_{(n \times 1)}
 \ee
 
-\subsection{Continuous Case Generalized from the Discrete Case}
-Finally, let the cross correlation function $y(t)$ 
+\begin{Hexample}
+	{
+    This example is a reproduction of the normalized cross-correlation with
+    time shift example
+	from https://anomaly.io/understand-auto-cross-correlation-normalized-shift/.
+	Let vectors $\va$ and $\vb$ be defined as follows,
+	\begin{align}
+		\va &= [\; 0, 1, 2, 3, 4, \;\; 0, 1, 2, 3, 4, \;\; 0, 1, 2, 3, 4, \;\; 0, 1, 2, 3, 4 \; ] \\
+		\vb &= [\; 1, 2, 3, 3, 0, \;\; 1, 2, 3, 4, 0, \;\; 1, 1, 4, 4, 0, \;\; 1, 2, 3, 4, 0 \; ] 
+	\end{align}
+    where slight spacing has been interjected between every fifth element, to help
+    illustrate the pattern embedded in the series.  
+    Since the dimension, $n$, of the signal is 20, there are $2 n - 1 = 39$
+    correlation coefficients, $c_i$, that can be calculated from the 
+    normalized cross-correlation with time shift operation.  Below are
+    9 of the 39 correlation coefficients, showing the initial condition, 
+    the first four slide-forward operatations, and the first four slide-backward 
+    operations.  
+
+    {\tt \footnotesize
+    \begin{center}
+    \begin{tabular}{rccccccccc}    
+       $\Delta t$ & -4 & -3 & -2 & -1 & 0 & 1 & 2 & 3 & 4 \\
+       $c_i$ & 0.862 & 0.021 & -0.547 & -0.423 & 0.000 & {\bf 0.867} & 
+       0.127 & -0.466 & -0.393 
+    \end{tabular}
+    \end{center}
+    }
+    The results indicate that sliding the $\vb$ signal forward by one time
+    increment results in the largest normalized cross-correlation with time
+    shift correlation coefficient ($c_1$ = 0.867 at $\Delta t$ = 1).  
+    This correlation can be seen through visual
+    inspection of the two curves at zero time shift, and then shifting 
+    signal $\vb$ forward by one step.
+	}
+\end{Hexample}
+
+\subsection{Continuous Case - Disregard this Section for Now}
+Finally, let the cross-correlation function $y(t)$ 
 be the sliding inner product of the signal $x(t)$ with
 the weighting function $w(t)$ such that 
 \be
@@ -451,3 +516,95 @@ sliding dot product operation} as
 y(t) = \int_{-t_f}^{t_f} x(t) \; w(t - \tau) \; d\tau.
 \ee
 
+\subsection{From Deterministic to Stochastic}
+In this section, we apply some of the notions of expectation, 
+variance, and covariance that we noted in the first sections with 
+the notions of cross-correlation.  Up until this point, the signals
+used in the cross-correlation discussion were tacticly normalized to the 
+origin at $\ve{0}$.  So, expectations and deviations were tactily 
+taken with respect to zero for all times in signals $a_i$ and $b_i$.
+
+Now, we note the form for correlation applied to stochastic processes (the
+former will more or less be called a deterministic process, by contrast).
+In the stochastic process, we will 
+normalize data with respect to an expected value (e.g., mean, in the case 
+of equal likelihood probabilities) as an inhomogeneous datum (different 
+from zero).  The mean {\em could} be zero as a trivial special case, but 
+in general the mean is non-zero.
+
+\subsubsection{Stochastic Vector Dot Product}
+Generally, we substitute $(a_i - \bar{a})$ for $(a_i)$ in the previous 
+definition of vector dot product, appearing in Section~\ref{section:vdp}.
+The value $\bar{a}$ is the expected value of $\va$, and in the special 
+case of equal likelihood, $\bar{a}$ is the average value $\mu_a$.
+
+Then, the stochastic 
+vector dot product of three-dimensional signals $\va$ and $\vb$ is defined as, 
+\begin{align}
+ \va \cdot \vb & = 
+ (a_i-\bar{a}) \; (b_i-\bar{b})  \\
+ & = 
+ (a_1-\bar{a}) \; (b_1-\bar{b}) 
+ +
+ (a_2-\bar{a}) \; (b_2-\bar{b}) 
+ +
+ (a_3-\bar{a}) \; (b_3-\bar{b}) 
+ \\
+ \mbox{or generally} 
+ & = 
+ \sum_{i=1}^n (a_i-\bar{a}) \; (b_i-\bar{b}).
+\end{align} 
+
+\subsubsection{Stochastic Series Dot Product}
+Extending this to $n$-dimensional signals $\va(t)$ and $\vb(t)$, 
+the stochastic series dot product becomes,
+
+\begin{align}
+ \va \cdot \vb & = 
+ (a_i - \bar{a}) \; (b_i - \bar{b}) \\
+ & = 
+ (a_0-\bar{a}) \; (b_0-\bar{b}) 
+ + 
+ (a_1-\bar{a}) \; (b_1-\bar{b}) 
+ +
+ (a_2-\bar{a}) \; (b_2-\bar{b}) 
+ \; + \nonumber \\ 
+ & \hspace{1cm} \cdots + 
+ (a_{n-1} - \bar{a}) \; (b_{n-1} - \bar{b})
+ \\
+ \mbox{or generally} 
+ & = 
+ \sum_{i=0}^{n-1} (a_i-\bar{a}) \; (b_i-\bar{b}).
+\end{align}
+
+\subsubsection{Stochastic Series Normalized Dot Product}
+The normalization of the stochastic 
+series dot product arises by comparison of the 
+expected value to its variance.  Noting, with the special case of equal
+likelihood,
+\be 
+ \sigma^2 = \frac{1}{n} \sum_{i=0}^{n-1}
+ \left( a_i - \bar{a} \right)^2,
+\ee
+then, 
+\be 
+ \sigma = 
+ \sqrt{
+ \frac{1}{n} \sum_{i=0}^{n-1}
+ \left( a_i - \bar{a} \right)^2}.
+\ee
+This allows the stochastic series normalized dot product to be 
+written as 
+\be
+\frac{\va}{\parallel \va \parallel}_2
+\cdot
+\frac{\vb}{\parallel \vb \parallel}_2
+ \defe 
+\frac{\dst\sum_{i=0}^{n-1} (a_i - \bar{a}) 
+\; 
+(b_i - \bar{b})}
+{\left(n\right) 
+\left(\sqrt{\dst\sum_{i=0}^{n-1} \left(a_i-\bar{a}\right)^2}\right) \; 
+\left(\sqrt{\dst\sum_{i=0}^{n-1} \left(b_i-\bar{b}\right)^2}\right)}.
+\ee
+Some statistical references call this the {\bf zero-normalized cross-correlation}.

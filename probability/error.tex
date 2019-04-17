@@ -32,19 +32,21 @@ between the two signals.
 }
 \end{Hexample}
 
-\subsection{Error Rate}
+\subsection{Accumulated Error}
 
 Next, we would like to have a scalar value to describe the 
 error over the entire sample, which is measured at each sample
 point and has dimension $n$. 
 
-We defined the {\bf accumulated error}, 
-$\sum \ve{e}$, as the sum of the errors
+We define the {\bf L1-norm accumulated error}, 
+$\parallel \ve{e} \parallel_1$, as the sum of the errors
 of each of the measurement,
 \be
-\sum \ve{e} \defe \sum_{i=0}^{n-1} \abs{e_i} = 
-\abs{a_i - b_i}.
+\parallel \ve{e} \parallel_1 \; \defe 
+\sum_{i=0}^{n-1} \abs{e_i} = 
+\sum_{i=0}^{n-1} \abs{a_i - b_i}.
 \ee
+This is the L1-norm, applied to each error measurement, $e_i = a_i - b_i$.  
 A serious problem with accumulated error is that the error 
 increases the more times the signals are measured. 
 
@@ -65,3 +67,74 @@ This pattern shows the limitation of accumulated error: that
 it is dependent on sample size.
 }
 \end{Hexample}
+We define the {\bf L2-norm accumulated error}, 
+$\parallel \ve{e} \parallel_2$, as the sum of the errors
+of each of the measurement,
+\be
+\parallel \ve{e} \parallel_2 \; \defe 
+\left( 
+    \sum_{i=0}^{n-1} \abs{e_i}^2
+\right)^{\half} = 
+\left( 
+    \sum_{i=0}^{n-1} \abs{a_i - b_i}^2
+\right)^{\half}.
+\ee
+This is the L2-norm, applied to the error measurement, $e_i = a_i - b_i$.  
+The same systemic error seen above for the L1-norm occurs for the L2-norm, 
+that the error increases with increasing number of measurements.  
+To remedy this effect, normalization will be used.  Specifically, 
+normalization will appear in two forms:  
+\begin{itemize}
+\item Normalization by sample count, called {\bf error rate}.
+\item Normalization by characteristic amplitude in the signal, called
+{\bf normalized error rate}.
+\end{itemize}
+These two normalization processes are examined below.
+
+\subsection{Error Rate}
+The concept of {\bf error rate} is simply to normalize the accumulated 
+error, which can be either L1-norm or L2-norm type, and normalize by the 
+dimension $n = \mbox{len}(\va) = \mbox{len}(\vb)$ of the signals. 
+The resulting metric then reports error on a {\em per-measurement basis}, 
+which eliminates the accumlation of error.  Specifically, the 
+{\bf L1-norm error rate} is defined as 
+\be
+\parallel \bar{\ve{e}} \parallel_1 \; \defe 
+\frac{1}{n} \; \sum_{i=0}^{n-1} \abs{e_i} = 
+\frac{1}{n} \; \sum_{i=0}^{n-1} \abs{a_i - b_i},
+\ee
+and the {\bf L2-norm error rate} is defined as  
+\be
+\parallel \bar{\ve{e}} \parallel_2 \; \defe 
+\frac{1}{n} \; \left( 
+    \sum_{i=0}^{n-1} \abs{e_i}^2
+\right)^{\half} = 
+\frac{1}{n} \; \left( 
+    \sum_{i=0}^{n-1} \abs{a_i - b_i}^2
+\right)^{\half}.
+\ee
+Notice that the error rate units are [amplitude/sample], 
+hence the rate of the errors in the amplitudes.
+
+\begin{Hexample}
+{
+Revising the example with vectors $\va$ and $\vb$,
+\begin{align}
+ \va & = [\; 20, 20, 20, 20 \;] \\
+ \vb & = [\; 18, 18, 18, 18 \;] 
+\end{align}
+The {\bf L1-norm error rate} $\parallel\bar{\ve{e}}\parallel_1$ 
+is found to be,
+\be
+ \parallel\bar{\ve{e}}\parallel_1 
+ \; = \frac{1}{4} \cdot \left(2 + 2 + 2 + 2\right) = 2.
+\ee
+The {\bf L2-norm error rate} $\parallel\bar{\ve{e}}\parallel_2$ 
+is found to be,
+\be
+ \parallel\bar{\ve{e}}\parallel_2 
+ \; = \frac{1}{4} \cdot \sqrt{\left(4 + 4 + 4 + 4\right)} = 1.
+\ee
+}
+\end{Hexample}
+
