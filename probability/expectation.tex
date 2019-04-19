@@ -83,26 +83,22 @@ import numpy as np
 from random import randint  # random integer
 
 n_rolls = 40  # number of dice rolls
-roll_count = np.arange(1, n_rolls + 1)
+roll_number = np.arange(1, n_rolls + 1)
 roll_history = np.zeros(n_rolls)  # each roll result recorded in time
-accumulation = np.zeros(n_rolls)  # the sum after each roll
-average = np.zeros(n_rolls)  # average updated after each dice roll
+average = np.zeros(n_rolls)  # initialize the average, updated after each dice roll
 
-for roll in roll_count:
-    roll_result = randint(1,6)  # fair dice roll [1, 6]
+for roll in roll_number:
+    roll_result = randint(1,6)  # roll a fair dice, values between 1 and 6, inclusive
     print(f'Dice roll number {roll} roll value is {roll_result}.')
     roll_history[roll-1] = int(roll_result)
     sum_after_roll = sum(i for i in roll_history)
-    accumulation[roll-1] = sum_after_roll
     average[roll-1] = sum_after_roll / roll
 
 fig = plt.figure(figsize=(8, 4))  # 8 inches wide, 4 inches tall
 
 ax = fig.add_subplot(1, 1, 1)
-ax.plot(roll_count, roll_history, color='blue', marker='o', 
-    label='roll history')
-ax.plot(roll_count, average, color='red', marker='o', alpha=0.5, 
-    label='roll average')
+ax.plot(roll_number, roll_history, 's', color='blue', label='roll value')
+ax.plot(roll_number, average, color='red', marker='o', alpha=0.5, label='roll average')
 ax.grid()
 ax.set_xlabel("roll number")
 ax.set_ylabel("roll value and average")
@@ -111,6 +107,8 @@ ax.legend(loc='upper right')
 plt.show()
 figure_name = "dice_roll"
 fig.savefig(figure_name + ".pdf", bbox_inches='tight')
+
+
 \end{minted}
 
 The results from the Python script are shown in
