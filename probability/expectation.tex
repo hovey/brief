@@ -44,3 +44,87 @@ not be confused with $\mu$, the simple average of $X$.
 The latter is a special
 case of the former, as just demonstrated in the above sections.
 \end{Hremark}
+
+\begin{Hexample}
+{
+Consider a 6-sided dice, with faces 1 to 6.  Consider the dice
+to be a {\em fair} dice, so that the probability of rolling
+a 1 is the same as rolling a 2, and is the same as rolling any 
+of the other remaining numbers 3 to 6.   Thus, the fair dice
+has equal likelihood of any of the 6 outcomes, and 
+Eq.~(\ref{eq:simple_average}) is used.
+The expected value is calculated as
+\be
+\mu = \ex = \frac{1}{6} \left(1 + 2 + 3 + 4 + 5 + 6 \right) = 3.5
+\ee
+}
+\end{Hexample}
+
+The 6-sided dice roll in the preceding example can be 
+illustrated through numerical simulation, implemented in Python
+below.  
+
+\begin{minted}
+[
+frame=lines,
+framesep=2mm,
+baselinestretch=1.2,
+bgcolor=hivory,
+fontsize=\footnotesize,
+linenos
+]
+{python}
+import matplotlib as mpl
+import matplotlib.pyplot as plt
+from matplotlib import rc
+rc('font',**{'family':'serif','serif':['Computer Modern Roman']})
+rc('text', usetex=True)
+import numpy as np
+from random import randint  # random integer
+
+n_rolls = 40  # number of dice rolls
+roll_count = np.arange(1, n_rolls + 1)
+roll_history = np.zeros(n_rolls)  # each roll result recorded in time
+accumulation = np.zeros(n_rolls)  # the sum after each roll
+average = np.zeros(n_rolls)  # average updated after each dice roll
+
+for roll in roll_count:
+    roll_result = randint(1,6)  # fair dice roll [1, 6]
+    print(f'Dice roll number {roll} roll value is {roll_result}.')
+    roll_history[roll-1] = int(roll_result)
+    sum_after_roll = sum(i for i in roll_history)
+    accumulation[roll-1] = sum_after_roll
+    average[roll-1] = sum_after_roll / roll
+
+fig = plt.figure(figsize=(8, 4))  # 8 inches wide, 4 inches tall
+
+ax = fig.add_subplot(1, 1, 1)
+ax.plot(roll_count, roll_history, color='blue', marker='o', 
+    label='roll history')
+ax.plot(roll_count, average, color='red', marker='o', alpha=0.5, 
+    label='roll average')
+ax.grid()
+ax.set_xlabel("roll number")
+ax.set_ylabel("roll value and average")
+ax.set_ylim(0, 7)
+ax.legend(loc='upper right')
+plt.show()
+figure_name = "dice_roll"
+fig.savefig(figure_name + ".pdf", bbox_inches='tight')
+\end{minted}
+
+The results from the Python script are shown in
+Fig.~\ref{fig:dice_roll}.
+
+\begin{figure}[htb]
+  \begin{center}
+  %\begin{overpic}[width=\textwidth, grid, tics=10]{fig/1D_contact}
+  %\begin{overpic}[width=\textwidth,natwidth=309,natheight=172]{fig/1D_contact.pdf}
+  \begin{overpic}[width=\textwidth]{fig/dice_roll.pdf}
+  %\put(17, 43.5){$\cA$}
+ \end{overpic}
+ \end{center}
+ \caption{Numerical simulation of 40 dice rolls, showing value of each roll and average for all rolls.  As the number of rolls increases, the average converges to 3.5, the dice roll expected value.}
+ \label{fig:dice_roll}
+\end{figure}
+
