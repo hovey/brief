@@ -1,18 +1,33 @@
 \chapter{Deterministic and Stochastic Correlation}
 
+\section{Outcomes and Probabilities of Outcomes}
+
 \section{Expectation}
+
+\begin{itemize}
+\item Given a series of outcomes, expectation 
+is a {\bf measure} of that series, which will 
+be shaped by the probability of each of the outcomes.  
+Expectation is also called the weighted average.
+\item In the 
+special case of equally likely probability for each outcome, 
+the expectation will be the mean value, also called the 
+simple average.
+\end{itemize}
 
 \subsection{Non-Equal Likelihood}
 
-Let $X$ be a random variable with a finite number of outcomes $x_i$
+Let $X$ be a random variable with a finite number of 
+{\bf outcomes} $x_i$
 for $i=1,\ldots,n$ with probability $p_i$.  The {\bf expectation} 
 of $X$ is defined as
 \be
-\ex \defe \sum_{i=1}^n p_i \; x_i.
+\ex \defe \sum_{i=1}^n \; p_i \; x_i.
 \ee
-Because the sum of all probabilities is identically equal to unity,
+Because the sum of all probabilities is identically 
+equal to unity,
 \be
-\sum_{i=1}^n p_i = 1.0,
+\sum_{i=1}^n \; p_i = 1.0,
 \ee
 and the expected
 value is considered the {\bf weighted average}, where each $p_i$ is the 
@@ -63,7 +78,8 @@ The expected value is calculated as
 The 6-sided dice roll in the preceding example can be 
 illustrated through numerical simulation, implemented in Python
 below.  
-
+The results from the Python script are shown in
+Fig.~\ref{fig:dice_roll}.
 \begin{minted}
 [
 frame=lines,
@@ -100,29 +116,56 @@ ax.plot(roll_number, roll_history, 's', color='blue', label='roll value')
 ax.plot(roll_number, average, color='red', marker='o', alpha=0.5, 
         label='roll average')
 ax.grid()
-ax.set_xlabel("roll number")
-ax.set_ylabel("roll value and average")
+ax.set_xlabel('roll number')
+ax.set_ylabel('roll outcome and cumulative simple average')
 ax.set_ylim(0, 7)
 ax.legend(loc='upper right')
 plt.show()
-figure_name = "dice_roll"
-fig.savefig(figure_name + ".pdf", bbox_inches='tight')
-
-
+figure_name = 'dice_roll'
+fig.savefig(figure_name + '.pdf', bbox_inches='tight')
 \end{minted}
-
-The results from the Python script are shown in
-Fig.~\ref{fig:dice_roll}.
 
 \begin{figure}[htb]
   \begin{center}
   %\begin{overpic}[width=\textwidth, grid, tics=10]{fig/1D_contact}
   %\begin{overpic}[width=\textwidth,natwidth=309,natheight=172]{fig/1D_contact.pdf}
-  \begin{overpic}[width=\textwidth]{fig/dice_roll.pdf}
+  % \begin{overpic}[width=\textwidth]{fig/dice_roll.pdf}
+  \begin{overpic}[width=\textwidth]{fig/dice_roll_final.pdf}
   %\put(17, 43.5){$\cA$}
  \end{overpic}
  \end{center}
  \caption{Numerical simulation of 40 dice rolls, showing value of each roll and average for all rolls.  As the number of rolls increases, the average converges to 3.5, the dice roll expected value.}
  \label{fig:dice_roll}
+\end{figure}
+
+The first moment analog to the center of mass 
+can be illustrated through graphical inspection.  
+Fig.~\ref{fig:dice_moment} shows the roll outcomes, 
+$1, \ldots, 6$, along the $x$-axis and the probability of
+any of the six outcomes, $p_i = 1/6$, normalized to unity 
+(since all of the six probabilities are equal) on the $y$-axis.
+
+The center of mass of the six blue squares is readily 
+seen at the $x=3.5$ coordinate, indicated with
+a red circle.  The center of mass is the simple average.  
+This illustrates the equal probability special case, 
+interpreted in the mechanical analog as the uniform density
+case.
+
+For the general case with non-equal probability, \eg
+an unfair or weighted dice, the higher (or lower) probability of 
+a particular outcome is analogous to an increase (or 
+decrease) of local
+density near the particular $x$-coordinate 
+of that outcome, and hence as the 
+non-uniform density case.
+
+\begin{figure}[htb]
+  \begin{center}
+  \begin{overpic}[width=\textwidth]{fig/dice_moment.pdf}
+ \end{overpic}
+ \end{center}
+ \caption{Graphical interpretation of average as first moment center of mass.}
+ \label{fig:dice_moment}
 \end{figure}
 

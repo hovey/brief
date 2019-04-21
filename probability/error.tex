@@ -79,24 +79,24 @@ of each of the measurement,
     \sum_{i=0}^{n-1} \abs{a_i - b_i}^2
 \right)^{\half}.
 \ee
-This is the L2-norm, applied to the error measurement, $e_i = a_i - b_i$.  
-The same systemic error seen above for the L1-norm occurs for the L2-norm, 
-that the error increases with increasing number of measurements.  
-To remedy this effect, normalization will be used.  Specifically, 
-normalization will appear in two forms:  
-\begin{itemize}
-\item Normalization by sample count, called {\bf error rate}.
-\item Normalization by characteristic amplitude in the signal, called
-{\bf normalized error rate}.
-\end{itemize}
-These two normalization processes are examined below.
+This is the L2-norm, applied to the error 
+measurement, $e_i = a_i - b_i$.  
+The systemic error seen above for 
+the L1-norm, that the error increases with
+increasing number of measurements,  also occurs for the L2-norm.
+To remedy this effect, 
+normalization by the sample count, called
+{\bf error rate}, will be used.
 
 \subsection{Error Rate}
-The concept of {\bf error rate} is simply to normalize the accumulated 
-error, which can be either L1-norm or L2-norm type, and normalize by the 
+The concept of {\bf error rate} is to 
+normalize the accumulated 
+error for any L$p$-norm type
+by the 
 dimension $n = \mbox{len}(\va) = \mbox{len}(\vb)$ of the signals. 
-The resulting metric then reports error on a {\em per-measurement basis}, 
-which eliminates the accumlation of error.  Specifically, the 
+The resulting metric then reports error 
+on a {\em per-measurement basis}, 
+which eliminates the accumulation of error.  Specifically, the 
 {\bf L1-norm error rate} is defined as 
 \be
 \parallel \bar{\ve{e}} \parallel_1 \; \defe 
