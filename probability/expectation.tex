@@ -2,6 +2,84 @@
 
 \section{Outcomes and Probabilities of Outcomes}
 
+\subsection{Normal Distribution}
+The {\bf normal distribution} has a 
+probability density function (PDF) of 
+\be
+p(x) 
+= 
+\frac{1}{\sqrt{2 \pi \sigma^2}} 
+\; \exp 
+\left[ 
+\frac{-(x - \mu)^2}{2 \sigma^2}
+\right].
+\ee
+This PDF is valid since it is non-negative for values of
+support $x \in \real$, and because the integral from 
+$-\infty$ to $\infty$ is equal to unity.  
+The {\bf cumulative distribution} 
+function (CDF) is 
+\be
+P(x) = 
+\int_{-\infty}^{x} p(\tau) \; d\tau = 
+\half 
+\left(
+1 + 
+\mbox{erf} \;
+\left[\frac{x - \mu}{\sqrt{2 \sigma^2}}\right]
+\right).
+\ee
+As $x \rightarrow -\infty$, $P \rightarrow 0$.
+As $x \rightarrow \infty$, $P \rightarrow 1$.
+The {\bf mean value} is 
+\begin{align}
+ \ex & = 
+ \int_{-\infty}^{\infty} p(x) \cdot x \; dx \\
+ & = 
+ \int_{-\infty}^{\infty} 
+\frac{x}{\sqrt{2 \pi \sigma^2}} 
+\; \exp 
+\left[ 
+\frac{-(x - \mu)^2}{2 \sigma^2}
+\right] \;dx \\
+ & = \mu.
+\end{align}
+The {\bf variance} of $x$ is
+\begin{align}
+\var(X) 
+ & = 
+ \E\left[ (X - \ex)^2 \right] = \E[X^2] - (\ex)^2, \\
+ & = 
+ \int_{-\infty}^{\infty} p(x) \cdot x^2 \; dx - \mu^2,  \\
+ & = 
+ \int_{-\infty}^{\infty} 
+\frac{x^2}{\sqrt{2 \pi \sigma^2}} 
+\; \exp 
+\left[ 
+\frac{-(x - \mu)^2}{2 \sigma^2}
+\right] \;dx - \mu^2,  \\
+ & = \sigma^2.
+\end{align}
+
+\begin{Hremark}
+For the normal distribution, the mean $\mu$ is also 
+equal to the median and mode.  The skew and kurtosis are 
+both zero.
+\end{Hremark}
+
+\begin{Hremark}
+The 
+normal distribution is also called the {\bf Gaussian
+distribution}.  See 
+Stahl\footnote{Stahl S. {\em The Evolution of the Normal
+Distribution}, Mathematics Magazine, 79:2, April 2006.} 
+for an account for 
+how {\em normal} arose, and how this naming 
+``... had the disadvantage of leading people to believe
+that all other distributions of frequency are in one sense
+or another {\em abnormal}.''
+\end{Hremark}
+
 \section{Expectation}
 
 \begin{itemize}
@@ -134,7 +212,9 @@ fig.savefig(figure_name + '.pdf', bbox_inches='tight')
   %\put(17, 43.5){$\cA$}
  \end{overpic}
  \end{center}
- \caption{Numerical simulation of 40 dice rolls, showing value of each roll and average for all rolls.  As the number of rolls increases, the average converges to 3.5, the dice roll expected value.}
+ \caption{Numerical simulation of 40 dice rolls, showing value of 
+ each roll and average for all rolls.  As the number of rolls 
+ increases, the average converges to 3.5, the dice roll expected value.}
  \label{fig:dice_roll}
 \end{figure}
 

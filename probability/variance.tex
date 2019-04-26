@@ -7,9 +7,9 @@ The {\bf Variance} of $X$ is defined as
 \var(X) \; \defe \; & \; 
 	\E\left[ (X - \ex)^2 \right], \\
  & \; \E\left[ (X - \ex) \; (X - \ex) \right], \nonumber \\ 
- & \; \E\left[ X^2 - \ex \; X + \ex \; \ex \right], \nonumber \\
- & \; \E[X^2] - 2 \; \ex \; + \ex \; \ex,  \nonumber \\
- & \; \E[X^2] - \ex. \label{eq:variance}
+ & \; \E\left[ X^2 - 2 \; \ex \; X + \ex \; \ex \right], \nonumber \\
+ & \; \E[X^2] - 2 \; \ex \; \ex \;  + \ex \; \ex,  \nonumber \\
+ & \; \E[X^2] - (\ex)^2. \label{eq:variance}
 \end{align}
 
 \subsection{Equal Likelihood}
@@ -34,9 +34,6 @@ different form,
 & = \frac{1}{n} \sum_{i=1}^n \left( x^2_i - 2 \mu x_i + \mu^2 \right), \\
 & = \frac{1}{n} \sum_{i=1}^n \left( x_i - \mu \right)^2.
 \end{align}
-This form, while perhaps easier to conceptualize, is relatively
-less efficient to implement since the latter requires $n$ subtractions 
-whereras the former requires only a single subtraction.
 \end{Hremark}
 
 \section{Covariance}
