@@ -1,0 +1,156 @@
+Date: 01 May 2019
+To: Doug Dederman, manager Org 5421, Sandia
+From: Chad Hovey
+Re: Panther Project scope creep, V&V elimination, and quality trade offs
+
+--
+
+On Tuesday, 30 April 2019, Panther project team members met to discuss
+progress and scope of work toward "Paper 1".
+
+Team members present were 
+* Christian Franck, head principal investigator for the Panther project, U Wisconsin Madison
+* Chad Hovey, principal investigator for the head impact simulations, Sandia,
+* Ron Szalkowski, principal investigator for the helmet testing, Team Wendy Inc.
+* Alice Lux, Panther program manager, Brown University
+* Sushant Malave, Team Wendy Inc.
+
+Paper 1 is the first of what is hoped to be a series of two or three
+total journal publications stemming from the Panther project work.
+
+In this meeting, Christian recommended a change in scope of Paper 1, from
+a translation-only study to a study that included both translations and rotations.
+The rationale from Christian was this change would result in a "more
+impactful paper."
+
+Prior to this meeting, the scope of Paper 1 was to include only translations.
+Then, planned Paper 2 was to investigate rotations.  
+
+The translation study is a simulation of a drop test experiment of the DOT 
+head form in a Team Wendy helmet with an impact speed of 10 fps onto a 
+steel hemispherical target ("mil spec").  
+
+The rotation study is a simulation of the same translational drop test, 
+described above, but onto an inclined, flat steel target, angled at 45
+degrees above horizontal.  The incline causes the impacting object to not
+only rebound, but also rotate, after impact.  
+
+Rotations to the head are of particular interest because the brain deforms 
+more readily in shear than in volumetric compression.  
+
+Scope Creep
+-----------
+
+From Christian's point of view, there is no scope creep.  Rather, the 
+specification for the original Paper 1 and Paper 2 have now just merged
+into a single Paper 1 deliverable.  
+
+From Chad's point of view, there is implicit scope creep because the 
+risk profile has changed.  Specifically, the translation-only case is
+relatively low risk compared to the rotation case because the former
+has significantly less complexity to simulate.  
+
+The translation case is essentially a sophisticated series of springs 
+and dash pots.  
+
+The rotation case has two sliding interfaces: the interface between the 
+exterior of the helmet and the steel target, and the interface between
+the helmet pads and the skin of the human head.  
+
+The risk profile of having two separated deliverables is low because the 
+risk of failing to accurately simulate the translation case is low, whereas 
+the risk of failing to simulate the rotation case is relatively higher.  
+Failure of the latter does not jeopardize the former, since they are uncoupled.  
+
+The risk profile of having two conjoined deliverables is higher because there 
+is no incremental success milestone of a translation-only case.  The result 
+is "all or none."  
+
+Recommendation: revert to the original plan of Paper 1 as a translation-only 
+study, followed by Paper 2 as a rotation study adjunct, if time and money 
+allow for Paper 2 to be completed.
+
+V&V Elimination
+---------------
+
+Chad and Ryan have maintained a strategy of 
+* verify a part (as known as a component),
+* two or more parts compose an assembly (also known as a system), then
+* verify the assembly.
+
+Christian has tacitly asked that the component verification be 
+eliminated or significantly reduced to allow for more time to be spent
+on the system.  
+
+Specifically, Chad and Ryan have been building tools to objectively and
+repeatably evaluate the simulation's ability to reproduce experimentally
+derived responses of a DOT head form, dropped at 10 fps, onto a MEP (soft
+rubber) target.  
+
+The acceleration versus time responses from 20 experiments were processed
+to create a single experimental curve with a known mean and standard 
+deviation response.  
+
+The acceleration versus time response from a single simulation is then 
+compared to the mean experimental response.  The non-normalized cross-correlation
+is used to adjust from time lag between the experiment and simulation.  
+Then the error rate of the L2-norm of the difference between the mean
+experimental and simulation response is calculated as an objective and 
+repeatable method to judge similarity between experiment and simulation.
+
+Prior to yesterday's meeting, the plan was then to use the cross-correlation
+L2-norm (CCL2) error rate to guide a two-parameter convex optimization, to
+search for the elastic modulus ("E"), and Poisson ratio ("nu"), in a 
+two-parameter finite elasticity stress response function.  The result of this
+optimization would not only guide the simulation material property inputs 
+to the best match with experimental results, it would also provide an
+objective measure of the degree to which the simulation can reproduce
+experimental results.  
+
+Christian understands this approach and agrees it is very rigorous.  However, 
+Christian tacitly believes this rigor is taking too long, at the risk
+of not reaching the finish line of a system simulation (Bob in a helmeted
+impact onto a steel target).  
+
+Christian notes that the MEP target is not part of the mil spec, and it is
+used strictly in non-helmeted impact tests to provide cushion to the 
+experimental instrumentation.  MEP is used when helmets are not used in tests.
+When helmets are used in tests, a steel hemispherical target is used instead
+of a softer MEP target.  A non-helmeted impact onto a steel target would 
+be too severe of an impact for instruments, and be too far afield from the
+helmeted impact response curves.
+
+Chad notes that correctly simulating the MEP target impact is an incremental
+milestone that demonstrates validity of the simulation framework.  
+Moreover, the MEP, as a cushion to the system, is much less sophisticated and
+thus much easier to model, compared to the helmet foam pads.  The response
+of the MEP pad is largely elastic.  The response of the helmet padding is
+viscoelastic and strain-rate dependent.
+
+At the TBI conference at the University of Texas at Arlington in April 2009, 
+Christian commented to Chad that the CCL2 verification approach was 
+interesting but not necessary for the Panther project.  Christian recommended
+that if Chad were to "match the peaks" of the acceleration versus time
+curves for the simulation to the experiment, that this quicker approach would
+be sufficient for the purposes of the Panther project. 
+
+Quality Trade Offs
+------------------
+
+At issue is cost, scope, and quality, and how to balance these three
+competing issues.  The classical business paradigm of 
+	"Good, cheap, fast; choose any two."
+is active here.  
+
+Chad's research strategy has been to emphasize the "good" category.
+
+Christian's objection is that such high quality is too slow and too expensive.  
+Christian also worries that such a strategy will result in a high quality
+component, at the cost of failing to deliver a system.
+
+Chad's objection is that making large deliverables (e.g., translation 
+plus rotation) on time and on budget (but with lesser quality) is more 
+harmful than making incremental deliverables (translation, then rotation) 
+on time and on budget with (with higher quality).
+
+
