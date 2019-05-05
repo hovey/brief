@@ -13,6 +13,7 @@
 % -------
 \usepackage{amsmath} % needed for align of equations
 \usepackage{amssymb}
+\usepackage{bigstrut}
 \usepackage{datetime}  \renewcommand{\dateseparator}{-}
 \usepackage{epsfig}
 %\usepackage{include/fancyheadings}
@@ -38,6 +39,13 @@
 \usepackage[svgnames]{xcolor}
 \definecolor{hred}{rgb}{1,0,0}
 \definecolor{hivory}{rgb}{1,1,0.94}
+\usepackage{colortbl}
+\definecolor{green}{RGB}{0,204,0}
+\definecolor{greenfaded}{RGB}{204,255,204}
+\definecolor{red}{RGB}{204,0,0}
+\definecolor{redfaded}{RGB}{255,204,204}
+\usepackage{tikz}
+\usetikzlibrary{trees}
 % -------
 % INCLUDE
 % -------
@@ -170,6 +178,7 @@
 \include{variance} % includes covariance
 \include{crosscorrelation} 
 \include{error}
+\include{dependentvariables}
 %\include{portfolio}
 \end{document}
 

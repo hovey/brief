@@ -1,0 +1,380 @@
+\chapter{Dependent Variables}
+
+\section{Introduction}
+
+To come.
+
+\section{Card Deck Example}
+
+Let $D$ denote a regular (no jokers) deck of 52 cards, 
+composed of four suits: hearts, spades, diamonds, and clubs.  
+Each suit is composed of 13 cards: 2, 3, ... 9, 10, $J$, $Q$, $K$, $A$.
+We write the probability $P$ of selecting the ace of hearts, 
+{\color{red}$A_{\mbox{\ding{170}}}$}, as
+\begin{equation}
+P({\color{red}A_{\mbox{\ding{170}}}}) = 1/52 = 1.92\%,
+\label{eq:baseline}
+\end{equation}
+where it is implicit that we are
+drawing from the full deck $D$.  To be {\em explicit}, we could 
+equivalently write 
+\be
+P({\color{red}A_{\mbox{\ding{170}}}} | D) = 1/52 = 1.92\%,
+\ee
+which, in words, is ``The probability of drawing the ace of 
+hearts {\bf given} that we are drawing from the 
+regular deck of cards is 1/52.''
+
+We could explore possibilities other than selecting the ace of hearts.  
+Let's look at the probability of simply selecting an ace, $P(A)$, 
+hearts or otherwise.  
+Since there are four
+aces in the deck, we write
+\be
+P(A) = P(A | D) = 4/52 = 7.69\%.
+\ee
+This makes sense.  If our chance of drawing an ace of hearts 
+is about $2\%$, then our 
+chance of just drawing an ace, in general, is about 4 times that, 
+or about $8\%$.  
+
+Next, consider the probability of selecting a heart.  We write
+\be
+P({\color{red}\mbox{\ding{170}}}) 
+= P({\color{red}\mbox{\ding{170}}} | D) = 13/52 = 1/4 = 25\%,
+\ee
+since one-quarter of the cards in the deck are hearts.
+
+Finally, consider the probability of drawing a red card from 
+the deck.  We write
+\be
+P({\color{red}R}) = 1/2 = 50\%,
+\ee
+since half of the cards in the deck are red, and the other 
+half of the cards in the deck 
+are black.
+
+\subsection{Combining Probabilities}
+So, does it makes sense to write the probability of 
+drawing an ace of hearts as the 
+{\em independent} probability of drawing a red 
+card {\bf and} (denoted $\cap$) drawing an ace
+{\bf and} drawing a heart?
+Does
+\be
+P({\color{red}A_{\mbox{\ding{170}}}} | D) 
+\overset{(?)}{=}
+P({\color{red}R}) \;\cap\; P(A) \;\cap\; 
+P({\color{red}\mbox{\ding{170}}}) 
+= \frac{1}{2} \cdot\frac{4}{52} \cdot\frac{1}{4} = \frac{1}{104}?
+\label{eq:double_count}
+\ee
+This answer seems to contradict the $1/52$ result 
+we obtained in Eq.~(\ref{eq:baseline}).
+What is the explanation?
+
+Before we answer that question, let's look at one other example.
+Let the probability of drawing a black card, $P(B)$, be 
+denoted as the probability 
+of drawing a ``not-red'' card, $P(\overline{\color{red}R})$, 
+where the overbar, $\overline{\mbox{ $\cdot$ }}$, denotes negation.  
+This makes sense, because the colors, red and black, 
+are binary.  If we draw a card that is not red, it must be black.  
+The reason we say ``not red'' instead of ``black'' is because we 
+want to keep our focus on the presence or absence of a single variable; 
+in this case, the red variable.  
+
+Let's write the probability of drawing a black ace of hearts.  
+Now, already, you should be thinking, ``There is no black ace of hearts!''  
+Your intuition tells you that the probability should be zero.  But let's see.  
+Let's write the probability of a black ace of hearts,
+$P({A_{\mbox{\ding{170}}}} | D)$, 
+as the independent probability of drawing a black card {\bf and} drawing an ace {\bf and} drawing a heart:
+\be
+P({A_{\mbox{\ding{170}}}} | D) 
+\overset{(?)}{=}
+P(\overline{{\color{red}R}}) \;\cap\; P(A) \;\cap\; P({\color{red}\mbox{\ding{170}}}) = \frac{1}{2} \cdot\frac{4}{52} \cdot\frac{1}{4} = \frac{1}{104}, 
+\label{eq:double_count_two}
+\ee
+which is not zero, the expected result.  Again, you may ask, ``What is going on here?''
+The answer is that the three attributes---color, rank, and suit---are being treated as {\em independent} variables.  But, we know that two of those attributes, color and suit, are {\em not} independent; they are dependent.  If we speak of cards with the red color attribute, then we are necessarily talking about hearts and diamonds, and necessarily not talking about spade or clubs.  Similarly, if we are speaking of cards with the hearts attribute, we are necessarily talking about the red suit, and necessarily not talking about the black suit.   
+
+So, what we have are attributes that are {\bf dependent} on one another.  Specifically, color and suit are not independent variables, they are dependent variables.  This gives rise to the notion of {\em conditional variability}.   
+
+We note that rank {\em is} an independent variable.  If we speak of rank, we are not necessarily talking about any particular color: red or black.  Similarly, if we speak of rank, we are not necessarily speaking of any particular suit: hearts, spade, diamonds, or clubs.
+
+\subsection{Probability Tree}  Going forward, let us generalize variables without hinting at the possibility of conditional variability.  To that end, we elect not to color-code hearts and diamonds as red, and we do not color-code the red variable.  
+
+\begin{itemize}
+\item Let the color attribute be described as two variables, red $R$ and black $B$.  Let these two colors be placed into the probability tree (Table~\ref{tab:card_draw}) as red $R$ and not red $\overline{R}$.  
+\item Let the rank attribute be described as 13 variables: 2, 3, ... $K$, $A$.   Let the binary description of these variables be placed into the probability tree as ace $A$ and not ace $\overline{A}$.  
+\item Let the suit variable be described as 4 variables: hearts $H$, spades, diamonds, and clubs.  Let the binary description of these variables be placed into the probability tree as hearts $H$ and not hearts $\overline{H}$.
+\end{itemize}
+
+\begin{table}[htb]
+\caption{Probability tree to understand card draw probabilities.  Note, we keep 
+keep all denominators as specific to the population and avoid reducing the fractions 
+(e.g., $\frac{26}{52}$ is favored to $\frac{1}{2}$) because it is instructive.}
+\begin{tabular}{|c|c|c|c|c|}
+ \hline
+ \multicolumn{3}{|c|}{\bf{variable}} & \multirow{2}{*}{\bf{probability}} & \multirow{2}{*}{\bf{interpretation}} \bigstrut \\ \cline{1-3}
+ color & rank & suit & & \\ \hline \hline 
+ % 
+ % 1
+ \multirow{6}{*}{
+ \scriptsize 
+ $P(R) = \dst\frac{1}{2}$}  & 
+ \multirow{3}{*}{
+	 \scriptsize 
+	 $P(A | R) = \dst\frac{2}{26}$} & 
+ \rule{0pt}{4ex}
+ \scriptsize
+ $P(H|A|R) = \dst\frac{1}{2}$ 
+ \rule[-1em]{0pt}{4ex} & 
+ \scriptsize 
+ $P(R \cap A \cap H) = 
+   \dst\frac{1}{2} \cdot 
+   \frac{2}{26} \cdot 
+   \dst\frac{1}{2} = \frac{1}{52}$ \ding{52} 
+  & 
+ {\color{red}$A$ of \ding{170}} \bigstrut 
+ \\ 
+ \cline{3-5}
+ % 2
+  & & 
+  \rule{0pt}{4ex} 
+ \scriptsize
+  $P(\overline{H}|A|R) = \dst\frac{1}{2}$ 
+  \rule[-1em]{0pt}{4ex} & 
+ \scriptsize 
+  $P(R \cap A \cap \overline{H}) = \dst\frac{1}{2} \cdot \frac{2}{26} \cdot \dst\frac{1}{2} = \frac{1}{52}$ \ding{52}  & 
+  {\color{red}$A$ of \ding{169}} \bigstrut \\ \cline{2-5}
+ % 3
+  & 
+ \multirow{2}{*}{
+ 	\scriptsize
+	$P(\overline{A} | R) = \dst\frac{24}{26}$} & 
+ % 4 
+ \rule{0pt}{4ex}
+ 	\scriptsize
+ $P(H | \overline{A} | R) = \dst\frac{1}{2}$
+ \rule[-1em]{0pt}{4ex} & 
+ \scriptsize 
+ $P(R \cap \overline{A} \cap H) = \dst\frac{1}{2} \cdot \frac{24}{26} \cdot \dst\frac{1}{2} = \frac{12}{52}$ \ding{52} & 
+  {\color{red}\ding{170} : [2 ... $K$]} \bigstrut \\ \cline{3-5} 
+  & & 
+  \rule{0pt}{4ex}
+ 	\scriptsize
+  $P(\overline{H} | \overline{A} | R) = \dst\frac{1}{2}$ 
+  \rule[-1em]{0pt}{4ex} & 
+ \scriptsize 
+  $P(R \cap \overline{A} \cap \overline{H}) = \dst\frac{1}{2} \cdot \frac{24}{26} \cdot \dst\frac{1}{2} = \frac{12}{52}$ \ding{52}
+  & 
+  {\color{red}\ding{169} : [2 ... $K$]} \\ \hline
+  % 
+  % 
+ \multirow{6}{*}{
+ 	\scriptsize
+	 $P(\overline{R}) = \dst\frac{1}{2}$} & 
+ \multirow{3}{*}{
+ 	\scriptsize
+	 $P(A | \overline{R}) = \dst\frac{2}{26}$} & 
+ \rule{0pt}{4ex}
+ 	\scriptsize
+ $P(H|A|\overline{R}) = \dst\frac{0}{1}$ 
+ \rule[-1em]{0pt}{4ex} & 
+ \scriptsize 
+ $P(\overline{R} \cap A \cap H) = \dst\frac{1}{2} \cdot \frac{2}{26} \cdot \dst\frac{0}{1} = 0$ \ding{52} & 
+ empty set \bigstrut \\ \cline{3-5}
+  & &   
+  \rule{0pt}{4ex} 
+ 	\scriptsize
+  $P(\overline{H}|A|\overline{R}) = \dst\frac{1}{1}$ 
+  \rule[-1em]{0pt}{4ex} 
+  & 
+ \scriptsize 
+  $P(\overline{R} \cap A \cap \overline{H}) = \dst\frac{1}{2} \cdot \frac{2}{26} \cdot \dst\frac{1}{1} = \frac{2}{52}$ \ding{52} & 
+  $A$ of \ding{171}, $A$ of \ding{168} \bigstrut \\ \cline{2-5}
+  & 
+ \multirow{2}{*}{
+ 	\scriptsize
+	 $P(\overline{A} | \overline{R}) = \dst\frac{24}{26}$} & 
+ \rule{0pt}{4ex}
+ 	\scriptsize
+ $P(H | \overline{A} | \overline{R}) = \dst\frac{0}{1}$
+ \rule[-1em]{0pt}{4ex} 
+ & 
+ \scriptsize
+ $P(\overline{R} \cap \overline{A} \cap H) = \dst\frac{1}{2} \cdot \frac{24}{26} \cdot \dst\frac{0}{1} = 0$ \ding{52} 
+ & 
+ empty set \bigstrut \\ \cline{3-5} 
+  & &   
+  \rule{0pt}{4ex}
+ \scriptsize 
+  $P(\overline{H} | \overline{A} | \overline{R}) = \dst\frac{1}{1}$ 
+  \rule[-1em]{0pt}{4ex} & 
+ \scriptsize 
+  $P(\overline{R} \cap \overline{A} \cap \overline{H}) = \dst\frac{1}{2} \cdot \frac{24}{26} \cdot \dst\frac{1}{1} = \frac{24}{52}$ \ding{52} 
+  & 
+  \begin{tabular}{c}
+  \ding{171} : [2 ... $K$] \\
+  \ding{168} : [2 ... $K$] 
+  \end{tabular}  
+   \\ \hline
+\end{tabular}
+\label{tab:card_draw}
+\end{table}
+The resulting probabilities all make sense with our intuition and correctly calculate the probabilities with the existence of the conditional relationship between the color and suit variables.  
+\begin{itemize}
+\item Notice the effect of suit, rows 6 and 8, identifies (makes identical) the probabilities because selecting not hearts $\overline{H}$ given not red $\overline{R}$ gives no new information, thus the $1/1$ factor.  
+\item Notice also the effect of suit, rows 4 and 7, nullifies the probabilities because there are zero hearts $H$ that are not red $\overline{R}$, thus the $0/1$ factor.
+\end{itemize}
+
+\section{Coin Toss Example}
+
+Consider a fair coin and a fair coin toss 
+(no trick coins, no trick tosses).  
+The probability of a head, $P(H)$ in a toss is 50\%.  
+The probability of not head, $P(\overline{H})$, and thus tail, is also 50\%.  
+
+\subsection{Combining Probabilities}
+Consider the results obtain in Eq.~(\ref{eq:double_count}) 
+and Eq.~(\ref{eq:double_count_two}).  Does the 
+probability of getting heads given three coin 
+tosses equal the {\em independent} 
+probability of tossing a head {\em and} 
+tossing a second head {\em and} tossing a third head?  
+Let's see:
+\be
+P(H |\; \mbox{three tosses}) 
+\overset{?}{=}
+P(H) \;\cap\; P(H) \;\cap\; P(H) 
+= \frac{1}{2} \cdot\frac{1}{2} \cdot\frac{1}{2} = \frac{1}{8}.
+\label{eq:three_tosses}
+\ee
+Unlike our suspicions of the results in 
+Eq.~(\ref{eq:double_count}) and Eq.~(\ref{eq:double_count_two}), 
+our feeling for the results
+in Eq.~(\ref{eq:three_tosses}) seem correct.  Immediately this result 
+should also bring to mind some sense as to the dependence or independence of 
+each coin toss.  Certainly, we know
+that the results of the second coin toss do not depend on the 
+results of the first coin toss.  Similarly, for the third toss relative 
+to the second toss.  To formalize these ideas, we create a probability tree 
+(Table~\ref{tab:coin_toss}).
+
+\subsection{Probability Tree}
+
+\begin{table}[bht]
+\caption{Probability tree to understand three coin tosses.}
+\begin{tabular}{|c|c|c|c|c|}
+ \hline
+ \multicolumn{3}{|c|}{\bf{variable}} & \multirow{2}{*}{\bf{probability}} & \multirow{2}{*}{\bf{interpretation}} \bigstrut \\ \cline{1-3}
+ toss 1 & toss 2 & toss 3 & & \\ \hline \hline 
+ % 
+ % 1
+  \multirow{6}{*}{
+ \scriptsize 
+	  $P(H) = \dst\frac{1}{2}$}  & 
+ \multirow{3}{*}{
+ \scriptsize 
+	 $P(H | H) = \dst\frac{1}{2}$} & 
+ \rule{0pt}{4ex}
+ \scriptsize 
+ $P(H|H|H) = \dst\frac{1}{2}$ 
+ \rule[-1em]{0pt}{4ex} & 
+ \scriptsize 
+ $P(H \cap H \cap H) = \dst\frac{1}{2} \cdot \frac{1}{2} \cdot \dst\frac{1}{2} = \frac{1}{8}$ \ding{52} & 
+ 3 heads \bigstrut \\ \cline{3-5}
+ % 2
+  & & 
+  \rule{0pt}{4ex} 
+ \scriptsize 
+  $P(\overline{H}|H|H) = \dst\frac{1}{2}$ 
+  \rule[-1em]{0pt}{4ex} & 
+ \scriptsize 
+  $P(H \cap H \cap \overline{H}) = \dst\frac{1}{2} \cdot \frac{1}{2} \cdot \dst\frac{1}{2} = \frac{1}{8}$ \ding{52}  & 
+  2 heads, 1 tail \bigstrut \\ \cline{2-5}
+ % 3
+  & 
+ \multirow{2}{*}{
+ \scriptsize 
+	 $P(\overline{H} | H) = \dst\frac{1}{2}$} & 
+ % 4 
+ \rule{0pt}{4ex}
+ \scriptsize 
+ $P(H | \overline{H} | H) = \dst\frac{1}{2}$
+ \rule[-1em]{0pt}{4ex} & 
+ \scriptsize 
+ $P(H \cap \overline{H} \cap H) = \dst\frac{1}{2} \cdot \frac{1}{2} \cdot \dst\frac{1}{2} = \dst\frac{1}{8}$ \ding{52} & 
+  2 heads, 1 tail \bigstrut \\ \cline{3-5} 
+  & & 
+  \rule{0pt}{4ex}
+ \scriptsize 
+  $P(\overline{H} | \overline{H} | H) = \dst\frac{1}{2}$ 
+  \rule[-1em]{0pt}{4ex} & 
+ \scriptsize 
+  $P(H \cap \overline{H} \cap \overline{H}) = \dst\frac{1}{2} \cdot \frac{1}{2} \cdot \dst\frac{1}{2} = \frac{1}{8}$ \ding{52}
+  & 
+  1 head, 2 tails \\ \hline
+  % 
+  % 
+ \multirow{6}{*}{
+ \scriptsize 
+	 $P(\overline{H}) = \dst\frac{1}{2}$} & 
+ \multirow{3}{*}{
+ \scriptsize 
+	 $P(H | \overline{H}) = \dst\frac{1}{2}$} & 
+ \rule{0pt}{4ex}
+ \scriptsize 
+ $P(H|H|\overline{H}) = \dst\frac{1}{2}$ 
+ \rule[-1em]{0pt}{4ex} & 
+ \scriptsize 
+ $P(\overline{H} \cap H \cap H) = \dst\frac{1}{2} \cdot \frac{1}{2} \cdot \dst\frac{1}{2} = \dst\frac{1}{8}$ \ding{52} & 
+ 2 heads, 1 tail \bigstrut \\ \cline{3-5}
+  & &   
+  \rule{0pt}{4ex} 
+ \scriptsize 
+  $P(\overline{H}|H|\overline{H}) = \dst\frac{1}{2}$ 
+  \rule[-1em]{0pt}{4ex} 
+  & 
+ \scriptsize 
+  $P(\overline{H} \cap H \cap \overline{H}) = \dst\frac{1}{2} \cdot \frac{1}{2} \cdot \dst\frac{1}{2} = \frac{1}{8}$ \ding{52} & 
+  1 head, 2 tails \bigstrut \\ \cline{2-5}
+  & 
+ \multirow{2}{*}{
+ \scriptsize 
+	 $P(\overline{H} | \overline{H}) = \dst\frac{1}{2}$} & 
+ \rule{0pt}{4ex}
+ \scriptsize 
+ $P(H | \overline{H} | \overline{H}) = \dst\frac{1}{2}$
+ \rule[-1em]{0pt}{4ex} 
+ & 
+ \scriptsize 
+ $P(\overline{H} \cap \overline{H} \cap H) = \dst\frac{1}{2} \cdot \frac{1}{2} \cdot \dst\frac{1}{2} = \dst\frac{1}{8}$ \ding{52} 
+ & 
+ 1 head, 2 tails \bigstrut \\ \cline{3-5} 
+  & &   
+  \rule{0pt}{4ex}
+ \scriptsize 
+  $P(\overline{H} | \overline{H} | \overline{H}) = \dst\frac{1}{2}$ 
+  \rule[-1em]{0pt}{4ex} & 
+ \scriptsize 
+  $P(\overline{H} \cap \overline{H} \cap \overline{H}) = \dst\frac{1}{2} \cdot \frac{1}{2} \cdot \dst\frac{1}{2} = \frac{1}{8}$ \ding{52} 
+  &
+  3 tails  
+  \\ \hline
+\end{tabular}
+\label{tab:coin_toss}
+\end{table}
+Unlike the probability results in Table~\ref{tab:card_draw}, 
+the probability results 
+in Table~\ref{tab:coin_toss} are all equal, and the value 
+equals the result found in 
+Eq.~(\ref{eq:three_tosses}).  This indicates the three variables, 
+toss 1, toss 2, and 
+toss 3, are independent variables, which matches our instinct that 
+the result of
+any fair coin toss is independent of the result which may have preceded it.  
+
+
