@@ -26,14 +26,14 @@ P=TP + FN &
 N=FP + TN \\ \hline \hline
 % %%
 & 
-\cellcolor{greenfaded} {\bf True Positive} & 
-\cellcolor{yellowfaded} {\bf False Positive} \\
+\colorbox{greenfaded}{\bf True Positive} & 
+\colorbox{yellowfaded}{\bf False Positive} \\
 Test Positive & TP = 80 & FP = 495 \\
 & ``correct affirmation'' & ``false alarm'' (Type I error) \\ \hline
 % %%
 & 
-\cellcolor{magentafaded} {\bf False Negative} & 
-\cellcolor{redfaded} {\bf True Negative} \\
+\colorbox{magentafaded} {\bf False Negative} & 
+\colorbox{redfaded} {\bf True Negative} \\
 Test Negative & FN = 20 & TN = 9,405 \\ 
 & ``miss'' (Type II error) & ``correct rejection'' \\ \hline
 \end{tabular}
@@ -190,7 +190,8 @@ as shown in Fig.~\ref{fig:decision_tree_mammogram}.
 
 \newpage
 	
-Now, what is often of interest is the post-test probability.  For a given person
+Now, what is often of interest is the {\bf post-test probability}.  
+For a given person
 receiving the test, $T$, what is the probability of having the condition, $P(C|T)$?
 In fact, all variations can be calculated:
 \begin{itemize}
