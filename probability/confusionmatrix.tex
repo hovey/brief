@@ -1,0 +1,242 @@
+\chapter{Confusion Matrix}
+
+\section{Mammogram Test Example}
+Suppose a 44-year-old female has a mammogram test. 
+The radiologist interprets the test result as ``suspicious for malignancy.'' 
+Assume that the overall probability for any 44-year-old
+female, regardless of a mammogram test result, 
+to have breast cancer is 1-in-100, 
+or 1\% (breast cancer prevalence). 
+Assume the mammogram test is 80\% sensitive and 95\% specific, from data
+collected from a population of 10,000 females.  
+Table~\ref{tab:breast_cancer} shows
+the 2-by-2 contingency table for these data.
+\begin{table}[htb]
+\caption{The 2-by-2 contingency table for the condition of breast 
+cancer and the mammogram test result.  
+$P$ is a (known) positive for cancer $C$, and
+gets divided into true positives $TP$ and 
+false negatives $FN$, depending on whether 
+or not the
+test's outcome correctly predicts the truth 
+for the positives in the population.  
+Similarly, $N$ is a (known) negative
+for cancer, thus non-cancer $\overline{C}$, and gets 
+divided into false positives $FP$ and
+true negatives $TN$, depending on whether or 
+not the test's outcome correctly predicts 
+the truth for the negatives in the population.}
+\label{tab:breast_cancer}
+\centering
+\begin{tabular}{|c|c|c|} \hline
+Total Population & 
+Known Cancer $C$&
+Known Non-Cancer $\overline{C}$ \\ 
+10,000 & 
+$P=TP + FN$ & 
+$N=FP + TN$ \\ \hline \hline
+% %%
+& 
+\cellcolor{green} {\bf True Positive} & 
+\cellcolor{redfaded} {\bf False Positive} \\
+Test Positive & $TP = 80$ & $FP = 495$ \\
+& ``hit'' & ``false alarm'' (Type I error) \\ \hline
+% %%
+& 
+\cellcolor{greenfaded} {\bf False Negative} & 
+\cellcolor{red} {\bf True Negative} \\
+Test Negative & $FN = 20$ & $TN = 9,405$ \\ 
+& ``miss'' (Type II error) & ``correct rejection'' \\ \hline
+\end{tabular}
+\end{table}
+
+Let the following notations be used:
+\begin{itemize}
+\item $P(C)$ is the pre-test probability of having cancer, 
+also known as the prevalence.
+\item $P(\overline{C})$ is then the pre-test probability of not having cancer.  
+$P(\overline{C}) = 1 - P(C)$.
+\end{itemize} 
+
+%\vspace{0.5cm}
+When the pre-test probability is then combined with a test, the following 
+four outcomes are possible:
+\begin{itemize}
+\item $P(T|C)$ is the probability of a positive test given a 
+known cancer.  This is a ``true positive.''
+\item $P(\overline{T}|C)$ is the probability of a negative test 
+given a known cancer.  This is a ``false negative.''
+\item $P(T|\overline{C})$ is the probability of a positive test 
+given a known non-cancer.  This is a ``false positive.''
+\item $P(\overline{T}|\overline{C})$ is the probability of a 
+negative test given a known non-cancer.   This is a ``true negative.''
+\end{itemize}
+
+%\vspace{0.5cm}
+The population can be sorted in a probability tree, as shown in Fig.~\ref{fig:decision_tree_mammogram}.  
+
+% tikz
+% http://www.texample.net/tikz/examples/merge-sort-recursion-tree/
+% http://www.texample.net/tikz/examples/probability-tree/
+
+% set overall layout of tree
+\tikzstyle{level 1}=[level distance=3.0cm, sibling distance=5.0cm]
+\tikzstyle{level 2}=[level distance=4.0cm, sibling distance=2.5cm]
+
+% define styles for bags and leaves
+\tikzstyle{bag} = [text width=4em, text centered]
+\tikzstyle{end} = [circle, minimum width=3pt, inner sep=0pt]
+
+\begin{figure}[htb]
+\centering
+\begin{tikzpicture}[grow=right, sloped]
+%\begin{tikzpicture}[grow=right]
+\node[circle, draw] {\tiny $10,000$}
+	child {
+		node[circle, draw] {\tiny 9,900}
+			child {
+				node[circle, draw, 
+				     label=right:
+				{\scriptsize $P(\overline{C} \cap \overline{T}) = 
+				P(\overline{C}) \cdot P(\overline{T}|\overline{C}) = 
+				\frac{9,900}{10,000} \cdot
+				\frac{9,405}{9,900} = 
+				\frac{9,405}{10,000}$}
+				    ] {\tiny 9,405}
+				edge from parent
+				node[above] {\scriptsize $P(\overline{T}|\overline{C}) = 0.95$}
+				node[below] {\scriptsize specificity}
+			}
+			child {
+				node[circle, draw, 
+				     label=right:
+				{\scriptsize $P(\overline{C} \cap T) = 
+				P(\overline{C}) \cdot P(T|\overline{C}) = 
+				\frac{9,900}{10,000} \cdot
+				\frac{495}{9,900} = 
+				\frac{495}{10,000}$}
+			     	    ] {\tiny 495}
+				edge from parent
+				node[above] {\scriptsize $P(T|\overline{C}) = 0.05$}
+				node[below] {\hspace{1cm}\scriptsize false positive}
+			}
+		edge from parent
+		node[above] {\scriptsize $P(\overline{C})=0.99$}
+	}
+	child {
+		node[circle, draw] {\tiny 100}
+			child {
+				node[circle, draw, 
+				     label=right:
+				{\scriptsize $P(C \cap \overline{T}) = P(C) \cdot P(\overline{T}|C) = 
+				\frac{100}{10,000}\cdot\frac{20}{100} = \frac{20}{10,000}$}
+				    ] {\tiny 20}
+				edge from parent
+				node[above] {\scriptsize $P(\overline{T}|C) = 0.20$}
+				node[below] {\scriptsize false negative}
+			}
+			child {
+				node[circle, draw, 
+				     label=right:
+				{\scriptsize $P(C \cap T) = P(C) \cdot P(T|C) = \frac{100}{10,000}
+				\cdot\frac{80}{100} = \frac{80}{10,000}$}
+			     	    ] {\tiny 80}
+				edge from parent
+				node[above] {\scriptsize $P(T|C) = 0.80$}
+				node[below] {\hspace{1cm}\scriptsize sensitivity}
+			}
+		edge from parent
+		node[above] {\scriptsize $P(C)=0.01$}
+		node[below] {\scriptsize prevalence}
+	}; % remember trailing semi-colon after last child
+\end{tikzpicture}
+\caption{Decision tree for mammogram as a test $T$ for breast cancer $C$.}
+\label{fig:decision_tree_mammogram}
+\end{figure}
+
+\newpage
+	
+Now, what is often of interest is the post-test probability.  For a given person
+receiving the test, $T$, what is the probability of having the condition, $P(C|T)$?
+In fact, all variations can be calculated:
+\begin{itemize}
+\item $P(C|T)$ is the probability of a positive condition given a positive test.
+\item $P(\overline{C}|T)$ is the probability of a negative condition given a positive test.
+\item $P(C|\overline{T})$ is the probability of a positive condition given a negative test.
+\item $P(\overline{C}|\overline{T})$ is the probability of a negative condition given a negative test.
+\end{itemize}
+
+\vspace{1.5cm}
+
+Now, the probability of being positive after testing positive is equal to the probability of
+being positive and testing positive divided by the probability of testing positive
+(regardless of being positive or negative for the condition).
+The probability of testing positive equals the probability of being positive and 
+testing positive {\em plus} 
+the probability of being negative and testing positive.  This is
+written as
+\be
+ P(C|T) = \dst\frac{P(C \cap T)}{P(C \cap T) + P(\overline{C} \cap T)} = 
+ \frac{\frac{80}{10,000}}{\frac{80}{10,000} + \frac{495}{10,000}} = 
+ 0.139, 
+ \label{eq:ppv} 
+\ee
+which seems low!  
+A patient, upon hearing this result, that there is a 13.9\% probability that 
+she has breast cancer given that she tested positive, does not reassure.  
+The test says she is positive, but the probability that she actually {\em is} positive
+given the positive test seems low.  How can this be?
+The large number of false positives, $P(\overline{C} \cap T)$, in the denominator
+reduces the result for $P(C|T)$. 
+The number of true positives, $P(C \cap T)$, is small compared to the number of false
+positives.  The result in Eq.~(\ref{eq:ppv}) is also referred to as the test's
+{\bf Positive Predictive Value (PPV)} 
+or {\bf Precision}, described in Section~xxx (to come).
+
+Next, consider the remaining combinations.  The probability of being negative after 
+testing positive, by reasoning similar to that given above, is written as
+\be
+\ P(\overline{C}|T) = \dst\frac{P(\overline{C} \cap T)}{P(\overline{C} \cap T) + P(C \cap T)} = 
+ \frac{\frac{495}{10,000}}{\frac{495}{10,000} + \frac{80}{10,000}} = 
+ 0.861 = 1 - P(C|T) \mbox{\ding{52}}.
+ \label{eq:false_discovery_rate}
+\ee
+Again, we see the effect of false positives, $P(\overline{C} \cap T)$.  
+The probability of being negative even though
+the test is positive is 86.1\%, giving little comfort to the patient who now thinks, 
+because of the test results, that
+she is positive even though she is negative. 
+The result in Eq.~(\ref{eq:false_discovery_rate}) is also referred to as the 
+test's {\bf False Discovery Rate (FDR)}.  
+
+The probability of being positive after testing negative is 
+\be
+ P(C|\overline{T}) = \dst\frac{P(C \cap \overline{T})}{P(C \cap \overline{T}) + 
+ P(\overline{C} \cap \overline{T})} = 
+ \frac{\frac{20}{10,000}}{\frac{20}{10,000} + \frac{9,405}{10,000}} = 
+ 0.002 
+ \label{eq:false_omission_rate}
+\ee
+This result is reassuring.  A patient with a negative test has a 0.2\% chance of 
+actually being positive.  This occurs because the number of true negatives, 
+$P(\overline{C} \cap \overline{T})$, in the denominator, saturates any false negatives, 
+$P(C \cap \overline{T})$, and drives the result toward zero.  The result 
+in Eq.~(\ref{eq:false_omission_rate}) is also referred to as the test's
+{\bf False Omission Rate (FOR)}.
+
+The probability of being negative after testing negative is easily calculated as 
+1 minus the above result.  For explicitness, however, we show
+\be
+ P(\overline{C}|\overline{T}) = 
+ \dst\frac{P(\overline{C} \cap \overline{T})}{P(\overline{C} \cap \overline{T}) + 
+ P(C \cap \overline{T})} = 
+ \frac{\frac{9,405}{10,000}}{\frac{9,405}{10,000} + \frac{20}{10,000}} = 
+ 0.998 = 1 - P(C|\overline{T}) \mbox{\ding{52}}, 
+ \label{eq:npv}
+\ee
+which is also reassuring.  Again, the strength of the true negatives, 
+$P(\overline{C} \cap \overline{T})$,  overwhelms the 
+effect of the false negatives, $P(C \cap \overline{T})$, in the result.
+The result in Eq.~(\ref{eq:npv}) is also referred to as the test's 
+{\bf Negative Predictive Value (NPV)}.  
+
