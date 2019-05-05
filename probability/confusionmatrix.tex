@@ -11,21 +11,10 @@ Assume the mammogram test is 80\% sensitive and 95\% specific, from data
 collected from a population of 10,000 females.  
 Table~\ref{tab:breast_cancer} shows
 the 2-by-2 contingency table for these data.
+
 \begin{table}[htb]
 \caption{The 2-by-2 contingency table for the condition of breast 
-cancer and the mammogram test result.  
-$P$ is a (known) positive for cancer $C$, and
-gets divided into true positives $TP$ and 
-false negatives $FN$, depending on whether 
-or not the
-test's outcome correctly predicts the truth 
-for the positives in the population.  
-Similarly, $N$ is a (known) negative
-for cancer, thus non-cancer $\overline{C}$, and gets 
-divided into false positives $FP$ and
-true negatives $TN$, depending on whether or 
-not the test's outcome correctly predicts 
-the truth for the negatives in the population.}
+cancer and the mammogram test result.}
 \label{tab:breast_cancer}
 \centering
 \begin{tabular}{|c|c|c|} \hline
@@ -33,22 +22,36 @@ Total Population &
 Known Cancer $C$&
 Known Non-Cancer $\overline{C}$ \\ 
 10,000 & 
-$P=TP + FN$ & 
-$N=FP + TN$ \\ \hline \hline
+P=TP + FN & 
+N=FP + TN \\ \hline \hline
 % %%
 & 
-\cellcolor{green} {\bf True Positive} & 
-\cellcolor{redfaded} {\bf False Positive} \\
-Test Positive & $TP = 80$ & $FP = 495$ \\
+\cellcolor{greenfaded} {\bf True Positive} & 
+\cellcolor{yellowfaded} {\bf False Positive} \\
+Test Positive & TP = 80 & FP = 495 \\
 & ``correct affirmation'' & ``false alarm'' (Type I error) \\ \hline
 % %%
 & 
-\cellcolor{greenfaded} {\bf False Negative} & 
-\cellcolor{red} {\bf True Negative} \\
-Test Negative & $FN = 20$ & $TN = 9,405$ \\ 
+\cellcolor{magentafaded} {\bf False Negative} & 
+\cellcolor{redfaded} {\bf True Negative} \\
+Test Negative & FN = 20 & TN = 9,405 \\ 
 & ``miss'' (Type II error) & ``correct rejection'' \\ \hline
 \end{tabular}
 \end{table}
+
+In Table~\ref{tab:breast_cancer}, 
+P is a (known) positive for cancer $C$, and
+gets divided into true positives TP and 
+false negatives FN, depending on whether 
+or not the
+test's outcome correctly predicts the truth 
+for the positives in the population.  
+Similarly, N is a (known) negative
+for cancer, thus non-cancer $\overline{C}$, and gets 
+divided into false positives FP and
+true negatives TN, depending on whether or 
+not the test's outcome correctly predicts 
+the truth for the negatives in the population.
 
 Let the following notations be used:
 \begin{itemize}
@@ -63,17 +66,48 @@ When the pre-test probability is then combined with a test, the following
 four outcomes are possible:
 \begin{itemize}
 \item $P(T|C)$ is the probability of a positive test given a 
-known cancer.  This is a ``true positive.''
-\item $P(\overline{T}|C)$ is the probability of a negative test 
-given a known cancer.  This is a ``false negative.''
+known cancer.  This is a 
+\colorbox{greenfaded}{\bf True Positive} color coded in green.
 \item $P(T|\overline{C})$ is the probability of a positive test 
-given a known non-cancer.  This is a ``false positive.''
+given a known non-cancer.  
+This is a 
+\colorbox{yellowfaded}{\bf False Positive} color coded in yellow as a warning
+that perhaps another test should be conducted that might be able to
+rule out the false positive result.
+\item $P(\overline{T}|C)$ is the probability of a negative test 
+given a known cancer.  This is a 
+\colorbox{magentafaded}{\bf False Negative} color coded in magenta as 
+mnemonic for ``miss''.
 \item $P(\overline{T}|\overline{C})$ is the probability of a 
-negative test given a known non-cancer.   This is a ``true negative.''
+negative test given a known non-cancer.   
+This is a 
+\colorbox{redfaded}{\bf True Negative} color coded in red.
 \end{itemize}
 
+It is often useful to show each of the four above-described
+categories a square, where the area is equal to the population size, 
+as shown in Fig.~\ref{fig:confusion_area}.
+
+\begin{figure}[htb]
+  \begin{center}
+    % \begin{overpic}[width=0.7\textwidth, grid, tics=10]{fig/confusion_area.pdf}
+    \begin{overpic}[width=0.7\textwidth]{fig/confusion_area.pdf}
+      \put( 6.5, 81){TP}
+      \put(19, 86.3){FP}
+      \put( 9, 76.1){\tiny FN}
+      \put(48, 41){TN}
+    \end{overpic}
+  \end{center}
+  \caption{Population of true positives (TP=80), false positives (FP=495), 
+  false negatives (FN=20), and true negatives (TN=9,405) represented by the area
+  of each square.}
+  \label{fig:confusion_area}
+\end{figure}
+
 %\vspace{0.5cm}
-The population can be sorted in a probability tree, as shown in Fig.~\ref{fig:decision_tree_mammogram}.  
+\newpage
+The population can be sorted in a probability tree, 
+as shown in Fig.~\ref{fig:decision_tree_mammogram}.  
 
 % tikz
 % http://www.texample.net/tikz/examples/merge-sort-recursion-tree/
