@@ -129,7 +129,7 @@ as shown in Fig.~\ref{fig:decision_tree_mammogram}.
 	child {
 		node[circle, draw] {\tiny 9,900}
 			child {
-				node[circle, draw, 
+				node[circle, draw, fill=redfaded,
 				     label=right:
 				{\scriptsize $P(\overline{C} \cap \overline{T}) = 
 				P(\overline{C}) \cdot P(\overline{T}|\overline{C}) = 
@@ -142,7 +142,7 @@ as shown in Fig.~\ref{fig:decision_tree_mammogram}.
 				node[below] {\scriptsize specificity}
 			}
 			child {
-				node[circle, draw, 
+				node[circle, draw, fill=yellowfaded,
 				     label=right:
 				{\scriptsize $P(\overline{C} \cap T) = 
 				P(\overline{C}) \cdot P(T|\overline{C}) = 
@@ -160,7 +160,7 @@ as shown in Fig.~\ref{fig:decision_tree_mammogram}.
 	child {
 		node[circle, draw] {\tiny 100}
 			child {
-				node[circle, draw, 
+				node[circle, draw, fill=magentafaded,
 				     label=right:
 				{\scriptsize $P(C \cap \overline{T}) = P(C) \cdot P(\overline{T}|C) = 
 				\frac{100}{10,000}\cdot\frac{20}{100} = \frac{20}{10,000}$}
@@ -170,7 +170,7 @@ as shown in Fig.~\ref{fig:decision_tree_mammogram}.
 				node[below] {\scriptsize false negative}
 			}
 			child {
-				node[circle, draw, 
+				node[circle, draw, fill=greenfaded,
 				     label=right:
 				{\scriptsize $P(C \cap T) = P(C) \cdot P(T|C) = \frac{100}{10,000}
 				\cdot\frac{80}{100} = \frac{80}{10,000}$}
