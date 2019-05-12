@@ -1,87 +1,133 @@
-\chapter{Confusion Matrix}
+\chapter{Binary Classification}
 
-\section{Mammogram Test Example}
-Suppose a 44-year-old female has a mammogram test. 
-The radiologist interprets the test result as ``suspicious for malignancy.'' 
-Assume that the overall probability for any 44-year-old
-female, regardless of a mammogram test result, 
-to have breast cancer is 1-in-100, 
-or 1\% (breast cancer prevalence). 
-Assume the mammogram test is 80\% sensitive and 95\% specific, from data
-collected from a population of 10,000 females.  
+\section{Confusion Matrix}
+
+A confusion matrix classifies a population of size $n$ into two 
+columns, with size P and N, described below.  The classification
+of the total population is binary, either as P 
+or N, thus P~+~N~=~$n$.
 Table~\ref{tab:breast_cancer} shows
-the 2-by-2 contingency table for these data.
+the 2-by-2 confusion matrix with the P and N columns. 
+\begin{itemize}
+\item The first column is the subset of the population $n$
+that is {\bf known positive}, with size P 
+for a condition $C$.  
+\item The second column is the remaining subset of 
+the population that is {\bf known negative}, with
+size N for a condition $C$.  Negative status for
+a condition is denoted
+with the over set line, $\overline{C}$, 
+to indicate negation of
+condition $C$.  
+\item Note P $\leq n$ and N $\leq n$.  Typically P $< n$
+and N $< n$.  Cases of P~=~$n$ or N~=~$n$ are degenerate 
+special cases not considered here.  
+\end{itemize}
+Thus
+P = size($C$),
+N = size($\overline{C}$),
+$n$ = size($C \;\union\; \overline{C}$), and
+$0$ = size($C \;\intersection\; \overline{C}$) since
+$\emptyset = C \;\intersection\; \overline{C}$, the 
+binary status of condition $C$.
+\begin{itemize}
+\item Given a known positive P for a condition $C$, the 
+P group is divided into two subgroups of 
+true positives TP and 
+false negatives FN, depending on whether 
+or not the
+test outcome $T$ correctly predicted the truth 
+for the positives in the population.  P = TP + FN.
+\item Given a known negative N for condition $C$, thus
+$\overline{C}$, the 
+N group is divided into two subgroups of 
+false positives FP and
+true negatives TN, depending on whether or 
+not the test outcome $T$ correctly predicted
+the truth for the negatives in the population. N = FP + TN.
+\item A positive test outcome is denoted $T$.  A
+negative test outcome is denoted $\overline{T}$.
+\end{itemize}
 
 \begin{table}[htb]
-\caption{The 2-by-2 contingency table for the condition of breast 
-cancer and the mammogram test result.}
+\caption{The 2-by-2 confusion matrix for the condition $C$ 
+and the result of the test to identify $C$.  Note: the numbers
+in the table are for the size of each population subset for
+the worked numerical example.}
 \label{tab:breast_cancer}
 \centering
 \begin{tabular}{|c|c|c|} \hline
 Total Population & 
-Known Cancer $C$&
-Known Non-Cancer $\overline{C}$ \\ 
-10,000 & 
-P=TP + FN & 
-N=FP + TN \\ \hline \hline
+Known Condition $C$&
+Known Non-Condition $\overline{C}$ \\ 
+$n$ = 10,000 & 
+P = TP + FN & 
+N = FP + TN \\ \hline \hline
 % %%
 & 
 \colorbox{greenfaded}{\bf True Positive} & 
 \colorbox{yellowfaded}{\bf False Positive} \\
-Test Positive & TP = 80 & FP = 495 \\
-& ``correct affirmation'' & ``false alarm'' (Type I error) \\ \hline
+Test Positive $T$ & TP = 80 & FP = 495 \\
+& ``correct affirmation'' 
+& ``false alarm'' (Type I error) \\ \hline
 % %%
 & 
 \colorbox{horange} {\bf False Negative} & 
 \colorbox{redfaded} {\bf True Negative} \\
-Test Negative & FN = 20 & TN = 9,405 \\ 
+Test Negative $\overline{T}$ & FN = 20 & TN = 9,405 \\ 
 & ``miss'' (Type II error) & ``correct rejection'' \\ \hline
 \end{tabular}
 \end{table}
 
-In Table~\ref{tab:breast_cancer}, 
-P is a (known) positive for cancer $C$, and
-gets divided into true positives TP and 
-false negatives FN, depending on whether 
-or not the
-test's outcome correctly predicts the truth 
-for the positives in the population.  
-Similarly, N is a (known) negative
-for cancer, thus non-cancer $\overline{C}$, and gets 
-divided into false positives FP and
-true negatives TN, depending on whether or 
-not the test's outcome correctly predicts 
-the truth for the negatives in the population.
-
-Let the following notations be used:
+\subsection{Probabilities for the Confusion Matrix}
 \begin{itemize}
-\item $P(C)$ is the pre-test probability of having cancer, 
-also known as the prevalence.
-\item $P(\overline{C})$ is then the pre-test probability of not having cancer.  
+\item $P(C)$ is the pre-test probability of having condition $C$, 
+also known as the {\bf prevalence}.
+\item $P(\overline{C})$ is then the pre-test probability of not 
+having condition $C$, thus $\overline{C}$.
 $P(\overline{C}) = 1 - P(C)$.
 \end{itemize} 
 
 %\vspace{0.5cm}
-When the pre-test probability is then combined with a test, the following 
+When the pre-test probability is 
+combined with a test, the following 
 four outcomes are possible:
 \begin{itemize}
 \item $P(T|C)$ is the probability of a positive test given a 
-known cancer.  This is a 
+known condition.  This is a 
 \colorbox{greenfaded}{\bf True Positive} color coded in green.
 \item $P(T|\overline{C})$ is the probability of a positive test 
-given a known non-cancer.  
+given a known non-condition.  
 This is a 
-\colorbox{yellowfaded}{\bf False Positive} color coded in yellow as a warning
-that perhaps another test should be conducted that might be able to
+\colorbox{yellowfaded}{\bf False Positive} color coded 
+in yellow as a warning
+that perhaps another test should be conducted that 
+might be able to
 rule out the false positive result.
 \item $P(\overline{T}|C)$ is the probability of a negative test 
-given a known cancer.  This is a 
+given a known condition.  This is a 
 \colorbox{horange}{\bf False Negative} color coded in orange.
 \item $P(\overline{T}|\overline{C})$ is the probability of a 
-negative test given a known non-cancer.   
+negative test given a known non-condition.   
 This is a 
 \colorbox{redfaded}{\bf True Negative} color coded in pink.
 \end{itemize}
+
+\begin{Hexample}{
+Suppose a 44-year-old female has a mammogram test. 
+The radiologist interprets the test result 
+as ``suspicious for malignancy.'' 
+Assume that the overall probability for any 44-year-old
+female, regardless of a mammogram test result, 
+to have breast cancer is 1-in-100, 
+or 1\% (breast cancer prevalence). 
+Assume the mammogram test is 80\% sensitive 
+and 95\% specific, from data
+collected from a population of 10,000 females.  
+Table~\ref{tab:breast_cancer} shows
+the 2-by-2 contingency table for these data.
+}
+\end{Hexample}
 
 It is often useful to show each of the four above-described
 categories a square, where the area is equal 
@@ -184,7 +230,8 @@ population sorted into a binary tree.
 		node[below] {\scriptsize prevalence}
 	}; % remember trailing semi-colon after last child
 \end{tikzpicture}
-\caption{Decision tree for mammogram as a test $T$ for breast cancer $C$.}
+\caption{Decision tree for mammogram as a test $T$ for breast 
+cancer $C$.}
 \label{fig:decision_tree_mammogram}
 \end{figure}
 
@@ -217,11 +264,15 @@ written as
  \label{eq:ppv} 
 \ee
 which seems low!  
-A patient, upon hearing this result, that there is a 13.9\% probability that 
-she has breast cancer given that she tested positive, does not reassure.  
-The test says she is positive, but the probability that she actually {\em is} positive
+A patient, upon hearing this result, 
+that there is a 13.9\% probability that 
+she has breast 
+cancer given that she tested positive, does not reassure.  
+The test says she is positive, but the probability that 
+she actually {\em is} positive
 given the positive test seems low.  How can this be?
-The large number of false positives, $P(\overline{C} \cap T)$, in the denominator
+The large number of false positives, 
+$P(\overline{C} \cap T)$, in the denominator
 reduces the result for $P(C|T)$. 
 The number of true positives, $P(C \cap T)$, is small 
 compared to the number of false
@@ -230,8 +281,10 @@ also referred to as the test's
 {\bf Positive Predictive Value (PPV)} 
 or {\bf Precision}, described in Section~xxx (to come).
 
-Next, consider the remaining combinations.  The probability of being negative after 
-testing positive, by reasoning similar to that given above, is written as
+Next, consider the remaining combinations.  
+The probability of being negative after 
+testing positive, by reasoning similar to that 
+given above, is written as
 \be
 \ P(\overline{C}|T) = \dst\frac{P(\overline{C} \cap T)}{P(\overline{C} \cap T) + P(C \cap T)} = 
  \frac{\frac{495}{10,000}}{\frac{495}{10,000} + \frac{80}{10,000}} = 
