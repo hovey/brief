@@ -32,7 +32,7 @@ Test Positive & TP = 80 & FP = 495 \\
 & ``correct affirmation'' & ``false alarm'' (Type I error) \\ \hline
 % %%
 & 
-\colorbox{magentafaded} {\bf False Negative} & 
+\colorbox{horange} {\bf False Negative} & 
 \colorbox{redfaded} {\bf True Negative} \\
 Test Negative & FN = 20 & TN = 9,405 \\ 
 & ``miss'' (Type II error) & ``correct rejection'' \\ \hline
@@ -76,16 +76,16 @@ that perhaps another test should be conducted that might be able to
 rule out the false positive result.
 \item $P(\overline{T}|C)$ is the probability of a negative test 
 given a known cancer.  This is a 
-\colorbox{magentafaded}{\bf False Negative} color coded in magenta as 
-mnemonic for ``miss''.
+\colorbox{horange}{\bf False Negative} color coded in orange.
 \item $P(\overline{T}|\overline{C})$ is the probability of a 
 negative test given a known non-cancer.   
 This is a 
-\colorbox{redfaded}{\bf True Negative} color coded in red.
+\colorbox{redfaded}{\bf True Negative} color coded in pink.
 \end{itemize}
 
 It is often useful to show each of the four above-described
-categories a square, where the area is equal to the population size, 
+categories a square, where the area is equal 
+to the population size, 
 as shown in Fig.~\ref{fig:confusion_area}.
 
 \begin{figure}[htb]
@@ -106,8 +106,8 @@ as shown in Fig.~\ref{fig:confusion_area}.
 
 %\vspace{0.5cm}
 \newpage
-The population can be sorted in a probability tree, 
-as shown in Fig.~\ref{fig:decision_tree_mammogram}.  
+Figure~\ref{fig:decision_tree_mammogram} shows the 
+population sorted into a binary tree.
 
 % tikz
 % http://www.texample.net/tikz/examples/merge-sort-recursion-tree/
@@ -160,7 +160,7 @@ as shown in Fig.~\ref{fig:decision_tree_mammogram}.
 	child {
 		node[circle, draw] {\tiny 100}
 			child {
-				node[circle, draw, fill=magentafaded,
+				node[circle, draw, fill=horange,
 				     label=right:
 				{\scriptsize $P(C \cap \overline{T}) = P(C) \cdot P(\overline{T}|C) = 
 				\frac{100}{10,000}\cdot\frac{20}{100} = \frac{20}{10,000}$}
@@ -223,8 +223,10 @@ The test says she is positive, but the probability that she actually {\em is} po
 given the positive test seems low.  How can this be?
 The large number of false positives, $P(\overline{C} \cap T)$, in the denominator
 reduces the result for $P(C|T)$. 
-The number of true positives, $P(C \cap T)$, is small compared to the number of false
-positives.  The result in Eq.~(\ref{eq:ppv}) is also referred to as the test's
+The number of true positives, $P(C \cap T)$, is small 
+compared to the number of false
+positives.  The result in Eq.~(\ref{eq:ppv}) is 
+also referred to as the test's
 {\bf Positive Predictive Value (PPV)} 
 or {\bf Precision}, described in Section~xxx (to come).
 
@@ -241,7 +243,8 @@ The probability of being negative even though
 the test is positive is 86.1\%, giving little comfort to the patient who now thinks, 
 because of the test results, that
 she is positive even though she is negative. 
-The result in Eq.~(\ref{eq:false_discovery_rate}) is also referred to as the 
+The result in Eq.~(\ref{eq:false_discovery_rate}) is also 
+referred to as the 
 test's {\bf False Discovery Rate (FDR)}.  
 
 The probability of being positive after testing negative is 
@@ -256,7 +259,8 @@ This result is reassuring.  A patient with a negative test has a 0.2\% chance of
 actually being positive.  This occurs because the number of true negatives, 
 $P(\overline{C} \cap \overline{T})$, in the denominator, saturates any false negatives, 
 $P(C \cap \overline{T})$, and drives the result toward zero.  The result 
-in Eq.~(\ref{eq:false_omission_rate}) is also referred to as the test's
+in Eq.~(\ref{eq:false_omission_rate}) is also 
+referred to as the test's
 {\bf False Omission Rate (FOR)}.
 
 The probability of being negative after testing negative is easily calculated as 
@@ -272,6 +276,7 @@ The probability of being negative after testing negative is easily calculated as
 which is also reassuring.  Again, the strength of the true negatives, 
 $P(\overline{C} \cap \overline{T})$,  overwhelms the 
 effect of the false negatives, $P(C \cap \overline{T})$, in the result.
-The result in Eq.~(\ref{eq:npv}) is also referred to as the test's 
+The result in Eq.~(\ref{eq:npv}) is also referred 
+to as the test's 
 {\bf Negative Predictive Value (NPV)}.  
 
