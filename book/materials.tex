@@ -6,6 +6,7 @@
 
 \subsection{Kirchhoff-St.~Venant}
 
+\clearpage
 \subsection{Rivlin}
 
 Let $I_1, I_2, I_3$ be the three invariants of the two Cauchy-Green 
@@ -16,7 +17,9 @@ I_1 & = \lambda_1^2 + \lambda_2^2 + \lambda_3^2, \\
 I_2 & = \lambda_1^2 \lambda_2^2 + \lambda_2^2 \lambda_3^2 + \lambda_3^2 \lambda_1^2, \\
 I_3 & = \lambda_1^2 \lambda_2^2 \lambda_3^2.
 \end{align}
-Rivlin (1956) specified a strain energy density function $W$ as 
+Rivlin\footnote{Rivlin RS. Solution of Some Problems in the Exact Theory
+of Visco-Elasticity, J Rational Mechanics and Analysis, 5:1 (1956), 179-188.}
+specified a strain energy density function $W$ as 
 power series of the invariants,
 \be
  W = \sum_{i+j+k=1}^{\infty} C_{ijk} (I_1 - 3)^i \; (I_2 - 3)^j \; (I_3 - 1)^k.
@@ -29,9 +32,12 @@ zero strain energy density when there is zero stretch.
 \subsubsection{Incompressible Rivlin}
 
 Next, {\bf assume incompressibility} of the material response.  In this case, 
-$I_3 = 1$, and the strain energy density becomes
+$I_3 = 1$.
+Additionally, use just a single index of the infinite series ($i=1$ with $j=k=0$, 
+and $j=1$ with $i=k=0$).  
+The strain energy density becomes
 \be
- W = C_{10} (I_1 - 3) + C_{01} (I_2 - 3),  
+ W = C_{100} (I_1 - 3) + C_{010} (I_2 - 3),  
 \ee
 which is called the {\bf Mooney-Rivlin equation}.
 
@@ -40,7 +46,7 @@ which is called the {\bf Mooney-Rivlin equation}.
 Using only the first term of the Mooney-Rivlin equation produces the 
 {\bf Incompressible Neo-Hookean} material,
 \be
- W = C_{10} (I_1 - 3).
+ W = C_{100} (I_1 - 3).
 \ee
 Now, the invariants in terms of the right Cauchy-Green tensor $\tCbold$ are
 \begin{align}
@@ -51,13 +57,13 @@ Now, the invariants in terms of the right Cauchy-Green tensor $\tCbold$ are
 \end{align}
 Then, for small strains and Mooney-Rivlin,
 \begin{align}
-	E & = 6 \left(C_{10} + C_{01} \right), \\
-	G & = 2 \left(C_{10} + C_{01} \right).
+	E & = 6 \left(C_{100} + C_{010} \right), \\
+	G & = 2 \left(C_{100} + C_{010} \right).
 \end{align}
 For small strains and Neo-Hookean 
 \begin{align}
-	C_{01} & = 0, \\
-	C_{10} & = G/2, \implies E = 3 G. 
+	C_{010} & = 0, \\
+	C_{100} & = G/2, \implies E = 3 G. 
 \end{align}
 
 \subsubsection{Compressible Rivlin}
@@ -65,7 +71,7 @@ Next, allow the material to be compressible, characterized through
 bulk modulus $K$.  Thus, $I_3 \neq 1$.
 The {\bf Mooney-Rivlin equation} for compressible materials is given by
 \be
- W = W_{\smDEV}(I_3) +  C_{10} (I_1 - 3) + C_{01} (I_2 - 3),  
+ W = W_{\smDEV}(I_3) +  C_{100} (I_1 - 3) + C_{010} (I_2 - 3),  
 \ee
 where $W_{\smDEV}$ is the hydrostatic work term.  
 
@@ -78,16 +84,32 @@ as
 	J & = \sqrt{I_3}.
 \end{align}
 Then, 
+for {\bf compressible Rivlin}:
 \be
  W = \underset{\smVOL}{\underbrace{\frac{K}{2}(J - 1)^2}} + 
- \underset{\smDEV}{\underbrace{C_{10} (\bar{I}_1 - 3) + C_{01} (\bar{I}_2 - 3)}},  
+ \underset{\smDEV}{\underbrace{C_{100} (\bar{I}_1 - 3) + C_{010} (\bar{I}_2 - 3)}}.
 \ee
-for {\bf compressible Rivlin}.
 Finally, 
+for {\bf compressible Neo-Hookean}:
 \be
  W = \underset{\smVOL}{\underbrace{\frac{K}{2}(J - 1)^2}} + 
- \underset{\smDEV}{\underbrace{C_{10} (\bar{I}_1 - 3)}},  
+ \underset{\smDEV}{\underbrace{C_{100} (\bar{I}_1 - 3)}}. 
 \ee
-for {\bf compressible Neo-Hookean}.
 
+\begin{figure}[htb]
+  \begin{center}
+    %\begin{overpic}[width=\textwidth,grid,tics=10,natwidth=620,natheight=564]{fig/motion_family.pdf}
+    %\begin{overpic}[width=\textwidth,natwidth=620,natheight=564]{fig/motion_family.pdf}
+    \begin{overpic}[width=\textwidth]{fig/neo_hookean_vol.pdf}
+%      \put( 95, 21){$J$}
+%      \put(  5, 32){$J=1$}
+%      \put( 75.5, 45){$\frac{\Delta V}{V}$}
+%      \put( 16.9, 57.3){$\bar{\vu}$}
+%      \put( 35, 56.4){$\tRbold$}
+%      \put( 52.5, 56.4){$\tUbold \; \tvbold$}
+    \end{overpic}
+  \end{center}
+        \caption{Neo-Hookean volumetric strain energy density $W_{\smVOL}(J)$ normalized by $K/2$ for infinitesimal and finite cases.}
+  \label{fig:neo_hookean_vol}
+\end{figure}
 
