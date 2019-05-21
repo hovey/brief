@@ -30,7 +30,7 @@ ax.plot(x2, y2b, color='magenta', linestyle='-.', linewidth=lw, label='$-\ln(J)$
 # ax.plot(3.5, 1, 'o', color='red', markersize=12, alpha=0.5, label='roll average')
 ax.grid()
 ax.set_xlabel('Jacobian $J$')
-ax.set_ylabel('volumetric strain energy $W_{\mbox{vol}}(J)$ normalized by $K/2$')
+ax.set_ylabel('volumetric strain energy $W_{\mbox{vol}}(J)$ normalized by $B/2$')
 ax.set_xlim( 0, 3)
 ax.set_ylim(-2, 2)
 ax.legend(loc='lower right')
@@ -42,7 +42,7 @@ def text_elements(x, y, text, textcolor='blue'):
 
 plt.show()
 
-print_to_pdf = 0
+print_to_pdf = 1
 if print_to_pdf:
     script_name = os.path.basename(__file__)
     figure_name = os.path.splitext(script_name)[0]
