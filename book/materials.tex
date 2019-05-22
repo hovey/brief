@@ -136,6 +136,7 @@ response,
             \frac{G}{2} (\bar{I}_1 - 3)
         }
     }. 
+    \label{eq:Hughes_neo_hookean}
 \ee
 Figure~\ref{fig:neo_hookean_vol}
 shows the volumetric term for the infinitesimal and finite cases, with the
@@ -186,4 +187,32 @@ Hughes.
         \caption{Neo-Hookean volumetric strain energy density $W_{\smVOL}(J)$ normalized by $B/2$ for infinitesimal and finite cases.}
   \label{fig:neo_hookean_vol}
 \end{figure}
+
+\clearpage
+
+\begin{Hremark}
+    Consider the relative effects of the $(J^2 - 1)/2$ term versus the 
+    $-\ln(J)$ term in 
+    (\ref{eq:Hughes_neo_hookean}):  
+    \begin{itemize}
+        \item For finite compression, the $-\ln(J)$ dominates the $(J^2-1)/2$ term, 
+            causing the strain energy function to go toward $+\infty$, as 
+            desired.
+        \item For finite extension, the $(J^2-1)/2$ term dominates the $-\ln(J)$
+            term, causing the strain energy function to go toward $+\infty$, as
+            desired.
+        \item The addition of the two terms evaluated at $J=1$ gives 
+            $W=0$, as
+            desired.  For zero volumetric deformation, there should be zero 
+            strain energy density.
+        \item The slope of the strain energy density function, $dW/dJ = 
+            J - 1/J$, evaluated
+            at $J=1$ is zero.  For zero volumetric deformation, there should
+            be zero initial stress. 
+        \item The second derivative of the strain energy density function, 
+            $d^2W/dJ^2 = 1/J^2$ is positive for all $J \in (0, +\infty)$.
+    \end{itemize}
+\end{Hremark}
+
+
 
