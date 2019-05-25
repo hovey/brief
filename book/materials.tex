@@ -6,6 +6,7 @@
 
 \subsection{Kirchhoff-St.~Venant}
 
+\clearpage
 \subsection{Rivlin}
 
 Let $I_1, I_2, I_3$ be the three invariants of the two Cauchy-Green 
@@ -14,47 +15,63 @@ stretch ratios $\lambda_1, \lambda_2, \lambda_3$,
 \begin{align}
 I_1 & = \lambda_1^2 + \lambda_2^2 + \lambda_3^2, \\
 I_2 & = \lambda_1^2 \lambda_2^2 + \lambda_2^2 \lambda_3^2 + \lambda_3^2 \lambda_1^2, \\
-I_3 & = \lambda_1^2 \lambda_2^2 \lambda_3^2.
+I_3 & = \lambda_1^2 \lambda_2^2 \lambda_3^2 = J^2.
 \end{align}
-Rivlin (1956) specified a strain energy density function $W$ as 
+Rivlin\footnote{Rivlin RS. Solution of Some Problems in the Exact Theory
+of Visco-Elasticity, J Rational Mechanics and Analysis, 5:1 (1956), 179-188.}
+specified a strain energy density function $W$ as 
 power series of the invariants,
 \be
  W = \sum_{i+j+k=1}^{\infty} C_{ijk} (I_1 - 3)^i \; (I_2 - 3)^j \; (I_3 - 1)^k.
 \ee
+For {\bf incompressible} materials, $I_3 = 1$, and 
+the Rivlin equation reduces to
+\be
+ W = \sum_{i+j=1}^{\infty} C_{ij} (I_1 - 3)^i \; (I_2 - 3)^j.
+\ee
+
 \begin{Hremark}
-Note the presence of the $-3, -3$, and $-1$ terms in parenthesis allow for
+The presence of the $-3, -3$, and $-1$ terms in parenthesis allow for
 zero strain energy density when there is zero stretch.
 \end{Hremark}
 
-\subsubsection{Incompressible Rivlin}
+\begin{Hremark}
+When a material's bulk modulus $B$ is at least two orders of magnitude 
+larger than the shear modulus $G$, 
+the incompressibility modeling assumption may be appropriate.
+\end{Hremark}
 
-Next, {\bf assume incompressibility} of the material response.  In this case, 
-$I_3 = 1$, and the strain energy density becomes
+\subsubsection{Incompressible Rivlin}
+Using on the first two terms of the incompressible Rivlin gives 
+the {\bf Mooney-Rivlin} strain energy density function:
 \be
- W = C_{10} (I_1 - 3) + C_{01} (I_2 - 3),  
+ W = C_{10} (I_1 - 3) + C_{01} (I_2 - 3).
 \ee
-which is called the {\bf Mooney-Rivlin equation}.
 
 \subsubsection{Incompressible Neo-Hookean}
-
-Using only the first term of the Mooney-Rivlin equation produces the 
-{\bf Incompressible Neo-Hookean} material,
+Using only the first term of the Mooney-Rivlin equation gives the 
+{\bf Incompressible Neo-Hookean} strain energy density function:
 \be
  W = C_{10} (I_1 - 3).
 \ee
-Now, the invariants in terms of the right Cauchy-Green tensor $\tCbold$ are
+The invariants in terms of the right Cauchy-Green tensor $\tCbold$ 
+and left Cauchy-Green tensor $\tbbold$ are
 \begin{align}
-	I_1 & = \trace(\tCbold)  = C_{KK}, \\
+    I_1 & = \trace(\tCbold) = C_{KK} =
+            \trace(\tbbold) = b_{kk}, \\
 	I_2 & = \half \left(I_1^2 - \tCbold \ddiv \tCbold \right) = 
-	        \half \left(I_1^2 - C_{IK} C_{KI} \right), \\
-	I_3 & = \det(\tCbold) = \det C_{IJ}.
+	        \half \left(I_1^2 - C_{IK} C_{KI} \right) \nonumber \\ 
+	    & = \half \left(I_1^2 - \tbbold \ddiv \tbbold \right) = 
+	        \half \left(I_1^2 - b_{ik} b_{ki} \right), \\
+	I_3 & = \det(\tCbold) = \det C_{IJ} = 
+            \det(\tbbold) = \det b_{ij}.
 \end{align}
-Then, for small strains and Mooney-Rivlin,
+For small strains and incompressible Mooney-Rivlin:
 \begin{align}
 	E & = 6 \left(C_{10} + C_{01} \right), \\
 	G & = 2 \left(C_{10} + C_{01} \right).
 \end{align}
-For small strains and Neo-Hookean 
+For small strains and incompressible Neo-Hookean:
 \begin{align}
 	C_{01} & = 0, \\
 	C_{10} & = G/2, \implies E = 3 G. 
@@ -62,32 +79,140 @@ For small strains and Neo-Hookean
 
 \subsubsection{Compressible Rivlin}
 Next, allow the material to be compressible, characterized through 
-bulk modulus $K$.  Thus, $I_3 \neq 1$.
+bulk modulus $B$.  Thus, $I_3 \neq 1$.
 The {\bf Mooney-Rivlin equation} for compressible materials is given by
-\be
- W = W_{\smDEV}(I_3) +  C_{10} (I_1 - 3) + C_{01} (I_2 - 3),  
-\ee
-where $W_{\smDEV}$ is the hydrostatic work term.  
+\begin{align}
+ W & = W_{\smVOL}(I_3) +  C_{10} (I_1 - 3) + C_{01} (I_2 - 3),  \\
+   & = W_{\smVOL}(I_3) +  C_{10} (I_1 - 3) + C_{01} (I_2 - 3),  
+\end{align}
+where $W_{\smVOL}$ is the hydrostatic (volumetric) term.  
 
 To fully uncouple the volumetric from the deviatoric responses, let the
 {\bf volume preserving (isochoric) distortion invariants} be calculated
 as
 \begin{align}
-	\bar{I}_1 & = I_1 \; I_3^{(-1/3)}, \\
-	\bar{I}_2 & = I_2 \; I_3^{(-2/3)}, \\
+    \bar{I}_1 & = \frac{I_1}{I_3^{(1/3)}} = \frac{I_1}{J^{(2/3)}}, \\
+    \bar{I}_2 & = \frac{I_2}{I_3^{(2/3)}} = \frac{I_1}{J^{(4/3)}}, \\
 	J & = \sqrt{I_3}.
 \end{align}
 Then, 
+for {\bf compressible Rivlin}:
 \be
- W = \underset{\smVOL}{\underbrace{\frac{K}{2}(J - 1)^2}} + 
- \underset{\smDEV}{\underbrace{C_{10} (\bar{I}_1 - 3) + C_{01} (\bar{I}_2 - 3)}},  
+ W = \underset{\smVOL}{\underbrace{\frac{B}{2}(J - 1)^2}} + 
+ \underset{\smDEV}{\underbrace{C_{10} (\bar{I}_1 - 3) + C_{01} (\bar{I}_2 - 3)}}.
 \ee
-for {\bf compressible Rivlin}.
 Finally, 
+for {\bf compressible Neo-Hookean}:
 \be
- W = \underset{\smVOL}{\underbrace{\frac{K}{2}(J - 1)^2}} + 
- \underset{\smDEV}{\underbrace{C_{10} (\bar{I}_1 - 3)}},  
+ W = \underset{\smVOL}{\underbrace{\frac{B}{2}(J - 1)^2}} + 
+ \underset{\smDEV}{\underbrace{C_{10} (\bar{I}_1 - 3)}}. 
 \ee
-for {\bf compressible Neo-Hookean}.
+
+In the finite compression limit, as the volume goes to zero
+$(J \rightarrow 0)$, 
+the $(J-1)^2$ factor in the volumetric term tends toward unity.
+This behavior---finite 
+strain energy density in the limit of compression---is not desirable.  
+Instead, as the volume goes toward zero, 
+the strain energy density so go toward
+$+\infty$.    Simo and 
+Hughes\footnote{Simo JC, Hughes TJR.  Computational inelasticity (Vol.~7). 
+Springer Science \& Business Media, 2006, page 361, Eq.~(10.4.19).} 
+provided an alternative form of the 
+compressible Neo-Hookean strain energy density that exhibits this desired 
+response,
+\be
+ W = \underset{\smVOL}{
+        \underbrace{
+            \frac{B}{2}
+            \left[
+                \frac{J^2 - 1}{2} - \ln J
+            \right]
+        }
+     } 
+     + 
+ \underset{\smDEV}{
+        \underbrace{
+            \frac{G}{2} (\bar{I}_1 - 3)
+        }
+    }. 
+    \label{eq:Hughes_neo_hookean}
+\ee
+Figure~\ref{fig:neo_hookean_vol}
+shows the volumetric term for the infinitesimal and finite cases, with the
+relative contribution of the two terms that add to compose the finite case.
+
+\begin{Hremark}
+The Simo and Hughes notation, while slightly different from above, is equivalent.
+    For the deviatoric term, since 
+\be
+    \bar{\tFbold} = \frac{\tFbold}{J^{(1/3)}},
+\ee
+    and
+\be
+    \bar{\tCbold} = \bar{\tFbold}^T \bar{\tFbold} = 
+    \frac{\tFbold^T}{J^{(1/3)}} \frac{\tFbold}{J^{(1/3)}} 
+    = \frac{\tFbold^T \tFbold}{J^{(2/3)}}
+    = \frac{\tCbold}{J^{(2/3)}},
+\ee
+then,
+\be
+ \trace(\bar{\tCbold}) = 
+    \trace\left(\frac{\tCbold}{J^{(2/3)}}\right) = 
+    J^{(-2/3)} \trace(\tCbold) = \frac{I_1}{J^{(2/3)}} = \bar{I_1},
+\ee
+which harmonizes the notation used here with the deviatoric term from Simo and
+Hughes.
+%        \be
+%        \bar{\tFbold} = \frac{\tFbold}{J^{(1/3)} 
+%        \bar{\tCbold} = \bar{\tFbold}^T \bar{\tFbold}
+%        \ee
+%\end{Hremark}
+\end{Hremark}
+
+
+\begin{figure}[htb]
+  \begin{center}
+    %\begin{overpic}[width=\textwidth,grid,tics=10,natwidth=620,natheight=564]{fig/motion_family.pdf}
+    %\begin{overpic}[width=\textwidth,natwidth=620,natheight=564]{fig/motion_family.pdf}
+    \begin{overpic}[width=\textwidth]{fig/neo_hookean_vol.pdf}
+%      \put( 95, 21){$J$}
+%      \put(  5, 32){$J=1$}
+%      \put( 75.5, 45){$\frac{\Delta V}{V}$}
+%      \put( 16.9, 57.3){$\bar{\vu}$}
+%      \put( 35, 56.4){$\tRbold$}
+%      \put( 52.5, 56.4){$\tUbold \; \tvbold$}
+    \end{overpic}
+  \end{center}
+        \caption{Neo-Hookean volumetric strain energy density $W_{\smVOL}(J)$ normalized by $B/2$ for infinitesimal and finite cases.}
+  \label{fig:neo_hookean_vol}
+\end{figure}
+
+\clearpage
+
+\begin{Hremark}
+    Consider the relative effects of the $(J^2 - 1)/2$ term versus the 
+    $-\ln(J)$ term in 
+    (\ref{eq:Hughes_neo_hookean}):  
+    \begin{itemize}
+        \item For finite compression, the $-\ln(J)$ dominates the $(J^2-1)/2$ term, 
+            causing the strain energy function to go toward $+\infty$, as 
+            desired.
+        \item For finite extension, the $(J^2-1)/2$ term dominates the $-\ln(J)$
+            term, causing the strain energy function to go toward $+\infty$, as
+            desired.
+        \item The addition of the two terms evaluated at $J=1$ gives 
+            $W=0$, as
+            desired.  For zero volumetric deformation, there should be zero 
+            strain energy density.
+        \item The slope of the strain energy density function, $dW/dJ = 
+            J - 1/J$, evaluated
+            at $J=1$ is zero.  For zero volumetric deformation, there should
+            be zero initial stress. 
+        \item The second derivative of the strain energy density function, 
+            $d^2W/dJ^2 = 1/J^2$ is positive for all $J \in (0, +\infty)$.
+    \end{itemize}
+\end{Hremark}
+
 
 
