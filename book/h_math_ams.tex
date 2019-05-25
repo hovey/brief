@@ -1042,17 +1042,19 @@
 \newenvironment{Hproof}{           % beginning the environment
     %\\
     \medskip
-    \begin{center}
-    \begin{tabular}{|l}
-    \begin{minipage}[b]{1.00\linewidth}
-    \sffamily
-    {\em Proof.} \\
+%    \begin{center}
+%    \begin{tabular}{|l}
+%    \begin{minipage}[b]{1.00\linewidth}
+    \sffamily\footnotesize
+    \noindent\makebox[\linewidth]{\rule{\linewidth}{0.4pt}}
+    \noindent{\em Proof.} \\
      %\smallskip 
                } {              % ending the environment
-     \hfill $\blacksquare$
-     \end{minipage} 
-    \end{tabular}
-    \end{center}
+    \hfill $\blacksquare$
+    \noindent\makebox[\linewidth]{\rule{\linewidth}{0.4pt}}
+%     \end{minipage} 
+%    \end{tabular}
+%    \end{center}
     \medskip
     %\\
     }               % end definition of Hproof new environment
