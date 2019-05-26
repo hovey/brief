@@ -97,22 +97,25 @@ simple average.
 
 Let $X$ be a random variable with a finite number of 
 {\bf outcomes} $x_i$
-for $i=1,\ldots,n$ with probability $p_i$.  The {\bf expectation} 
-of $X$ is defined as
+for $i=1\ldots n$ with probability $p_i$.  The {\bf expectation} 
+of $X$, denoted as $\bar{x}$, is defined as
 \be
-\ex \defe \sum_{i=1}^n \; p_i \; x_i.
+\ex \defe \sum_{i=1}^n \; p_i \; x_i = \bar{x}.
+\label{eq:simple_average}
 \ee
 Because the sum of all probabilities is identically 
 equal to unity,
 \be
 \sum_{i=1}^n \; p_i = 1.0,
 \ee
-and the expected
-value is considered the {\bf weighted average}, where each $p_i$ is the 
+the expected
+value $\bar{x}$ is considered the 
+{\bf weighted average}, where each $p_i$ is the 
 {\bf weight}.
 
 \begin{Hremark}
-The weighted average is also known as the {\bf first moment}, which is 
+The weighted average $\bar{x}$ is also 
+known as the {\bf first moment}, which is 
 analogous to the {\bf center of mass} of a rigid body.
 \end{Hremark}
 
@@ -122,17 +125,20 @@ For the special case where each probability is equally likely,
 p_1 = p_2 = \cdots = p_n = \frac{1}{n},
 \label{eq:equal_probability}
 \ee
-the expectation of $\ex$ has the specialized form $\mu$,
+the expectation of $\ex$ has the specialized form 
+defined as $\mu$ 
 \be
-\mu \defe \ex \overset{(\ref{eq:equal_probability})}{=} 
-\frac{1}{n} \sum_{i=1}^n \; x_i.
+\ex \overset{(\ref{eq:equal_probability})}{=} 
+\frac{1}{n} \sum_{i=1}^n \; x_i
+\defe \mu,
 \label{eq:simple_average}
 \ee
 and is referred to as the {\bf simple average}.
 
 \begin{Hremark}
 The expectation $\ex$, 
-also known as the weighted average of $X$, should
+also known as the weighted average of $X$
+and denoted $\bar{x}$, should
 not be confused with $\mu$, the simple average of $X$.  
 The latter is a special
 case of the former, as just demonstrated in the above sections.

@@ -1,0 +1,241 @@
+\section{Linear Regression}
+
+\subsection{Univariate Linear Regression}
+
+\subsubsection{Model}
+
+Univariate linear regression is a linear relationship 
+between an independent variable $x \in \real$, 
+also called the 
+{\em explanatory variable}, and a dependent variable
+$y \in \real$, also called a {\em response variable}.
+
+The {\bf model function} is
+\be
+y = w x + b
+\label{eq:lin_reg_model}
+\ee
+where
+\begin{itemize}
+\item $w \in \real$ is the slope (also called {\bf weight}) 
+acting on the independent variable, and
+\item $b \in \real$ is the intercept (also called {\bf bias}).
+\end{itemize}
+The two real-valued numbers ($w, b$) are called
+{\bf model parameters}.
+
+\subsubsection{Data}
+
+Assume $m$ pair of observations ($x_j, y_j$), $j=1\ldots m$, 
+have been made.  
+Assume equal likelihood of each observation.
+Given the observations, the objective
+of univariate linear regression is to 
+\begin{enumerate}
+\item find model parameters $(w, b)$ that {\bf best fit} the 
+observed data, and 
+\item quantify the {\bf correlation coefficient}, 
+which is an objective measure of 
+how well the best fit model describes the underlying 
+observed data.  
+\end{enumerate}
+
+\subsubsection{Error Function}
+ 
+For each observation ($x_j, y_j$) pair, there is an error
+$e_j(w,b)$ that is defined as the difference between the 
+actual observed response $y_j$ and the model's 
+predicted response $w x_j + b$, defined as
+\be
+ e_j(w,b) \defe y_j - \left(w x_j + b \right).
+\label{eq:L1_norm_lin_reg}
+\ee
+The error accumulated for all $m$ observations can be 
+written as
+\be
+\parallel \ve{e} (w, b)
+\parallel_1 \;  \defe \sum_{j=1}^m \abs{e_j(w,b)}.
+\ee
+This is the L1-norm of the error vector $\ve{e}
+= [e_1, e_2, \ldots, e_m] \in \real^m$.
+See Section~\ref{sec:pnorm} for more details on p-norms.
+
+The model parameters $(w, b)$ are said to be best fit
+when the error is minimized.  While the L1-norm error
+in~(\ref{eq:L1_norm_lin_reg}) may be used as the objective
+error function, the L2-norm is frequently used as an 
+alternative to the L1-norm.
+
+For this model, the L2-error norm is defined as
+\be
+\parallel \ve{e} (w, b)
+\parallel_2 \;  \defe \sum_{j=1}^m \left(e_j(w,b)\right)^2 
+= \sum_{j=1}^m \left(
+ y_i - w x_i - b
+\right)^2.
+\label{eq:L2_norm_lin_reg}
+\ee
+Using the notation $E_2 \in \real$ to denote the L2-error norm
+in~(\ref{eq:L2_norm_lin_reg}),
+we expand and simplify the squared term,
+\be
+E_2(w,b) = 
+\sum_{j=1}^m y_j^2 - 2 y_j w x_j - 2 y_j b + w^2 x_j^2 
++ 2 w x_j b + b^2.
+\label{eq:E_2_w_b}
+\ee
+Since $E_2$ is the summation of squared quantities, 
+$E_2(w,b) \geq 0\;\forall\; w \in \real, b \in \real$.
+$E_2(w,b)$ 
+behaves as a quadratic, scalar function.
+Values of $(w, b)$ that minimize the error $E_2$ are 
+found by taking partial derivatives of the error function 
+with respect to the parameters $w$ and $b$:
+\be
+\frac{\partial E_2}{\partial w} = 
+\sum_{j=1}^m -2 y_j x_j + 2 w x_j^2 + 2 x_j b
+\label{eq:partial_E_w}
+\ee
+and
+\be
+\frac{\partial E_2}{\partial b} = 
+\sum_{j=1}^m -2 y_j + 2 w x_j + 2 b.
+\label{eq:partial_E_b}
+\ee
+Setting~(\ref{eq:partial_E_b}) equal to zero, and 
+using the definitions of $\mu_x$ and $\mu_y$
+from~(\ref{eq:simple_average}),
+\be
+b = \mu_y - w \mu_x \; \mbox{ to minimize } E_2.
+\label{eq:b_for_E_2_min}
+\ee
+Substituting
+(\ref{eq:b_for_E_2_min}) into 
+(\ref{eq:E_2_w_b}) for values of $b$ that minimize
+$E_2$ allows
+(\ref{eq:E_2_w_b}) to be written as a function of 
+$w$ alone, 
+\begin{align}
+E_2(w) = \sum_{j=1}^m & 
+\; y_j^2 - 2 y_j w x_j - 2 y_j (\mu_y - w \mu_x) + 
+w^2 x_j^2 + \nonumber \\
+& 2 w x_j (\mu_y - w \mu_x) + 
+(\mu_y - w \mu_x)^2.
+\end{align}
+Then, 
+\begin{align}
+\frac{d E_2}{dw} = 
+\sum_{j=1}^m & 
+\; -2 y_j x_j + 2 y_j \mu_x + 2 w x_j^2 + \nonumber \\
+& 2 x_j \mu_y - 4 w x_j \mu_x +
+2(\mu_y - w \mu_z)(-\mu_x)  
+\overset{\mbox{\tiny set}}{=} 0, 
+\end{align}
+or
+\begin{align}
+0 & = \sum_{j=1}^m 
+-y_j x_j + y_j \mu_x + w x_j^2 + 
+ x_j \mu_y - 2 w x_j \mu_x + w \mu_x \mu_x - \mu_x \mu_y, \\
+ & = \sum_{j=1}^m
+ -\left(x_j - \mu_x\right)
+  \left(y_j - \mu_y\right) 
+  + 
+  w \left(x_j - \mu_x\right)^2.
+\end{align}
+Solving for $w$
+\be
+w = \frac{\dst\sum_{j=1}^m 
+  \left(x_j - \mu_x\right)
+  \left(y_j - \mu_y\right)}
+  {\dst\sum_{j=1}^m
+  \left(x_j - \mu_x\right)^2}.
+\ee
+Multiplying both the numerator and the denominator
+by $\frac{1}{m}$ gives
+\be
+w = \frac{\cov(X,Y)}{\var(X)}.
+\ee
+Thus the first objective of univariate linear regression, 
+find model parameters ($w, b$) the best fit to the 
+observed data (by minimizing
+the error between the model and the data) has been accomplished.
+The second and final objective, to quantify the quality of
+the best fit, follows.
+
+Using the sample correlation coefficient
+$\rho_{X,Y}$, the sample (uncorrected) standard 
+deviation $\sigma_x$ and $\sigma_y$, the sample
+variance and covariance,
+\begin{align}
+\var(X) & = \sigma_x^2, \\
+\cov(X,Y) &= \rho_{X,Y} \sigma_x \sigma_y,
+\end{align}
+then
+\be
+w = \frac{\rho_{X,Y} \sigma_y}{\sigma_x} \implies
+\rho_{X,Y} = \frac{w \; \sigma_x}{\sigma_y}.
+\ee
+
+\begin{Hresult}
+As long as the univariate linear regression model includes the 
+intercept (bias) term $b$ (\ie the 
+model is not forced to go through the origin by virtue of 
+$b \overset{\mbox{\tiny set}}{=} 0$.), then 
+\begin{enumerate}
+\item the sum of the errors is zero
+\be
+\sum_{j=1}^m e_j = 0, \;\; \mbox{and}
+\ee
+\item the model regression line goes through the center of 
+mass point ($\mu_x, \mu_y$).
+\end{enumerate}
+\end{Hresult}
+
+\begin{Hproof}
+For part 1, 
+start from the definition~(\ref{eq:L1_norm_lin_reg}),
+\be
+e_j = y_j - w x_j - b,
+\ee
+add up all the errors, $j=1\ldots m$, and divide by $m$,
+\be
+\frac{1}{m} \sum_{j=1}^m e_j  = 
+  \frac{1}{m} \sum_{j=1}^m y_j - w x_j - b.
+  \ee
+Substitute the definitions of $\mu_x$ and $\mu_y$
+from~(\ref{eq:simple_average})
+  \be
+  = \mu_y - w \mu_x - b \ee
+and finally, substitute the model 
+equation~(\ref{eq:lin_reg_model}) with values of
+$y \mapsto \mu_y$ and $x \mapsto \mu_x$,
+\be = \mu_y - w \mu_x - \mu_y + w \mu_x = 0 \ee
+which is the result for part 1.
+
+For part 2, show that the error at the point ($\mu_x, \mu_y$) 
+is zero, 
+\be
+\left.e_j\right|_{(\bar{x},\bar{y})}
+ = \left.y_j\right|_{\bar{y}} - 
+(w \left.x_j\right|_{\bar{x}} + b) = \frac{1}{m}\sum_{j=1}^m y_j 
+ - \left( 
+ \frac{w}{m}\sum_{j=1}^m x_j + b
+ \right).
+\ee
+Rearranging, 
+\be
+\left.e_j\right|_{(\mu_x,\mu_y)}
+ = 
+ \frac{1}{m}\sum_{j=1}^m 
+ \left(
+ y_j - (w x_j + b)
+ \right)
+ = 
+ \frac{1}{m}\sum_{j=1}^m 
+ e_j = 0
+\ee
+by the result in part 1.  This 
+shows that the point ($\mu_x, \mu_y$) is on the 
+line described by the model in~(\ref{eq:lin_reg_model}).
+\end{Hproof}
+
