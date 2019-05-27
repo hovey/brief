@@ -1,3 +1,5 @@
+#!/usr/bin/env python3
+# dice_roll.py
 import matplotlib.pyplot as plt
 from matplotlib import rc
 import numpy as np

@@ -1,3 +1,5 @@
+#!/usr/bin/env python3
+# dice_moment.py
 import numpy as np
 import matplotlib as mpl
 from matplotlib import rc
