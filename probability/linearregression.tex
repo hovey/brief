@@ -32,8 +32,8 @@ Assume equal likelihood of each observation.
 Given the observations, the objective
 of univariate linear regression is to 
 \begin{enumerate}
-\item find model parameters $(w, b)$ that {\bf best fit} the 
-observed data, and 
+\item find {\bf best fit model parameters 
+$(\hat{w}, \hat{b})$}, and
 \item quantify the {\bf correlation coefficient}, 
 which is an objective measure of 
 how well the best fit model describes the underlying 
@@ -66,14 +66,75 @@ in~(\ref{eq:L1_norm_lin_reg}) may be used as the objective
 error function, the L2-norm is frequently used as an 
 alternative to the L1-norm.
 
-For this model, the L2-error norm is defined as
+\be
+\parallel \ve{e} (w, b)
+\parallel_2 \;  \defe \sum_{j=1}^m \left(e_j(w,b)\right)^2 
+= \sum_{j=1}^m \left(
+ y_i - (w x_i + b)
+\right)^2.
+\label{eq:L2_norm_lin_reg}
+\ee
+
+\begin{Hremark}
+The use of the L2-norm is called {\bf ordinary least squares}
+(OLS),
+wherein the goal is to minimize the square of the sum of the 
+deviations of the observation output $y_i$ and the model's
+output $(w x_i + b)$.  This is also called the RSS for
+{\bf residual sum of squares}.
+\end{Hremark}
+
+\begin{Hremark}
+The TSS, {\bf total sum of squares}, gives rise to the 
+{\bf R-squared metric}, defined as
+\be
+R^2 \defe 1 - \frac{\mbox{RSS}}{\mbox{TSS}} = 
+1 - 
+\frac{
+ \dst\sum_{j=1}^m \left(e_j(w,b)\right)^2
+}{
+ \dst\sum_{j=1}^m (y_j - \bar{y})^2
+}
+\ee
+The square of the Pearson Correlation Coefficient (PCC) is
+equal to the R-squared value,
+\be
+(\rho_{X,Y})^2 = R^2.
+\ee
+\end{Hremark}
+
+
+\begin{Hresult}
+Given 
+a univariate linear regression model and data consisting of
+$m$ pair of observations ($x_j, y_j$), $j=1\ldots m$, 
+the best fit model parameters 
+$(\hat{w}, \hat{b})$ are
+\be
+\hat{w} = 
+ \frac{\dst\sum_{j=1}^m 
+  \left(x_j - \bar{x}\right)
+  \left(y_j - \bar{y}\right)}
+  {\dst\sum_{j=1}^m
+  \left(x_j - \bar{x}\right)^2}.
+  \label{eq:result_w_hat}
+\ee 
+and
+\be
+\hat{b} = 
+\bar{y} - \hat{w} \; \bar{x}.
+\label{eq:result_b_hat}
+\ee
+\end{Hresult}
+
+\begin{Hproof}
+For this model, start with the L2-error norm is defined as
 \be
 \parallel \ve{e} (w, b)
 \parallel_2 \;  \defe \sum_{j=1}^m \left(e_j(w,b)\right)^2 
 = \sum_{j=1}^m \left(
  y_i - w x_i - b
 \right)^2.
-\label{eq:L2_norm_lin_reg}
 \ee
 Using the notation $E_2 \in \real$ to denote the L2-error norm
 in~(\ref{eq:L2_norm_lin_reg}),
@@ -103,65 +164,77 @@ and
 \label{eq:partial_E_b}
 \ee
 Setting~(\ref{eq:partial_E_b}) equal to zero, and 
-using the definitions of $\mu_x$ and $\mu_y$
+using the definitions of $\bar{x}$ and $\bar{y}$
 from~(\ref{eq:simple_average}),
 \be
-b = \mu_y - w \mu_x \; \mbox{ to minimize } E_2.
+\hat{b} = \bar{y} - w \bar{x} \; \mbox{ to minimize } E_2.
 \label{eq:b_for_E_2_min}
 \ee
 Substituting
 (\ref{eq:b_for_E_2_min}) into 
-(\ref{eq:E_2_w_b}) for values of $b$ that minimize
+(\ref{eq:E_2_w_b}) for values of $\hat{b}$ that minimize
 $E_2$ allows
 (\ref{eq:E_2_w_b}) to be written as a function of 
 $w$ alone, 
-\begin{align}
-E_2(w) = \sum_{j=1}^m & 
-\; y_j^2 - 2 y_j w x_j - 2 y_j (\mu_y - w \mu_x) + 
-w^2 x_j^2 + \nonumber \\
-& 2 w x_j (\mu_y - w \mu_x) + 
-(\mu_y - w \mu_x)^2.
-\end{align}
-Then, 
-\begin{align}
-\frac{d E_2}{dw} = 
-\sum_{j=1}^m & 
-\; -2 y_j x_j + 2 y_j \mu_x + 2 w x_j^2 + \nonumber \\
-& 2 x_j \mu_y - 4 w x_j \mu_x +
-2(\mu_y - w \mu_z)(-\mu_x)  
-\overset{\mbox{\tiny set}}{=} 0, 
-\end{align}
-or
-\begin{align}
-0 & = \sum_{j=1}^m 
--y_j x_j + y_j \mu_x + w x_j^2 + 
- x_j \mu_y - 2 w x_j \mu_x + w \mu_x \mu_x - \mu_x \mu_y, \\
- & = \sum_{j=1}^m
- -\left(x_j - \mu_x\right)
-  \left(y_j - \mu_y\right) 
-  + 
-  w \left(x_j - \mu_x\right)^2.
-\end{align}
-Solving for $w$
 \be
-w = \frac{\dst\sum_{j=1}^m 
-  \left(x_j - \mu_x\right)
-  \left(y_j - \mu_y\right)}
+E_2(w) = \sum_{j=1}^m 
+\; y_j^2 - 2 y_j w x_j - 2 y_j (\bar{y} - w \bar{x}) + 
+w^2 x_j^2 + 
+ 2 w x_j (\bar{y} - w \bar{x}) + 
+(\bar{y} - w \bar{x})^2.
+\ee
+Then, 
+\be
+\frac{d E_2}{dw} = 
+\sum_{j=1}^m 
+\; -2 y_j x_j + 2 y_j \bar{x} + 2 w x_j^2 + 
+2 x_j \bar{y} - 4 w x_j \bar{x} +
+2(\bar{y} - w \bar{x})(-\bar{x})  
+\overset{\mbox{\tiny set}}{=} 0, 
+\ee
+or
+\be
+0  = \sum_{j=1}^m 
+-y_j x_j + y_j \bar{x} + w x_j^2 + 
+ x_j \bar{y} - 2 w x_j \bar{x} + w \bar{x} \bar{x} - 
+ \bar{x} \bar{y}, 
+\ee
+\be
+ 0 = \sum_{j=1}^m
+ -\left(x_j - \bar{x}\right)
+  \left(y_j - \bar{y}\right) 
+  + 
+  w \left(x_j - \bar{x}\right)^2.
+%\end{align}
+\ee
+Solving for $w$ is then the best fit $\hat{w}$
+\be
+\hat{w} = \frac{\dst\sum_{j=1}^m 
+  \left(x_j - \bar{x}\right)
+  \left(y_j - \bar{y}\right)}
   {\dst\sum_{j=1}^m
-  \left(x_j - \mu_x\right)^2}.
+  \left(x_j - \bar{x}\right)^2}.
 \ee
 Multiplying both the numerator and the denominator
 by $\frac{1}{m}$ gives
 \be
-w = \frac{\cov(X,Y)}{\var(X)}.
+\hat{w} = \frac{\cov(X,Y)}{\var(X)}.
+\label{eq:w_cov_var}
 \ee
 Thus the first objective of univariate linear regression, 
-find model parameters ($w, b$) the best fit to the 
-observed data (by minimizing
+find model parameters ($\hat{w}, \hat{b}$) 
+the best fit to the observed data (by minimizing
 the error between the model and the data) has been accomplished.
+\end{Hproof}
 The second and final objective, to quantify the quality of
 the best fit, follows.
+\begin{Hresult}
+\be
+\rho_{X,Y} = \frac{\hat{w} \; \sigma_x}{\sigma_y}.
+\ee
+\end{Hresult}
 
+\begin{Hproof}
 Using the sample correlation coefficient
 $\rho_{X,Y}$, the sample (uncorrected) standard 
 deviation $\sigma_x$ and $\sigma_y$, the sample
@@ -172,9 +245,10 @@ variance and covariance,
 \end{align}
 then
 \be
-w = \frac{\rho_{X,Y} \sigma_y}{\sigma_x} \implies
-\rho_{X,Y} = \frac{w \; \sigma_x}{\sigma_y}.
+\hat{w} = \frac{\rho_{X,Y} \sigma_y}{\sigma_x} \implies
+\rho_{X,Y} = \frac{\hat{w} \; \sigma_x}{\sigma_y}.
 \ee
+\end{Hproof}
 
 \begin{Hresult}
 As long as the univariate linear regression model includes the 
@@ -187,7 +261,7 @@ $b \overset{\mbox{\tiny set}}{=} 0$.), then
 \sum_{j=1}^m e_j = 0, \;\; \mbox{and}
 \ee
 \item the model regression line goes through the center of 
-mass point ($\mu_x, \mu_y$).
+mass point ($\bar{x}, \bar{y}$).
 \end{enumerate}
 \end{Hresult}
 
@@ -202,17 +276,16 @@ add up all the errors, $j=1\ldots m$, and divide by $m$,
 \frac{1}{m} \sum_{j=1}^m e_j  = 
   \frac{1}{m} \sum_{j=1}^m y_j - w x_j - b.
   \ee
-Substitute the definitions of $\mu_x$ and $\mu_y$
+Substitute the definitions of $\bar{x}$ and $\bar{y}$
 from~(\ref{eq:simple_average})
   \be
-  = \mu_y - w \mu_x - b \ee
+  = \bar{y} - w \bar{x} - b \ee
 and finally, substitute the model 
 equation~(\ref{eq:lin_reg_model}) with values of
-$y \mapsto \mu_y$ and $x \mapsto \mu_x$,
-\be = \mu_y - w \mu_x - \mu_y + w \mu_x = 0 \ee
+$y \mapsto \bar{y}$ and $x \mapsto \bar{x}$,
+\be = \bar{y} - w \bar{x} - \bar{y} + w \bar{x} = 0 \ee
 which is the result for part 1.
-
-For part 2, show that the error at the point ($\mu_x, \mu_y$) 
+For part 2, show that the error at the point ($\bar{x}, \bar{y}$) 
 is zero, 
 \be
 \left.e_j\right|_{(\bar{x},\bar{y})}
@@ -224,7 +297,7 @@ is zero,
 \ee
 Rearranging, 
 \be
-\left.e_j\right|_{(\mu_x,\mu_y)}
+\left.e_j\right|_{(\bar{x},\bar{y})}
  = 
  \frac{1}{m}\sum_{j=1}^m 
  \left(
@@ -235,7 +308,67 @@ Rearranging,
  e_j = 0
 \ee
 by the result in part 1.  This 
-shows that the point ($\mu_x, \mu_y$) is on the 
+shows that the point ($\bar{x}, \bar{y}$) is on the 
 line described by the model in~(\ref{eq:lin_reg_model}).
 \end{Hproof}
 
+%\definecolor{hlightgray}{rgb}{0.95,0.95,0.95}
+\begin{Hexample}
+{
+%\colorbox{hlightgray}{Here we present a small example of artificially}
+Here we present a small example of artificially 
+constructed data
+useful for purposes of illustration and unit
+testing.\footnote{Adapted from http://onlinestatbook.com/2/regression/intro.html}
+Consider the following $m=5$ pair of observations
+($x_j, y_j$), $j=1\ldots m$,
+\begin{align}
+\vx & = {\tt [\; 1.00, 2.00, 3.00, 4.00, 5.00 \;]} \\
+\vy & = {\tt [\; 1.00, 2.00, 1.30, 3.75, 2.25 \;]}
+\end{align}
+Calculating the averages, covariance, and variances, we find
+\begin{align}
+\bar{x} &= {\tt (1.00+2.00+3.00+4.00+5.00)/5 = 3.00 } \\
+\bar{y} &= {\tt (1.00+2.00+1.30+3.75+2.25)/5 = 2.06 } \\
+\cov(\vx, \vy) &= {\tt \left((1.00-3.00)(1.00-2.06) + \right.} \nonumber \\
+& \hspace{0.7cm} {\tt (2.00-3.00)(2.00-2.06) + } \nonumber \\
+& \hspace{0.7cm} {\tt (3.00-3.00)(1.30-2.06) + } \nonumber \\ 
+& \hspace{0.7cm} {\tt (4.00-3.00)(3.75-2.06) + } \nonumber \\
+& \hspace{0.7cm} {\tt \left.(5.00-3.00)(2.25-2.06)/5 \right)
+  = 0.85} \\
+\var(\vx) 
+&= {\tt \left((1.00-3.00)^2 + \right.} \nonumber \\
+& \hspace{0.7cm} {\tt (2.00-3.00)^2 + } \nonumber \\
+& \hspace{0.7cm} {\tt (3.00-3.00)^2 + } \nonumber \\ 
+& \hspace{0.7cm} {\tt (4.00-3.00)^2 + } \nonumber \\
+& \hspace{0.7cm} {\tt \left.(5.00-3.00)^2)/5 \right)
+  = 2.00}  \\
+\var(\vx) 
+&= {\tt \left((1.00-3.00)^2 + \right.} \nonumber \\
+& \hspace{0.7cm} {\tt (2.00-3.00)^2 + } \nonumber \\
+& \hspace{0.7cm} {\tt (3.00-3.00)^2 + } \nonumber \\ 
+& \hspace{0.7cm} {\tt (4.00-3.00)^2 + } \nonumber \\
+& \hspace{0.7cm} {\tt \left.(5.00-3.00)^2)/5 \right)
+  = 2.00} 
+\end{align}
+Then, with (\ref{eq:result_w_hat}), or 
+equivalently (\ref{eq:w_cov_var}),
+\be
+\hat{w} = \frac{\cov(\vx, \vy)}{\var(\vx)} = \frac{\tt 0.85}{\tt 2.00} = {\tt 0.425}
+\ee
+as the slope (weight), and with (\ref{eq:result_b_hat})
+\be
+\hat{b} = \bar{y} - \hat{w} \bar{x} = {\tt 2.06 - 0.425 * 3.00 = 
+0.785
+},
+\ee
+as the intercept (bias).
+The Pearson Correlation Coefficient (PCC) is found 
+with (xxx) as,
+\be
+\rho_{X,Y} = \frac{\hat{w}\sigma_x}{\sigma_y} = 
+\frac{\hat{w} \sqrt{\var(\vx)}}{\sqrt{\var(\vy)}} = 
+{\tt }
+\ee
+}
+\end{Hexample}

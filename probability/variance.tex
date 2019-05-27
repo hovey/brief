@@ -19,7 +19,8 @@ For the special case where each probability is equally likely,
 \be
 \var(X)
 \overset{(\ref{eq:variance})}{=} 
-\sum_{i=1}^n \; p_i x^2_i - \mu^2 = \frac{1}{n} \sum_{i=1}^n \; x^2_i - \mu^2 
+\sum_{i=1}^n \; p_i x^2_i - \bar{x}^2 = 
+\frac{1}{n} \sum_{i=1}^n \; x^2_i - \bar{x}^2 
 \defe
 \sigma_x^2,
 \label{eq:simple_variance}
@@ -31,13 +32,15 @@ The form of (\ref{eq:simple_variance}) is often stated in slightly
 different form, 
 \begin{align}
 \sigma_x^2 = 
-\frac{1}{n} \sum_{i=1}^n \; x^2_i - \mu^2 & =
-\frac{1}{n} \sum_{i=1}^n \; x^2_i - 2 \mu^2 + \mu^2, \\
-& \overset{(\ref{eq:simple_average})}{=} \frac{1}{n} \sum_{i=1}^n \; x^2_i -
-    \frac{2\mu}{n} \sum_{i=1}^n \; x_i +
-	\frac{n \mu^2}{n}, \\
-& = \frac{1}{n} \sum_{i=1}^n \left( x^2_i - 2 \mu x_i + \mu^2 \right), \\
-& = \frac{1}{n} \sum_{i=1}^n \left( x_i - \mu \right)^2.
+\frac{1}{n} \sum_{i=1}^n \; x^2_i - \bar{x}^2 & =
+\frac{1}{n} \sum_{i=1}^n \; x^2_i - 2 \bar{x}^2 + \bar{x}^2, \\
+& \overset{(\ref{eq:simple_average})}{=} 
+\frac{1}{n} \sum_{i=1}^n \; x^2_i -
+    \frac{2\bar{x}}{n} \sum_{i=1}^n \; x_i +
+	\frac{n \bar{x}^2}{n}, \\
+& = \frac{1}{n} \sum_{i=1}^n 
+\left( x^2_i - 2 \bar{x} x_i + \bar{x}^2 \right), \\
+& = \frac{1}{n} \sum_{i=1}^n \left( x_i - \bar{x} \right)^2.
 \end{align}
 \end{Hremark}
 
@@ -85,11 +88,11 @@ If the probability of each outcome is equal, the $p_i = 1/n$, and
 (\ref{eq:cov_discrete}) becomes
 \be
 \cov(X,Y) = \frac{1}{n} \; \sum_{i=1}^n \; \left(
-x_i - \mu_x
+x_i - \bar{x}
 \right)
 \;
 \left(
-y_i - \mu_y
+y_i - \bar{y}
 \right).
 \label{eq:cov_discrete_equal}
 \ee

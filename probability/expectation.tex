@@ -109,14 +109,17 @@ equal to unity,
 \sum_{i=1}^n \; p_i = 1.0,
 \ee
 the expected
-value $\bar{x}$ is considered the 
+value is considered the 
 {\bf weighted average}, where each $p_i$ is the 
 {\bf weight}.
 
 \begin{Hremark}
-The weighted average $\bar{x}$ is also 
+The weighted average is also 
 known as the {\bf first moment}, which is 
 analogous to the {\bf center of mass} of a rigid body.
+The center of mass analogy applies to both the non-equal
+likelihood case (non-uniform mass density) and equal
+likelihood case (uniform mass density).
 \end{Hremark}
 
 \subsection{Equal Likelihood}
@@ -136,12 +139,17 @@ defined as $\mu$
 and is referred to as the {\bf simple average}.
 
 \begin{Hremark}
-The expectation $\ex$, 
-also known as the weighted average of $X$
-and denoted $\bar{x}$, should
-not be confused with $\mu$, the simple average of $X$.  
-The latter is a special
-case of the former, as just demonstrated in the above sections.
+The expectation $\ex$ should not be confused 
+with $\mu$, the simple average of $X$.  
+The simple average (equal likelihood) is a special
+case of the expectation (non-equal likelihood).
+\end{Hremark}
+
+\begin{Hremark}
+When multiple variables are considered, \eg $X$ and $Y$, 
+the simple averages are denoted 
+$\mu_x$ and $\mu_y$ or equivalently, $\bar{x}$ and $\bar{y}$,
+respectively.
 \end{Hremark}
 
 \begin{Hexample}
@@ -154,7 +162,7 @@ has equal likelihood of any of the 6 outcomes, and
 Eq.~(\ref{eq:simple_average}) is used.
 The expected value is calculated as
 \be
-\mu = \ex = \frac{1}{6} \left(1 + 2 + 3 + 4 + 5 + 6 \right) = 3.5
+\ex = \mu = \mu_x = \bar{x} = \frac{1}{6} \left(1 + 2 + 3 + 4 + 5 + 6 \right) = 3.5
 \ee
 }
 \end{Hexample}
@@ -251,7 +259,7 @@ non-uniform density case.
   \begin{overpic}[width=\textwidth]{fig/dice_moment.pdf}
  \end{overpic}
  \end{center}
- \caption{Graphical interpretation of average as first moment center of mass.}
+ \caption{Graphical interpretation of the simple average as the first moment center of mass $\bar{x}$.}
  \label{fig:dice_moment}
 \end{figure}
 
