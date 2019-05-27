@@ -98,23 +98,24 @@ to as the {\bf cross-correlation score}.
 
 \begin{Hexample}
 	{
-    This example is a reproduction of the cross-correlation example
-	from https://anomaly.io/understand-auto-cross-correlation-normalized-shift/.
+    This example is a reproduction of the cross-correlation 
+    example on the Anomali site.\footnote{See 
+https://anomaly.io/understand-auto-cross-correlation-normalized-shift/}
 	Let vectors $\va$, $\vb$, and $\vc$ be defined as follows,
 	\begin{align}
-		\va &= [\; 1, 2, -2, 4, 2, 3, 1, 0 \;] \\
-		\vb &= [\; 2, 3, -2, 3, 2, 4, 1, -1 \; ] \\
-		\vc &= [\; -2, 0, 4, 0, 1, 1, 0, -2 \;]
+		\va &= {\tt [\; 1, 2, -2, 4, 2, 3, 1, 0 \;]} \\
+		\vb &= {\tt [\; 2, 3, -2, 3, 2, 4, 1, -1 \; ]} \\
+		\vc &= {\tt [\; -2, 0, 4, 0, 1, 1, 0, -2 \;]}
 	\end{align}
 	Then the cross-correlation score between $\va$ and $\vb$ is found to be 
 	high, 
 	\be
-	\va \cdot \vb = 41; 
+	\va \cdot \vb = {\tt 41}; 
 	\ee
 	whereas, the cross-correlation score between $\va$ and $\vc$ is found to 
 	be low, 
 	\be
-	\va \cdot \vc = -5.
+	\va \cdot \vc = {\tt -5}.
 	\ee
 	}
 \end{Hexample}
@@ -521,12 +522,12 @@ $(n-1)$ &
 \begin{Hexample}
 	{
     This example is a reproduction of the normalized cross-correlation with
-    time shift example
-	from https://anomaly.io/understand-auto-cross-correlation-normalized-shift/.
+    time shift example from the Anomaly site.\footnote{See 
+https://anomaly.io/understand-auto-cross-correlation-normalized-shift/}
 	Let vectors $\va$ and $\vb$ be defined as follows,
 	\begin{align}
-		\va &= [\; 0, 1, 2, 3, 4, \;\; 0, 1, 2, 3, 4, \;\; 0, 1, 2, 3, 4, \;\; 0, 1, 2, 3, 4 \; ] \\
-		\vb &= [\; 1, 2, 3, 3, 0, \;\; 1, 2, 3, 4, 0, \;\; 1, 1, 4, 4, 0, \;\; 1, 2, 3, 4, 0 \; ] 
+		\va &= {\tt [\; 0, 1, 2, 3, 4, \;\; 0, 1, 2, 3, 4, \;\; 0, 1, 2, 3, 4, \;\; 0, 1, 2, 3, 4 \; ] } \\
+		\vb &= {\tt [\; 1, 2, 3, 3, 0, \;\; 1, 2, 3, 4, 0, \;\; 1, 1, 4, 4, 0, \;\; 1, 2, 3, 4, 0 \; ] }
 	\end{align}
     where slight spacing has been interjected between every fifth element, to help
     illustrate the pattern embedded in the series.  
@@ -541,7 +542,7 @@ $(n-1)$ &
     \begin{center}
     \begin{tabular}{rccccccccc}    
        $\Delta t$ & -4 & -3 & -2 & -1 & 0 & 1 & 2 & 3 & 4 \\
-       $c_i$ & 0.862 & 0.021 & -0.547 & -0.423 & 0.000 & {\bf 0.867} & 
+       $c_i$ & 0.862 & 0.021 & -0.547 & -0.423 & 0.000 & \colorbox{yellow}{\bf 0.867} & 
        0.127 & -0.466 & -0.393 
     \end{tabular}
     \end{center}
