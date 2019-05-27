@@ -1038,7 +1038,8 @@
 % loaded 
 
 %\usepackage{amssymb}  % must have been included already
-
+\definecolor{hdarkblue}{rgb}{0,0,0.5}  % dark blue [0,1] channel
+\definecolor{hlightgray}{rgb}{0.9,0.9,0.9}
 \newenvironment{Hproof}{           % beginning the environment
     %\\
     \medskip
@@ -1046,12 +1047,30 @@
 %    \begin{tabular}{|l}
 %    \begin{minipage}[b]{1.00\linewidth}
     \sffamily\footnotesize
-    \noindent\makebox[\linewidth]{\rule{\linewidth}{0.4pt}}
-    \noindent{\em Proof.} \\
+    \noindent\makebox[\linewidth]{\color{hdarkblue}\rule{\linewidth}{0.4pt}}
+    %\color{darkgray}\noindent{\em Proof.} \\
+    \color{hdarkblue} \noindent{\em Proof.} \\
+    %\color{blue4} \noindent{\em Proof.} \\  % blue4 does not work
+     %%% https://tex.stackexchange.com/questions/236949/how-to-change-the-background-color-within-a-page
+     %%%\begingroup
+     %%%\offinterlineskip
+     %%%\hbox to 0pt{%
+     %%%\kern-\paperwidth
+     %%%\vtop to 0pt{%
+     %%%\color{red}%
+     %%%\hrule width 2\paperwidth height \paperheight
+     %%%\vss
+     %%%} % vtop 
+     %%%\hss
+     %%%} % hbox
+     %%%\endgroup
+     %%%
      %\smallskip 
                } {              % ending the environment
     \hfill $\blacksquare$
-    \noindent\makebox[\linewidth]{\rule{\linewidth}{0.4pt}}
+    %\noindent\makebox[\linewidth]{\rule{\linewidth}{0.4pt}}
+    %\noindent\makebox[\linewidth]{\color{blue}\rule{\linewidth}{4.4pt}}
+    \noindent\makebox[\linewidth]{\color{hdarkblue}\rule{\linewidth}{0.4pt}}
 %     \end{minipage} 
 %    \end{tabular}
 %    \end{center}
@@ -1096,10 +1115,20 @@
  {
   \stepcounter{Hexamplectr}%
   \medskip
-  \begin{center}
-    \fbox{\parbox[b]{0.9\linewidth}{
-      \noindent {\bf Example \theHexamplectr} #1}}
-  \end{center}
+  %\begin{center}
+    %\fbox{\parbox[b]{0.9\linewidth}{
+      %\noindent\makebox[\linewidth]{\color{hlightgray}\rule{\linewidth}{4.4pt}}
+      %\noindent {\colorbox{hlightgray}{\parbox{\linewidth}{\bf \center Example \theHexamplectr}}} \\ \\ #1
+      \noindent {\colorbox{hlightgray}{\parbox{\linewidth}{\bf Example \theHexamplectr}}} \\ #1 
+      %\noindent {\colorbox{hlightgray}{\parbox{\linewidth}{\bf Example \theHexamplectr #1 }}}  % don't use b/c does not span 2 or more pages
+      %\noindent \colorbox{red}{test}{\bf Example \theHexamplectr} #1
+      % \noindent {\bf Example \theHexamplectr} #1
+%      \noindent {\bf Example \theHexamplectr} {\colorbox{red}{#1}}
+                                   %}
+         %}
+  %\end{center}
+      \noindent {\colorbox{hlightgray}{\parbox{\linewidth}{\bf \centering $\cdots$}}} \vspace{2cm}
+      %\noindent\makebox[\linewidth]{\color{hlightgray}\rule{\linewidth}{12pt}}
  }{
   \medskip
  }
