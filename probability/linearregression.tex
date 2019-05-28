@@ -26,7 +26,7 @@ The two real-valued numbers ($w, b$) are called
 
 \subsubsection{Data}
 
-Assume $m$ pair of observations ($x_j, y_j$), $j=1\ldots m$, 
+Assume $n$ pair of observations ($x_i, y_i$), $i=1\ldots n$, 
 have been made.  
 Assume equal likelihood of each observation.
 Given the observations, the objective
@@ -42,22 +42,22 @@ observed data.
 
 \subsubsection{Error Function}
  
-For each observation ($x_j, y_j$) pair, there is an error
-$e_j(w,b)$ that is defined as the difference between the 
-actual observed response $y_j$ and the model's 
-predicted response $w x_j + b$, defined as
+For each observation ($x_i, y_i$) pair, there is an error
+$e_i(w,b)$ that is defined as the difference between the 
+actual observed response $y_i$ and the model's 
+predicted response $w x_i + b$, defined as
 \be
- e_j(w,b) \defe y_j - \left(w x_j + b \right).
+ e_i(w,b) \defe y_i - \left(w x_i + b \right).
 \label{eq:L1_norm_lin_reg}
 \ee
-The error accumulated for all $m$ observations can be 
+The error accumulated for all $n$ observations can be 
 written as
 \be
 \parallel \ve{e} (w, b)
-\parallel_1 \;  \defe \sum_{j=1}^m \abs{e_j(w,b)}.
+\parallel_1 \;  \defe \sum_{i=1}^n \abs{e_i(w,b)}.
 \ee
 This is the L1-norm of the error vector $\ve{e}
-= [e_1, e_2, \ldots, e_m] \in \real^m$.
+= [\;e_1, e_2, \ldots, e_n\;] \in \real^n$.
 See Section~\ref{sec:pnorm} for more details on p-norms.
 
 The model parameters $(w, b)$ are said to be best fit
@@ -68,8 +68,8 @@ alternative to the L1-norm.
 
 \be
 \parallel \ve{e} (w, b)
-\parallel_2 \;  \defe \sum_{j=1}^m \left(e_j(w,b)\right)^2 
-= \sum_{j=1}^m \left(
+\parallel_2 \;  \defe \sum_{i=1}^n \left(e_i(w,b)\right)^2 
+= \sum_{i=1}^n \left(
  y_i - (w x_i + b)
 \right)^2.
 \label{eq:L2_norm_lin_reg}
@@ -91,9 +91,9 @@ The TSS, {\bf total sum of squares}, gives rise to the
 R^2 \defe 1 - \frac{\mbox{RSS}}{\mbox{TSS}} = 
 1 - 
 \frac{
- \dst\sum_{j=1}^m \left(e_j(w,b)\right)^2
+ \dst\sum_{i=1}^n \left(e_i(w,b)\right)^2
 }{
- \dst\sum_{j=1}^m (y_j - \bar{y})^2
+ \dst\sum_{i=1}^n (y_i - \bar{y})^2
 }
 \ee
 The square of the Pearson Correlation Coefficient (PCC) is
@@ -107,16 +107,16 @@ equal to the R-squared value,
 \begin{Hresult}
 Given 
 a univariate linear regression model and data consisting of
-$m$ pair of observations ($x_j, y_j$), $j=1\ldots m$, 
+$n$ pair of observations ($x_i, y_i$), $i=1\ldots n$, 
 the best fit model parameters 
 $(\hat{w}, \hat{b})$ are
 \be
 \hat{w} = 
- \frac{\dst\sum_{j=1}^m 
-  \left(x_j - \bar{x}\right)
-  \left(y_j - \bar{y}\right)}
-  {\dst\sum_{j=1}^m
-  \left(x_j - \bar{x}\right)^2}.
+ \frac{\dst\sum_{i=1}^n 
+  \left(x_i - \bar{x}\right)
+  \left(y_i - \bar{y}\right)}
+  {\dst\sum_{i=1}^n
+  \left(x_i - \bar{x}\right)^2}.
   \label{eq:result_w_hat}
 \ee 
 and
@@ -128,11 +128,11 @@ and
 \end{Hresult}
 
 \begin{Hproof}
-For this model, start with the L2-error norm is defined as
+For this model, start with the L2-error norm, defined as
 \be
 \parallel \ve{e} (w, b)
-\parallel_2 \;  \defe \sum_{j=1}^m \left(e_j(w,b)\right)^2 
-= \sum_{j=1}^m \left(
+\parallel_2 \;  \defe \sum_{i=1}^n \left(e_i(w,b)\right)^2 
+= \sum_{i=1}^m \left(
  y_i - w x_i - b
 \right)^2.
 \ee
@@ -141,8 +141,8 @@ in~(\ref{eq:L2_norm_lin_reg}),
 we expand and simplify the squared term,
 \be
 E_2(w,b) = 
-\sum_{j=1}^m y_j^2 - 2 y_j w x_j - 2 y_j b + w^2 x_j^2 
-+ 2 w x_j b + b^2.
+\sum_{i=1}^n y_i^2 - 2 y_i w x_i - 2 y_i b + w^2 x_i^2 
++ 2 w x_i b + b^2.
 \label{eq:E_2_w_b}
 \ee
 Since $E_2$ is the summation of squared quantities, 
@@ -154,13 +154,13 @@ found by taking partial derivatives of the error function
 with respect to the parameters $w$ and $b$:
 \be
 \frac{\partial E_2}{\partial w} = 
-\sum_{j=1}^m -2 y_j x_j + 2 w x_j^2 + 2 x_j b
+\sum_{i=1}^n -2 y_i x_i + 2 w x_i^2 + 2 x_i b
 \label{eq:partial_E_w}
 \ee
 and
 \be
 \frac{\partial E_2}{\partial b} = 
-\sum_{j=1}^m -2 y_j + 2 w x_j + 2 b.
+\sum_{i=1}^n -2 y_i + 2 w x_i + 2 b.
 \label{eq:partial_E_b}
 \ee
 Setting~(\ref{eq:partial_E_b}) equal to zero, and 
@@ -177,46 +177,46 @@ $E_2$ allows
 (\ref{eq:E_2_w_b}) to be written as a function of 
 $w$ alone, 
 \be
-E_2(w) = \sum_{j=1}^m 
-\; y_j^2 - 2 y_j w x_j - 2 y_j (\bar{y} - w \bar{x}) + 
-w^2 x_j^2 + 
- 2 w x_j (\bar{y} - w \bar{x}) + 
+E_2(w) = \sum_{i=1}^n 
+\; y_i^2 - 2 y_i w x_i - 2 y_i (\bar{y} - w \bar{x}) + 
+w^2 x_i^2 + 
+ 2 w x_i (\bar{y} - w \bar{x}) + 
 (\bar{y} - w \bar{x})^2.
 \ee
 Then, 
 \be
 \frac{d E_2}{dw} = 
-\sum_{j=1}^m 
-\; -2 y_j x_j + 2 y_j \bar{x} + 2 w x_j^2 + 
-2 x_j \bar{y} - 4 w x_j \bar{x} +
+\sum_{i=1}^n 
+\; -2 y_i x_i + 2 y_i \bar{x} + 2 w x_i^2 + 
+2 x_i \bar{y} - 4 w x_i \bar{x} +
 2(\bar{y} - w \bar{x})(-\bar{x})  
 \overset{\mbox{\tiny set}}{=} 0, 
 \ee
 or
 \be
-0  = \sum_{j=1}^m 
--y_j x_j + y_j \bar{x} + w x_j^2 + 
- x_j \bar{y} - 2 w x_j \bar{x} + w \bar{x} \bar{x} - 
+0  = \sum_{i=1}^n 
+-y_i x_i + y_i \bar{x} + w x_i^2 + 
+ x_i \bar{y} - 2 w x_i \bar{x} + w \bar{x} \bar{x} - 
  \bar{x} \bar{y}, 
 \ee
 \be
- 0 = \sum_{j=1}^m
- -\left(x_j - \bar{x}\right)
-  \left(y_j - \bar{y}\right) 
+ 0 = \sum_{i=1}^n
+ -\left(x_i - \bar{x}\right)
+  \left(y_i - \bar{y}\right) 
   + 
-  w \left(x_j - \bar{x}\right)^2.
+  w \left(x_i - \bar{x}\right)^2.
 %\end{align}
 \ee
 Solving for $w$ is then the best fit $\hat{w}$
 \be
-\hat{w} = \frac{\dst\sum_{j=1}^m 
-  \left(x_j - \bar{x}\right)
-  \left(y_j - \bar{y}\right)}
-  {\dst\sum_{j=1}^m
-  \left(x_j - \bar{x}\right)^2}.
+\hat{w} = \frac{\dst\sum_{i=1}^n 
+  \left(x_i - \bar{x}\right)
+  \left(y_i - \bar{y}\right)}
+  {\dst\sum_{i=1}^n
+  \left(x_i - \bar{x}\right)^2}.
 \ee
 Multiplying both the numerator and the denominator
-by $\frac{1}{m}$ gives
+by $\frac{1}{n}$ gives
 \be
 \hat{w} = \frac{\cov(X,Y)}{\var(X)}.
 \label{eq:w_cov_var}
@@ -258,7 +258,7 @@ $b \overset{\mbox{\tiny set}}{=} 0$.), then
 \begin{enumerate}
 \item the sum of the errors is zero
 \be
-\sum_{j=1}^m e_j = 0, \;\; \mbox{and}
+\sum_{i=1}^n e_i = 0, \;\; \mbox{and}
 \ee
 \item the model regression line goes through the center of 
 mass point ($\bar{x}, \bar{y}$).
@@ -269,12 +269,12 @@ mass point ($\bar{x}, \bar{y}$).
 For part 1, 
 start from the definition~(\ref{eq:L1_norm_lin_reg}),
 \be
-e_j = y_j - w x_j - b,
+e_i = y_i - w x_i - b,
 \ee
-add up all the errors, $j=1\ldots m$, and divide by $m$,
+add up all the errors, $i=1\ldots n$, and divide by $n$,
 \be
-\frac{1}{m} \sum_{j=1}^m e_j  = 
-  \frac{1}{m} \sum_{j=1}^m y_j - w x_j - b.
+  \frac{1}{n} \sum_{i=1}^n e_i  = 
+  \frac{1}{n} \sum_{i=1}^n y_i - w x_i - b.
   \ee
 Substitute the definitions of $\bar{x}$ and $\bar{y}$
 from~(\ref{eq:simple_average})
@@ -288,24 +288,24 @@ which is the result for part 1.
 For part 2, show that the error at the point ($\bar{x}, \bar{y}$) 
 is zero, 
 \be
-\left.e_j\right|_{(\bar{x},\bar{y})}
- = \left.y_j\right|_{\bar{y}} - 
-(w \left.x_j\right|_{\bar{x}} + b) = \frac{1}{m}\sum_{j=1}^m y_j 
+\left.e_i\right|_{(\bar{x},\bar{y})}
+ = \left.y_i\right|_{\bar{y}} - 
+(w \left.x_i\right|_{\bar{x}} + b) = \frac{1}{n}\sum_{i=1}^n y_i 
  - \left( 
- \frac{w}{m}\sum_{j=1}^m x_j + b
+ \frac{w}{n}\sum_{i=1}^n x_i + b
  \right).
 \ee
 Rearranging, 
 \be
-\left.e_j\right|_{(\bar{x},\bar{y})}
+\left.e_i\right|_{(\bar{x},\bar{y})}
  = 
- \frac{1}{m}\sum_{j=1}^m 
+ \frac{1}{n}\sum_{i=1}^n 
  \left(
- y_j - (w x_j + b)
+ y_i - (w x_i + b)
  \right)
  = 
- \frac{1}{m}\sum_{j=1}^m 
- e_j = 0
+ \frac{1}{n}\sum_{i=1}^n
+ e_i = 0
 \ee
 by the result in part 1.  This 
 shows that the point ($\bar{x}, \bar{y}$) is on the 
@@ -320,8 +320,8 @@ Here we present a small example of artificially
 constructed data
 useful for purposes of illustration and unit
 testing.\footnote{Adapted from http://onlinestatbook.com/2/regression/intro.html}
-Consider the following $m=5$ pair of observations
-($x_j, y_j$), $j=1\ldots m$,
+Consider the following $n=5$ pair of observations
+($x_i, y_i$), $i=1\ldots n$,
 \begin{align}
 \vx & = {\tt [\; 1.00, 2.00, 3.00, 4.00, 5.00 \;]} \\
 \vy & = {\tt [\; 1.00, 2.00, 1.30, 3.75, 2.25 \;]}
