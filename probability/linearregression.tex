@@ -63,12 +63,14 @@ See Section~\ref{sec:pnorm} for more details on p-norms.
 The model parameters $(w, b)$ are said to be best fit
 when the error is minimized.  While the L1-norm error
 in~(\ref{eq:L1_norm_lin_reg}) may be used as the objective
-error function, the L2-norm is frequently used as an 
+error function, the {\em square} of the 
+L2-norm, defined in (\ref{eq:L2_norm}), is frequently used as an 
 alternative to the L1-norm.
 
 \be
-\parallel \ve{e} (w, b)
-\parallel_2 \;  \defe \sum_{i=1}^n \left(e_i(w,b)\right)^2 
+\left(\parallel \ve{e} (w, b)
+\parallel_2
+\right)^2 = \sum_{i=1}^n \left(e_i(w,b)\right)^2 
 = \sum_{i=1}^n \left(
  y_i - (w x_i + b)
 \right)^2.
@@ -76,7 +78,8 @@ alternative to the L1-norm.
 \ee
 
 \begin{Hremark}
-The use of the L2-norm is called {\bf ordinary least squares}
+The use of the square of the 
+L2-norm is called {\bf ordinary least squares}
 (OLS),
 wherein the goal is to minimize the square of the sum of the 
 deviations of the observation output $y_i$ and the model's
@@ -128,16 +131,23 @@ and
 \end{Hresult}
 
 \begin{Hproof}
-For this model, start with the L2-error norm, defined as
+For this model, start with the L2-norm of the error, defined 
+in~(\ref{eq:L2_norm}), and square it, as
 \be
+\left(
 \parallel \ve{e} (w, b)
-\parallel_2 \;  \defe \sum_{i=1}^n \left(e_i(w,b)\right)^2 
-= \sum_{i=1}^m \left(
+\parallel_2
+\right)^2 \;  \defe \sum_{i=1}^n \left(e_i(w,b)\right)^2 
+= \sum_{i=1}^n \left(
  y_i - w x_i - b
 \right)^2.
 \ee
-Using the notation $E_2 \in \real$ to denote the L2-error norm
-in~(\ref{eq:L2_norm_lin_reg}),
+Using the notation $\left(\parallel \ve{e} (w, b) \parallel_2 \right)^2 = 
+E_2 \in \real$ to denote the square of the L2-norm of the error
+in~(\ref{eq:L2_norm_lin_reg}),\footnote{See also ``Several Forms of
+Regression'' at \\
+http://www.johnmyleswhite.com/notebook/2013/03/22/using-norms-to-understand-linear-regression/ 
+wherein more detail on $E_1$ is presented, in addition to $E_2$.}
 we expand and simplify the squared term,
 \be
 E_2(w,b) = 
@@ -149,7 +159,7 @@ Since $E_2$ is the summation of squared quantities,
 $E_2(w,b) \geq 0\;\forall\; w \in \real, b \in \real$.
 $E_2(w,b)$ 
 behaves as a quadratic, scalar function.
-Values of $(w, b)$ that minimize the error $E_2$ are 
+Values of $(w, b)$ that minimize the squared error $E_2$ are 
 found by taking partial derivatives of the error function 
 with respect to the parameters $w$ and $b$:
 \be
@@ -177,7 +187,7 @@ $E_2$ allows
 (\ref{eq:E_2_w_b}) to be written as a function of 
 $w$ alone, 
 \be
-E_2(w) = \sum_{i=1}^n 
+E_2(w, b(w)) = \sum_{i=1}^n 
 \; y_i^2 - 2 y_i w x_i - 2 y_i (\bar{y} - w \bar{x}) + 
 w^2 x_i^2 + 
  2 w x_i (\bar{y} - w \bar{x}) + 
@@ -239,10 +249,10 @@ Using the sample correlation coefficient
 $\rho_{X,Y}$, the sample (uncorrected) standard 
 deviation $\sigma_x$ and $\sigma_y$, the sample
 variance and covariance,
-\begin{align}
-\var(X) & = \sigma_x^2, \\
-\cov(X,Y) &= \rho_{X,Y} \sigma_x \sigma_y,
-\end{align}
+\be
+\var(X) = \sigma_x^2, \;\; \mbox{ and } \;\;
+\cov(X,Y) = \rho_{X,Y} \sigma_x \sigma_y,
+\ee
 then
 \be
 \hat{w} = \frac{\rho_{X,Y} \sigma_y}{\sigma_x} \implies
@@ -481,4 +491,185 @@ fig.savefig(figure_name + '.pdf', bbox_inches='tight')
   regression relationship.}
   \label{fig:lin_regress_one}
 \end{figure}
+
+
+\subsection{Vectorized Univariate Linear Regression}
+
+The foregoing results can be recast from summation notation to 
+vector notation.
+
+\begin{Hresult}
+Given 
+a univariate linear regression model and data consisting of
+$n$ pair of observations ($x_i, y_i$), $i=1\ldots n$, 
+the best fit model parameters 
+$(\hat{w}, \hat{b})$ are
+\be
+\hat{w} = 
+\frac{\vx \cdot \vy - n \bar{x} \bar{y}}{\vx \cdot \vx - n \bar{x} \bar{x}}
+  \label{eq:result_w_hat_vectorize}
+\ee 
+and
+\be
+\hat{b} = 
+\bar{y} - \hat{w} \; \bar{x}.
+\label{eq:result_b_hat_vectorized}
+\ee
+\end{Hresult}
+
+\begin{Hproof}
+For the square of the 
+L2-norm of the error vector, defined 
+in~(\ref{eq:L2_norm}), we have  
+\be
+\left(
+\parallel \ve{e} (w, b)
+\parallel_2
+\right)^2 \;  \defe \sum_{i=1}^n \left(e_i(w,b)\right)^2 
+= \sum_{i=1}^n \left(
+ y_i - w x_i - b
+\right)^2
+= E_2(w,b), 
+\ee
+where 
+$E_2 \in \real$ and 
+$E_2(w,b) \geq 0\;\forall\; w \in \real, b \in \real$
+is a shorthand notation for the square of the L2-norm error
+rate, which behaves as a quadratic, scalar function.
+
+Write $E_2$ as the inner product of two vectors,
+\be
+E_2 = 
+\left(
+\vy - w \vx - b \ve{1}
+\right) 
+\cdot
+\left(
+\vy - w \vx - b \ve{1}
+\right), 
+\label{eq:vector_E_2}
+\ee
+where
+\be
+\ve{1} = [\; 1, 1, \ldots, 1 \;]  \;\; \mbox{ and } \;\; 
+\dim(\ve{1}) = n.
+\ee
+Expanding the dot product in (\ref{eq:vector_E_2}) gives
+\begin{align}
+E_2 = \;
+& \vy \cdot \vy - w \vx \cdot \vy - b \ve{1} \cdot \vy \; + \nonumber \\
+& - \vy \cdot w \vx + w^2 \vx \cdot \vx + b w \ve{1} \cdot \vx \; + \nonumber \\
+& - b \vy \cdot \ve{1} + b w \vx \cdot \ve{1} + b^2 \ve{1} \cdot \ve{1}.
+\end{align}
+Now, 
+\be
+b \ve{1} \cdot \vy 
+= b y_1 + b y_2 + \cdots + b y_n 
+= b \left( y_1 + y_2 + \cdots + y_n \right) 
+= n b \; \frac{1}{n} \sum_{i=1}^n y_i 
+= n b \bar{y}.
+\ee
+Similarly, $b \ve{1} \cdot \vx = n b \bar{x}$.
+Finally, 
+\be
+b^2 \ve{1} \cdot \ve{1} = b^2 
+\underset{\dst n\; \mbox{\footnotesize terms}}{\left(\underbrace{ 1 + 1 + \cdots + 1}
+\right)} 
+= 
+n b^2.
+\ee
+Further expanding the dot product originating from 
+(\ref{eq:vector_E_2}) gives
+\begin{align}
+E_2 = 
+&\; \vy \cdot \vy - w \vx \cdot \vy - n b \bar{y} \;+ \nonumber \\
+&\; -w \vx \cdot \vy + w^2 \vx \cdot \vx + w n b \bar{x} \;+ \nonumber \\
+&\; -n b \bar{y} + w n b \bar{x} + n b^2 \\
+= &\; \vy \cdot \vy - 2 w \vx \cdot \vy - 2 n b \bar{y} +
+  w^2 \vx \cdot \vx + 2 w n b \bar{x} + n b^2.
+\end{align}
+As before, 
+values of $(w, b)$ that minimize the squared error $E_2$ are 
+found by taking partial derivatives of the error function 
+with respect to the parameters $w$ and $b$:
+\be
+\frac{\partial E_2}{\partial w} = 
+-2 n \bar{y} + 2 w m \bar{x} + 2 n b \overset{\mbox{\tiny set}}{=} 0
+\implies \hat{b} = \bar{y} - w \bar{x}.
+\label{eq:partial_E_w_vectorized}
+\ee
+Substituting (\ref{eq:partial_E_w_vectorized}) into $E_2$ gives
+\begin{align}
+E_2 (w, \hat{b} (w)) = 
+& \vy \cdot \vy - 2 w \vx \cdot \vy - 2 n (\bar{y} - w \bar{x}) \bar{y} +
+\nonumber \\
+& w^2 \vx \cdot \vx + 2 w n (\bar{y} - w \bar{x}) \bar{x} + n 
+(\bar{y} - w \bar{x})^2.
+\end{align}
+Then $E_2$ is now a function of $w$ alone, and 
+\be
+\frac{d E_2}{dw} = 
+\; -2 \vx \cdot \vy + 2 n \bar{x} \bar{y} + 2 w \vx \cdot \vx +
+2 n \bar{y} \bar{x} - 4 w n \bar{x} \bar{x} +
+2 n (\bar{y} - w \bar{x})(-\bar{x})
+\overset{\mbox{\tiny set}}{=} 0, 
+\ee
+or
+\begin{align}
+0 
+& = 
+-\vx \cdot \vy + n \bar{x} \bar{y} + w \vx \cdot \vx
++ n \bar{x} \bar{y} - 2 w n \bar{x} \bar{x} - n \bar{x} \bar{y} 
++  w \bar{x} \bar{x},  \\
+& = 
+-\vx \cdot \vy + n \bar{x} \bar{y} + w \vx \cdot \vx 
+- w n \bar{x} \bar{x}.
+\end{align}
+Then
+\be
+w \left( \vx \cdot \vx - n \bar{x} \bar{x} \right)
+ = \vx \cdot \vy - n \bar{x} \bar{y} 
+\ee
+Solving for $w$ is then the best fit $\hat{w}$
+\be
+\hat{w} = 
+\frac{\vx \cdot \vy - n \bar{x} \bar{y}}{\vx \cdot \vx - n \bar{x} \bar{x}}
+\label{eq:vectorized_w_hat}
+\ee
+which is the vector analog of the summation notation given previously,
+\be
+\hat{w} 
+= 
+\frac{\dst\sum_{i=1}^n 
+  \left(x_i - \bar{x}\right)
+  \left(y_i - \bar{y}\right)}
+  {\dst\sum_{i=1}^n
+  \left(x_i - \bar{x}\right)^2}
+   = 
+\frac{
+  \dst\sum_{i=1}^n 
+  \left(x_i y_i - \bar{x} y_i - x_i \bar{y} + \bar{x} \bar{y} \right)
+  }
+  {
+  \dst\sum_{i=1}^n
+  \left(x_i x_i - \bar{x} x_i - x_i \bar{x} + \bar{x} \bar{x}\right)
+  }
+  = 
+\frac{\vx \cdot \vy - n \bar{x} \bar{y}}{\vx \cdot \vx - n \bar{x} \bar{x}}
+   .
+\ee
+\end{Hproof}
+
+\begin{Hresult}
+For cases where the data is normalized in both the $x$ and $y$ dimensions
+such that $\bar{x} = \bar{y} = 0$, the best fit $\hat{w}$ has a simple
+geometric interpretation as
+\be
+\hat{w} = 
+\frac{\vx \cdot \vy}{\vx \cdot \vx}
+\ee
+which is seen by inspection of 
+(\ref{eq:vectorized_w_hat}) when
+$\bar{x} = \bar{y} = 0$.
+\end{Hresult}
 
