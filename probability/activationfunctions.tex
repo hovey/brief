@@ -1,0 +1,58 @@
+\chapter{Deep Learning}
+
+\section{Activation Functions}
+
+\subsection{Sigmoid Activation Function}
+
+The sigmoid function $\sigma(x)$ is defined as
+\be
+\sigma(x) = \frac{1}{1 + \exp(-x)},
+\ee
+shown in Fig.~\ref{fig:sigmoid_activation}
+
+\begin{figure}[htb]
+  \begin{center}
+    \begin{overpic}[width=\textwidth]{fig/sigmoid_activation.pdf}
+    %\put(17, 43.5){$\cA$}
+    \end{overpic}
+   \end{center}
+  \caption{Sigmoid activation function.}
+  \label{fig:sigmoid_activation}
+\end{figure}
+
+
+\begin{Hresult}
+The derivative of the sigmoid activation function
+$\sigma'(x)$ is 
+\be
+\sigma'(x) = \sigma \left( 1 - \sigma \right).
+\ee
+\end{Hresult}
+
+\begin{Hproof}
+\begin{align}
+\sigma'(x)  
+& = 
+\frac{d}{dx} \left((1 + \exp(-x))^{-1}  \right) \\
+& = 
+(-1) (1 + \exp(-x))^{-2} \exp(-x) (-1) \\
+& = 
+\frac{\exp(-x)}{(1 + \exp(-x))^2} \\
+& = 
+\frac{(1 + \exp(-x)) - 1}{(1 + \exp(-x))^2} \\
+& = 
+\frac{1 + \exp(-x)}{(1 + \exp(-x))^2} - 
+\left(\frac{1}{1 + \exp(-x)}\right)^2 \\
+& = 
+\sigma - \sigma^2 \\
+& = 
+\sigma (1 - \sigma)
+\end{align}
+\end{Hproof}
+
+
+\footnote{See nice tutorials by Ryan Harris at
+https://www.youtube.com/user/nqramjets}
+
+
+
