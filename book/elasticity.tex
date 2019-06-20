@@ -2,13 +2,13 @@
 
 \section{Nonlinear Elastodynamics}
 
-The bulk modulus $B$, a measure of local compressibility of a substance, is
+The bulk modulus $K$, a measure of local compressibility of a substance, is
 defined as the ratio of infinitesimal change in pressure $dP$ caused by an
 infinitesimal change in volume $dV$, at a given volume $V$
 \be 
-B \defe - V \dst\frac{dP}{dV}.
+K \defe - V \dst\frac{dP}{dV}.
 \ee
-We require $B > 0$, and since $V > 0$, then $dP/dV < 0$.
+We require $K > 0$, and since $V > 0$, then $dP/dV < 0$.
 This results in behaviors observed physically, namely that, all else being
 equal, 
 \begin{itemize}
@@ -25,11 +25,11 @@ and
 \be
 \frac{dP}{dV} = \frac{dP}{d\rho}\frac{d\rho}{dV},
 \ee
-the bulk modulus $B$ may also be written as
+the bulk modulus $K$ may also be written as
 \be
-B = \rho \frac{dP}{d\rho}.
+K = \rho \frac{dP}{d\rho}.
 \ee
-Since $B > 0$ and $\rho > 0$, then $dP/d\rho > 0$.  This result physically means
+Since $K > 0$ and $\rho > 0$, then $dP/d\rho > 0$.  This result physically means
 that, all else being equal, 
 \begin{itemize}
 \item increases in pressure cause increases in density (and vice versa), and
@@ -158,13 +158,18 @@ sound speed $c_T$.
 The longitudinal sound speed is faster than the transverse sound speed.
 \end{Hremark}
 
-The bulk modoulus $B$ is related to the Lam\'{e} constants $\lambda$ and $\mu$ through
+The bulk modulus $K$ is related to the Lam\'{e} constants 
+$\lambda$ and $\mu$ through
 \be
-B = \lambda + \frac{2\mu}{3}.
+K = \lambda + \frac{2\mu}{3}.
 \ee
-Substituting for $B$ in the longitudinal sound speed gives
+Alternatively, the bulk modulus $K$ in terms of $E$ and $\nu$ is given as
 \be
-c_L = \sqrt{\dst\frac{B + 
+K = \frac{E}{2(1-2\nu)}.
+\ee
+Substituting for $K$ in the longitudinal sound speed gives
+\be
+c_L = \sqrt{\dst\frac{K + 
 \frac{4}{3} \; \mu }{\rho_0}} \hspace{1.0cm} \mbox{\bf (longitudinal or P-wave)}.
 \ee
 \begin{Hremark}
