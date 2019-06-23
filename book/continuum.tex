@@ -198,7 +198,8 @@ is linear with respect to the reference configuration $\vX$.
 Consider a Taylor series expansion of the motion about a point 
 $\vX_0$,
 \be
- \vvarphi(\vX) = \vvarphi(\vX_0) + \tFbold(\vX_0) (\vX - \vX_0) + 
+ \vvarphi(\vX) = \vvarphi(\vX_0) + \tFbold(\vX_0) \cdot 
+ \{\vX - \vX_0\} + 
  \mbox{\small H.O.T.}
  \label{eq:Taylor_F}
 \ee
@@ -206,8 +207,9 @@ When the deformation gradient $\tFbold$ is constant, thus the
 higher order terms ({\small H.O.T.}) are zero.  Thus, a homogeneous
 motion requires that
 \be
- \vvarphi(\vX) = \vvarphi(\vX_0) + \tFbold(\vX_0) (\vX - \vX_0) 
- \;\; \forall \;\; \{\vX \mbox{ and } \vX_0\} \in \cB.
+ \vvarphi(\vX) = \vvarphi(\vX_0) + \tFbold(\vX_0)
+ \cdot \{\vX - \vX_0\} 
+ \;\; \forall \;\; \{\vX\} \mbox{ and } \{\vX_0\} \in \cB.
  \label{eq:homogeneous_motion}
 \ee
 
@@ -348,26 +350,26 @@ The current configuration is shown in red.
 A fixed point deformation is a homogeneous deformation of the 
 form
 \be
- \vvarphi(\vX) = \vY + \tFbold(\vX - \vY).
+ \vvarphi(\vX) = \vX_0 + \tFbold \cdot \{\vX - \vX_0\}.
 \ee
-The deformation is fixed in the sense that $\vvarphi(\vY) = \vY$.
+The deformation is fixed in the sense that $\vvarphi(\vX_0) = \vX_0$.
 
 
 \clearpage
 \subsection{Rotation}
 A rotation is a homogeneous deformation of the form
 \be
- \vvarphi(\vX) = \vY + \tRbold(\vX - \vY),
+ \vvarphi(\vX) = \vX_0 + \tRbold \cdot \{\vX - \vX_0\},
 \ee
-where the rotation occurs about the point $\vY$.
+where the rotation occurs about the point $\vX_0$.
 
 A rigid body motion, consisting of body translation and rotation, 
 has the form
 \be
- \vvarphi(\vX) = \bar{\vu} + \vY + \tRbold(\vX - \vY), 
+ \vvarphi(\vX) = \bar{\vu} + \vX_0 + \tRbold \cdot \{\vX - \vX_0\}, 
 \ee
 where the translation is $\bar{\vu}$ and the rotation occurs around
-point $\vY$.
+point $\vX_0$.
 
 To motivate rotations of deformable bodies, we start with two simpler
 cases: general motion two {\em particles} instead of bodies, 
@@ -891,17 +893,17 @@ isochoric motions will play an important role in our later work.
 \subsection{Dilatational (Volumetric) Stretch}
 Consider now $\tFbold = \lambda \vid$ and $\vu = \vzero$.  
 This describes {\bf volumetric} response, also known 
-as a {\bf dilatational} response.  The parameter $\lambda \in \real$
+as a {\bf dilatational} response.  The parameter $\lambda \in \realplus$
 causes the current configuration to change volume as
 \begin{itemize}[noitemsep]
- \item $\lambda > 0$ expansion,
- \item $\lambda = 0$ identity,
- \item $\lambda < 0$ contraction.
+ \item $\lambda > 1$ expansion,
+ \item $\lambda = 1$ identity,
+ \item $0 < \lambda < 1$ contraction.
 \end{itemize}
 Notice that $\lambda$ describes the ``slope'' of the mapping from
-reference to current configurations.  In the case that $\lambda \rightarrow
-+\infty$, the volume grows infinite.  In the case that $\lambda \rightarrow
--\infty$, the volume grows to zero.
+reference to current configurations.  
+In the case that $\lambda \rightarrow +\infty$, the volume grows infinite.  
+In the case that $\lambda \rightarrow 0$, the volume shrinks to zero.
 For concreteness, consider $\lambda = 2$.  The volumetric expansion
 is shown in Fig.~\ref{fig:configuration_volumetric}.
 The reference configuration, shown in blue, has area of~4.
