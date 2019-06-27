@@ -36,7 +36,7 @@ zero strain energy density when there is zero stretch.
 \end{Hremark}
 
 \begin{Hremark}
-When a material's bulk modulus $B$ is at least two orders of magnitude 
+When a material's bulk modulus $K$ is at least two orders of magnitude 
 larger than the shear modulus $G$, 
 the incompressibility modeling assumption may be appropriate.
 \end{Hremark}
@@ -57,14 +57,14 @@ Using only the first term of the Mooney-Rivlin equation gives the
 The invariants in terms of the right Cauchy-Green tensor $\tCbold$ 
 and left Cauchy-Green tensor $\tbbold$ are
 \begin{align}
-    I_1 & = \trace(\tCbold) = C_{KK} =
-            \trace(\tbbold) = b_{kk}, \\
+    I_1 & = \trace(\tCbold) = \tC_{KK} =
+            \trace(\tbbold) = \tb_{kk}, \\
 	I_2 & = \half \left(I_1^2 - \tCbold \ddiv \tCbold \right) = 
-	        \half \left(I_1^2 - C_{IK} C_{KI} \right) \nonumber \\ 
+	        \half \left(I_1^2 - \tC_{IK} \tC_{KI} \right) \nonumber \\ 
 	    & = \half \left(I_1^2 - \tbbold \ddiv \tbbold \right) = 
-	        \half \left(I_1^2 - b_{ik} b_{ki} \right), \\
-	I_3 & = \det(\tCbold) = \det C_{IJ} = 
-            \det(\tbbold) = \det b_{ij} = J^2.
+	        \half \left(I_1^2 - \tb_{ik} \tb_{ki} \right), \\
+	I_3 & = \det(\tCbold) = \det \tC_{IJ} = 
+            \det(\tbbold) = \det \tb_{ij} = J^2.
 \end{align}
 For small strains and incompressible Mooney-Rivlin:
 \begin{align}
@@ -79,7 +79,7 @@ For small strains and incompressible Neo-Hookean:
 
 \subsubsection{Compressible Rivlin}
 Next, allow the material to be compressible, characterized through 
-bulk modulus $B$.  Thus, $I_3 \neq 1$.
+bulk modulus $K$.  Thus, $I_3 \neq 1$.
 The {\bf Mooney-Rivlin equation} for compressible materials is given by
 \begin{align}
  W & = W_{\smVOL}(I_3) +  C_{10} (I_1 - 3) + C_{01} (I_2 - 3),  \\
@@ -98,19 +98,20 @@ as
 Then, 
 for {\bf compressible Rivlin}:
 \be
- W = \underset{\smVOL}{\underbrace{\frac{B}{2}(J - 1)^2}} + 
+ W = \underset{\smVOL}{\underbrace{\frac{K}{2}(J - 1)^2}} + 
  \underset{\smDEV}{\underbrace{C_{10} (\bar{I}_1 - 3) + C_{01} (\bar{I}_2 - 3)}}.
 \ee
 Finally, 
 for {\bf compressible Neo-Hookean}:
 \be
- W = \underset{\smVOL}{\underbrace{\frac{B}{2}(J - 1)^2}} + 
+ W = 
+ \underset{\smVOL}{\underbrace{\frac{K}{2}(J - 1)^2}} + 
  \underset{\smDEV}{\underbrace{C_{10} (\bar{I}_1 - 3)}}. 
 \ee
 
 In the finite compression limit, as the volume goes to zero
 $(J \rightarrow 0)$, 
-the $(J-1)^2$ factor in the volumetric term tends toward unity.
+the factor $(J-1)^2$ in the volumetric term tends toward unity.
 This behavior---finite 
 strain energy density in the limit of compression---is not desirable.  
 Instead, as the volume goes toward zero, 
@@ -124,7 +125,7 @@ response,
 \be
  W = \underset{\smVOL}{
         \underbrace{
-            \frac{B}{2}
+            \frac{K}{2}
             \left[
                 \frac{J^2 - 1}{2} - \ln J
             \right]
@@ -184,7 +185,7 @@ Hughes.
 %      \put( 52.5, 56.4){$\tUbold \; \tvbold$}
     \end{overpic}
   \end{center}
-        \caption{Neo-Hookean volumetric strain energy density $W_{\smVOL}(J)$ normalized by $B/2$ for infinitesimal and finite cases.}
+        \caption{Neo-Hookean volumetric strain energy density $W_{\smVOL}(J)$ normalized by $K/2$ for small strain and finite strain cases.}
   \label{fig:neo_hookean_vol}
 \end{figure}
 
