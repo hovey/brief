@@ -101,5 +101,133 @@ and
  \veelhat.
 \ee
 
+\subsection{Matrix Operations}
+
+\subsubsection{Symmetry Operators}
+Let $\tabold$ be a matrix of dimension $n \times n$, 
+with components $a_{ij}$, 
+$i=1\ldots n$, $j=1\ldots n$.  
+The symmetry operator \sym($\cdot$), on any square square 
+matrix $\tabold$, is defined
+\be
+\mbox{\sym}(\tabold) \defe \half (\tabold + \tabold\transpose).
+\ee
+The skew-symmetry operator \skw($\cdot$), on any square square 
+matrix $\tabold$, is defined
+\be
+\mbox{\skw}(\tabold) \defe \half (\tabold - \tabold\transpose).
+\ee
+Then {\em any} matrix $\tabold$ can be decomposed into symmetric and
+skew-symmetric parts through an additive decomposition as
+\be
+\tabold = \underset{\mbox{\sym}}{\underbrace{\dst\half\left(\tabold 
++ \tabold\transpose\right)}}
+      \;\;  + \;\; \underset{\mbox{\skw}}{\underbrace{\dst\half\left(\tabold 
+- \tabold\transpose\right)}} = 
+\mbox{\sym}(\tabold) \; + \mbox{\skw}(\tabold).
+\ee
+Let the symmetric, square matrix $\tobold = \mbox{\sym}(\tabold)$ and
+the skew-symmetric, square matrix $\txbold = \mbox{\skw}(\tabold)$.  Then
+the matrix $\tabold$ can be written as
+\be
+\tabold = \tobold + \txbold.
+\ee
+The symmetric matrix $\tobold$ has the property
+\be
+\tobold = \tobold\transpose 
+\;\;\Longleftrightarrow\;\;
+o_{ij} = o_{ji}.
+\ee
+Explicitly, for $\tobold$ as a (3 $\times$ 3) matrix
+\be
+\left[
+    \begin{tabular}{ccc}
+    $o_{11}$ & $o_{12}$ & $o_{13}$ \\
+    $o_{21}$ & $o_{22}$ & $o_{23}$ \\
+    $o_{31}$ & $o_{32}$ & $o_{33}$
+    \end{tabular}
+\right]
+= 
+\left[
+    \begin{tabular}{ccc}
+    $o_{11}$ & $o_{21}$ & $o_{31}$ \\
+    $o_{12}$ & $o_{22}$ & $o_{32}$ \\
+    $o_{13}$ & $o_{23}$ & $o_{33}$
+    \end{tabular}
+\right],
+\ee
+and of the nine components of $\tobold$, only six are independent, 
+\be
+\tobold = \left[
+    \begin{tabular}{ccc}
+    $o_{11}$ & $o_{12}$ & $o_{13}$ \\
+    $o_{12}$ & $o_{22}$ & $o_{23}$ \\
+    $o_{13}$ & $o_{23}$ & $o_{33}$
+    \end{tabular}
+\right]
+= 
+\left[
+    \begin{tabular}{ccc}
+    $o_{11}$ & $o_{12}$ & $o_{13}$ \\
+     & $o_{22}$ & $o_{23}$ \\
+    $sym.$ &  & $o_{33}$
+    \end{tabular}
+\right].
+\ee
+The skew-symmetric matrix $\txbold$ has the property
+\be
+\txbold = -\txbold\transpose 
+\;\;\Longleftrightarrow\;\; x_{ij} = -x_{ji}.
+\ee
+Explicitly, for $\txbold$ as a (3 $\times$ 3) matrix
+\be
+\txbold
+= 
+\left[
+    \begin{tabular}{ccc}
+    $0$ & $x_{12}$ & $x_{13}$ \\
+    $-x_{12}$ & $0$ & $x_{23}$ \\
+    $-x_{13}$ & $-x_{23}$ & $0$
+    \end{tabular}
+\right],
+\ee
+and of the nine components of $\txbold$, only three are independent.
+
+\begin{Hremark}
+In some references, skew-symmetric is called {\em antisymmetric}.  Here, 
+    we will use {\em skew-symmetric}, or sometimes just {\em skew} as an
+    abbreviated form.
+\end{Hremark}
 
 
+\begin{Hremark}
+From spectral theory, the non-zero eigenvalues exist in pairs as purely 
+    imaginary numbers $0 \pm \lambda_k i$, $\lambda \in \real$, with
+    \begin{itemize}
+        \item $k=1\ldots n$ for $\dim(\txbold) = (n, n)$ and $n$ even and 
+        \item $k=1\ldots(n - 1)/2$ for $\dim(\txbold) = (n, n)$ and $n$ odd.
+    \end{itemize}
+    For even $n$ dimensions, there are no zero eigenvalues.  
+    For odd $n$ dimensions, there is
+    exactly one zero eigenvalue.
+In the explicit example for $\dim(\txbold) = (3,3)$, 
+\be 
+    \Lambda = \mbox{\eig}(\txbold) 
+= 
+\left[
+    \begin{tabular}{ccc}
+    $0$ & $\lambda$ & $0$ \\
+    $-\lambda$ & $0$ & $0$ \\
+    $0$ & $0$ & $0$
+    \end{tabular}
+\right].
+\ee
+\end{Hremark}
+
+\begin{Hremark}
+For the skew-symmetric matrix $\txbold$, the tensor $\tMbold = \txbold^2$ is 
+negative semi-definite,
+\be
+    \vv\transpose \tMbold \vv \leq 0 \;\; \forall \mbox{ vectors } \vv \in \real^n.
+\ee
+\end{Hremark}
