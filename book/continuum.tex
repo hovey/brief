@@ -523,9 +523,11 @@ about an axis that contains $Q$.  In fact, because of superposition
 of these two effects, even if particle $Q$ never moves, particle $P$ 
 can move by virtue of rotations.
 
+To come:  discussions on
 $\ve{\omega}$, $\ve{\Omega}$, $\ve{\mathit{\Omega}}$, 
 $\ve{\mathit{\omega}}$, 
-$\widehat{\tWbold}$, $\widehat{\twbold}$
+$\widehat{\tWbold} = \tWbold_{\times}$, 
+$\widehat{\twbold} = \twbold_{\times}$.
 
 \begin{Hresult}
 A special case of a motion $\vvarphi$ 
@@ -624,14 +626,14 @@ and use explicit time dependence on $t$ for clarity,
 Substitute (\ref{eq:inverse_rigid_motion}),
 \be
 \vv(\vx) = 
-\underset{\vomegahat}{\underbrace{\dot{\tRbold} \; \tRbold^T}}
+\underset{\left[\;\ve{\omega}\;\right]_{\times}}{\underbrace{\dot{\tRbold} \; \tRbold^T}}
 \left( \vx - \vb \right) 
 + \dot{\vb}, 
 \label{eq:velocity_current_penultimate}
 \ee
 where
 \be
- \vomegahat \; \vz = \vomega \times \vz = \dot{\tRbold} \; 
+ \left[\;\ve{\omega}\;\right]_{\times} \vz = \vomega \times \vz = \dot{\tRbold} \; 
  \tRbold^T \; \vz,
  \label{eq:omega_hat}
 \ee
@@ -733,10 +735,10 @@ can be combined and simplified to
 \right]
 \; (\;\cdot\;)
 = 
-\frac{d}{dt}\;[\;\widehat{\vomega}\;]
+\frac{d}{dt}\;[\;\vomega\;]_{\times}
 \; (\;\cdot\;)
 =
-[\;\widehat{\valpha} \;] \; (\;\cdot\;),
+[\;\valpha \;]_{\times} \; (\;\cdot\;),
 \ee
 where $(\;\cdot\;)$ stands in for the $(\vx - \vb)$ vector.
 The third term on the right-hand-side of 
@@ -779,11 +781,132 @@ Combining these successive terms gives
 which is the result.
 \end{Hproof}
 
+\begin{Hresult}
+{\bf Rodrigues Rotation Formula.}  The rotation of the position vector 
+$\vr^{QP}$ into the position vector $\vr^{Qp}$ by rotation $\theta \vnhat$
+is given by
+\be
+\vr^{Qp} = (1 - \cos \theta) \; (\vr^{QP} \cdot \vnhat) \; \vnhat + 
+\cos \theta \; \vr^{QP} + \sin \theta \; (\vnhat \times \vr^{QP})
+\ee
+\end{Hresult}
+
+\begin{Hproof}
+Let the shorthand notation $\va = \vr^{QP}$ and $\vb = \vr^{Qp}$ be used
+such that the rotation $\theta \vnhat$ rotates vector $\va$ into vector $\vb$. 
+Furthermore, let the vectors $\va$ and $\vb$ 
+be decomposed into the sum of two 
+subspace vectors, 
+which are parallel and perpendicular to the $\vnhat$ vector, such that 
+\begin{align}
+\va & = \va_{\|} + \va_{\perp} \;\; \Longleftrightarrow \;\; 
+\va_{\perp} = \va - \va_{\|} \;\; \mbox{ and }  \;\;
+\va_{\|} = (\va \cdot \vnhat) \; \vnhat, \\
+\vb & = \vb_{\|} + \vb_{\perp} \;\; \Longleftrightarrow \;\; 
+\vb_{\perp} = \vb - \vb_{\|} \;\; \mbox{ and }  \;\;
+\vb_{\|} = (\vb \cdot \vnhat) \; \vnhat.
+\end{align}
+From inspection of the rotation plane perpendicular to $\vnhat$, as shown
+in Fig.~\ref{fig:rigid_rotation}, 
+\be 
+\vb_{\perp} = \cos \theta \; \va_{\perp}  + \sin \theta \; \vnhat \times \va_{\perp}.
+\ee 
+Rewriting the last term gives,
+\be
+\vb_{\perp} = \cos \theta \; \va_{\perp}  + \sin \theta \; 
+\vnhat \times (\va - \va_{\|}) =
+\cos \theta \; \va_{\perp} + \sin \theta \; 
+( \vnhat \times \va - \cancelto{\ve{0}}{\vnhat \times \va_{\|}}) .
+\ee
+where the $\vnhat \times \va_{\|} = \ve{0}$ since these two vectors are 
+parallel.
+Then, 
+\begin{align}
+\vb & = \vb_{\|} + \vb_{\perp},  \\
+    & = \va_{\|} + \vb_{\perp}  \;\; \mbox{ since } \;\; \va_{\|} = \vb_{\|}, \\
+    & = (\va \cdot \vnhat) \; \vnhat + \cos \theta \; \va_{\perp} + 
+    \sin \theta \; \vnhat \times \va, \\
+    & = (\va \cdot \vnhat) \; \vnhat + \cos \theta \; (\va - \va_{\|}) + 
+    \sin \theta \; \vnhat \times \va, \\
+    & = (\va \cdot \vnhat) \; \vnhat + \cos \theta \; \va - \cos \theta \; \va_{\|} + 
+    \sin \theta \; \vnhat \times \va, \\
+    & = (\va \cdot \vnhat) \; \vnhat + \cos \theta \; \va - \cos \theta \; 
+    (\va \cdot \vnhat) \; \vnhat + 
+    \sin \theta \; \vnhat \times \va, \\
+    & = (1 - \cos \theta) (\va \cdot \vnhat) \; \vnhat 
+    + \cos \theta \; \va  
+    + \sin \theta \; \vnhat \times \va,
+\end{align}
+which is the result.
+\end{Hproof}
+
 
 \subsubsection{Particle Moving on a Rigid Body}
 
 \subsubsection{Rotation and Stretch of a Deformable Body}
 
+\begin{Hresult}
+The angular velocity $\ve{\omega}$ of a body $\tilde{B}$ that undergoes
+finite rotations and infinitesimal deformations may be approximated
+as a least squares projection of the body's configuration column space 
+onto the body's velocity space as 
+\be
+\ve{\omega} = - 
+\left(
+  \tAbold\transpose \tAbold
+\right)^{-1} 
+\tAbold\transpose \cdot 
+\left\{
+  \vv_P - \vv_Q 
+\right\}, \mbox{ where }
+\ee
+\be
+\tAbold = \left[\; \vx_P - \vx_Q \; \right]_{\times}.
+\ee
+\end{Hresult}
+
+\begin{Hproof}
+Let body $\tilde{B}$ undergo finite rotations and infinitesimal deformations
+in reference frame $F$.
+Using the velocity of two points $Q$ and $P$, 
+with a particle moving on rigid body $B$,
+\begin{align}
+\vv_{P/F} & = \vv_{Q/F} + \vv_{P/Q} + \ve{\omega}_{B/F} \times \vr_{QP} \\ 
+\vv_{P} & = \vv_{Q} + \vv_{P/Q} + \ve{\omega}_B \times \vr_{QP} \;\; 
+\mbox{ dropping $F$ where implied}.
+\end{align}
+Note the term 
+$\vv_{P/Q}$ is the {\em relative} velocity between points $P$ and $Q$. 
+Assuming infinitesimal deformations, it is reasonable to assume the time
+derivatives of these quantities are also small, thus 
+$\vv_{P/Q} \approx \ve{0}$. 
+Thus for body $\tilde{B}$
+\begin{align}
+\vv_{P} - \vv_{Q} & \approx \ve{\omega}_B \times \vr_{QP}, \\
+& =  - \vr_{QP} \times \ve{\omega} \\
+& =  - \left( \vvarphi(\vX_P, t) - \vvarphi(\vX_Q, t) \right) \times \ve{\omega} \\
+& =  - \left( \vX_P + \vu(\vX_P, t) - (\vX_Q + \vu(\vX_Q, t)) \right) 
+\times \ve{\omega} \\
+& \;\;\;\; \mbox{ if displacements $\vu$ are used; or,} \nonumber \\
+& =  - \left( \vx_P - \vx_Q \right) 
+\times \ve{\omega} 
+\;\;\;\; \mbox{ if current placements $\vx$ are used,}  \\ 
+& =  - \left[\; \vx_P - \vx_Q\; \right]_{\times}
+ \ve{\omega}, 
+\end{align}
+where the skew-symmetric matrix is used.  Explicitly, this is
+\be 
+\left[\; \vx_P - \vx_Q \; \right]_{\times} = 
+\left[
+\begin{tabular}{ccc}
+ 0 & $-(x_{P3} - x_{Q3})$ & \; $(x_{P2} - x_{Q2})$ \\
+ \; $(x_{P3} - x_{Q3})$ & 0 & $-(x_{P1} - x_{Q1})$ \\
+ $-(x_{P2} - x_{Q2})$ & \; $(x_{P1} - x_{Q1})$ & 0
+\end{tabular}
+\right],
+\ee
+which is solvable through a least-squares approach.
+\end{Hproof}
 
 \begin{figure}[htb]
   \begin{center}
@@ -805,12 +928,15 @@ which is the result.
       \put(36, 56){$P$}
       \put(46, 51){$p$}
       \put(55.5, 52.3){$\theta$}
-      \put(30, 55){$\cB$}
-      \put(23, 60){$\partial \cB$}
+      \put(30, 55){$B$}
+      \put(23, 60){$\partial B$}
     \end{overpic}
     %\includegraphics[width=\textwidth]{fig/rigid_rotation.pdf}
   \end{center}
-  \caption{To come.}
+  \caption{In reference frame $\cF$, 
+  body $B$ rotating about axis $\vnhat$ an amount $\theta$, 
+  which moves
+  point $P$ in body $B$ to point $p$.}
   \label{fig:rigid_rotation}
 \end{figure}
 
