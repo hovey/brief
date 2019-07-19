@@ -212,7 +212,7 @@ From spectral theory, the non-zero eigenvalues exist in pairs as purely
     exactly one zero eigenvalue.
 In the explicit example for $\dim(\txbold) = (3,3)$, 
 \be 
-    \Lambda = \mbox{\eig}(\txbold) 
+    \ve{\Lambda} = \mbox{\eig}(\txbold) 
 = 
 \left[
     \begin{tabular}{ccc}
@@ -231,3 +231,34 @@ negative semi-definite,
     \vv\transpose \tMbold \vv \leq 0 \;\; \forall \mbox{ vectors } \vv \in \real^n.
 \ee
 \end{Hremark}
+
+
+\subsection{Extrema}
+
+\subsubsection{Arg Max}
+
+The {\bf arguments of the maxima}, also known as 
+{\bf arg max} or {\bf argmax}, at the 
+values of the domain $x$ that maximize the range $f(x)$.  
+
+\begin{Hexample}{
+Defined over the domain $x \in [0, 2\pi]$, 
+the function $f(x) = \cos(x) $ has  
+maximum values of $1$ at $x=0$ and $x=2\pi$.  This notion is
+written with the $\max$ as
+\be
+\underset{x\in[0,2\pi]}{\max} \; f(x) = 
+\underset{x\in[0,2\pi]}{\max} \cos(x) = 1.
+\ee
+The {\bf arg max} is then 
+\be
+\underset{x\in[0,2\pi]}{\arg \max} \; f(x) = 
+\underset{x\in[0,2\pi]}{\arg \max} \; \cos(x) = \{0, 2\pi\}.
+\ee
+More generally, for $x$ defined over the entire real number line,
+\be
+\underset{x\in\real}{\arg \max} \; f(x) = 
+\underset{x\in\real}{\arg \max} \; \cos(x) = \{2\pi \; k\} \mbox{ for } k \in \integer.
+\ee
+}\end{Hexample}
+  
