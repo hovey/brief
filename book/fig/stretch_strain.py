@@ -60,7 +60,7 @@ ax.plot(x2, y_almansi_euler, color='magenta', linestyle=':', linewidth=lw, label
 ax.grid(b=True, which='major', linestyle='-')
 # ax.grid(b=False, which='minor', linestyle=':', linewidth=0.25)
 
-ax.set_xlabel('stretch $\lambda = \ell / L$')
+ax.set_xlabel('stretch $\lambda = \ell / L_0$')
 ax.set_ylabel('strain $f(\lambda)$')
 ax.set_xlim(0, 3)
 ax.set_ylim(-2, 2)
