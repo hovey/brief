@@ -1,0 +1,126 @@
+\chapter{Objectivity}
+\label{chapter:objectivity}
+
+\section{Introduction}
+\begin{itemize}
+\item For two reference frames, $\cF$ and $\cF^*$, the base vectors
+for $\cF$, $\vefa$, $\vefb$, and $\vefc$ transform through a rigid
+body rotation $\tRbold$, such that 
+\be
+\vefa^* = \tRbold \vefa, \;\;\;
+\vefb^* = \tRbold \vefb, \;\;\; \mbox{and} \;\;\;
+\vefc^* = \tRbold \vefc.
+\ee
+%
+\item A vector quantity $\va$ is objective if 
+\be
+ \va^* = \tRbold \va.
+\ee
+%
+\item A tensor quantity $\tabold$ is objective if
+\be
+ \tabold^* = \tRbold \tabold \tRbold\transpose.
+\ee
+\end{itemize}
+
+\begin{Hresult}
+The Cauchy stress $\ve{\sigma}$ is objective.
+\end{Hresult}
+
+\begin{Hproof}
+The traction vector $\vt$ is the inner product of the 
+Cauchy stress tensor $\ve{\sigma}$ and the outward surface
+normal vector $\vnhat$.
+The same traction vector in a different reference frame is
+$\vt^* = \ve{\sigma}^* \vnhat^*$.
+Since vectors transform between reference frames by through 
+a rotation tensor $\tRbold$, 
+ $\vt^* = \tRbold \vt$
+and
+ $\vnhat^* = \tRbold \vnhat$.
+Substituting these two vector transformations in the second
+observer's frame of reference gives
+\be
+\tRbold \vt = \ve{\sigma}^* \tRbold \vnhat
+\ee
+but $\tRbold \vt = \tRbold \ve{\sigma} \vnhat$, so
+$\tRbold \ve{\sigma} \vnhat = \ve{\sigma}^* \tRbold \vnhat$ for all
+$\vnhat$, thus
+\be
+\ve{\sigma}^* = \tRbold \ve{\sigma} \tRbold\transpose,
+\ee
+which is how second-order tensors transform when they are objective.
+Thus $\ve{\sigma}$ is objective.
+\end{Hproof}
+
+
+\section{Two-Point Tensors Transform as Vectors}
+\begin{itemize}
+
+\item The deformation gradient is a two-point tensor, 
+with one coordinate in the reference configuration
+and the other in the current configuration.  
+The reference configuration
+is inherently independent since it is tied to the observer.  
+The current configuration makes the deformation gradient 
+transform as a vector, not a tensor.  
+For more information, see Holzapfel at 189.
+
+\item The rotation is a two-point tensor, 
+moving between the reference configuration and 
+the current configuration.
+The rotation thus transforms as a vector, not a tensor.  
+For more information, see Holzapfel at 190.
+
+\item The first Piola-Kirchhoff
+stress tensor is a two-point tensor.  
+Like the deformation gradient and
+rotation, mentioned above, PK1 transforms 
+as a vector, not a tensor.
+See Holzapfel at 191 for more detail.
+
+\end{itemize}
+
+\section{Convected Rates of Change}
+
+\section{Corotated Rates of Change}
+An objective vector $\va$ 
+\be
+ \va^* = \tRbold \; \va,
+\ee
+and an objective tensor quantity $\tabold$ 
+\be
+ \tabold^* = \tRbold \; \tabold \; \tRbold\transpose,
+\ee
+generally do {\bf not} maintain their objectivity through
+time differentiation, viz.,
+\be
+ \dot{\va}^* = \dot{\tRbold} \; \va + \tRbold \; \dot{\va},
+\ee
+and
+\be
+ \dot{\tabold}^* = 
+ \dot{\tRbold} \; \tabold \; \tRbold\transpose + 
+ \tRbold \; \dot{\tabold} \; \tRbold\transpose + 
+ \tRbold \; \tabold \; \dot{\tRbold}\transpose.
+\ee
+
+But, material vector fields can be endowed with objectivity.
+For vector $\va$, the 
+corotational rate 
+% $\mathring{\va}$ % former notation
+$\overset{\triangledown}{\va}$ is defined as
+\be
+ \overset{\triangledown}{\va}
+ \defe \dot{\va} - \twbold \; \va,
+\ee
+where $\twbold$ is the rotation rate.
+
+For a second-order tensor $\tabold$, the 
+corotational rate $\overset{\triangledown}{\tabold}$ is defined as
+\be
+ \overset{\triangledown}{\tabold} \defe \dot{\tabold} - \twbold \; \tabold
+ + \tabold \; \twbold,
+\ee
+which is referred to as the {\bf Jaumann-Zaremba rate}.
+
