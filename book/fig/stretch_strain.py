@@ -67,6 +67,14 @@ ax.set_ylim(-2, 2)
 # ax.legend(loc='lower right')
 ax.legend(loc='upper left')
 
+# background under the inset ax2, to overlay the ax grid lines
+x0 = 1.03
+x1 = 2.9
+y0 = -2.125
+y1 = -0.275
+ax.fill([x0, x1, x1, x0], [y0, y0, y1, y1], 'gainsboro', zorder=2)
+# ax.fill([x0, x1, x1, x0], [y0, y0, y1, y1], 'white', zorder=2)
+
 ax2 = plt.axes([0.47, 0.11, 0.45, 0.35])
 ax2.axis('equal')
 # major axes
