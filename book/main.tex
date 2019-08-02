@@ -26,8 +26,17 @@
 %\usepackage{showframe} % bounding boxes on all LaTeX text areas
 %\usepackage{subfigure} % requires \usepackage{epsfig} too
 \usepackage{cancel}
-%\usepackage{bbm}
-\usepackage{bbold}
+% 
+% Lowercase fourth order tensors begin
+% \usepackage{bbm}  % alternative to lowercase fourth order tensors
+% \usepackage{bbold} % fourth order tensors from default serif to sans serif
+% \usepackage{mathbbol}  % lowercase mathbb
+% \usepackage[utf8]{inputenc}  % Unicode and TeX
+\usepackage[bbgreekl]{mathbbol} 
+  \DeclareSymbolFontAlphabet{\mathbbm}{bbold}
+  \DeclareSymbolFontAlphabet{\mathbb}{AMSb}
+% Lowercase fourth order tensors end
+%
 \usepackage{enumitem}
 %\usepackage[usenames, dvipsnames]{color}
 %\definecolor{hg}{gray}{0.6} % Hovey gray
@@ -181,10 +190,4 @@
 \include{implementation}
 \include{element}
 \end{document}
-
-
-
-
-
-
 
