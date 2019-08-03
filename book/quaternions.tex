@@ -1,0 +1,72 @@
+\chapter{Quaternions}
+
+\section{Multiplication}
+
+The multiplication for quaternion bases $i, j, k$ is defined as 
+\be
+i\;j \defe k, \;\;\; j\;k \defe i, \;\;\;  k\;i \defe j, \;\;\; 
+\mbox{and} \;\;\;
+ k\;j \defe -i, \;\;\; j\;i \defe -k, \;\;\; i\;k \defe -j.
+\ee 
+
+\begin{itemize}
+\item The positive combinations of the $i, j, k$ triple can be 
+constructed by repeating the $i$ and $j$ at then end of
+$i, j, k$ sequence.  Thus, the forward sequence is 
+$i, j, k, i, j$.  
+
+\item When two adjacent factors are read
+in forward order,\footnote{Likewise, this is the {\em reverse}
+alphabetical
+order of a repeating triple, $i, j, k, i, j, k, \ldots$} the
+result is the next sequential factor, multiplied by $+1$.
+
+\item The negative combinations of the $i, j, k$ triple can be 
+constructed by repeating the $j$ and $i$ at then end of
+$k, j, i$ sequence.  Thus, the reverse sequence is 
+$k, j, i, k, j$.  
+
+\item When two adjacent factors are read
+in backward order,\footnote{Essentially, this is alphabetical
+order of a repeating triple, $k, j, i, k, j, i, \ldots$} the
+result is the next sequential factor, multiplied by $-1$.
+\end{itemize}
+
+Organizing the first factor into rows and the second 
+factor into columns creates a superposition of a skew matrix
+and a negative identity matrix $-\vid$, shown in 
+Table~\ref{tab:quat_table}.
+
+\begin{table}[htb]
+\label{tab:quat_table}
+\caption{Quaternion multiplication table.}
+\centering
+\begin{tabular}{c||r|r|r|}
+    & $i$ & $j$ & $k$ \\ \hline \hline
+$i$ & $-1$  & $k$ & $-j$ \\ \hline
+$j$ & $-k$ & $-1$ & $i$ \\ \hline
+$k$ & $j$ &  $-i$ & $-1$ \\ \hline
+\end{tabular}
+\end{table}
+
+The quaternion matrix $\tQbold$ 
+is defined as
+\be
+\tQbold \defe -\vid - [\vq]_{\times} = 
+\left[
+\begin{tabular}{rrr}
+$-1$ & 0 & 0 \\
+0 & $-1$ & 0 \\ 
+0 & 0 & $-1$
+\end{tabular}
+\right]
+- 
+\left[
+\begin{tabular}{rrr}
+0 & $-k$ & $j$ \\
+$k$ & 0 & $-i$ \\ 
+$-j$ & $i$ & 0  
+\end{tabular}
+\right].
+\ee
+
