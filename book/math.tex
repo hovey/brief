@@ -104,94 +104,94 @@ and
 \subsection{Matrix Operations}
 
 \subsubsection{Symmetry Operators}
-Let $\tabold$ be a matrix of dimension $n \times n$, 
+Let $\tAbold$ be a matrix of dimension $n \times n$, 
 with components $a_{ij}$, 
 $i=1\ldots n$, $j=1\ldots n$.  
 The symmetry operator \sym($\cdot$), on any square square 
-matrix $\tabold$, is defined
+matrix $\tAbold$, is defined
 \be
-\mbox{\sym}(\tabold) \defe \half (\tabold + \tabold\transpose).
+\mbox{\sym}(\tAbold) \defe \half (\tAbold + \tAbold\transpose).
 \ee
 The skew-symmetry operator \skw($\cdot$), on any square square 
-matrix $\tabold$, is defined
+matrix $\tAbold$, is defined
 \be
-\mbox{\skw}(\tabold) \defe \half (\tabold - \tabold\transpose).
+\mbox{\skw}(\tAbold) \defe \half (\tAbold - \tAbold\transpose).
 \ee
-Then {\em any} matrix $\tabold$ can be decomposed into symmetric and
+Then {\em any} matrix $\tAbold$ can be decomposed into symmetric and
 skew-symmetric parts through an additive decomposition as
 \be
-\tabold = \underset{\mbox{\sym}}{\underbrace{\dst\half\left(\tabold 
-+ \tabold\transpose\right)}}
-      \;\;  + \;\; \underset{\mbox{\skw}}{\underbrace{\dst\half\left(\tabold 
-- \tabold\transpose\right)}} = 
-\mbox{\sym}(\tabold) \; + \mbox{\skw}(\tabold).
+\tAbold = \underset{\mbox{\sym}}{\underbrace{\dst\half\left(\tAbold 
++ \tAbold\transpose\right)}}
+      \;\;  + \;\; \underset{\mbox{\skw}}{\underbrace{\dst\half\left(\tAbold 
+- \tAbold\transpose\right)}} = 
+\mbox{\sym}(\tAbold) \; + \mbox{\skw}(\tAbold).
 \ee
-Let the symmetric, square matrix $\tobold = \mbox{\sym}(\tabold)$ and
-the skew-symmetric, square matrix $\txbold = \mbox{\skw}(\tabold)$.  Then
-the matrix $\tabold$ can be written as
+Let the symmetric, square matrix $\tMbold = \mbox{\sym}(\tAbold)$ and
+the skew-symmetric, square matrix $\tWbold = \mbox{\skw}(\tAbold)$.  Then
+the matrix $\tAbold$ can be written as
 \be
-\tabold = \tobold + \txbold.
+\tAbold = \tMbold + \tWbold.
 \ee
-The symmetric matrix $\tobold$ has the property
+The symmetric matrix $\tMbold$ has the property
 \be
-\tobold = \tobold\transpose 
+\tMbold = \tMbold\transpose 
 \;\;\Longleftrightarrow\;\;
-o_{ij} = o_{ji}.
+m_{ij} = m_{ji}.
 \ee
-Explicitly, for $\tobold$ as a (3 $\times$ 3) matrix
+Explicitly, for $\tMbold$ as a (3 $\times$ 3) matrix
 \be
 \left[
     \begin{tabular}{ccc}
-    $o_{11}$ & $o_{12}$ & $o_{13}$ \\
-    $o_{21}$ & $o_{22}$ & $o_{23}$ \\
-    $o_{31}$ & $o_{32}$ & $o_{33}$
+    $m_{11}$ & $m_{12}$ & $m_{13}$ \\
+    $m_{21}$ & $m_{22}$ & $m_{23}$ \\
+    $m_{31}$ & $m_{32}$ & $m_{33}$
     \end{tabular}
 \right]
 = 
 \left[
     \begin{tabular}{ccc}
-    $o_{11}$ & $o_{21}$ & $o_{31}$ \\
-    $o_{12}$ & $o_{22}$ & $o_{32}$ \\
-    $o_{13}$ & $o_{23}$ & $o_{33}$
+    $m_{11}$ & $m_{21}$ & $m_{31}$ \\
+    $m_{12}$ & $m_{22}$ & $m_{32}$ \\
+    $m_{13}$ & $m_{23}$ & $m_{33}$
     \end{tabular}
 \right],
 \ee
-and of the nine components of $\tobold$, only six are independent, 
+and of the nine components of $\tMbold$, only six are independent, 
 \be
-\tobold = \left[
+\tMbold = \left[
     \begin{tabular}{ccc}
-    $o_{11}$ & $o_{12}$ & $o_{13}$ \\
-    $o_{12}$ & $o_{22}$ & $o_{23}$ \\
-    $o_{13}$ & $o_{23}$ & $o_{33}$
+    $m_{11}$ & $m_{12}$ & $m_{13}$ \\
+    $m_{12}$ & $m_{22}$ & $m_{23}$ \\
+    $m_{13}$ & $m_{23}$ & $m_{33}$
     \end{tabular}
 \right]
 = 
 \left[
     \begin{tabular}{ccc}
-    $o_{11}$ & $o_{12}$ & $o_{13}$ \\
-     & $o_{22}$ & $o_{23}$ \\
-    $sym.$ &  & $o_{33}$
+    $m_{11}$ & $m_{12}$ & $m_{13}$ \\
+             & $m_{22}$ & $m_{23}$ \\
+    $sym.$   &          & $m_{33}$
     \end{tabular}
 \right].
 \ee
-The skew-symmetric matrix $\txbold$ has the property
+The skew-symmetric matrix $\tWbold$ has the property
 \be
-\txbold = -\txbold\transpose 
-\;\;\Longleftrightarrow\;\; x_{ij} = -x_{ji}.
+\tWbold = -\tWbold\transpose 
+\;\;\Longleftrightarrow\;\; w_{ij} = -w_{ji}.
 \ee
-Explicitly, for $\txbold$ as a (3 $\times$ 3) matrix
+Explicitly, for $\tWbold$ as a (3 $\times$ 3) matrix
 \be
-\txbold
+\tWbold
 = 
 \left[
     \begin{tabular}{ccc}
-    $0$ & $x_{12}$ & $x_{13}$ \\
-    $-x_{12}$ & $0$ & $x_{23}$ \\
-    $-x_{13}$ & $-x_{23}$ & $0$
+    $0$       & $-w_{12}$  & $w_{13}$ \\
+    $w_{12}$ & $0$       & $-w_{23}$ \\
+    $-w_{13}$ & $w_{23}$ & $0$
     \end{tabular}
 \right],
 \ee
-and of the nine components of $\txbold$, only three are independent.
+and of the nine components of $\tWbold$, only three are independent.
 
 \begin{Hremark}
 In some references, skew-symmetric is called {\em antisymmetric}.  Here, 
@@ -204,15 +204,15 @@ In some references, skew-symmetric is called {\em antisymmetric}.  Here,
 From spectral theory, the non-zero eigenvalues exist in pairs as purely 
     imaginary numbers $0 \pm \lambda_k i$, $\lambda \in \real$, with
     \begin{itemize}
-        \item $k=1\ldots n$ for $\dim(\txbold) = (n, n)$ and $n$ even and 
-        \item $k=1\ldots(n - 1)/2$ for $\dim(\txbold) = (n, n)$ and $n$ odd.
+        \item $k=1\ldots n$ for $\dim(\tWbold) = (n, n)$ and $n$ even and 
+        \item $k=1\ldots(n - 1)/2$ for $\dim(\tWbold) = (n, n)$ and $n$ odd.
     \end{itemize}
     For even $n$ dimensions, there are no zero eigenvalues.  
     For odd $n$ dimensions, there is
     exactly one zero eigenvalue.
-In the explicit example for $\dim(\txbold) = (3,3)$, 
+In the explicit example for $\dim(\tWbold) = (3,3)$, 
 \be 
-    \ve{\Lambda} = \mbox{\eig}(\txbold) 
+    \ve{\Lambda} = \mbox{\eig}(\tWbold) 
 = 
 \left[
     \begin{tabular}{ccc}
@@ -225,12 +225,31 @@ In the explicit example for $\dim(\txbold) = (3,3)$,
 \end{Hremark}
 
 \begin{Hremark}
-For the skew-symmetric matrix $\txbold$, the tensor $\tMbold = \txbold^2$ is 
+For the skew-symmetric matrix $\tWbold$, the tensor $\tZbold = \tWbold^2$ is 
 negative semi-definite,
 \be
-    \vv\transpose \tMbold \vv \leq 0 \;\; \forall \mbox{ vectors } \vv \in \real^n.
+    \vv\transpose \tZbold \vv \leq 0 \;\; \forall \mbox{ vectors } \vv \in \real^n.
 \ee
 \end{Hremark}
+
+\begin{Hresult}
+All $n \times n$ skew-symmetric matrices of odd dimension are singular.
+\end{Hresult}
+
+\begin{Hproof}
+For skew-symmetric matrices, 
+\be
+\tWbold = -\tWbold\transpose.
+\ee
+From the properties of determinants
+\be
+\det(\tWbold) = \det(-\tWbold\transpose) = (-1)^n \det(\tWbold),
+\ee
+which, since $n$ is odd, becomes,
+\be
+\det(\tWbold) = - \det(\tWbold) = 0,
+\ee
+\end{Hproof}
 
 \subsubsection{Cross-Product Operator}
 One special form of a skew-symmetry operator is a 
