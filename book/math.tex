@@ -233,7 +233,8 @@ negative semi-definite,
 \end{Hremark}
 
 \begin{Hresult}
-All $n \times n$ skew-symmetric matrices of odd dimension are singular.
+\label{result:skewsingular}
+All ($n \times n$) skew-symmetric matrices of odd dimension are singular.
 \end{Hresult}
 
 \begin{Hproof}
@@ -249,6 +250,24 @@ which, since $n$ is odd, becomes,
 \be
 \det(\tWbold) = - \det(\tWbold) = 0,
 \ee
+\end{Hproof}
+
+\begin{Hresult}
+The rank of a skew-symmetric matrix must be even.
+\end{Hresult}
+
+\begin{Hproof}
+For skew-symmetric matrices, 
+\be
+\tWbold = -\tWbold\transpose.
+\ee
+From the properties of determinants
+\be
+\det(\tWbold) = \det(-\tWbold\transpose) = (-1)^n \det(\tWbold).
+\ee
+If $n$ is odd, then $\det(\tWbold) = 0$ (see 
+Result~\ref{result:skewsingular}).  Therefore, the 
+rank of $\tWbold$ must be even.
 \end{Hproof}
 
 \subsubsection{Cross-Product Operator}
