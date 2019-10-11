@@ -29,7 +29,7 @@ ax.yaxis.set_major_locator(MultipleLocator(1.0))
 ax.xaxis.set_minor_locator(MultipleLocator(0.5))
 ax.yaxis.set_minor_locator(MultipleLocator(0.5))
 
-ax.plot(x1s - OFFSET, y1s - OFFSET, 'o', color='cornflowerblue')
+ax.plot(x1s - OFFSET, y1s - OFFSET, 'o', color='limegreen')
 ax.plot([0, 3], [0, 4], 'o--', color='blue', label=r'spatial location $(x_1, x_2, x_3) = (3, 4, 0)$')
 ax.plot([0, 1], [0, 0], '-', color='black', linewidth=2)  # x-axis leader
 ax.plot(1, 0, '-', color='black', marker='>', linewidth=2)  # x-axis arrowhead
@@ -38,20 +38,21 @@ ax.plot(0, 1, '-', color='black', marker='^', linewidth=2)  # y-axis arrowhead
 ax.plot(0, 0, 'o', color='black', label='origin = (0, 0, 0)')
 ax.text(1.5, 0, r'$\hat{\mathbf{e}}_1$', ha='center', va='center', backgroundcolor='white')
 ax.text(0, 1.5, r'$\hat{\mathbf{e}}_2$', ha='center', va='center', backgroundcolor='white')
+ax.text(-0.35, -0.35, r'$O$', ha='center', va='center', backgroundcolor='white')
 # ax.grid(which='both')
 ax.grid(b=True, which='major', linestyle='-')
 ax.grid(b=True, which='minor', linestyle=':')
 ax.set_xlabel(r'spatial coordinate $x_1$')
 ax.set_ylabel(r'spatial coordinate $x_2$')
-a = 9
+a = 6
 ax.set_xlim(-a, a)
-ax.set_ylim(-a, a+1)
-ax.legend(loc='upper right')
+ax.set_ylim(-a-1, a)
+ax.legend(loc='lower right')
 
 fig.tight_layout()
 plt.show()
 
-print_to_pdf = 0
+print_to_pdf = 1
 if print_to_pdf:
     script_name = os.path.basename(__file__)
     figure_name = os.path.splitext(script_name)[0]
