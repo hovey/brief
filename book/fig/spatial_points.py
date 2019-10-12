@@ -35,7 +35,7 @@ ax.plot(x1s - OFFSET, y1s - OFFSET, 'o', color='dimgray', alpha=0.5, label='spat
 
 # origin 
 ax.plot(0, 0, 'o', color='black', label='origin = (0, 0, 0)')  # origin
-ax.text(0.25, -0.25, r'$O$', ha='center', va='center')
+ax.text(0.25, -0.25, r'$o$', ha='center', va='center')
 
 # x-axis
 # ax.plot([0, 1], [0, 0], '-', color='black', linewidth=2)  # x-axis leader
@@ -60,9 +60,9 @@ ax.text(-0.5, -0.4, r'$\hat{\mathbf{e}}_3$', ha='center', va='center', backgroun
 pt_color = 'purple'
 px, py = 3, 4
 ax.plot(px, py, 'o', color=pt_color, 
-    label=r'spatial point {\bf \em p} = (' + str(px) + ', ' + str(py) + ', 0)')
+    label=r'spatial point {\em p} = (' + str(px) + ', ' + str(py) + ', 0)')
 ax.plot([0, px], [0, py], color=pt_color, 
-    label=r'spatial position vector {\bf \em r} $^{Op} = (' + str(px) + ', ' + str(py) + ', 0)$', zorder=4)
+    label=r'spatial position vector {\bf \em r} $^{op} = (' + str(px) + ', ' + str(py) + ', 0)$', zorder=4)
 o = 0.25
 ax.text(px + o, py + o, r'$p$', ha='center', va='center')
 angle = np.arctan(py / px)  # radians
@@ -70,7 +70,7 @@ angle_deg = angle * RADTODEG  # degrees
 r_off = 0.25
 dx = -r_off * np.cos(angle)
 dy = -r_off * np.sin(angle)
-ax.text(px + 4*dx, py + 2*dy, r'\bf{{\em r}} $^{Op}$', ha='center', va='center', backgroundcolor='white', rotation=angle_deg)
+ax.text(px + 4*dx, py + 2*dy, r'\bf{{\em r}} $^{op}$', ha='center', va='center', backgroundcolor='white', rotation=angle_deg)
 ax.plot(px + dx, py + dy, marker=(3, 0, angle_deg - 90.0), markersize=8, color=pt_color, zorder=4)  # r-axis arrowhead
 
 # ax.grid(which='both')
