@@ -10,6 +10,7 @@ from matplotlib.ticker import MultipleLocator
 rc('font', **{'family': 'serif', 'serif': ['Computer Modern Roman']})
 rc('text', usetex=True)
 
+
 def rotate(X, Y, R):
     """ Given list of reference points (X, Y), rotate them about the 
     z-axis by angle R (radians) to the current points (x, y).
@@ -20,101 +21,122 @@ def rotate(X, Y, R):
 
 
 def draw(axis, ux=0, uy=0, ur=0, showlabels=0):
-    NPTS = 7
-    # OFFSET = 0
     MSIZE = 8  # marker size
     
-    x1 = [x for x in range(-3, 4, 1)]
-    NROWS = 3
-    x1s = np.array(x1 * NROWS)  # center, top, and bottom list
-    x1s = np.append(x1s, [-4.0, 4.0])  # the two end points, x coordinate
-    y1s = np.array([[y] * NPTS for y in range(-1, 2, 1)]).reshape(1, NPTS * NROWS).squeeze()
-    y1s = np.append(y1s, [0, 0])  # the two end points, y coordinate
-
     # body grid
-    # ax.plot(x1s + ux, y1s + uy, 'o', color='dimgray', alpha=0.5, label='body integer points')
-    # ax.plot(np.cos(ur) * x1s - np.sin(ur) * y1s + ux, 
-    #        np.sin(ur) * x1s + np.cos(ur) * y1s + uy, 'o', color='dimgray', alpha=0.5, label='body integer points')
-    x, y = rotate(x1s, y1s, ur)
+    NPTS = 7
+    row = [i for i in range(-3, 4, 1)]
+    NROWS = 3
+    X = np.array(row * NROWS)  # center, top, and bottom list
+    X = np.append(X, [-4.0, 4.0])  # the two end points, x coordinate
+    Y = np.array([[j] * NPTS for j in range(-1, 2, 1)]).reshape(1, NPTS * NROWS).squeeze()
+    Y = np.append(Y, [0, 0])  # the two end points, y coordinate
+    x, y = rotate(X, Y, ur)
     axis.plot(x + ux, y + uy, 'o', color='dimgray', alpha=0.5, label='body integer points')
 
     # origin 
     axis.plot(0 + ux, 0 + uy, 'o', color='black', label='origin = (0, 0, 0)')  # origin
     ox = 0.25  # offset
     oy = -0.25  # offset
-    axis.text(0 + ux + ox, 0 + uy + oy, r'$O$', ha='center', va='center')
+    X = 0 + ox
+    Y = 0 + oy
+    x, y = rotate(X, Y, ur)
+    axis.text(x + ux, y + uy, r'$O$', ha='center', va='center')
     
     # x-axis
     X = np.array([0, 1])
     Y = np.array([0, 0])
     x, y = rotate(X, Y, ur)
-    # ax.plot([0 + ux, 1 + ux], [0 + uy, 0 + uy], '-', marker='>', linewidth=2, color='red', markevery=[-1])  # x-axis
-    # axis.plot(x + ux, y + uy, '-', marker='>', linewidth=2, color='red', markevery=[-1])  # x-axis
-    axis.plot(x + ux, y + uy, '-', marker=(3, 1, ur * RADTODEG - 90.0), markersize=MSIZE, linewidth=2, color='red', markevery=[-1])  # x-axis
-    # ax.text(1.5 + ux, 0 + uy, r'$\hat{\mathbf{b}}_1$', ha='center', va='center', backgroundcolor='white')
+    axis.plot(x + ux, y + uy, '-', marker=(3, 1, ur * RADTODEG - 90.0), markersize=MSIZE, linewidth=2, color='red', markevery=[-1], zorder=4)  # x-axis
     ox = 0.5  # offset
     oy = 0.0  # offset
-    axis.text(x[-1] + ux + ox, y[-1] + uy + oy, r'$\hat{\mathbf{b}}_1$', ha='center', va='center', backgroundcolor='white')
+    X = X[-1] + ox
+    Y = Y[-1] + oy
+    x, y = rotate(X, Y, ur)
+    axis.text(x + ux, y + uy, r'$\hat{\mathbf{b}}_1$', ha='center', va='center', backgroundcolor='white')
     
     # y-axis
     X = np.array([0, 0])
     Y = np.array([0, 1])
-    # x, y = rotate(np.array([0, 0]), np.array([0, 1]), ur)
     x, y = rotate(X, Y, ur)
-    # ax.plot([0 + ux, 0 + ux], [0 + uy, 1 + uy], '-', marker='^', linewidth=2, color='green', markevery=[-1])  # y-axis
-    # axis.plot(x + ux, y + uy, '-', marker='^', linewidth=2, color='green', markevery=[-1])  # y-axis
-    axis.plot(x + ux, y + uy, '-', marker=(3, 1, ur * RADTODEG), markersize=MSIZE, linewidth=2, color='green', markevery=[-1])  # y-axis
-    # ax.text(0 + ux, 1.5 + uy, r'$\hat{\mathbf{b}}_2$', ha='center', va='center', backgroundcolor='white')
+    axis.plot(x + ux, y + uy, '-', marker=(3, 1, ur * RADTODEG), markersize=MSIZE, linewidth=2, color='green', markevery=[-1], zorder=4)  # y-axis
     ox = 0.0  # offset
     oy = 0.5  # offset
-    axis.text(x[-1] + ux + ox, y[-1] + uy + oy, r'$\hat{\mathbf{b}}_2$', ha='center', va='center', backgroundcolor='white')
+    X = X[-1] + ox
+    Y = Y[-1] + oy
+    x, y = rotate(X, Y, ur)
+    axis.text(x + ux, y + uy, r'$\hat{\mathbf{b}}_2$', ha='center', va='center', backgroundcolor='white')
     
     # z-axis start
     z_angle = np.linspace(-np.pi/2.0, np.pi)
     z_radius = 0.5
-    # axis.plot(z_radius * np.cos(z_angle) + ux, z_radius * np.sin(z_angle) + uy, color='blue')  # z-axis leader
     X = z_radius * np.cos(z_angle)
     Y = z_radius * np.sin(z_angle)
-    # x, y = rotate(np.array(z_radius * np.cos(z_angle)), np.array(z_radius * np.sin(z_radius)), ur)
     x, y = rotate(X, Y, ur)
-    # axis.plot(z_radius * np.cos(z_angle) + ux, z_radius * np.sin(z_angle) + uy, color='blue')  # z-axis leader
-    axis.plot(x + ux, y + uy, color='blue')  # z-axis leader
-    ox = 0  # offset
-    oy = 0  # offset
-    # axis.plot(-0.5 + ux, 0 + uy, marker='v', color='blue', zorder=4)  # z-axis arrowhead
-    # axis.text(-0.5 + ux, -0.4 + uy, r'$\hat{\mathbf{b}}_3$', ha='center', va='center', backgroundcolor='white')
-    # axis.plot(0 + ux + ox, 0 + uy + oy, marker='v', color='blue', zorder=4)  # z-axis arrowhead
-    axis.plot(x[-1] + ux + ox, y[-1] + uy + oy, marker=(3, 1, ur * RADTODEG - 180.0), markersize=MSIZE, linewidth=2, color='blue', zorder=4)  # z-axis arrowhead
+    axis.plot(x + ux, y + uy, color='blue', zorder=4)  # z-axis leader
+    axis.plot(x[-1] + ux, y[-1] + uy, marker=(3, 1, ur * RADTODEG - 180.0), markersize=MSIZE, linewidth=2, color='blue', zorder=4)  # z-axis arrowhead
     ox = 0  # offset
     oy = -0.5  # offset
-    axis.text(x[-1] + ux + ox, y[-1] + uy + oy, r'$\hat{\mathbf{b}}_3$', ha='center', va='center', backgroundcolor='white')
+    X = X[-1] + ox
+    Y = Y[-1] + oy
+    x, y = rotate(X, Y, ur)
+    axis.text(x + ux, y + uy, r'$\hat{\mathbf{b}}_3$', ha='center', va='center', backgroundcolor='white')
 
     # body
     body_color = 'black'
+    
+    p_color = 'purple'
+    PX, PY = 3, 0  # circle coordinates, point P
+    px, py = rotate(PX, PY, ur)
+    axis.plot(px + ux, py + uy, 'o', color=p_color, label=r'body point {\em P} = (3, 0, 0)')  #  point P
+    ox = 0.25  # offset
+    oy = -0.25  # offset
+    X = PX + ox
+    Y = PY + oy
+    x, y = rotate(X, Y, ur)
+    axis.text(x + ux, y  + uy, r'$P$', ha='center', va='center')
+    
+    q_color = 'magenta'
+    QX, QY = -3, 0  # circle coordinates, point Q
+    qx, qy = rotate(QX, QY, ur)
+    axis.plot(qx + ux, qy + uy, 'o', color=q_color, label=r'body point {\em Q} = (-3, 0, 0)')  #  point Q
+    ox = 0.22  # offset
+    oy = -0.25  # offset
+    X = QX + ox
+    Y = QY + oy
+    x, y = rotate(X, Y, ur)
+    axis.text(x + ux, y + uy, r'$Q$', ha='center', va='center')
+
     b_angle = np.linspace(0.0, 2 * np.pi)
     b_angle_q = np.linspace(np.pi/2, 3*np.pi/2)
     b_angle_p = np.linspace(-np.pi/2, np.pi/2)
     b_radius = 0.5
     b_radius_o = 1.0
+
+    X = b_radius * np.cos(b_angle) + PX
+    Y = b_radius * np.sin(b_angle) + PY
+    x, y = rotate(X, Y, ur)
+    axis.plot(x + ux, y + uy, color=body_color)  # P circle
+    X = b_radius_o * np.cos(b_angle_p) + PX
+    Y = b_radius_o * np.sin(b_angle_p) + PY
+    x, y = rotate(X, Y, ur)
+    axis.plot(x + ux, y + uy, color=body_color)  # P circle, outer
+    p0x, p0y = x[0], y[0]
+    p1x, p1y = x[-1], y[-1]
+
+    X = b_radius * np.cos(b_angle) + QX
+    Y = b_radius * np.sin(b_angle) + QY
+    x, y = rotate(X, Y, ur)
+    axis.plot(x + ux, y + uy, color=body_color)  # Q circle
+    X = b_radius_o * np.cos(b_angle_q) + QX
+    Y = b_radius_o * np.sin(b_angle_q) + QY
+    x, y = rotate(X, Y, ur)
+    axis.plot(x + ux, y + uy, color=body_color)  # Q circle, outer
+    q0x, q0y = x[0], y[0]
+    q1x, q1y = x[-1], y[-1]
     
-    px, py = 3, 0  # circle coordinates, point P
-    p_color = 'purple'
-    axis.plot(px + ux, py + uy, 'o', color=p_color, label=r'body point {\em P} = (3, 0, 0)')  #  point P
-    axis.text(px + 0.25 + ux, py - 0.25 + uy, r'$P$', ha='center', va='center')
-    
-    qx, qy = -3, 0  # circle coordinates, point Q
-    q_color = 'magenta'
-    axis.plot(qx + ux, qy + uy, 'o', color=q_color, label=r'body point {\em Q} = (-3, 0, 0)')  #  point Q
-    axis.text(qx + 0.22 + ux, qy - 0.25 + uy, r'$Q$', ha='center', va='center')
-    
-    axis.plot(b_radius * np.cos(b_angle) + px + ux, b_radius * np.sin(b_angle) + py + uy, color=body_color)  # P circle
-    axis.plot(b_radius * np.cos(b_angle) + qx + ux, b_radius * np.sin(b_angle) + qy + uy, color=body_color)  # Q circle
-    
-    axis.plot(b_radius_o * np.cos(b_angle_p) + px + ux, b_radius_o * np.sin(b_angle_p) + py + uy, color=body_color)  # P circle, outer
-    axis.plot(b_radius_o * np.cos(b_angle_q) + qx + ux, b_radius_o * np.sin(b_angle_q) + qy + uy, color=body_color)  # R circle, outer
-    
-    axis.plot([px + ux, qx + ux], [py + b_radius_o + uy, qy + b_radius_o + uy], color=body_color)  #  top bracket line
-    axis.plot([px + ux, qx + ux], [py - b_radius_o + uy, qy - b_radius_o + uy], color=body_color)  #  bottom bracket line
+    axis.plot([p1x + ux, q0x + ux], [p1y + uy, q0y + uy], color=body_color)  #  top bracket line
+    axis.plot([q1x + ux, p0x + ux], [q1y + uy, p0y + uy], color=body_color)  #  bottom bracket line
 
 
 fig = plt.figure(figsize=(6, 3))  # inches, (wide, tall)
@@ -124,7 +146,7 @@ ax = fig.add_subplot(1, 1, 1)
 
 dx = -0
 dy = -0
-dr_deg = 45  # deg
+dr_deg = 135  # deg
 RADTODEG = 180.0/np.pi
 DEGTORAD = 1.0/RADTODEG
 dr = dr_deg * DEGTORAD  # radian
@@ -145,8 +167,8 @@ ax.set_xlabel(r'body coordinate $X_1$')
 ax.set_ylabel(r'body coordinate $X_2$')
 a = 5.9
 b = 2.9
-ax.set_xlim(-a, a)
-ax.set_ylim(-b - 2, b)
+# ax.set_xlim(-a, a)
+# ax.set_ylim(-b - 2, b + 2)
 # ax.legend(loc='lower right', framealpha=1.0)
 ax.legend(loc='lower right')
 
