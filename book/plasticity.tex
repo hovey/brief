@@ -883,11 +883,26 @@ denoted
 \vsigma = \vsigmavol + \vsigmadev.
 \ee
 Next, we {\em define} each of these two components.  
-The {\bf volumetric} Cauchy stress tensor is defined as
+The {\bf volumetric Cauchy stress tensor} is defined as
 \be
 \vsigmavol \defe \frac{1}{3} \trace(\vsigma) \vid = 
 \frac{1}{3} \sigma_{kk} \; \delta_{ij}.
 \ee
+It is convenient to define the mean stress, $\bar{\sigma}$, as
+\be
+\bar{\sigma} \defe \frac{1}{3} 
+(\sigma_{11} + \sigma_{22} + \sigma_{33}).  
+\ee
+Then 
+\be
+\vsigmavol \defe \bar{\sigma} \vid = 
+\bar{\sigma} \; \delta_{ij}.
+\ee
+The {\bf deviatoric Cauchy stress tensor},  
+$\tsbold$, is defined as
+\be
+\tsbold \defe \vsigma - \vsigmavol = \vsigma - \bar{\sigma} \; \vid.
+\ee 
 It is often convenient to define {\bf pressure} $P \in \real$ as
 \be
 P \defe - \frac{1}{3} \trace(\vsigma) \hspace{1.0cm}
@@ -904,12 +919,6 @@ underwater) pressure as a positive, scalar with
 tension/compression (positive/negative) convention of the Cauchy
 stress tensor.
 
-Furthermore, the deviatoric Cauchy stress tensor is often denoted
-simply as $\tsbold$.  Using this notation, the {\bf deviatoric}
-Cauchy stress tensor is defined as
-\be
-\tsbold \defe \vsigma - \vsigmavol = \vsigma + P \; \vid.
-\ee 
 
 \subsection{Uniaxial Tension Test}
 With these definitions at hand, we are now poised to demonstrate
@@ -991,38 +1000,43 @@ envision $\tsbold$ for {\em any and all} matrix forms, not just the form
 obtained in (\ref{eq:deviatoric_uniaxial_tension}).  Any and all matrix
 form for $\tsbold$ will have one commonality:  their matrix invariants.
 
-
-Recall that the three invariants, 
-$I_1(\tAbold)$, 
-$I_2(\tAbold)$, and 
-$I_3(\tAbold)$ of matrix
-$\tAbold$ satisfy the equation
+\subsubsection{The Cauchy Stress Tensor Invariants}
+The invariants of the Cauchy stress tensor, $\vsigma$, satisfy the
+characteristic equation (see (\ref{eq:invariants_sot}) for details),
 \be
-\det(\tAbold - \lambda \vid) \overset{\tiny\mbox{set}}{=} 0
+0 = - \lambda^3 + I_1 \lambda^2 - I_2 \lambda^1 + I_3 \lambda^0,
 \ee
-for any $\lambda$, and produce the characteristic equation
+where the three invariants, $I_1$, $I_2$, and $I_3$ are 
 \begin{align}
- 0 & = \lambda^3 \; (-1) \\
-   & + \lambda^2 \;
-       \underset{\mbox{\normalsize$\trace$(\tAbold)}}{\underbrace{\left(a_{11} 
-       + a_{22} + a_{33} \right)}} \\
-   & + \lambda^1 \; 
-       \underset{\mbox{\normalsize$\half\left[ \;
-	         \trace(\tAbold \cdot \tAbold)
-		 - \trace(\tAbold) \trace(\tAbold) \; \right]$}}
-                {\underbrace{\left(-a_{11} a_{22} - 
-       a_{22} a_{33} - a_{33} a_{11} + 
-       a_{12} a_{21} + a_{23} a_{32} + a_{31} a_{13} \right)}} \\ 
-   & + \lambda^0 \; 
-       \underset{\mbox{\normalsize$\det$(\tAbold)}}{\underbrace{\left(
-       a_{11} a_{22} a_{33} 
-       + a_{12} a_{23} a_{31} 
-       + a_{13} a_{21} a_{32}
-       - a_{11} a_{23} a_{32} 
-       - a_{12} a_{21} a_{33}
-       - a_{13} a_{22} a_{31} 
-       \right)}}.
+ I_1 &= \trace(\vsigma), \\
+ I_2 &= \half\left[ \trace(\vsigma) \trace(\vsigma) 
+        - \vsigma : \vsigma \right] 
+	 = \half\left[I^2_1 - \vsigma : \vsigma \right], \\
+ I_3 &= \det(\vsigma).
 \end{align}
+
+\subsubsection{The Deviatoric Cauchy Stress Tensor Invariants}
+The invariants of the deviatoric Cauchy stress tensor, $\tsbold$, 
+satisfy the characteristic equation
+\be
+0 = - \lambda^3 + J_1 \lambda^2 - J_2 \lambda^1 + J_3 \lambda^0,
+\ee
+where the three invariants, $J_1$, $J_2$, and $J_3$ are
+\begin{align}
+ J_1 &= \trace(\tsbold) = 0, \\
+ J_2 &= \half\left[ \trace(\tsbold) \trace(\tsbold) 
+        - \tsbold : \tsbold \right] 
+	 = \half\left[J^2_1 - \tsbold : \tsbold \right] 
+	 = -\half \tsbold : \tsbold, \\
+ J_3 &= \det(\tsbold).
+\end{align}
+
+
+will have a first invariant, 
+$J_1$ equal to zero since the trace of a deviatoric second order tensor
+is zero.  
+
+
 Then the first invariant of $\tsbold$, 
 \be
 J_1(\tsbold) \defe \trace(\tsbold) = s_{kk} = 0,
