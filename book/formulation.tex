@@ -6,22 +6,39 @@
 
 \item Let $\mathfrak{X}$ denote a {\bf fixed place}, which will be understood as a fundamental and elementary answer to the question of ``Where?''
 
-\item For now, a fixed place is understood without recourse to concepts of location or position, since location and position require at least {\em two} fixed places to be defined (the subject fixed place itself and an origin's fixed place).
+\item For now, a fixed place is understood without recourse to concepts of location or position, since location and position require at least {\em two} fixed places to be defined (the subject fixed place itself and an origin's fixed place).\footnote{With the notions of space coordinates, introduced in the following section, we can think of a fixed place as a location that has an immutable position.}
 
 \item Let $\mathbb{S}$ denote {\bf space}, defined as the infinite set of fixed places $\mathfrak{X}$.
 
-\item With the notions of space coordinates, introduced in the following section, we can further think of a fixed place as a location that has an immutable position. 
-
 \end{itemize}
 
-\section{Space Coordinates}
+\section{Coordinates}
 
 \begin{itemize}
 
-\item From the infinite set of fixed places $\mathbb{S}$, we select
-one fixed place to designate as the {\bf origin} $O$.
+\item Now, we define the concept of location of fixed places through introduction of an origin, bases vectors, which embed both a direction and a magnitude on the space $\mathbb{S}$.  
 
-\item At the origin $O$, we construct three dextral, orthonormal {\bf unit vectors}, $\veeonehat, \veetwohat, \veethreehat$, called the {\bf spatial basis vectors}.
+\item With space, an origin, and a basis, {\bf coordinates} arise as a measure of the distance from the origin to the fixed place, understood as the location.
+
+\item Coordinates are measure, given a particular {\bf coordinate system}.  The coordinate system considered herein will be the Cartesian coordinate system, as opposed to the polar coordinate system or the spherical coordinate system.  
+
+\end{itemize}
+
+\subsection{Space-Fixed Coordinates}
+
+\begin{figure}[htb]
+  \begin{center}
+    \includegraphics[width=0.8\textwidth]{fig/spatial_points.pdf}
+  \end{center}
+  \label{fig:spatial_points}
+  \caption{Spatial points plotted at integers in gray over the range $\vx = (x_1, x_2, x_3) \subset \realthree$, such that $x_1 \in [-5, 5]$, $x_2 \in [-5, 5]$, and $x_3 = 0$. The origin $o$ is indicated at (0, 0, 0). The $\veethreehat$ vector points out of the page. A particular spatial point $\vp$, located at (3, 4, 0), is indicated in purple.  The position vector $\vr^{op}$ locates points $\vp$ in the spatial coordinate system $S$, spanned by $\veeonehat$, $\veetwohat$, $\veethreehat$, with origin $o$.}
+\end{figure}
+
+\begin{itemize}
+
+\item From the infinite set of fixed places $\mathbb{S}$, we select one fixed place to designate as the {\bf origin} $o$.  (See Fig.~\ref{fig:spatial_points}.)
+
+\item At the origin $o$, we construct three dextral, orthonormal {\bf unit vectors}, $\veeonehat, \veetwohat, \veethreehat$, called the {\bf spatial basis vectors}.
 
 \item The term {\bf dextral} designates a {\em right-handed rule}, 
 such that 
@@ -40,7 +57,7 @@ $\veeihat \times \veejhat = \veekhat$.
 \ee
 Whereas the notation $\ve{e}$ denotes a vector of unspecified length, the overhat notation $\hat{\ve{e}}$ denotes a {\em unit} vector.
 
-\item The origin $O$ and the spatial basis vectors $\veeonehat, \veetwohat, \veethreehat$ together compose the {\bf spatial coordinate system} $S$, which is a one-to-one correspondence between fixed places $\mathfrak{X}$ in space $\mathbb{S}$ and their {\bf spatial coordinates} $\vx$.
+\item The origin $o$ and the spatial basis vectors $\veeonehat, \veetwohat, \veethreehat$ together compose the {\bf spatial coordinate system} $S$, which is a one-to-one correspondence between fixed places $\mathfrak{X}$ in space $\mathbb{S}$ and their {\bf spatial coordinates} $\vx$.
 
 \item The spatial coordinates are an ordered set of three real numbers $\{x_1, x_2, x_3\}\transpose$ measured in a particular coordinate system from the coordinate system's origin to the fixed place $\mathfrak{X}$ in space $\mathbb{S}$.  
 
@@ -76,25 +93,56 @@ without the braces and the transpose, which are formalisms to explicitly indicat
 \end{itemize}
 
 
-\begin{figure}[htb]
-  \begin{center}
-    \includegraphics[width=0.8\textwidth]{fig/spatial_points.pdf}
-  \end{center}
-  \label{fig:spatial_points}
-  \caption{Spatial points plotted at integers in gray over the range $\vx = (x_1, x_2, x_3) \subset \realthree$, such that $x_1 \in [-5, 5]$, $x_2 \in [-5, 5]$, and $x_3 = 0$. The origin $o$ is indicated at (0, 0, 0). The $\veethreehat$ vector points out of the page. A particular spatial point $\vp$, located at (3, 4, 0), is indicated in purple.  The position vector $\vr^{op}$ locates points $\vp$ in the spatial coordinate system $S$, spanned by $\veeonehat$, $\veetwohat$, $\veethreehat$, with origin $O$.}
-\end{figure}
 
-\section{Body Coordinates}
+\subsection{Body-Fixed Coordinates}
 
 \begin{figure}[htb]
   \begin{center}
     \includegraphics[width=0.8\textwidth]{fig/rigid_body.pdf}
   \end{center}
-  \label{fig:spatial_points}
+  \label{fig:body_points}
   \caption{Body points plotted at integers in gray over the domain $\mathbb{B} \subset \realthree$, bounded by the solid black lines.  The origin $O$ is indicated at (0, 0, 0). The $\vebthreehat$ vector points out of the page. Two particular material points $P$ and $Q$ are located at (3, 0, 0) and (-3, 0, 0), respectively.  The position vector $\vR^{OP}$ locates point $P$ in the body coordinate system $B$, spanned by $\vebonehat$, $\vebtwohat$, $\vebthreehat$, with origin $O$.  Likewise, position vector $\vR^{OQ}$ locates point $Q$.}
 \end{figure}
 
-\section{Alignment of Coordinate Systems at $t=0$}
+\begin{itemize}
 
+\item Next, envision a body as a collection of particles existing in space.  Denote the set of particles as $\mathbb{B} \in \realthree$.  
+
+\item From either one of the particles in body $\mathbb{B}$, or from a particles that moves with the body,\footnote{A particle not on the body but moving with the body will be referred to as a {\em carrier frame}, defined later.}, we selected one reference point as the {\bf body origin} $O$. (See Fig.~\ref{fig:body_points}.)
+
+\item At the body origin $O$, we construct three dextral, orthonormal {be unit vectors} $\vebonehat$, $\vebtwohat$, $\vebthreehat$, fixed in the body, called {\bf material basis vectors}.
+
+\item The origin $O$ and the material basis vectors $\vebonehat$, $\vebtwohat$, $\vebthreehat$ together compose the {\bf material coordinate system} $M$, which is a one-to-one correspondence between places in both $\mathbb{B}$ and their material coordinates $\vX$.
+
+\item The material coordinates are an ordered set of three real numbers $\{X_1, X_2, X_3\}\transpose$ measured in the body's coordinate system.  
+
+\item A particle in body $\mathbb{B}$ is {\em located} in the material coordinate system $M$ by the particular material coordinate $\vX$, written in {\bf explicit form} as 
+\be
+\vX = X_1 \vebonehat + X_2 \vebtwohat + X_3 \vebthreehat = X_I \vebIhat.
+\ee
+
+Thus, material coordinates locate a particle in a body $\mathbb{B}$.
+
+\item If we do not designate the basis vectors explicitly with capital letters,  we may write in {\bf implicit form},
+\be
+\vX = \{X_1, X_2, X_3\}\transpose,
+\label{eq:X_no_basis}
+\ee 
+without ambiguity as measures with respect to the body coordinate $M$.
+For simplicity, we sometimes will write the vector $\vX$ as a triple, 
+\be
+\vX = (X_1, X_2, X_3),
+\ee
+without the braces and the transpose, which are formalisms to explicitly indicate a vector.
+
+\item We have now introduced two coordinate systems: the space-fixed coordinate system and the body-fixed coordinate system.  To speak of a particle measured with space coordinates, we will need a way to transform body coordinates into space coordinates.  This will be achieved through a coordinate transformation.  Two lay the groundwork for this transformation, we first define the concept of the {\bf reference configuration}.
+
+\end{itemize}
+
+\section{Configurations}
+
+\subsection{Reference Configuration}
+
+\subsection{Current Configuration}
 
 

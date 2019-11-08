@@ -176,7 +176,7 @@ ax.legend(loc='lower right')
 # fig.tight_layout()
 plt.show()
 
-print_to_pdf = 1
+print_to_pdf = 0
 if print_to_pdf:
     script_name = os.path.basename(__file__)
     figure_name = os.path.splitext(script_name)[0]

@@ -27,8 +27,8 @@ ax.axis('equal')
 ax.xaxis.set_major_locator(MultipleLocator(1.0))
 ax.yaxis.set_major_locator(MultipleLocator(1.0))
 # minor axes
-ax.xaxis.set_minor_locator(MultipleLocator(0.5))
-ax.yaxis.set_minor_locator(MultipleLocator(0.5))
+# ax.xaxis.set_minor_locator(MultipleLocator(0.5))
+# ax.yaxis.set_minor_locator(MultipleLocator(0.5))
 
 # spatial grid
 ax.plot(x1s - OFFSET, y1s - OFFSET, 'o', color='dimgray', alpha=0.5, label='spatial integer points')
@@ -74,8 +74,9 @@ ax.text(px + 4*dx, py + 2*dy, r'\bf{{\em r}} $^{op}$', ha='center', va='center',
 ax.plot(px + dx, py + dy, marker=(3, 0, angle_deg - 90.0), markersize=8, color=pt_color, zorder=4)  # r-axis arrowhead
 
 # ax.grid(which='both')
-ax.grid(b=True, which='major', linestyle='-')
-ax.grid(b=True, which='minor', linestyle=':')
+# ax.grid(b=True, which='major', linestyle='-')
+ax.grid(b=True, which='major', linestyle=':')
+# ax.grid(b=True, which='minor', linestyle=':')
 ax.set_xlabel(r'spatial coordinate $x_1$')
 ax.set_ylabel(r'spatial coordinate $x_2$')
 a = 6
@@ -93,3 +94,4 @@ if print_to_pdf:
     figure_name = os.path.splitext(script_name)[0]
     print(f'Saving figure as {figure_name}.pdf')
     fig.savefig(figure_name + '.pdf', bbox_inches='tight')
+
