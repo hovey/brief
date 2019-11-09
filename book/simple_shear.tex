@@ -1,29 +1,31 @@
 \section{Simple Shear}
 Figure~\ref{fig:simple_shear} illustrates {\bf simple shear}, with 
-relative motion of planes normal to the $\vEtwo$ axis.
+relative motion of planes normal to the vertical axis.
 For all configurations (reference and current):
 \begin{itemize}
 \setlength\itemsep{0em}
 \item Horizontal fibers remain horizontal.
 \item The length of horizontal fibers remains constant.
 \item The vertical distance between the horizontal fibers remains constant.
-\item The body's volume is constant. The deformation is isochoric since $\det(\tFbold) = 1$.
+\item The body's volume is constant. The deformation is isochoric since $\det(\tFbold) = 1$, see 
+(\ref{eq:deformation_gradient_iJ}).
 \end{itemize}
 
 The relative motion is characterized by the non-dimensional ratio of length $a$ per unit height, 
 where $a \in \real \subset [0, \infty)$.
 The angle, $\gamma \in \real \subset [0, \pi/2)$, subtended by simple shear is $\gamma = \arctan(a)$.  
-In the limit as $a \mapsto \infty$, the angle $\gamma \mapsto \pi/2$.
-For small values of $a$, the small small-angle assumption is valid, with $\tan(\gamma) \approx \gamma \approx a$.
+In the limit as $a \mapsto \infty$, the shear angle $\gamma \mapsto \pi/2$.
+For small values of $a$, the small-angle assumption is valid, with $\tan(\gamma) \approx \gamma \approx a$.
 
 \begin{figure}[htb]
   \begin{center}
     \includegraphics[width=\textwidth]{fig/simple_shear.pdf}
   \end{center}
-  \caption{Simple shear.}
+  \caption{(Left) {\bf Simple shear} of a unit cube in the reference configuration (gray) and two current configurations (dotted, green and dashed, red) and (right) with the shear angle, $\gamma$, created for all configurations that are parameterized by $a \in [0, 10]$.}
   \label{fig:simple_shear}
 \end{figure}
 
+In Fig.~\ref{fig:simple_shear} (left), the horizontal displacement per unit height, $a$, is illustrated by the dotted, green configuration.  The (right) figure also shows the shear angle $\gamma = \arctan(a)$, with the three $(a, \gamma)$ pairs plotted in a color that matches the corresponding deformation in the left figure.
 
 \subsection{Rate-Independent}
 The simple shear deformation $\vvarphi$ in rate-independent form is
@@ -33,7 +35,7 @@ The simple shear deformation $\vvarphi$ in rate-independent form is
 The deformation gradient $\tFbold$ is
 \begin{align}
 \tFbold
-& = \vesubi \frac{\partial \vvarphi_i}{\partial X_J} \vEsubJ = \veone \vEone + a \; \veone \vEtwo + \vetwo \vEtwo + \vethree \vEthree, 
+& = \vesubi \frac{\partial \varphi_i}{\partial X_J} \vEsubJ = \veone \vEone + a \; \veone \vEtwo + \vetwo \vEtwo + \vethree \vEthree, 
 \\
 & = \left\{\veone \; \vetwo \; \vethree \right\}
 \left[
@@ -63,9 +65,9 @@ $\vEthree$
 \right].
 \label{eq:deformation_gradient_iJ}
 \end{align}
-The right Cauchy-Green strain tensor, $\tCbold = \tFbold \transpose \tFbold$, is
+Note that the volume remains constant for all deformations since $\det(\tFbold) = 1$.  The deformation thus belongs to the group of isochoric motions (see Fig.~\ref{fig:motion_family}).  The right Cauchy-Green strain tensor, $\tCbold = \tFbold \transpose \tFbold$, is
 \begin{align}
-\tCbold & = \vEone \vEone + a\; (\vEone \vEtwo + \vEtwo \vEone) + (1 + a^2) \; \vEtwo \vEtwo + \vEthree \vEthree, 
+\tCbold & = \vEone \vEone + a\; (\vEone \vEtwo + \vEtwo \vEone) + (a^2 + 1) \; \vEtwo \vEtwo + \vEthree \vEthree, 
 \\
 & \Longleftrightarrow \;\; \tC_{IJ} = 
 \left[

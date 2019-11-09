@@ -72,7 +72,7 @@ def draw(axis, ux=0, uy=0, ur=0, shear=0, t0=1, showlabels=0):
     if t0:
         text = r'${\mathbf{E}}_1$'
     else:
-        text = r'${\mathbf{e}}_1$'
+        text = r'${\mathbf{E}}_1$'
     # axis.text(x + ux, y + uy, r'${\mathbf{E}}_1$', ha='center', va='center', backgroundcolor='white')
     axis.text(x + ux, y + uy, text, ha='center', va='center', backgroundcolor='white')
     
@@ -92,7 +92,7 @@ def draw(axis, ux=0, uy=0, ur=0, shear=0, t0=1, showlabels=0):
     if t0:
         text = r'${\mathbf{E}}_2$'
     else:
-        text = r'${\mathbf{e}}_2$'
+        text = r'${\varphi_*[\mathbf{E}}_2]$'
     axis.text(x + ux, y + uy, text, ha='center', va='center', backgroundcolor='white')
     
     # z-axis start
@@ -101,7 +101,8 @@ def draw(axis, ux=0, uy=0, ur=0, shear=0, t0=1, showlabels=0):
     X = z_radius * np.cos(z_angle)
     Y = z_radius * np.sin(z_angle)
     # x, y = rotate(X, Y, ur)
-    x, y = simple_shear(X, Y, shear)
+    no_shear = 0
+    x, y = simple_shear(X, Y, no_shear)  # don't shear the z-axis leader
     axis.plot(x + ux, y + uy, color='blue', zorder=4)  # z-axis leader
     # axis.plot(x[-1] + ux, y[-1] + uy, marker=(3, 1, ur * RADTODEG - 180.0), markersize=MSIZE, linewidth=2, color='blue', zorder=4)  # z-axis arrowhead
     axis.plot(x[-1] + ux, y[-1] + uy, marker='o', linewidth=2, color='blue', zorder=4)  # z-axis arrowhead
@@ -110,11 +111,11 @@ def draw(axis, ux=0, uy=0, ur=0, shear=0, t0=1, showlabels=0):
     X = X[-1] + ox
     Y = Y[-1] + oy
     # x, y = rotate(X, Y, ur)
-    x, y = simple_shear(X, Y, shear)
+    x, y = simple_shear(X, Y, no_shear)
     if t0:
         text = r'${\mathbf{E}}_3$'
     else:
-        text = r'${\mathbf{e}}_3$'
+        text = r'${\mathbf{E}}_3$'
     axis.text(x + ux, y + uy, text, ha='center', va='center', backgroundcolor='white')
 
     # body
@@ -125,8 +126,8 @@ def draw(axis, ux=0, uy=0, ur=0, shear=0, t0=1, showlabels=0):
     # px, py = rotate(PX, PY, ur)
     px, py = simple_shear(PX, PY, shear)
     axis.plot(px + ux, py + uy, 'o', color=p_color, label=r'body point {\em P} = (3, 0, 0)')  #  point P
-    ox = 0.25  # offset
-    oy = -0.25  # offset
+    ox = 0.0  # offset
+    oy = 0.25  # offset
     X = PX + ox
     Y = PY + oy
     # x, y = rotate(X, Y, ur)
@@ -142,8 +143,8 @@ def draw(axis, ux=0, uy=0, ur=0, shear=0, t0=1, showlabels=0):
     # qx, qy = rotate(QX, QY, ur)
     qx, qy = simple_shear(QX, QY, shear)
     axis.plot(qx + ux, qy + uy, 'o', color=q_color, label=r'body point {\em Q} = (-3, 0, 0)')  #  point Q
-    ox = 0.22  # offset
-    oy = -0.25  # offset
+    ox = 0.0  # offset
+    oy = 0.25  # offset
     X = QX + ox
     Y = QY + oy
     # x, y = rotate(X, Y, ur)

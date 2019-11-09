@@ -28,7 +28,7 @@ def simple_shear(X, Y, shear_12):
     y = Y
     return x, y
 
-def draw(axis, ux=0, uy=0, ur=0, shear=0, t0=1, showlabels=0, c='dimgray'):
+def draw(axis, ux=0, uy=0, ur=0, shear=0, t0=1, showlabels=0, c='dimgray', ls='-'):
     MSIZE = 8  # marker size
     
     # body grid
@@ -47,7 +47,7 @@ def draw(axis, ux=0, uy=0, ur=0, shear=0, t0=1, showlabels=0, c='dimgray'):
     else:
         # c='green'
         al=0.9
-    axis.plot(x + ux, y + uy, '-o', color=c, alpha=al, label='body integer points')
+    axis.plot(x + ux, y + uy, '-o', color=c, alpha=al, linestyle=ls, label='body integer points')  # body outline
 
     # origin 
     axis.plot(0 + ux, 0 + uy, 'o', color='black', label='origin = (0, 0, 0)')  # origin
@@ -90,10 +90,10 @@ dr = dr_deg * DEGTORAD  # radian
 draw(ax1, ux=dx, uy=dy, ur=dr)
 
 shear_12 = 0.5 # Length units, shear in the X_1 direction
-draw(ax1, ux=dx, uy=dy, ur=dr, shear=shear_12, t0=False, c='green')
+draw(ax1, ux=dx, uy=dy, ur=dr, shear=shear_12, t0=False, c='green', ls=':')
 
 shear_12 = 1.0 # Length units, shear in the X_1 direction
-draw(ax1, ux=dx, uy=dy, ur=dr, shear=shear_12, t0=False, c='red')
+draw(ax1, ux=dx, uy=dy, ur=dr, shear=shear_12, t0=False, c='red', ls='--')
 
 ax1.axis('equal')
 # ax2.axis('equal')
@@ -122,19 +122,19 @@ y = np.arctan(x)
 # ax2.plot(x, y/np.pi, linewidth=2, color='blue')
 ax2.plot(x, y, linewidth=2, color='blue')
 ax2.text(x_max - epsx, np.pi/2 + epsy/4, r'$\gamma \mapsto \frac{\pi}{2}$', ha='right', backgroundcolor='white')
-ax2.plot([x_min, x_max], np.pi/2*np.array([1, 1]), lw=2, color='black', linestyle='--', zorder=4)
+ax2.plot([x_min, x_max], np.pi/2*np.array([1, 1]), lw=2, alpha=0.5, color='black', linestyle='--', zorder=4)
 
-ax2.plot(0, 0, 'o', color='dimgray', zorder=4)
+ax2.plot(0, 0, 'o', color='dimgray', alpha=0.5, zorder=4)
 ax2.text(0 + epsx, 0 - epsy, r'$(0, 0)$', backgroundcolor='white')
 
-ax2.plot(0.5, 0.46, 'o', color='green', zorder=4)
+ax2.plot(0.5, 0.46, 'o', color='green', alpha=0.9, zorder=4)
 ax2.text(0.50 + epsx, 0.46 - epsy, r'$(0.50, 0.46)$', backgroundcolor='white')
 
-ax2.plot(1, np.pi/4, 'o', color='red', zorder=4)
+ax2.plot(1, np.pi/4, 'o', color='red', alpha=0.9, zorder=4)
 ax2.text(1 + epsx, np.pi/4 - epsy, r'$(1, \frac{\pi}{4})$', backgroundcolor='white')
 
-ax2.set_xlabel(r'non-dimensional distance $a$')
-ax2.set_ylabel(r'angle $\gamma = \arctan(a)$')
+ax2.set_xlabel(r'non-dimensional distance $a\;[l/L]$')
+ax2.set_ylabel(r'$\gamma = \arctan(a)$ [rad]')
 # ax2.xaxis.xticks([1, 5, 10])
 # https://matplotlib.org/3.1.1/gallery/ticks_and_spines/tick-locators.html
 # ax2.xaxis.set_major_locator(ticker.FixedLocator([0, 5, 10]))
