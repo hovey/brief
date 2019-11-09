@@ -1,0 +1,85 @@
+\section{Simple Shear}
+\subsection{Rate Independent}
+The simple shear deformation $\vvarphi$ in rate-independent form is
+\be
+\vvarphi(\vX) = (X_1 + a X_2) \; \veone + X_2 \; \vetwo + X_3 \; \vethree.
+\ee
+The deformation gradient $\tFbold$ is
+\begin{align}
+\tFbold
+& = \vesubi \frac{\partial \vvarphi_i}{\partial X_J} \vEsubJ = \veone \vEone + a \; \veone \vEtwo + \vetwo \vEtwo + \vethree \vEthree, 
+\\
+& = \left\{\veone \; \vetwo \; \vethree \right\}
+\left[
+\begin{tabular}{ccc}
+1 & $a$ & 0 \\
+0 & 1 & 0 \\
+0 & 0 & 1
+\end{tabular}
+\right]
+\left\{
+\begin{tabular}{c}
+$\vEone$ \\
+$\vEtwo$ \\
+$\vEthree$
+\end{tabular}
+\right\}
+\;\;
+\Longleftrightarrow
+\;\;
+\tF_{iJ} = 
+\left[
+\begin{tabular}{ccc}
+1 & $a$ & 0 \\
+0 & 1 & 0 \\
+0 & 0 & 1
+\end{tabular}
+\right].
+\label{eq:deformation_gradient_iJ}
+\end{align}
+The right Cauchy-Green strain tensor, $\tCbold = \tFbold \transpose \tFbold$, is
+\begin{align}
+\tCbold & = \vEone \vEone + a\; (\vEone \vEtwo + \vEtwo \vEone) + (1 + a^2) \; \vEtwo \vEtwo + \vEthree \vEthree, 
+\\
+& \Longleftrightarrow \;\; \tC_{IJ} = 
+\left[
+\begin{tabular}{ccc}
+ 1 & $a$ & 0 \\
+ $a$ & $a^2+1$ & 0 \\
+ 0 & 0 & 1
+\end{tabular}
+\right].
+\label{eq:C_IJ_simple_shear}
+\end{align}
+
+\subsection{Rate Dependent}
+The simple shear deformation $\vvarphi$ in rate-dependent form is
+\be
+\vvarphi(\vX, t) = (X_1 + a(t) X_2) \; \veone + X_2 \; \vetwo + X_3 \; \vethree.
+\ee
+The deformation gradient $\tFbold$ is unchanged from 
+(\ref{eq:deformation_gradient_iJ}).  Additionally, the inverse and rate, 
+respectively, are found to be
+\be
+\tF^{-1}_{iJ} = 
+\left[
+\begin{tabular}{ccc}
+0 & $-a$ & 0 \\
+0 & 1 & 0 \\
+0 & 0 & 1
+\end{tabular}
+\right]
+\;\;\mbox{ and }\;\;
+\dot{\tF}_{iJ} = 
+\left[
+\begin{tabular}{ccc}
+0 & $\dot{a}$ & 0 \\
+0 & 0 & 0 \\
+0 & 0 & 0
+\end{tabular}
+\right].
+\ee
+With $\tCbold$ unchanged from 
+(\ref{eq:C_IJ_simple_shear}), 
+and 
+$\dot{\tCbold} = \dot{\tFbold} \transpose \tFbold + \tFbold \transpose \dot{\tFbold}$, 

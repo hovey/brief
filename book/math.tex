@@ -286,6 +286,43 @@ $-a_2$ & $a_1$ & 0
 \ee
 Thus $\va \times \vb = [ \; \va \;]_{\times} \vb$.
 
+\subsection{Invariants of Second Order Tensors}
+For a second order tensor $\tAbold$, the three invariants, 
+$I_1(\tAbold)$, 
+$I_2(\tAbold)$, and 
+$I_3(\tAbold)$ of matrix
+$\tAbold$ satisfy the equation
+\be
+\det(\tAbold - \lambda \vid) \overset{\tiny\mbox{set}}{=} 0
+\ee
+for any $\lambda$, and produce the characteristic equation
+\begin{align}
+ 0 = & \; - \lambda^3 + I_1 \lambda^2 - I_2 \lambda^1 + I_3 \lambda^0, \\
+   = & \; - \lambda^3 \; 
+     + 
+       \underset{\mbox{\normalsize$I_1(\tAbold) = \trace (\tAbold)$}}{\underbrace{\left(a_{11} 
+       + a_{22} + a_{33} \right)}} \; \lambda^2 \; - \nonumber \\
+   &  \; \underset{\mbox{\normalsize$I_2(\tAbold) = \half\left[ \;
+			 \trace(\tAbold) \trace(\tAbold) - 
+	         \trace(\tAbold \cdot \tAbold)
+		      \; \right]$}}
+                {\underbrace{\left(a_{11} a_{22} + 
+       a_{22} a_{33} + a_{33} a_{11} - 
+       a_{12} a_{21} - a_{23} a_{32} - a_{31} a_{13} \right)}} 
+	   \; \lambda^1 \; + \nonumber \\
+   & \; \underset{\mbox{\normalsize$I_3(\tAbold) = \det (\tAbold)$}}{\underbrace{\left(
+       a_{11} a_{22} a_{33} 
+       + a_{12} a_{23} a_{31} 
+       + a_{13} a_{21} a_{32}
+       - a_{11} a_{23} a_{32} 
+       - a_{12} a_{21} a_{33}
+       - a_{13} a_{22} a_{31} 
+       \right)}} \; \lambda^0.
+\label{eq:invariants_sot}
+\end{align}
+
+
+
 
 
 \subsection{Extrema}
