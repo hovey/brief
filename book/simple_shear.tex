@@ -1,5 +1,31 @@
 \section{Simple Shear}
-\subsection{Rate Independent}
+Simple shear is illustrated in Fig.~\ref{fig:simple_shear}, with 
+relative motion of planes normal to the $\vEtwo$ axis.
+For all configurations (reference and current):
+\begin{itemize}
+\setlength\itemsep{0em}
+\item Horizontal fibers remain horizontal.
+\item The length of horizontal fibers remains constant.
+\item The vertical distance between the horizontal fibers remains constant.
+\item The body's volume is constant. The deformation is isochoric since $\det(\tFbold) = 1$.
+\end{itemize}
+
+The relative motion is charaterized by the non-dimensional ratio of length $a$ per unit height, 
+where $a \in \real \subset [0, \infty)$.
+The angle, $\gamma \in \real \subset [0, \pi/2)$, subtended by simple shear is $\gamma = \arctan(a)$.  
+In the limit as $a \mapsto \infty$, the angle $\gamma \mapsto \pi/2$.
+For small values of $a$, the small small-angle assumption is valid, with $\tan(\gamma) \approx \gamma \approx a$.
+
+\begin{figure}[htb]
+  \begin{center}
+    \includegraphics[width=\textwidth]{fig/simple_shear.pdf}
+  \end{center}
+  \caption{Simple shear.}
+  \label{fig:simple_shear}
+\end{figure}
+
+
+\subsection{Rate-Independent}
 The simple shear deformation $\vvarphi$ in rate-independent form is
 \be
 \vvarphi(\vX) = (X_1 + a X_2) \; \veone + X_2 \; \vetwo + X_3 \; \vethree.
@@ -51,8 +77,11 @@ The right Cauchy-Green strain tensor, $\tCbold = \tFbold \transpose \tFbold$, is
 \right].
 \label{eq:C_IJ_simple_shear}
 \end{align}
+The Green-Lagrange strain tensor is simply $\tEbold = \half \tCbold$.
+The left Cauchy-Green strain tensor, $\tbbold = \tFbold \tFbold \transpose$, is 
 
-\subsection{Rate Dependent}
+
+\subsection{Rate-Dependent}
 The simple shear deformation $\vvarphi$ in rate-dependent form is
 \be
 \vvarphi(\vX, t) = (X_1 + a(t) X_2) \; \veone + X_2 \; \vetwo + X_3 \; \vethree.
@@ -64,7 +93,7 @@ respectively, are found to be
 \tF^{-1}_{iJ} = 
 \left[
 \begin{tabular}{ccc}
-0 & $-a$ & 0 \\
+1 & $-a$ & 0 \\
 0 & 1 & 0 \\
 0 & 0 & 1
 \end{tabular}
@@ -83,3 +112,11 @@ With $\tCbold$ unchanged from
 (\ref{eq:C_IJ_simple_shear}), 
 and 
 $\dot{\tCbold} = \dot{\tFbold} \transpose \tFbold + \tFbold \transpose \dot{\tFbold}$, 
+
+\begin{figure}[htb]
+  \begin{center}
+    \includegraphics[width=\textwidth]{fig/simple_shear_on_body.pdf}
+  \end{center}
+  \caption{Simple shear of body from the reference configuration $B$ to the current configurtion $\vvarphi(B)$.}
+  \label{fig:simple_shear_on_body}
+\end{figure}
