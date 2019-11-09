@@ -28,7 +28,7 @@ def simple_shear(X, Y, shear_12):
     y = Y
     return x, y
 
-def draw(axis, ux=0, uy=0, ur=0, shear=0, t0=1, showlabels=0):
+def draw(axis, ux=0, uy=0, ur=0, shear=0, t0=1, showlabels=0, c='dimgray'):
     MSIZE = 8  # marker size
     
     # body grid
@@ -42,17 +42,17 @@ def draw(axis, ux=0, uy=0, ur=0, shear=0, t0=1, showlabels=0):
     # x, y = rotate(X, Y, ur)
     x, y = simple_shear(X, Y, shear)
     if t0:
-        c='dimgray'
+        # c='dimgray'
         al=0.5
     else:
-        c='black'
+        # c='green'
         al=0.9
     axis.plot(x + ux, y + uy, '-o', color=c, alpha=al, label='body integer points')
 
     # origin 
     axis.plot(0 + ux, 0 + uy, 'o', color='black', label='origin = (0, 0, 0)')  # origin
-    ox = 0.125  # offset
-    oy = -0.125  # offset
+    ox = 0.25  # offset
+    oy = -0.25  # offset
     X = 0 + ox
     Y = 0 + oy
     # x, y = rotate(X, Y, ur)
@@ -87,9 +87,13 @@ dr_deg = 0  # deg
 RADTODEG = 180.0/np.pi
 DEGTORAD = 1.0/RADTODEG
 dr = dr_deg * DEGTORAD  # radian
-shear_12 = 0.5 # Length units, shear in the X_1 direction
 draw(ax1, ux=dx, uy=dy, ur=dr)
-draw(ax1, ux=dx, uy=dy, ur=dr, shear=shear_12, t0=False)
+
+shear_12 = 0.5 # Length units, shear in the X_1 direction
+draw(ax1, ux=dx, uy=dy, ur=dr, shear=shear_12, t0=False, c='green')
+
+shear_12 = 1.0 # Length units, shear in the X_1 direction
+draw(ax1, ux=dx, uy=dy, ur=dr, shear=shear_12, t0=False, c='red')
 
 ax1.axis('equal')
 # ax2.axis('equal')
@@ -112,15 +116,23 @@ ax1.set_ylabel(r'configuration $X_2, x_2$')
 
 x_min = 0
 x_max = 10
+epsx, epsy = 0.4, np.pi/16
 x = np.linspace(x_min, x_max)
 y = np.arctan(x)
-epsx, epsy = 0.4, np.pi/16
 # ax2.plot(x, y/np.pi, linewidth=2, color='blue')
 ax2.plot(x, y, linewidth=2, color='blue')
 ax2.text(x_max - epsx, np.pi/2 + epsy/4, r'$\gamma \mapsto \frac{\pi}{2}$', ha='right', backgroundcolor='white')
 ax2.plot([x_min, x_max], np.pi/2*np.array([1, 1]), lw=2, color='black', linestyle='--', zorder=4)
+
+ax2.plot(0, 0, 'o', color='dimgray', zorder=4)
+ax2.text(0 + epsx, 0 - epsy, r'$(0, 0)$', backgroundcolor='white')
+
+ax2.plot(0.5, 0.46, 'o', color='green', zorder=4)
+ax2.text(0.50 + epsx, 0.46 - epsy, r'$(0.50, 0.46)$', backgroundcolor='white')
+
 ax2.plot(1, np.pi/4, 'o', color='red', zorder=4)
 ax2.text(1 + epsx, np.pi/4 - epsy, r'$(1, \frac{\pi}{4})$', backgroundcolor='white')
+
 ax2.set_xlabel(r'non-dimensional distance $a$')
 ax2.set_ylabel(r'angle $\gamma = \arctan(a)$')
 # ax2.xaxis.xticks([1, 5, 10])
@@ -134,9 +146,9 @@ ax2.set_yticks([0, np.pi/4, np.pi/2])
 ax2.set_yticklabels(['0', r'$\frac{\pi}{4}$', r'$\frac{\pi}{2}$'])
 # ax2.yaxis.set_major_formatter(FormatStrFormatter('%g $\pi/4$'))
 
-ax1.set_xlim(-epsx, 2)
+ax1.set_xlim(-epsx, 2 + epsx)
 # ax1.set_ylim(ax1.get_xlim())
-ax2.set_xlim(0, x_max)
+ax2.set_xlim(0 - epsx, x_max + epsx)
 eps = np.pi/8
 ax2.set_ylim(0*np.pi/4 - eps, np.pi/2 + eps)
 # ax.legend(loc='lower right', framealpha=1.0)
