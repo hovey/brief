@@ -79,6 +79,18 @@ Note that the volume remains constant for all deformations since $\det(\tFbold) 
 \right].
 \label{eq:C_IJ_simple_shear}
 \end{align}
+The right stretch tensor, $\tUbold = \sqrt{\tCbold}$, is
+\be
+\tU_{IJ} = 
+\left[
+\begin{tabular}{ccc}
+tk0 & tk0 & tk0 \\
+tk0 & tk0 & tk0 \\
+tk0 & tk0 & tk0
+\end{tabular}
+\right].
+\ee
+%
 The Green-Lagrange strain tensor, $\tEbold = \half (\tCbold - \vid)$, in simple shear is
 \be
 \tE_{IJ} = 
@@ -133,9 +145,18 @@ The simple shear deformation $\vvarphi$ in rate-dependent form is
 \vvarphi(\vX, t) = (X_1 + a(t) X_2) \; \veone + X_2 \; \vetwo + X_3 \; \vethree.
 \ee
 The deformation gradient $\tFbold$ is unchanged from 
-(\ref{eq:deformation_gradient_iJ}).  Additionally, the inverse and rate, 
+(\ref{eq:deformation_gradient_iJ}).  Additionally, the rate and inverse, 
 respectively, are found to be
 \be
+\dot{\tF}_{iJ} = 
+\left[
+\begin{tabular}{ccc}
+0 & $\dot{a}$ & 0 \\
+0 & 0 & 0 \\
+0 & 0 & 0
+\end{tabular}
+\right]
+\;\;\mbox{ and }\;\;
 \tF^{-1}_{Ji} = 
 \left[
 \begin{tabular}{ccc}
@@ -143,9 +164,12 @@ respectively, are found to be
 0 & 1 & 0 \\
 0 & 0 & 1
 \end{tabular}
-\right]
-\;\;\mbox{ and }\;\;
-\dot{\tF}_{iJ} = 
+\right].
+\ee
+From these two foregoing quantities, the spatial velocity gradient, 
+$\grad \vv = \dot{\tFbold} \tFbold^{-1}$, is
+\be
+v_{i,j} = 
 \left[
 \begin{tabular}{ccc}
 0 & $\dot{a}$ & 0 \\
@@ -154,10 +178,78 @@ respectively, are found to be
 \end{tabular}
 \right].
 \ee
-With $\tCbold$ unchanged from 
-(\ref{eq:C_IJ_simple_shear}), 
-and 
-$\dot{\tCbold} = \dot{\tFbold} \transpose \tFbold + \tFbold \transpose \dot{\tFbold}$, 
+From this, the rate of deformation tensor, 
+$\tdbold = \half[\grad \vv + (\grad \vv)\transpose]$, 
+and spin tensor, 
+$\twbold = \half[\grad \vv - (\grad \vv)\transpose]$, respectively, are
+\be
+\td_{ij} = 
+\half
+\left[
+\begin{tabular}{ccc}
+0 & $\dot{a}$ & 0 \\
+$\dot{a}$ & 0 & 0 \\
+0 & 0 & 0
+\end{tabular}
+\right]
+\;\;\mbox{ and }\;\;
+\tw_{ij} = 
+\half
+\left[
+\begin{tabular}{ccc}
+0 & $\dot{a}$ & 0 \\
+$-\dot{a}$ & 0 & 0 \\
+0 & 0 & 0
+\end{tabular}
+\right].
+\ee
+The pullback operator, $\pullback{\cdot}$, applied to the rate of deformation
+tensor, $\tdbold$, is the time derivative of the Green-Lagrange strain tensor, 
+$\dot{\tEbold} = \tFbold\transpose \tdbold \tFbold$.  
+This result can be checked by taking time derivatives 
+directly of $\tCbold$ and $\tEbold$, respectively found to be
+\be
+\dot{\tC}_{IJ} = 
+\left[
+\begin{tabular}{ccc}
+0 & $\dot{a}$ & 0 \\
+$\dot{a}$ & $2 a \dot{a}$ & 0 \\
+0 & 0 & 0
+\end{tabular}
+\right]
+\;\;\mbox{ and }\;\;
+\dot{\tE}_{IJ} = 
+\half
+\left[
+\begin{tabular}{ccc}
+0 & $\dot{a}$ & 0 \\
+$\dot{a}$ & $2 a \dot{a}$ & 0 \\
+0 & 0 & 0
+\end{tabular}
+\right].
+\ee
+The rotated rate of deformation tensor, 
+$\tDbold = \tRbold\transpose \tdbold \tRbold$, is
+\be
+{\tD}_{IJ} = 
+\left[
+\begin{tabular}{ccc}
+tk0 & tk0 & tk0 \\
+tk0 & tk0 & tk0 \\
+tk0 & tk0 & tk0
+\end{tabular}
+\right],
+\ee
+and is related to the Green-Lagrange strain rate through 
+$\dot{\tEbold} = \tUbold \tDbold \tUbold$ since 
+\be
+\dot{\tEbold} = \tFbold\transpose \tdbold \tFbold 
+= (\tRbold \tUbold)\transpose \;\tdbold\; \tRbold \tUbold 
+= \tUbold\transpose \tRbold\transpose \;\tdbold \; \tRbold \tUbold 
+= \tUbold\transpose \tDbold \tUbold
+= \tUbold \tDbold \tUbold.
+\ee
+
 
 \begin{figure}[htb]
   \begin{center}
