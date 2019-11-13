@@ -35,7 +35,8 @@ The simple shear deformation $\vvarphi$ in rate-independent form is
 The deformation gradient $\tFbold$ is
 \begin{align}
 \tFbold
-& = \vesubi \frac{\partial \varphi_i}{\partial X_J} \vEsubJ = \veone \vEone + a \; \veone \vEtwo + \vetwo \vEtwo + \vethree \vEthree
+& = \vesubi \frac{\partial \varphi_i}{\partial X_J} \vEsubJ 
+= \veone \otimes \vEone + a \; \veone \otimes \vEtwo + \vetwo \otimes \vEtwo + \vethree \otimes \vEthree
 \\
 & = \left\{\veone \; \vetwo \; \vethree \right\}
 \left[
@@ -65,11 +66,13 @@ $\vEthree$
 \right].
 \label{eq:deformation_gradient_iJ}
 \end{align}
-Note that the volume remains constant for all deformations since $\det(\tFbold) = 1$.  The deformation thus belongs to the group of isochoric motions (see Fig.~\ref{fig:motion_family}).  The right Cauchy-Green strain tensor, $\tCbold = \tFbold \transpose \tFbold$, in simple shear, is
+Note that the volume remains constant for all deformations since $\det(\tFbold) = 1$.  The deformation thus belongs to the group of isochoric motions (see Fig.~\ref{fig:motion_family}).  The right Cauchy-Green strain, $\tCbold = \tFbold \transpose \tFbold$, in simple shear, is
 \begin{align}
-\tCbold & = \vEone \vEone + a\; (\vEone \vEtwo + \vEtwo \vEone) + (a^2 + 1) \; \vEtwo \vEtwo + \vEthree \vEthree \;\;\Longleftrightarrow
-\\
-\tC_{IJ} & = 
+\tCbold  = & \vEone \otimes \vEone + a\; (\vEone \otimes \vEtwo + \vEtwo \otimes \vEone) \;+
+\nonumber \\
+& (a^2 + 1) \; \vEtwo \otimes \vEtwo + \vEthree \otimes \vEthree 
+\;\;\Longleftrightarrow\;\;
+\tC_{IJ} = 
 \left[
 \begin{tabular}{ccc}
  1 & $a$ & 0 \\
@@ -79,7 +82,7 @@ Note that the volume remains constant for all deformations since $\det(\tFbold) 
 \right].
 \label{eq:C_IJ_simple_shear}
 \end{align}
-The right stretch tensor, $\tUbold = \sqrt{\tCbold}$, is
+The right stretch, $\tUbold = \sqrt{\tCbold}$, is
 \be
 \tU_{IJ} = 
 \left[
@@ -91,7 +94,7 @@ tk0 & tk0 & tk0
 \right].
 \ee
 %
-The Green-Lagrange strain tensor, $\tEbold = \half (\tCbold - \vid)$, in simple shear is
+The Green-Lagrange strain, $\tEbold = \half (\tCbold - \vid)$, in simple shear is
 \be
 \tE_{IJ} = 
 \half
@@ -104,7 +107,7 @@ The Green-Lagrange strain tensor, $\tEbold = \half (\tCbold - \vid)$, in simple 
 \right].
 \label{eq:E_IJ_simple_shear}
 \ee
-The left Cauchy-Green strain tensor, $\tbbold = \tFbold \tFbold \transpose$, (and its inverse) in simple shear is
+The left Cauchy-Green strain, $\tbbold = \tFbold \tFbold \transpose$, (and its inverse) in simple shear is
 \be
 \tb_{ij} = 
 \left[
@@ -125,7 +128,7 @@ The left Cauchy-Green strain tensor, $\tbbold = \tFbold \tFbold \transpose$, (an
 \right].
 \label{eq:b_ij_simple_shear}
 \ee
-The Euler-Almansi strain tensor, $\tebold = \half(\vid - \tbbold^{-1})$, for simple shear is
+The Euler-Almansi strain, $\tebold = \half(\vid - \tbbold^{-1})$, for simple shear is
 \be
 \te_{ij} = 
 \half
@@ -178,9 +181,9 @@ v_{i,j} =
 \end{tabular}
 \right].
 \ee
-From this, the rate of deformation tensor, 
+From this, the rate of deformation, 
 $\tdbold = \half[\grad \vv + (\grad \vv)\transpose]$, 
-and spin tensor, 
+and spin, 
 $\twbold = \half[\grad \vv - (\grad \vv)\transpose]$, respectively, are
 \be
 \td_{ij} = 
@@ -203,8 +206,8 @@ $-\dot{a}$ & 0 & 0 \\
 \end{tabular}
 \right].
 \ee
-The pullback operator, $\pullback{\cdot}$, applied to the rate of deformation
-tensor, $\tdbold$, is the time derivative of the Green-Lagrange strain tensor, 
+The pullback operator, $\pullback{\cdot}$, applied to the rate of deformation, 
+$\tdbold$, is the time derivative of the Green-Lagrange strain, 
 $\dot{\tEbold} = \tFbold\transpose \tdbold \tFbold$.  
 This result can be checked by taking time derivatives 
 directly of $\tCbold$ and $\tEbold$, respectively found to be
@@ -228,7 +231,7 @@ $\dot{a}$ & $2 a \dot{a}$ & 0 \\
 \end{tabular}
 \right].
 \ee
-The rotated rate of deformation tensor, 
+The rotated rate of deformation, 
 $\tDbold = \tRbold\transpose \tdbold \tRbold$, is
 \be
 {\tD}_{IJ} = 
