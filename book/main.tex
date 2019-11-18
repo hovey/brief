@@ -4,7 +4,7 @@
 % --------------
 %\documentclass[10pt,twoside,letterpaper,fleqn]{report}
 %\documentclass[12pt,a4paper,twoside,fleqn]{book}
-\documentclass[12pt,letterpaper,twoside,fleqn]{book}
+\documentclass[11pt,letterpaper,twoside,fleqn]{book}
 % A4 paper measures 210 × 297 millimeters (8.27 × 11.69 inches).
 
 
@@ -102,7 +102,7 @@
 \setlength{\parskip}{0mm}
 
 % Space between lines
-\renewcommand{\baselinestretch}{1.2}
+\renewcommand{\baselinestretch}{1.1}
 
 
 % -----------------
@@ -152,11 +152,11 @@
 % --------------------------------------------------------
 % INCLUDE ONLY THESE FILES BUT ACCOUNT FOR REMAINING FILES
 % --------------------------------------------------------
-%\includeonly{math,motion,quaternions}
-%\includeonly{motion}
-%\includeonly{motion,strain,simple_shear}
-%\includeonly{notation,motion,strain,simple_shear}
-\includeonly{simple_shear}
+%\includeonly{math,quaternions}
+%\includeonly{motion_general,strain,simple_shear}
+\includeonly{formulation,motion_general,motion_specific}
+% ,motion_general,simple_shear,strain}
+%\includeonly{strain,simple_shear}
 % -----------------
 % THE MAIN DOCUMENT
 % -----------------
@@ -175,7 +175,8 @@
 % \include{introduction} % no longer relevant, eventually completely exclude
 \include{math}
 \include{formulation}
-\include{motion}
+\include{motion_general}
+\include{motion_specific}
 \include{simple_shear}
 \include{quaternions}
 \include{strain}

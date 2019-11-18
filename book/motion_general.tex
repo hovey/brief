@@ -1,0 +1,176 @@
+% ==============
+\chapter{Motion}
+% ==============
+%\section{Bodies and Particles}
+
+%Let body $\cB$ be an open, bounded subset of three-dimensional           
+%Euclidean space $\realnsd$ with boundary $\partial \cB$.                 
+%The number of space dimensions, $\nsd$, is assumed equal                    
+%to three unless stated otherwise.
+%The boundary is decomposed within a particular space dimension into         
+%two non-overlapping subdomains, $\Gamma_u$ and $\Gamma_{\sigma}$        
+%where displacements or tractions are prescribed.  Thus                      
+%$\partial \cB = \Gamma_u \union \Gamma_{\sigma}$ and 
+%$\Gamma_u \intersection \Gamma_{\sigma} = \emptyset$.           
+%Set closure is denoted                                                      
+%$\bar{\cB} = \cB \union \partial \cB$.                             
+%Let the body be composed of a closed set of particles with 
+%coordinates $\vX$ in the reference configuration.  The particle
+%has coordinates $\vX = \{X_1, X_2, X_3\}^T$ as measured from
+%some origin $O$ in the dextral, orthonormal inertial reference
+%%from $\veEihat, \veEjhat, \veEkhat$ attached to inertial
+%from $\vefa, \vefb, \vefc$ attached to inertial
+%reference frame $\cF$.
+
+
+\section{General Motion}
+Let the arbitrary time interval be defined as
+$\interval \defe [t_0,t_f]$, initial to final
+time, inclusive.\footnote{Note that $t_0$, while
+typically zero, may be any real number less than $t_f$.}  
+Let the {\bf motion}, a one parameter family of configurations, 
+$\vvarphi : \cB \times \interval \mapsto \realthree$ 
+map the material particle
+$\vX$ into the current configuration $\vx$ such that
+\be
+\vx = \vvarphi(\vX,t) = \vvarphi_t(\vX).
+\label{eq:motion}
+\ee
+
+A motion $\vvarphi$ evaluated
+at a particular time $t \in \interval$ 
+is referred to as a {\bf configuration} or
+{\bf placement}.  To each configuration, we assign a {\bf displacement}
+field $\vu: \cB \mapsto \realthree$ such that 
+\be
+\vu(\vX,t) \defe \vvarphi(\vX,t) - \vX 
+\;\;\Longleftrightarrow\;\;
+u_i \defe \varphi_i - \delta_{iJ} X_J.
+\label{eq:displacement}
+\ee
+Thus, the current configuration $\vvarphi$ is simply a function 
+of the original
+placement $\vX$, 
+plus a displacement $\vu$, which is {\bf function}
+of placement $\vX$ and time $t$:
+\be
+\vvarphi(\vX,t) = \vX + \vu(\vX,t)
+\;\; \Longleftrightarrow \;\;
+\varphi_i = \delta_{iJ} X_J + u_i.
+\label{eq:displacement_vvarphi}
+\ee
+It is important to
+emphasize that the displacement remains a function $\vu = \vu(\vX, t)$
+of reference configuration $\vX$ and time $t$.  
+%
+% This is call {\bf translation}.  
+%A specialized case of translation, 
+%where the displacement
+%function $\vu = \bar{\vu}$ is constant is called {\bf offset}.
+%See Section~\ref{section:offset} for more details.
+
+
+\section{Deformation Gradient}
+To each configuration $\vvarphi$, we define a deformation gradient 
+$\tFbold: \vB \times \interval \mapsto \Mthreeplus$ 
+such that
+\begin{equation}
+\tFbold 
+\defe 
+\Grad \vvarphi(\vX, t)
+\;\; \Longleftrightarrow \;\;
+\tF_{iJ} 
+\defe 
+\frac{\partial \varphi_i}{\partial X_J}.
+\label{eq:deformation_gradient}
+\end{equation}
+%Remarks:
+\begin{Hremark}
+\begin{itemize}
+\item Lower case indices represent components of tensors in the
+current configuration whereas upper case indices represent
+components of tensors in the reference configuration.  
+\item Real, square matrices of dimension three and positive determinants
+are denoted $\Mthreeplus$.  
+\item $\Grad(\cdot) = \partial (\cdot) / \partial X_J$ denote
+gradients taken in the reference configuration.
+\item $\grad(\cdot) = \partial (\cdot) / \partial x_j$ denote
+gradients taken in the current configuration. 
+\end{itemize}
+\end{Hremark}
+
+From the displacement field in 
+(\ref{eq:displacement}), we see that 
+the relationship between the displacement gradient and the 
+deformation gradient is given by
+\be
+\Grad \vu = \Grad \vvarphi - \vid = \tFbold - \vid
+\;\; \Longleftrightarrow \;\;
+\dst\frac{\partial u_i}{\partial X_J} = 
+\dst\frac{\partial \varphi_i}{\partial X_J} - 
+\delta_{iJ}.
+\label{eq:Gradu}
+\ee
+
+\section{Jacobian of the Deformation Gradient}
+The Jacobian of the deformation gradient, 
+\begin{equation}
+ J \defe \det \tFbold,
+\end{equation}
+describes the (generally non-uniform) volumetric expansion or 
+contraction of the motion from the reference configuration $\vX$.
+
+%\noindent Remarks:
+\begin{Hremark}
+\begin{itemize}
+\item All configurations must be admissible in the sense that the Jacobian
+of the deformation must be positive ($J > 0$).
+This requirement keeps the deformations from mapping the body to
+a single, infinitesimally small point ($J=0$) or turning the
+body inside-out ($J<0$).  
+\item Isochoric motions preserve volume, thus a Jacobian
+of unity ($J=1$) describes an isochoric motion.
+\item Table~\ref{tab:jacobian_categories} describes the categories
+of motions (deformations) by Jacobian measure.  
+\end{itemize}
+\end{Hremark}
+
+\begin{table}[htb]
+\caption{Jacobian measure to categorize deformations.}
+\label{tab:jacobian_categories}
+\begin{center}
+\begin{tabular}{|c|c|c|c|c|} \hline
+ $J<0$ & $J=0$ & $0<J<1$ & $J=1$ & $J>1$ \\ %\hline \hline
+ {\bf inadmissible}
+ & {\bf inadmissible}
+ & {\bf contraction} 
+ & {\bf isochoric} 
+ & {\bf expansion} 
+ \\ \hline \hline
+  &  &  & translation &  \\ 
+  &  &  & rotation &  \\ 
+  &  &  & isochoric stretch & \\ 
+  &  &  & isochoric shear   & \\ \hline
+ body 
+ & body 
+ & body's  
+ & body's 
+ & body's
+ \\
+ has turned 
+ & has shrunk 
+ & total volume 
+ & total volume
+ & total volume \\ 
+ inside-out 
+ & to zero volume 
+ & has decreased 
+ & is preserved 
+ & has increased \\ \hline
+\end{tabular}
+\end{center}
+\end{table}
+
+
+
+
