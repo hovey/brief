@@ -157,7 +157,7 @@ ax2.set_ylim(0*np.pi/4 - eps, np.pi/2 + eps)
 # fig.tight_layout()
 plt.show()
 
-print_to_pdf = 1
+print_to_pdf = 0
 if print_to_pdf:
     script_name = os.path.basename(__file__)
     figure_name = os.path.splitext(script_name)[0]

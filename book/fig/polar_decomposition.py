@@ -27,6 +27,14 @@ def simple_shear(X, Y, shear_12):
     y = Y
     return x, y
 
+def stretch(X, Y, stretch_11):
+    """ Given a list of reference points (X, Y), simple stretch them in 
+    the x-axis by distance stretch_11 (factor l/L) to the current points (x, y).
+    """
+    x = stretch_11 * X
+    y = Y
+    return x, y
+
 def draw(axis, ux=0, uy=0, ur=0, shear=0, t0=1, showlabels=0):
     MSIZE = 8  # marker size
     

@@ -27,7 +27,15 @@ def simple_shear(X, Y, shear_12):
     y = Y
     return x, y
 
-def draw(axis, ux=0, uy=0, ur=0, shear=0, t0=1, showlabels=0):
+def simple_stretch(X, Y, stretch_11):
+    """ Given a list of reference points (X, Y), simple stretch them in 
+    the x-axis by distance stretch_11 (factor l/L) to the current points (x, y).
+    """
+    x = stretch_11 * X
+    y = Y
+    return x, y
+
+def draw(axis, ux=0, uy=0, ur=0, shear=0, stretch=1, t0=1, showlabels=0):
     MSIZE = 8  # marker size
     
     # body grid
@@ -39,7 +47,8 @@ def draw(axis, ux=0, uy=0, ur=0, shear=0, t0=1, showlabels=0):
     Y = np.array([[j] * NPTS for j in range(-1, 2, 1)]).reshape(1, NPTS * NROWS).squeeze()
     Y = np.append(Y, [0, 0])  # the two end points, y coordinate
     # x, y = rotate(X, Y, ur)
-    x, y = simple_shear(X, Y, shear)
+    # x, y = simple_shear(X, Y, shear)
+    x, y = simple_stretch(X, Y, stretch)
     axis.plot(x + ux, y + uy, 'o', color='dimgray', alpha=0.5, label='body integer points')
 
     # origin 
@@ -49,7 +58,8 @@ def draw(axis, ux=0, uy=0, ur=0, shear=0, t0=1, showlabels=0):
     X = 0 + ox
     Y = 0 + oy
     # x, y = rotate(X, Y, ur)
-    x, y = simple_shear(X, Y, shear)
+    # x, y = simple_shear(X, Y, shear)
+    x, y = simple_stretch(X, Y, stretch)
     if t0:
         text = r'$O$'
     else:
@@ -60,7 +70,8 @@ def draw(axis, ux=0, uy=0, ur=0, shear=0, t0=1, showlabels=0):
     X = np.array([0, 1])
     Y = np.array([0, 0])
     # x, y = rotate(X, Y, ur)
-    x, y = simple_shear(X, Y, shear)
+    # x, y = simple_shear(X, Y, shear)
+    x, y = simple_stretch(X, Y, stretch)
     # axis.plot(x + ux, y + uy, '-', marker=(3, 1, ur * RADTODEG - 90.0), markersize=MSIZE, linewidth=2, color='red', markevery=[-1], zorder=4)  # x-axis
     axis.plot(x + ux, y + uy, '-', marker='o', linewidth=2, color='red', markevery=[-1], zorder=4)  # x-axis
     ox = 0.5  # offset
@@ -68,7 +79,8 @@ def draw(axis, ux=0, uy=0, ur=0, shear=0, t0=1, showlabels=0):
     X = X[-1] + ox
     Y = Y[-1] + oy
     # x, y = rotate(X, Y, ur)
-    x, y = simple_shear(X, Y, shear)
+    # x, y = simple_shear(X, Y, shear)
+    x, y = simple_stretch(X, Y, stretch)
     if t0:
         text = r'${\mathbf{E}}_1$'
     else:
@@ -80,7 +92,8 @@ def draw(axis, ux=0, uy=0, ur=0, shear=0, t0=1, showlabels=0):
     X = np.array([0, 0])
     Y = np.array([0, 1])
     # x, y = rotate(X, Y, ur)
-    x, y = simple_shear(X, Y, shear)
+    # x, y = simple_shear(X, Y, shear)
+    x, y = simple_stretch(X, Y, stretch)
     # axis.plot(x + ux, y + uy, '-', marker=(3, 1, ur * RADTODEG), markersize=MSIZE, linewidth=2, color='green', markevery=[-1], zorder=4)  # y-axis
     axis.plot(x + ux, y + uy, '-', marker='o', linewidth=2, color='green', markevery=[-1], zorder=4)  # y-axis
     ox = 0.0  # offset
@@ -88,7 +101,8 @@ def draw(axis, ux=0, uy=0, ur=0, shear=0, t0=1, showlabels=0):
     X = X[-1] + ox
     Y = Y[-1] + oy
     # x, y = rotate(X, Y, ur)
-    x, y = simple_shear(X, Y, shear)
+    # x, y = simple_shear(X, Y, shear)
+    x, y = simple_stretch(X, Y, stretch)
     if t0:
         text = r'${\mathbf{E}}_2$'
     else:
@@ -102,7 +116,9 @@ def draw(axis, ux=0, uy=0, ur=0, shear=0, t0=1, showlabels=0):
     Y = z_radius * np.sin(z_angle)
     # x, y = rotate(X, Y, ur)
     no_shear = 0
-    x, y = simple_shear(X, Y, no_shear)  # don't shear the z-axis leader
+    no_stretch = 1
+    # x, y = simple_shear(X, Y, no_shear)  # don't shear the z-axis leader
+    x, y = simple_stretch(X, Y, no_stretch)  # don't stretch the z-axis leader
     axis.plot(x + ux, y + uy, color='blue', zorder=4)  # z-axis leader
     # axis.plot(x[-1] + ux, y[-1] + uy, marker=(3, 1, ur * RADTODEG - 180.0), markersize=MSIZE, linewidth=2, color='blue', zorder=4)  # z-axis arrowhead
     axis.plot(x[-1] + ux, y[-1] + uy, marker='o', linewidth=2, color='blue', zorder=4)  # z-axis arrowhead
@@ -111,7 +127,8 @@ def draw(axis, ux=0, uy=0, ur=0, shear=0, t0=1, showlabels=0):
     X = X[-1] + ox
     Y = Y[-1] + oy
     # x, y = rotate(X, Y, ur)
-    x, y = simple_shear(X, Y, no_shear)
+    # x, y = simple_shear(X, Y, no_shear)
+    x, y = simple_stretch(X, Y, stretch)
     if t0:
         text = r'${\mathbf{E}}_3$'
     else:
@@ -124,14 +141,16 @@ def draw(axis, ux=0, uy=0, ur=0, shear=0, t0=1, showlabels=0):
     p_color = 'purple'
     PX, PY = 3, 0  # circle coordinates, point P
     # px, py = rotate(PX, PY, ur)
-    px, py = simple_shear(PX, PY, shear)
+    # px, py = simple_shear(PX, PY, shear)
+    px, py = simple_stretch(PX, PY, stretch)
     axis.plot(px + ux, py + uy, 'o', color=p_color, label=r'body point {\em P} = (3, 0, 0)')  #  point P
     ox = 0.0  # offset
     oy = 0.25  # offset
     X = PX + ox
     Y = PY + oy
     # x, y = rotate(X, Y, ur)
-    x, y = simple_shear(X, Y, shear)
+    # x, y = simple_shear(X, Y, shear)
+    x, y = simple_stretch(X, Y, stretch)
     if t0:
         text = r'$P$'
     else:
@@ -141,14 +160,16 @@ def draw(axis, ux=0, uy=0, ur=0, shear=0, t0=1, showlabels=0):
     q_color = 'magenta'
     QX, QY = -3, 0  # circle coordinates, point Q
     # qx, qy = rotate(QX, QY, ur)
-    qx, qy = simple_shear(QX, QY, shear)
+    # qx, qy = simple_shear(QX, QY, shear)
+    qx, qy = simple_stretch(QX, QY, stretch)
     axis.plot(qx + ux, qy + uy, 'o', color=q_color, label=r'body point {\em Q} = (-3, 0, 0)')  #  point Q
     ox = 0.0  # offset
     oy = 0.25  # offset
     X = QX + ox
     Y = QY + oy
     # x, y = rotate(X, Y, ur)
-    x, y = simple_shear(X, Y, shear)
+    # x, y = simple_shear(X, Y, shear)
+    x, y = simple_stretch(X, Y, stretch)
     if t0:
         text = r'$Q$'
     else:
@@ -164,12 +185,14 @@ def draw(axis, ux=0, uy=0, ur=0, shear=0, t0=1, showlabels=0):
     X = b_radius * np.cos(b_angle) + PX
     Y = b_radius * np.sin(b_angle) + PY
     # x, y = rotate(X, Y, ur)
-    x, y = simple_shear(X, Y, shear)
+    # x, y = simple_shear(X, Y, shear)
+    x, y = simple_stretch(X, Y, stretch)
     axis.plot(x + ux, y + uy, color=body_color)  # P circle
     X = b_radius_o * np.cos(b_angle_p) + PX
     Y = b_radius_o * np.sin(b_angle_p) + PY
     # x, y = rotate(X, Y, ur)
-    x, y = simple_shear(X, Y, shear)
+    # x, y = simple_shear(X, Y, shear)
+    x, y = simple_stretch(X, Y, stretch)
     axis.plot(x + ux, y + uy, color=body_color)  # P circle, outer
     p0x, p0y = x[0], y[0]
     p1x, p1y = x[-1], y[-1]
@@ -177,12 +200,14 @@ def draw(axis, ux=0, uy=0, ur=0, shear=0, t0=1, showlabels=0):
     X = b_radius * np.cos(b_angle) + QX
     Y = b_radius * np.sin(b_angle) + QY
     # x, y = rotate(X, Y, ur)
-    x, y = simple_shear(X, Y, shear)
+    # x, y = simple_shear(X, Y, shear)
+    x, y = simple_stretch(X, Y, stretch)
     axis.plot(x + ux, y + uy, color=body_color)  # Q circle
     X = b_radius_o * np.cos(b_angle_q) + QX
     Y = b_radius_o * np.sin(b_angle_q) + QY
     # x, y = rotate(X, Y, ur)
-    x, y = simple_shear(X, Y, shear)
+    # x, y = simple_shear(X, Y, shear)
+    x, y = simple_stretch(X, Y, stretch)
     axis.plot(x + ux, y + uy, color=body_color)  # Q circle, outer
     q0x, q0y = x[0], y[0]
     q1x, q1y = x[-1], y[-1]
@@ -204,8 +229,9 @@ RADTODEG = 180.0/np.pi
 DEGTORAD = 1.0/RADTODEG
 dr = dr_deg * DEGTORAD  # radian
 shear_12 = 0.5 # Length units, shear in the X_1 direction
+stretch_ratio_11 = 6/4 # l/L, stretch in the X_1 direction
 draw(ax1, ux=dx, uy=dy, ur=dr)
-draw(ax2, ux=dx, uy=dy, ur=dr, shear=shear_12, t0=False)
+draw(ax2, ux=dx, uy=dy, ur=dr, stretch=stretch_ratio_11, t0=False)
 
 ax1.axis('equal')
 ax2.axis('equal')
@@ -227,7 +253,7 @@ ax1.set_xlabel(r'reference configuration $X_1, x_1$')
 ax1.set_ylabel(r'reference configuration $X_2, x_2$')
 ax2.set_xlabel(r'current configuration $x_1$')
 ax2.set_ylabel(r'current configuration $x_2$')
-a = 5.9
+a = 10 # 5.9
 b = 2.9
 ax1.set_xlim(-a, a)
 ax1.set_ylim(-b, b)
