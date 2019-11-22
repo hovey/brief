@@ -1,20 +1,7 @@
 \chapter{Notation}
 %\addcontentsline{toc}{chapter}{}
 
-The study of nonlinear continuum mechanics will
-require a large number of concepts and mathematical
-notation to express those concepts.  
-As a point of departure for our discussion, we
-highlight the main variables and their brief description, 
-grouped by order of presentation.  
-
-The reader approaching the topic for the 
-first time will want to scan this section, 
-without concern as to the meaning of the variables, since
-this will unfold in subsequent sections.
-The experienced reader will gain an quick appreciation
-for the notation conventions used in this manuscript and 
-use this section as a reference.
+Following is a list of notation and a brief description, grouped by topic.
 
 \noindent\subsubsection*{Tensors}
 
@@ -36,8 +23,8 @@ use this section as a reference.
 \item [$\fota$] fourth order in the current configuration
 \item [$\fota_{ijkl}$] fourth order components in the current configuration
 \item 
-\item [$\veEihat$] unit basis vector in the reference (material) configuration
-\item [$\veeihat$] unit basis vector in the current (spatial) configuration
+\item [$\vEsubI$] basis vector for the reference (material) configuration
+\item [$\vesubi$] basis vector for the current (spatial) configuration
 \item [$\vebihat$] unit basis vector in the body $B$ reference frame
 \item 
 \item [$o$] origin in spatial configuration
@@ -55,6 +42,11 @@ use this section as a reference.
 \item [$\pushforward{\cdot}$] push forward operator
 % \item [$\ve{\varphi}^{-1}_*(\;\cdot\;)$] pull back operator
 \item [$\pullback{\cdot}$] pull back operator
+\item [$\lie{\cdot}$] Lie derivative, 
+$\lie{\cdot} \defe \tFbold \; \dst\frac{\partial}{\partial t} 
+\left( 
+\tFbold\inverse \;[\; \cdot \;]\; \tFbold\minustranspose
+\right) \tFbold\transpose$
 \item 
 \item [$\vv$] velocity of material particle in current 
 configuration, non-objective
@@ -71,13 +63,15 @@ $\Grad \vU = \tFbold - \vid$
 current configuration, 
 $\grad \vu = \vid - \tFbold\inverse$
 \item 
-\item [$\tFbold = \Grad \vvarphi$] deformation gradient,
-$\tFbold = \tVbold \tRbold = \tRbold \tUbold$, non-symmetric, 
+\item [$\tFbold \defe \Grad \vvarphi$] deformation gradient,
+$\tFbold = \tvbold \tRbold = \tRbold \tUbold$, non-symmetric, 
 two-point tensor, objective (transforms as a vector, not a tensor)
+\item [$J$] Jacobian of the deformation gradient, 
+$J \defe \det \tFbold$
 \item 
 \item [$\tRbold$] rotation, objective (transforms as a vector, 
 not a tensor)
-\item [$\tVbold$] left-stretch, objective
+\item [$\tvbold$] left-stretch, objective
 \item [$\tUbold$] right-stretch, objective
 \end{description}
 
@@ -85,14 +79,16 @@ not a tensor)
 
 \begin{description}[noitemsep,align=right,labelwidth=1.5cm,labelsep=0.8cm]
 \item [$\tCbold$] right Cauchy-Green, 
-$\tCbold = \tFbold\transpose\tFbold$, symmetric, positive definite, objective
+$\tCbold \defe \tFbold\transpose\tFbold$, symmetric, positive definite, objective
 \item [$\tbbold$] left Cauchy-Green, 
-$\tbbold = \tFbold \tFbold \transpose$, symmetric, positive definite, objective
+$\tbbold \defe \tFbold \tFbold \transpose$, symmetric, positive definite, objective
 \item 
 \item [$\tEbold$] Green-Lagrange, 
-$\tEbold = \half \left(\tCbold - \vid \right)$,
+$\tEbold \defe \half \left(\tCbold - \vid \right)$,
 objective
-\item [$\tebold$] Euler-Almansi, objective
+\item [$\tebold$] Euler-Almansi,
+$\tebold \defe \half \left(\vid - \tbbold\inverse \right)$,
+objective
 \item
 \item [$\tEbold_{(m)}$] Seth-Hill
 \item [$\lambda_I$] principal stretch ratio
@@ -103,31 +99,57 @@ objective
 \item
 \item [$\grad \vv$] spatial velocity gradient, non-symmetric, 
 non-objective, covariant
+\item 
 \item [$\tdbold$] stretch rate (spatial rate of deformation, 
-rate of stretch), symmetric, objective, covariant
+rate of stretch),
+\item [] symmetric, objective, covariant,
+$\tdbold = \half\left(\grad\vv + \grad\vv\transpose\right)$
+\item
 \item [$\twbold$] rotation rate (spin, rate of rotation, 
-vorticity), skew-symmetric, non-objective, covariant
+vorticity), 
+\item [] skew-symmetric, non-objective, covariant,
+$\twbold = \half\left(\grad\vv - \grad\vv\transpose\right)$
+\item
+\item [$\tDbold$] rotated rate of deformation,
+$\tDbold = \tRbold\transpose \tdbold \tRbold$
+\item [$\ve{\Omega}$] rate of change of the rotation tensor, skew-symmetric,
+$\ve{\Omega} \defe \dot{\tRbold} \tRbold\transpose$
 \end{description}
 
 \subsubsection*{Stress}
 
 \begin{description}[noitemsep,align=right,labelwidth=1.5cm,labelsep=0.8cm]
-\item [$\ve{\sigma}$] Cauchy, objective
-\item [$\hat{\ve{\sigma}}$] Corotational Cauchy stress
-\item [$\dot{\ve{\sigma}}$] Cauchy stress rate, non-objective
-\item [$\overset{\triangledown}{\ve{\sigma}}$] Jaumann-Zaremba stress rate, objective
-\item [$\overset{\square}{\ve{\sigma}}$] Green-McInnis-Naghdi stress rate, objective
-\item [$\overset{\circ}{\ve{\sigma}}$] Truesdell stress rate, objective
-\item
-\item [$\ve{\tau}$] Kirchhoff
+\item [$\ve{\sigma}$] Cauchy, symmetric, objective
+\item [$\ve{\tau}$] Kirchhoff, 
+$\ve{\tau} \defe J \ve{\sigma}$
+\item 
+\item [$\hat{\ve{\sigma}}$] Co-rotated Cauchy,
+$\hat{\ve{\sigma}} \defe \tRbold\transpose \ve{\sigma} \; \tRbold$
+\item [$\ve{\Sigma}$] rotated Kirchhoff, 
+$\ve{\Sigma} \defe \tRbold\transpose \ve{\tau} \; \tRbold$
+\item 
+\item [$\tPbold$] Piola-Kirchhoff One, 
+\item [] non-symmetric, objective (transforms as
+a vector, not a tensor), 
+\item [] 
+$\tPbold \defe J \; \ve{\sigma}\;\tFbold\minustranspose = \ve{\tau}\; \tFbold\minustranspose = \tFbold \tSbold$
+\item 
+%\item [$\ve{\Sigma}$] Piola-Kirchhoff Two, objective
+\item [$\tSbold$] Piola-Kirchhoff Two, 
+\item [] symmetric, objective,
+$\tSbold \defe J \; \tFbold\inverse \;\ve{\sigma}\; \tFbold\minustranspose = \tFbold\inverse \;\ve{\tau}\; \tFbold\minustranspose$
+\item 
 \item [$\tBbold$] Biot (Jaumann)
-\item
-\item [$\tPbold$] Piola-Kirchhoff One, objective (transforms as
-a vector, not a tensor)
-\item [$\ve{\Sigma}$] Piola-Kirchhoff Two, objective
-%\item [$\tSbold$] Piola-Kirchhoff Two
-\item
 \item [$\tAbold$] Almansi
+\item 
+\item [$\dot{\ve{\sigma}}$] Cauchy stress rate, non-objective
+\item 
+\item [$\overset{\circ}{\ve{\sigma}}$] Truesdell rate of Cauchy stress, objective
+\item 
+\item [$\overset{\square}{\ve{\sigma}}$] Green-McInnis-Naghdi rate of Cauchy stress, objective
+\item 
+\item [$\overset{\triangledown}{\ve{\sigma}}$] Jaumann-Zaremba rate of Cauchy stress, objective
+\item
 \end{description}
 
 
@@ -147,7 +169,7 @@ a vector, not a tensor)
 \item [$\senergy$] total specific energy
 \item
 \item [$U$] internal energy
-\item [$K$] kinetic energy
+\item [$K$] kinetic energy (also denotes bulk modulus)
 \item [$G$] potential energy for external forces
 \item 
 \item [$\helmholtz$] Helmholtz free energy
@@ -167,7 +189,7 @@ a vector, not a tensor)
 \item [$E$] elastic modulus 
 \item [$\nu$] Poisson ratio 
 \item 
-\item [$B$] bulk modulus 
+\item [$K$] bulk modulus (also denotes kinetic energy)
 \item [$G$] shear modulus
 \end{description}
 

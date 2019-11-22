@@ -8,16 +8,19 @@ Energy conjugates
 \begin{tabular}{|cl|} \hline
      & {\bf Stress Power} \\ \hline \hline
      &  \\
- $\mathcal{P}$ 
-   & $=\;\;\;\dst\int_{V} \ve{\sigma} : \grad\vv \; dV $ \\
+ $\mathcal{P}_{\mbox{\footnotesize int}}$ 
+   & $=\;\;\;\dst\int_{V} \ve{\sigma} : \grad\vv \; dV 
+            =\dst\int_{V} \ve{\sigma} : \tdbold  \; dV $ (since $\ve{\sigma} = \ve{\sigma}\transpose)$ \\
    & \\
-   & $=\;\;\;\dst\int_{V_0} \ve{\tau} : \grad\vv \; dV_0 $ \\
+   & $=\;\;\;\dst\int_{V_0} \ve{\tau} : \grad\vv \; dV_0 
+            =\dst\int_{V_0} \ve{\tau} : \tdbold  \; dV_0 $ \\
    & \\ 
    & $=\;\;\;\dst\int_{V_0} \tBbold : \dot{\tUbold} \; dV_0 $ \\
    & \\ 
    & $=\;\;\;\dst\int_{V_0} \tPbold : \dot{\tFbold} \; dV_0 $ \\
    & \\ 
-   & $=\;\;\;\dst\int_{V_0} \ve{\Sigma} : \dot{\tEbold} \; dV_0 $ \\
+   & $=\;\;\;\dst\int_{V_0} \tSbold : \dot{\tEbold} \; dV_0 
+            =\half \dst\int_{V_0} \tSbold : \dot{\tCbold} \; dV_0 $ \\
    & \\ \hline
 \end{tabular}
 \end{center}

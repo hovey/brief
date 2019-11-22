@@ -44,26 +44,26 @@ and their respective stress conjugates.}
  & Green-Lagrange & Piola-Kirchhoff Two \\
  2  
    & $\tEbold_{(2)} = \dst\frac{1}{2}\left(\tUbold^2 - \vid\right)$ 
-   & $\ve{\Sigma} = J \;\tFbold^{-1} \ve{\sigma} \tFbold\;\minustranspose$
+   & $\tSbold = J \;\tFbold^{-1} \ve{\sigma} \tFbold\;\minustranspose$
    \\
    & & \\ \hline
  & engineering (Biot, nominal) & Biot (Jaumann) \\
  1  
    & $\tEbold_{(1)} = \tUbold - \vid$
    & $\tBbold = 
-   \half \left(\ve{\Sigma} \tUbold + \tUbold \ve{\Sigma} \right)$
+   \half \left(\tSbold \tUbold + \tUbold \tSbold \right)$
   \\
    & & \\ \hline
  & log (Hencky, natural) & \\
  0  
    & $\tEbold_{(0)} = \ln\tUbold$
-   & $bbb$
+   & to come
    \\
    & & \\ \hline
  & true & Swainger \\
  -1  
    & $\tEbold_{(-1)} = \vid - \tUbold^{-1}$
-   & $SW = \half J \left(\tUbold \hat{\ve{\sigma}} + 
+   & {\sc SW}$= \half J \left(\tUbold \hat{\ve{\sigma}} + 
            \hat{\ve{\sigma}} \tUbold \right)$
    \\
    & & \\ \hline
@@ -84,25 +84,27 @@ weighted Cauchy stress) is defined as
 \ee
 The Kirchhoff stress is often used in metal plasticity formulations.
 
-The {\bf Corotational Cauchy stress} (also known as the back-rotated
+The {\bf Co-rotated Cauchy stress} (also known as the back-rotated
 Cauchy stress) is defined as
 \be
- \hat{\ve{\sigma}} \defe \tRbold\transpose \ve{\sigma} \tRbold
+ \hat{\ve{\sigma}} \defe \tRbold\transpose \ve{\sigma} \; \tRbold
 \ee
 
 The {\bf Piola-Kirchhoff One stress $\tPbold$} is defined as
 \be
- \tPbold \defe J \; \ve{\sigma} \tFbold \; \minustranspose.
+ \tPbold \defe J \; \ve{\sigma}\; \tFbold\minustranspose 
+ = \ve{\tau} \;\tFbold\minustranspose
 \ee
 
-The {\bf Piola-Kirchhoff Two stress $\ve{\Sigma}$} is defined as
+The {\bf Piola-Kirchhoff Two stress $\tSbold$} is defined as
 \be
- \ve{\Sigma} 
- \defe J \; \tFbold^{-1} \ve{\sigma} \tFbold \; \minustranspose.
+ \tSbold
+ \defe J \; \tFbold\inverse \;\ve{\sigma} \; \tFbold\minustranspose 
+ = \tFbold\inverse \; \ve{\tau}\; \tFbold\minustranspose.
 \ee
 Thus
 \be
- \tPbold = \tFbold \ve{\Sigma}.
+ \tPbold = \tFbold \tSbold.
 \ee
 
 
