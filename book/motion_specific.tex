@@ -1,4 +1,7 @@
-\section{Specific Motions}
+\chapter{Specific Motions}
+\label{sec:specific_motions}
+%\section{Specific Motions}
+
 
 \subsection{Inverse Motions}
 Next we explore specific cases of general motions.  
@@ -887,47 +890,5 @@ The current configuration, shown in red, has area of~16.
 
 
 
-
-\section{Rates}
-
-\subsubsection{Total Time Derivative}
-Let $\phi(\vx,t)$ be an arbitrary spatial scalar field and
-let $\vphi(\vx,t)$ be an arbitrary spatial vector field.
-For a body with spatial velocity $\vv(\vx, t)$, the total
-time derivative of the scalar field $\phi$ is given by
-\be
-\boxed{
- \dot{\phi}(\vx, t) =
- \phi_{,t} 
-  + \grad \phi 
- \cdot \vv
-\;\; \Longleftrightarrow \;\;
- \dot{\phi} =  
- \frac{\partial \phi}{\partial t} 
- + 
- \frac{\partial \phi}{\partial x_i} \frac{\partial x_i}{\partial t}.
-}
- \label{eq:total_time_derivative_scalar}
-\ee
-The total time derivate of the vector field $\vphi$ is given by
-\be
-\boxed{
- \dot{\vphi}(\vx, t) = 
- \vphi_{,t} 
- + [\grad \vphi] \; \vv
-\;\; \Longleftrightarrow \;\;
- \dot{\phi}_i 
- = 
- \frac{\partial \phi_i}{\partial t} 
- + 
- \frac{\partial \phi_i}{\partial x_j} \frac{\partial x_j}{\partial t}.
- \label{eq:total_time_derivative_vector}
-}
-\ee
-\begin{Hremark}
-Some texts prefer the notation $\vv \cdot \grad \vphi$ to
-$[\grad \vphi] \; \vv$, used in 
-(\ref{eq:total_time_derivative_vector}).
-\end{Hremark}
 
 

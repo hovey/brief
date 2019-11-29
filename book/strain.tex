@@ -1,51 +1,8 @@
 \chapter{Strain}
-\section{Right Cauchy-Green Strain}
-A standard strain measure is the right Cauchy-Green
-strain tensor
-\begin{equation}
- \tCbold 
- \defe 
- \tFbold\transpose \tFbold
- \;\; \Longleftrightarrow \;\;
- \tC_{IJ} 
- \defe 
- \tF_{Ii} \; \tF_{iJ}. 
-\end{equation}
-The right Cauchy-Green strain tensor $\tCbold$ gets its name from the 
-fact that the deformation gradient $\tFbold$ sits to the right.  
-Note that this strain tensor is defined in the reference configuration.
-The right Cauchy-Green strain tensor can be written
-explicitly as reference gradients of the motion 
-$\vvarphi$ or displacement $\vu$:
-\begin{align}
-\tCbold \overset{(\ref{eq:deformation_gradient})}{=} 
-(\Grad \vvarphi)\transpose \Grad \vvarphi 
-    &\overset{(\ref{eq:Gradu})}{=} 
-    (\vid + \Grad \vu)\transpose (\vid + \Grad \vu) \\
-    &= 
-    \vid 
-    + 
-    \underset{\mbox{\footnotesize 1st order}}{\underbrace{\Grad \vu 
-                                 + (\Grad \vu)\transpose}}
-    + 
-    \underset{\mbox{\footnotesize 
-    2nd order}}{\underbrace{(\Grad \vu)\transpose\Grad \vu}}
-    \label{eq:C_in_terms_of_u}
-\end{align}
 
-\section{Left Cauchy-Green Strain}
-In contrast, a left Cauchy-Green
-strain tensor $\tbbold$ can be defined with the 
-deformation gradient $\tFbold$
-sitting on the left, 
-\be
- \tbbold \defe \tFbold \tFbold\transpose
- \;\; \Longleftrightarrow \;\;
- \tb_{ij} \defe \tF_{iJ} \; \tF_{Jj}.
- \label{eq:left_cauchy_green}
-\ee
-Note that this strain measure is defined in the current 
-configuration.
+
+
+
 
 \section{Green-Lagrange Strain}
 The Green-Lagrange strain tensor,
