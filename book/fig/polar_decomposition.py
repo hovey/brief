@@ -83,6 +83,8 @@ class AxisModel(Model):
 
     @points.setter  # override
     def points(self, value):
+        self._X0 = value[0][0]  # update the origin x
+        self._Y0 = value[1][0]  # update the origin y
         self._X = value[0]
         self._Y = value[1]
 
@@ -94,13 +96,17 @@ class BodyModel(Model):
         # self._X0, self._Y0 = 0, 0
         # perimeter
         r = 2  # radius
-        theta = np.linspace(0.0, 2 * np.pi, 25)  # radians
+        self._NPOINTS = 25
+        theta = np.linspace(0.0, 2 * np.pi, self._NPOINTS)  # radians
         self._X = np.array(r * np.cos(theta))
         # Y = np.array([-r, 0, 0, 0, r])
         self._Y = np.array(r * np.sin(theta))
 
     # def origin(self):
     #     return self._X0, self._Y0
+
+    def number_of_points(self):
+        return self._NPOINTS
 
     def perimeter(self):
         return self._X, self._Y
@@ -114,8 +120,8 @@ class BodyModel(Model):
 
     @points.setter  # override
     def points(self, value):
-        self._X0 = value[0][0]
-        self._Y0 = value[1][0]
+        self._X0 = value[0][0]  # update the origin x
+        self._Y0 = value[1][0]  # update the origin y
         self._X = value[0][1:]
         self._Y = value[1][1:]
 
@@ -136,10 +142,12 @@ class AxisView(View):
     def __init__(self, model, axis, color='blue'):
         super().__init__()
         self._color = color
+        self._color_origin = 'black'
         x, y = model.points
         axis.plot(x, y, '-', marker='o', color=self._color, markevery=[-1])  # plot the x-axis or y-axis, depending on model
-        # axis.plot(x, y, '-', color=self._color)  # plot the x-axis or y-axis, depending on model
-        # axis.plot(x + ux, y + uy, '-', marker='o', linewidth=2, color='red', markevery=[-1], zorder=4)  # x-axis
+
+        x0, y0 = model.origin()
+        axis.plot(x0, y0, 'o', color=self._color_origin)
 
 
 class BodyView(View):
@@ -152,8 +160,10 @@ class BodyView(View):
         x, y = model.perimeter()
 
         axis.plot(x, y, 'o-', color=self._color, fillstyle=self._fs)  # boundary
-        axis.plot([x0, x[0]], [y0, y[0]], 'o-', color='black', fillstyle=self._fs)  # tracking line on original x-axis
-        # axis.plot(x0, y0, 'o', color='black', label='origin = (0, 0, 0)')  # origin
+        axis.plot([x0, x[0]], [y0, y[0]], 'o-', color='red', fillstyle=self._fs, markevery=[-1])  # tracking line on original x-axis
+        y_axis_index = int((model.number_of_points() - 1)/4)
+        axis.plot([x0, x[y_axis_index]], [y0, y[y_axis_index]], 'o-', color='green', fillstyle=self._fs, markevery=[-1])  # tracking line on original y-axis
+        axis.plot(x0, y0, 'o', color='black', fillstyle=self._fs)  # body origin
 
 
 
@@ -188,7 +198,7 @@ ax = fig.add_subplot(1, 1, 1)
 body = BodyModel()  # create
 px, py = body.points  # read
 body.points = offset(px, py, offset_x=-4)  # update
-gb = BodyView(body, ax)  # view
+gb = BodyView(body, ax, 'dimgray')  # view
 
 body = BodyModel()  # create
 px, py = body.points  # read
