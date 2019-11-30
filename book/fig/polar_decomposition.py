@@ -5,11 +5,15 @@ import numpy as np
 from matplotlib import rc
 import matplotlib.pyplot as plt
 from matplotlib.ticker import MultipleLocator
+from abc import ABC
 
 
 rc('font', **{'family': 'serif', 'serif': ['Computer Modern Roman']})
 rc('text', usetex=True)
 
+# Illustration of Model-View-Controller (MVC) and (eventually) RTTI attribution.
+
+# Controllers
 
 def rotate(X, Y, R):
     """ Given list of reference points (X, Y), rotate them about the 
@@ -27,86 +31,179 @@ def simple_shear(X, Y, shear_12):
     y = Y
     return x, y
 
-def stretch(X, Y, stretch_11):
+def stretch(X, Y, stretch_x, stretch_y):
     """ Given a list of reference points (X, Y), simple stretch them in 
-    the x-axis by distance stretch_11 (factor l/L) to the current points (x, y).
+    the x-axis by distance stretch_x (factor l/L) to the current points (x, y);
+    similarly for y.
     """
-    x = stretch_11 * X
-    y = Y
+    x = stretch_x * X
+    y = stretch_y * Y
     return x, y
 
-class BodyModel():
+def offset(X, Y, offset_x, offset_y=0):
+    """ Given a list of reference points (X, Y), offset them in 
+    the x-axis by distance offset_x, simiarly for y.
+    """
+    x = X + offset_x
+    y = Y + offset_y
+    return x, y
+
+class Model(ABC):
     def __init__(self):
         # origin
         self._X0, self._Y0 = 0, 0
+
+    def origin(self):
+        return self._X0, self._Y0
+
+    @property
+    def points(self):
+        return self._X0, self._Y0
+
+    @points.setter  
+    def points(self, value):
+        self._X0 = value[0]
+        self._Y0 = value[1]
+
+class AxisModel(Model):
+    def __init__(self, direction=1):
+        super().__init__()
+        # direction=1 is the x-axis
+        # direction=2 is the y-axis
+        if direction == 1:
+            self._X = np.array([0, 1])
+            self._Y = np.array([0, 0])
+        else:   # direction is y-axis
+            self._X = np.array([0, 0])
+            self._Y = np.array([0, 1])
+
+    @property
+    def points(self):  # override
+        return self._X, self._Y
+
+    @points.setter  # override
+    def points(self, value):
+        self._X = value[0]
+        self._Y = value[1]
+
+
+class BodyModel(Model):
+    def __init__(self):
+        super().__init__()
+        # # origin
+        # self._X0, self._Y0 = 0, 0
         # perimeter
         r = 2  # radius
-        theta = np.linspace(0.0, 2 * np.pi, 26)  # radians
+        theta = np.linspace(0.0, 2 * np.pi, 25)  # radians
         self._X = np.array(r * np.cos(theta))
         # Y = np.array([-r, 0, 0, 0, r])
         self._Y = np.array(r * np.sin(theta))
 
-    def origin(self):
-        return self._X0, self._Y0
+    # def origin(self):
+    #     return self._X0, self._Y0
 
     def perimeter(self):
         return self._X, self._Y
 
     @property
-    def points(self):
+    def points(self):  # override
         where = 0
         X = np.insert(self._X, where, self._X0, axis=0)
         Y = np.insert(self._Y, where, self._Y0, axis=0)
         return X, Y
 
-    @points.setter  
-    def points(self, value_x, value_y):
-        self._X0 = value_x[0]
-        self._Y0 = value_y[0]
-        self._X = value_x[1:]
-        self._Y = value_y[1:]
+    @points.setter  # override
+    def points(self, value):
+        self._X0 = value[0][0]
+        self._Y0 = value[1][0]
+        self._X = value[0][1:]
+        self._Y = value[1][1:]
+
+class View(ABC):
+    def __init__(self):
+        self._color = 'red'
+
+    @property
+    def color(self):
+        return self._color
+
+    @color.setter  
+    def color(self, value):
+        self._color = value
 
 
-class BodyView():
-    def __init__(self, points_body, axis):
-        # origin 
-        x0, y0 = points_body.origin()
-        x, y = points_body.perimeter()
+class AxisView(View):
+    def __init__(self, model, axis, color='blue'):
+        super().__init__()
+        self._color = color
+        x, y = model.points
+        axis.plot(x, y, '-', marker='o', color=self._color, markevery=[-1])  # plot the x-axis or y-axis, depending on model
+        # axis.plot(x, y, '-', color=self._color)  # plot the x-axis or y-axis, depending on model
+        # axis.plot(x + ux, y + uy, '-', marker='o', linewidth=2, color='red', markevery=[-1], zorder=4)  # x-axis
 
-        axis.plot(x, y, 'o', color='magenta')  # boundary
-        axis.plot([x0, x[0]], [y0, y[0]], 'o-', color='black')  # tracking line on original x-axis
+
+class BodyView(View):
+    def __init__(self, model, axis, color='magenta'):
+        super().__init__()
+        self._color = color
+        self._fs = 'none'  # fillstyle
+        self._linealpha = 0.5
+        x0, y0 = model.origin()
+        x, y = model.perimeter()
+
+        axis.plot(x, y, 'o-', color=self._color, fillstyle=self._fs)  # boundary
+        axis.plot([x0, x[0]], [y0, y[0]], 'o-', color='black', fillstyle=self._fs)  # tracking line on original x-axis
         # axis.plot(x0, y0, 'o', color='black', label='origin = (0, 0, 0)')  # origin
 
 
 
 
-def body():
-    r = 3
-    X = np.array([0, -r, 0, r, 0])
-    Y = np.array([-r, 0, 0, 0, r])
-    b_angle = np.linspace(0.0, 2 * np.pi, 10)
-    body_object = dict({'origin_x': 0, 'origin_y': 0, 'boundary_x': X, 'boundary_y': Y})
-    # return X, Y
-    return body_object
+#def body():
+#    r = 3
+#    X = np.array([0, -r, 0, r, 0])
+#    Y = np.array([-r, 0, 0, 0, r])
+#    b_angle = np.linspace(0.0, 2 * np.pi, 10)
+#    body_object = dict({'origin_x': 0, 'origin_y': 0, 'boundary_x': X, 'boundary_y': Y})
+#    # return X, Y
+#    return body_object
+#
+#
+#def draw_body(axis, b):
+#    # origin 
+#    x = b['origin_x']
+#    y = b['origin_y']
+#    axis.plot(x, y, 'o', color='black', label='origin = (0, 0, 0)')  # origin
+#
+#    x = b['boundary_x']
+#    y = b['boundary_y']
+#    axis.plot(x, y, 'o-', color='blue')  # boundary
+#    #axis.plot([x, x + 1], [y, y], '-', marker='o', linewidth=2, color='red', markevery=[-1], zorder=4)  # x-axis
 
-def draw_body(axis, b):
-    # origin 
-    x = b['origin_x']
-    y = b['origin_y']
-    axis.plot(x, y, 'o', color='black', label='origin = (0, 0, 0)')  # origin
-
-    x = b['boundary_x']
-    y = b['boundary_y']
-    axis.plot(x, y, 'o-', color='blue')  # boundary
-    #axis.plot([x, x + 1], [y, y], '-', marker='o', linewidth=2, color='red', markevery=[-1], zorder=4)  # x-axis
-
+# ======
+# CLIENT 
+# ======
 fig = plt.figure(figsize=(6, 6))  # inches, (wide, tall)
 ax = fig.add_subplot(1, 1, 1)
 
-pb = BodyModel()
-px, py = pb.points
+body = BodyModel()  # create
+px, py = body.points  # read
+body.points = offset(px, py, offset_x=-4)  # update
+gb = BodyView(body, ax)  # view
 
-gb = BodyView(pb, ax)
+body = BodyModel()  # create
+px, py = body.points  # read
+body.points = offset(px, py, offset_x=4, offset_y=3)  # update
+gb = BodyView(body, ax, 'blue')  # view
+
+xaxis = AxisModel(direction=1)  # create
+px, py = xaxis.points  # read
+xaxis.points = offset(px, py, offset_x=-5, offset_y=-5)  # update
+gb = AxisView(xaxis, ax, 'red')  # view
+
+yaxis = AxisModel(direction=2)  # create
+px, py = yaxis.points  # read
+yaxis.points = offset(px, py, offset_x=-5, offset_y=-5)  # update
+gb = AxisView(yaxis, ax, 'green')  # view
 
 dx = -0
 dy = -0
@@ -304,7 +401,7 @@ ax.grid(b=True, which='major', linestyle=':')
 
 ax.set_xlabel(r'reference configuration $X_1, x_1$')
 ax.set_ylabel(r'reference configuration $X_2, x_2$')
-a = 7
+a = 8
 b = a
 ax.set_xlim(-a, a)
 ax.set_ylim(-b, b)
