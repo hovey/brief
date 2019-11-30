@@ -13,41 +13,7 @@ rc('text', usetex=True)
 
 # Illustration of Model-View-Controller (MVC) and (eventually) RTTI attribution.
 
-# Controllers
-
-def rotate(X, Y, R):
-    """ Given list of reference points (X, Y), rotate them about the 
-    z-axis by angle R (radians) to the current points (x, y).
-    """
-    x = np.cos(R) * X - np.sin(R) * Y
-    y = np.sin(R) * X + np.cos(R) * Y
-    return x, y
-
-def simple_shear(X, Y, shear_12):
-    """ Given a list of reference points (X, Y), simple shear them in 
-    the x-axis by distance shear_x (Length) to the current points (x, y).
-    """
-    x = X + shear_12 * Y
-    y = Y
-    return x, y
-
-def stretch(X, Y, stretch_x, stretch_y):
-    """ Given a list of reference points (X, Y), simple stretch them in 
-    the x-axis by distance stretch_x (factor l/L) to the current points (x, y);
-    similarly for y.
-    """
-    x = stretch_x * X
-    y = stretch_y * Y
-    return x, y
-
-def offset(X, Y, offset_x, offset_y=0):
-    """ Given a list of reference points (X, Y), offset them in 
-    the x-axis by distance offset_x, simiarly for y.
-    """
-    x = X + offset_x
-    y = Y + offset_y
-    return x, y
-
+# ========
 class Model(ABC):
     def __init__(self):
         # origin
@@ -90,17 +56,18 @@ class AxisModel(Model):
 
 
 class BodyModel(Model):
-    def __init__(self):
+    def __init__(self, radius=1):
         super().__init__()
         # # origin
         # self._X0, self._Y0 = 0, 0
         # perimeter
-        r = 2  # radius
+        #j r = 2  # radius
         self._NPOINTS = 25
         theta = np.linspace(0.0, 2 * np.pi, self._NPOINTS)  # radians
-        self._X = np.array(r * np.cos(theta))
-        # Y = np.array([-r, 0, 0, 0, r])
-        self._Y = np.array(r * np.sin(theta))
+        # self._X = np.array(r * np.cos(theta))
+        # self._Y = np.array(r * np.sin(theta))
+        self._X = np.array(radius * np.cos(theta))
+        self._Y = np.array(radius * np.sin(theta))
 
     # def origin(self):
     #     return self._X0, self._Y0
@@ -125,6 +92,7 @@ class BodyModel(Model):
         self._X = value[0][1:]
         self._Y = value[1][1:]
 
+# ========
 class View(ABC):
     def __init__(self):
         self._color = 'red'
@@ -165,39 +133,51 @@ class BodyView(View):
         axis.plot([x0, x[y_axis_index]], [y0, y[y_axis_index]], 'o-', color='green', fillstyle=self._fs, markevery=[-1])  # tracking line on original y-axis
         axis.plot(x0, y0, 'o', color='black', fillstyle=self._fs)  # body origin
 
+# ===========
+# Controllers
+# ===========
+def rotate(X, Y, R):
+    """ Given list of reference points (X, Y), rotate them about the 
+    z-axis by angle R (radians) to the current points (x, y).
+    """
+    x = np.cos(R) * X - np.sin(R) * Y
+    y = np.sin(R) * X + np.cos(R) * Y
+    return x, y
+
+def simple_shear(X, Y, shear_12):
+    """ Given a list of reference points (X, Y), simple shear them in 
+    the x-axis by distance shear_x (Length) to the current points (x, y).
+    """
+    x = X + shear_12 * Y
+    y = Y
+    return x, y
+
+def stretch(X, Y, stretch_x, stretch_y):
+    """ Given a list of reference points (X, Y), simple stretch them in 
+    the x-axis by distance stretch_x (factor l/L) to the current points (x, y);
+    similarly for y.
+    """
+    x = stretch_x * X
+    y = stretch_y * Y
+    return x, y
+
+def offset(X, Y, offset_x, offset_y=0):
+    """ Given a list of reference points (X, Y), offset them in 
+    the x-axis by distance offset_x, simiarly for y.
+    """
+    x = X + offset_x
+    y = Y + offset_y
+    return x, y
 
 
-
-#def body():
-#    r = 3
-#    X = np.array([0, -r, 0, r, 0])
-#    Y = np.array([-r, 0, 0, 0, r])
-#    b_angle = np.linspace(0.0, 2 * np.pi, 10)
-#    body_object = dict({'origin_x': 0, 'origin_y': 0, 'boundary_x': X, 'boundary_y': Y})
-#    # return X, Y
-#    return body_object
-#
-#
-#def draw_body(axis, b):
-#    # origin 
-#    x = b['origin_x']
-#    y = b['origin_y']
-#    axis.plot(x, y, 'o', color='black', label='origin = (0, 0, 0)')  # origin
-#
-#    x = b['boundary_x']
-#    y = b['boundary_y']
-#    axis.plot(x, y, 'o-', color='blue')  # boundary
-#    #axis.plot([x, x + 1], [y, y], '-', marker='o', linewidth=2, color='red', markevery=[-1], zorder=4)  # x-axis
 
 # ======
-# CLIENT 
+# client
 # ======
 fig = plt.figure(figsize=(6, 6))  # inches, (wide, tall)
 ax = fig.add_subplot(1, 1, 1)
 
 body = BodyModel()  # create
-px, py = body.points  # read
-body.points = offset(px, py, offset_x=-4)  # update
 gb = BodyView(body, ax, 'dimgray')  # view
 
 body = BodyModel()  # create
