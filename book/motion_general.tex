@@ -216,18 +216,18 @@ Given the {\bf rotation tensor} $\tRbold$, the {\bf material stretch tensor} $\t
 \be
  \tFbold = \tRbold \tUbold = \tvbold \tRbold
  \;\; \Longleftrightarrow \;\;
- \tF_{iJ} = \tR_{iK} \; \tU_{KJ} = \tv_{ik} \; \tR_{kJ}.
+ \tF_{iJ} = \tR_{iK} \; \tU_{KJ} = \tv_{ik} \; \tR_{kJ}, 
  \label{eq:polar_decomposition}
 \ee
 Here we have a slight abuse of notation, where intermediate configurations that have stretched but not yet rotated are denoted with capital letter indices.  Thus the ``$K$'' subscript in $R_{iK} U_{KJ}$ is an intermediate stretched but non-rotated configuration.
 
-The stretch tensors $\tUbold$ and $\tvbold$ are both symmetric and positive definite.  The rotation tensor $\tRbold$ is non-symmetric and orthogonal.  
+The stretch tensors $\tUbold$ and $\tvbold$ are both symmetric and positive definite.  The rotation tensor $\tRbold$ is non-symmetric and orthogonal.  Figure~\ref{fig:polar_decomposition} shows the polar decomposition about a material point $\vX$ and fibers $d\vX$ in its vicinity mapped to the spatial point $\vx$ with the same fibers mapped to $d\vx$.
 
 \begin{figure}[htb]
   \begin{center}
     \includegraphics[width=0.8\textwidth]{fig/polar_decomposition.pdf}
   \end{center}
-  \caption{Polar decomposition.}
+  \caption{In the vicinity of $\vX$, mapped to $\vx = \vvarphi(\vX)$, the polar decomposition of deformation gradient $\tFbold$ into stretch $\tUbold$ then rotation $\tRbold$; or, into rotation $\tRbold$ then stretch $\tvbold$:  (a) Reference configuration, (b) stretched configuration, (c) rotated configuration, (d) current configuration. As shown, the eigenvalues of $\tUbold$ (and $\tvbold$) are $\lambda_1 = 1.5$, $\lambda_2 = 0.5$, $\lambda_3 = 1$ and the rotation $\tRbold$ has a magnitude of $30\degrees$ about the $\vethree$ axis.}
   \label{fig:polar_decomposition}
 \end{figure}
 
