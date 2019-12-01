@@ -285,6 +285,12 @@ ax.set_ylim(-edge, edge)
 ax.set_xticklabels(['', '', -3, -2, -1, 0, 1, 2, 3, '', -3, -2, -1, 0, 1, 2, 3])
 ax.set_yticklabels(['', '', -3, -2, -1, 0, 1, 2, 3, '', -3, -2, -1, 0, 1, 2, 3])
 
+text(-edge + 1, edge - 1, '(a)')
+text(edge - 1, edge - 1, '(b)')
+text(-edge + 1, -edge + 1, '(c)')
+text(edge - 1, -edge + 1, '(d)')
+
+
 # fig.tight_layout()
 plt.show()
 
