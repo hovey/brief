@@ -26,28 +26,29 @@
 \section{Motion}
 %\section{Motion $\vvarphi$}
 % =========================
-Let the arbitrary time interval be defined as $\interval \defe [t_0,t_f]$, initial to final time, inclusive.\footnote{Note that $t_0$, while typically zero, may be any real number less than $t_f$.}  Let the {\bf motion}, a one parameter family of configurations, $\vvarphi : \mathbb{B} \times \interval \mapsto \realthree$ map the material particle $\vX$ into the current configuration $\vx$ such that
+Let the arbitrary time interval be defined as $\interval \defe [t_0,t_f]$, from initial to final time, inclusive.\footnote{Note that $t_0$, while typically zero, may be any real number less than $t_f$.}  Let the {\bf motion}, a one parameter family of configurations, $\vvarphi : \mathbb{B} \times \interval \mapsto \realthree$ map the material particle $\vX$ (the reference configuration) into the current configuration $\vx$,
 \be
 \vx = \vvarphi(\vX,t) = \vvarphi_t(\vX).
 \label{eq:motion}
 \ee
-A motion $\vvarphi$ evaluated at a particular time $t \in \interval$ is referred to as a {\bf configuration} or {\bf placement}.  To each configuration, we assign a {\bf displacement} field $\vu: \mathbb{B} \mapsto \realthree$ such that 
+A motion $\vvarphi$ evaluated at a particular time $t \in \interval$ is referred to as a {\bf current configuration} or {\bf placement}.  For any placement at time $t$, there is a {\bf displacement} field $\vu: \mathbb{B} \times \interval \mapsto \realthree$,
 \be
 \vu(\vX,t) \defe \vvarphi(\vX,t) - \vX 
 \;\;\Longleftrightarrow\;\;
 u_i \defe \varphi_i - \delta_{iJ} X_J.
 \label{eq:displacement}
 \ee
-Thus, the current configuration $\vvarphi$ is simply a function of the original placement $\vX$, plus a displacement $\vu$, which is {\bf function} of placement $\vX$ and time $t$: 
+Thus, the current configuration $\vvarphi$ is simply a function of the original placement $\vX$, plus a displacement $\vu$, which is {\bf function} of placement $\vX$ and time $t$,
 \be
 \vvarphi(\vX,t) = \vX + \vu(\vX,t)
 \;\; \Longleftrightarrow \;\;
 \varphi_i = \delta_{iJ} X_J + u_i.
 \label{eq:displacement_vvarphi}
 \ee
-It is important to
-emphasize that the displacement remains a function $\vu = \vu(\vX, t)$
-of reference configuration $\vX$ and time $t$.  
+The initial condition $\vu_0$ is found from the initial placement $\vvarphi_0$ and the reference configuration $\vX$,
+\be
+\vu_0(\vX) = \vu(\vX, 0) = \vvarphi(\vX, 0) - \vX.
+\ee
 %
 % This is call {\bf translation}.  
 %A specialized case of translation, 
@@ -59,7 +60,7 @@ of reference configuration $\vX$ and time $t$.
 \section{Deformation Gradient}
 %\section{Deformation Gradient $\tFbold$}
 % =========================
-To each configuration $\vvarphi$, we define a {\bf deformation gradient} $\tFbold: \mathbb{B} \times \interval \mapsto \Mthreeplus$ such that
+To each configuration $\vvarphi$, we define a {\bf deformation gradient} $\tFbold: \mathbb{B} \times \interval \mapsto \Mthreeplus$, 
 \begin{equation}
 \tFbold 
 \defe 
@@ -72,9 +73,7 @@ To each configuration $\vvarphi$, we define a {\bf deformation gradient} $\tFbol
 \end{equation}
 %Remarks:
 
-Lower case indices represent components of tensors in the current configuration whereas upper case indices represent
-components of tensors in the reference configuration.  Real, square matrices of dimension three and positive determinants
-are denoted $\Mthreeplus$.  Gradients are denoted with and without a subscript $0$, to denote gradients taken in the reference and current configurations, respectively:
+Lower case indices represent components of tensors in the current configuration.  Upper case indices represent components of tensors in the reference configuration.  Real, square matrices of dimension three and positive determinants are denoted $\Mthreeplus$.  Gradient operations with and without a subscript ``$0$'' are gradients taken in the reference and current configurations, respectively:
 \begin{align}
 \Grad(\cdot) = \partial (\cdot) / \partial X_J, & \hspace{1cm} \mbox{reference configuration gradient, and} \\
 \grad(\cdot) = \partial (\cdot) / \partial x_j, & \hspace{1cm} \mbox{current configuration gradient}.
@@ -103,10 +102,9 @@ The {\bf Jacobian} of the deformation gradient,
 \begin{equation}
  J \defe \det \tFbold,
 \end{equation}
-describes the (generally non-uniform) volumetric expansion or contraction of the motion from the reference configuration $\vX$.  All configurations must be admissible in the sense that the Jacobian of the deformation must be positive ($J > 0$). This requirement keeps the deformations from mapping the body to a single, infinitesimally small point ($J=0$) or turning the
-body inside-out ($J<0$).  
+describes the (generally non-uniform) volumetric expansion or contraction of the motion from the reference configuration $\vX$.  All configurations must be admissible in the sense that the Jacobian of the deformation must be positive ($J > 0$). This requirement keeps the deformations from mapping the body to a single, infinitesimally small point ($J=0$) or turning the body inside-out ($J<0$).  
 
-Isochoric motions preserve volume, thus a Jacobian of unity ($J=1$) describes an isochoric motion.  Table~\ref{tab:jacobian_categories} describes the categories of motions (deformations) by Jacobian measure.  
+Isochoric motions preserve body's total volume. A Jacobian of unity ($J=1$) describes an isochoric motion.  Table~\ref{tab:jacobian_categories} describes the categories of motions (expansion, volume-preserving, contraction, and inadmissible) by Jacobian measure.  
 \begin{table}[htb]
 \caption{Jacobian measure to categorize deformations.}
 \label{tab:jacobian_categories}
@@ -193,11 +191,12 @@ The right Cauchy-Green deformation tensor $\tCbold$: (1) is defined in the refer
     2nd order}}{\underbrace{(\Grad \vu)\transpose\Grad \vu}}.
     \label{eq:C_in_terms_of_u}
 \end{align}
+This result can be expected since, by definition, $\tCbold$ is second-order in the deformation gradient $\Grad\vvarphi$, and the relationship between the deformation gradient $\Grad\vvarphi$ and displacement gradient $\Grad\vu$ is linear.
 
 % ==========================
 \section{Left Cauchy-Green Deformation}
 % ==========================
-The {\bf left Cauchy-Green deformation} arises from similar multiplication as the right Cauchy-Green deformation, but with the stretching going in the reverse, from current configuration back to reference configuration, 
+The {\bf left Cauchy-Green deformation} arises from similar multiplication as with the right Cauchy-Green deformation, but with the stretching going in the reverse, from current configuration back to reference configuration, 
 \be
 d\vX_1\cdot d\vX_2 = d\vX_1\transpose d\vX_2 = (\tFbold\inverse d\vx_1)\transpose \; \tFbold\inverse \; d\vx_2 = d\vx_1\transpose \;\tFbold\minustranspose \tFbold\inverse \;d\vx_2 = d\vx_1\transpose \;\tbbold\inverse \;d\vx_2,
 \ee
@@ -213,14 +212,24 @@ The left Cauchy-Green deformation tensor $\tbbold$: (1) is defined in the curren
 % ==========================
 \section{Polar Decomposition}
 % ==========================
-For {\bf material stretch tensor} $\tUbold$ and {\bf spatial stretch tensor} $\tvbold$, the deformation gradient $\tFbold$ has the multiplicative decomposition,
+Given the {\bf rotation tensor} $\tRbold$, the {\bf material stretch tensor} $\tUbold$, and {\bf spatial stretch tensor} $\tvbold$, the deformation gradient $\tFbold$ has the multiplicative decomposition,
 \be
  \tFbold = \tRbold \tUbold = \tvbold \tRbold
  \;\; \Longleftrightarrow \;\;
  \tF_{iJ} = \tR_{iK} \; \tU_{KJ} = \tv_{ik} \; \tR_{kJ}.
  \label{eq:polar_decomposition}
 \ee
+Here we have a slight abuse of notation, where intermediate configurations that have stretched but not yet rotated are denoted with capital letter indices.  Thus the ``$K$'' subscript in $R_{iK} U_{KJ}$ is an intermediate stretched but non-rotated configuration.
+
 The stretch tensors $\tUbold$ and $\tvbold$ are both symmetric and positive definite.  The rotation tensor $\tRbold$ is non-symmetric and orthogonal.  
+
+\begin{figure}[htb]
+  \begin{center}
+    \includegraphics[width=0.8\textwidth]{fig/polar_decomposition.pdf}
+  \end{center}
+  \caption{Polar decomposition.}
+  \label{fig:polar_decomposition}
+\end{figure}
 
 % ==========================
 \section{Principal Stretches and Axes}
@@ -261,10 +270,7 @@ The deformation gradient, its polar decomposition, and the Cauchy-Green deformat
 \section{Rates}
 % ==========================
 \subsubsection{Total Time Derivative}
-Let $\phi(\vx,t)$ be an arbitrary spatial scalar field and
-let $\vphi(\vx,t)$ be an arbitrary spatial vector field.
-For a body with spatial velocity $\vv(\vx, t)$, the total
-time derivative of the scalar field $\phi$ is given by
+Let $\phi(\vx,t)$ be an arbitrary spatial {\em scalar} field and let $\vphi(\vx,t)$ be an arbitrary spatial {\bf \em vector} field.  For a body with spatial velocity $\vv(\vx, t)$, the total time derivative of the scalar field $\phi$ is given by
 \be
 \boxed{
  \dot{\phi}(\vx, t) =
@@ -275,26 +281,25 @@ time derivative of the scalar field $\phi$ is given by
  \dot{\phi} =  
  \frac{\partial \phi}{\partial t} 
  + 
- \frac{\partial \phi}{\partial x_i} \frac{\partial x_i}{\partial t}.
+ \frac{\partial \phi}{\partial x_j} \frac{\partial x_j}{\partial t}.
 }
  \label{eq:total_time_derivative_scalar}
 \ee
 The total time derivate of the vector field $\vphi$ is given by
-
-%\begin{equation}
-%\boxed{
-% \dot{\vphi}(\vx, t) = 
-% \vphi_{,t} 
-% + [\grad \vphi] \; \vv
-%\;\; \Longleftrightarrow \;\;
-% \dot{\phi}_i 
-% = 
-% \frac{\partial \phi_i}{\partial t} 
-% + 
-% \frac{\partial \phi_i}{\partial x_j} \frac{\partial x_j}{\partial t}.
-% \label{eq:total_time_derivative_vector}
-%}
-%\end{equation}
+\begin{equation}
+\boxed{
+ \dot{\vphi}(\vx, t) = 
+ \vphi_{,t} 
+ + [\grad \vphi] \; \vv
+\;\; \Longleftrightarrow \;\;
+ \dot{\phi}_i 
+ = 
+ \frac{\partial \phi_i}{\partial t} 
+ + 
+ \frac{\partial \phi_i}{\partial x_j} \frac{\partial x_j}{\partial t}.
+ \label{eq:total_time_derivative_vector}
+}
+\end{equation}
 
 \begin{Hremark}
 Some texts prefer the notation $\vv \cdot \grad \vphi$ to
