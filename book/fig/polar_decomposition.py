@@ -208,8 +208,8 @@ def text(x, y, text):
 
 # horizontal and vertical dividing lines
 edge = 8
-ax.plot([-edge, edge], [0, 0], ':', color='dimgray')
-ax.plot([0, 0], [-edge, edge], ':', color='dimgray')
+ax.plot([-edge, edge], [0, 0], '--', linewidth=1, color='dimgray')
+ax.plot([0, 0], [-edge, edge], '--', linewidth=1, color='dimgray')
 
 b1 = BodyModel(radius=2)  # create
 c = 4  # notational origin (center) for each of the four plots
@@ -289,6 +289,9 @@ text(-edge + 1, edge - 1, '(a)')
 text(edge - 1, edge - 1, '(b)')
 text(-edge + 1, -edge + 1, '(c)')
 text(edge - 1, -edge + 1, '(d)')
+
+ax.text(b1.origin()[0] - 0.55, b1.origin()[1] - 0.55, '$\\boldsymbol{X}$') # no white background
+ax.text(b4.origin()[0] - 0.5, b4.origin()[1] - 0.5, '$\\boldsymbol{x}$')
 
 
 # fig.tight_layout()
