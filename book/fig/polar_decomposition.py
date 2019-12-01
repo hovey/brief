@@ -2,7 +2,7 @@
 import os
 import numpy as np
 # import matplotlib as mpl
-from matplotlib import rc
+from matplotlib import rc, rcParams
 import matplotlib.pyplot as plt
 from matplotlib.ticker import MultipleLocator
 from abc import ABC
@@ -10,6 +10,8 @@ from abc import ABC
 
 rc('font', **{'family': 'serif', 'serif': ['Computer Modern Roman']})
 rc('text', usetex=True)
+# matplotlib.rcParams['text.latex.preamble']=[r"\usepackage{amsmath}"]
+rcParams['text.latex.preamble']=[r"\usepackage{amsmath}"]
 
 # Illustration of Model-View-Controller (MVC) and (eventually) RTTI attribution.
 
@@ -21,7 +23,7 @@ class Model(ABC):
         self._X0, self._Y0 = 0, 0
 
     def origin(self):
-        return self._X0, self._Y0
+        return [self._X0, self._Y0]
 
     @property
     def points(self):
@@ -121,7 +123,8 @@ class BodyView(View):
         x0, y0 = model.origin()
         x, y = model.perimeter()
 
-        axis.plot(x, y, 'o-', color=self._color, fillstyle=self._fs)  # boundary
+        axis.plot(x, y, '-', color=self._color)  # boundary
+        axis.plot(x, y, 'o', color=self._color, fillstyle=self._fs, alpha=self._linealpha)  # boundary
         axis.plot([x0, x[0]], [y0, y[0]], 'o-', color='red', fillstyle=self._fs, markevery=[-1])  # tracking line on original x-axis
         y_axis_index = int((model.number_of_points() - 1)/4)
         axis.plot([x0, x[y_axis_index]], [y0, y[y_axis_index]], 'o-', color='green', fillstyle=self._fs, markevery=[-1])  # tracking line on original y-axis
@@ -185,40 +188,83 @@ ax = fig.add_subplot(1, 1, 1)
 RADTODEG = 180.0/np.pi
 DEGTORAD = 1.0/RADTODEG
 
-xaxis = AxisModel(direction=1)  # create
-p = xaxis.points  # read
-o = [-5, -4]  # offset
-xaxis.points = offset(p, o)  # update
-gb = AxisView(xaxis, ax, 'red')  # view
+def text(x, y, text):
+    ax.text(x, y, text, backgroundcolor="white",
+        ha='center', va='center_baseline', weight='bold', color='black')
 
-yaxis = AxisModel(direction=2)  # create
-p = yaxis.points  # read
-yaxis.points = offset(p, o)  # update
-gb = AxisView(yaxis, ax, 'green')  # view
+# xaxis = AxisModel(direction=1)  # create
+# p = xaxis.points  # read
+# o = [-7, -7]  # offset
+# xaxis.points = offset(p, o)  # update
+# gb = AxisView(xaxis, ax, 'red')  # view
+# text(o[0] - 0.5, o[1] - 0.5, '$o$')
+# text(o[0] + 2.25, o[1], '$X_1, x_1$')
+# 
+# yaxis = AxisModel(direction=2)  # create
+# p = yaxis.points  # read
+# yaxis.points = offset(p, o)  # update
+# gb = AxisView(yaxis, ax, 'green')  # view
+# text(o[0], o[1] + 1.75, '$X_2, x_2$')
 
-body = BodyModel()  # create
-gb = BodyView(body, ax, 'dimgray')  # view
+# horizontal and vertical dividing lines
+edge = 8
+ax.plot([-edge, edge], [0, 0], ':', color='dimgray')
+ax.plot([0, 0], [-edge, edge], ':', color='dimgray')
 
-body = BodyModel()  # create
+b1 = BodyModel(radius=2)  # create
+c = 4  # notational origin (center) for each of the four plots
+m = c + 3  # motional origin plus margin
+inner = 1.5  # inner margin position
+o = [-c, c]  # offset
+b1.points = offset(b1.points, o)  # read then update
+gb = BodyView(b1, ax, 'black')  # view
+
+# stretch U
+b2 = BodyModel(radius=2)  # create
+s = [1.5, 0.5]  # stretches
+b2.points = stretch(b2.points, s)  # read then update
+o = [c, c]  # offset
+b2.points = offset(b2.points, o)  # read then update
+gb = BodyView(b2, ax, 'black')  # view
+# ap = dict(arrowstyle='->, head_width=0.4, head_length=0.8', shrinkA=0, shrinkB=0) # arrow properites
+ap = dict(arrowstyle='->') # arrow properites
+ax.annotate('', xy=(b2.origin()[0], m), xytext=(b1.origin()[0], m), arrowprops=ap)
+text(0, m, 'stretch \sffamily \\bfseries U')
+# https://tex.stackexchange.com/questions/7669/bfseries-is-to-textbf-as-what-is-to-textsf/7670
+
+# rotate R
 r = 30 * DEGTORAD  # radians
-body.points = rotate(body.points, r)  # read then update
-o = [4, 3]  # offset
-body.points = offset(body.points, o)  # read then update
-gb = BodyView(body, ax, 'blue')  # view
+b3 = BodyModel(radius=2)  # create
+b3.points = rotate(b3.points, r)  # read then update
+o = [-c, -c]  # offset
+b3.points = offset(b3.points, o)  # read then update
+gb = BodyView(b3, ax, 'black')  # view
+# ax.annotate('', xy=(-m, b3.origin()[1]), xytext=(-m, b1.origin()[1]), arrowprops=ap)
+ax.annotate('', xy=(b1.origin()[0], -inner), xytext=(b1.origin()[0], inner), arrowprops=ap)
+rscale = 0.9
+# text(-rscale*m, 0, 'rotation \sffamily \\bfseries R')
+text(b1.origin()[0], 0, 'rotation \sffamily \\bfseries R')
 
-body = BodyModel()  # create
-s = 1  # shear
-body.points = simple_shear(body.points, s)  # read then update
-o = [-3, 2]  # offset
-body.points = offset(body.points, o)  # read then update
-gb = BodyView(body, ax, 'magenta')  # view
+# F = RU
+b4 = BodyModel(radius=2)  # create
+s = [1.5, 0.5]  # stretches
+b4.points = stretch(b4.points, s)  # read then update
+b4.points = rotate(b4.points, r)  # read then update
+o = [c, -c]  # offset
+b4.points = offset(b4.points, o)  # read then update
+gb = BodyView(b4, ax, 'black')  # view
 
-body = BodyModel()  # create
-s = [1.5, 2]  # stretches
-body.points = stretch(body.points, s)  # read then update
-o = [3, -4]  # offset
-body.points = offset(body.points, o)  # read then update
-gb = BodyView(body, ax, 'orange')  # view
+ax.annotate('', xy=(b4.origin()[0], -m), xytext=(b3.origin()[0], -m), arrowprops=ap)
+text(0, -m, 'stretch \sffamily \\bfseries v')
+
+# ax.annotate('', xy=(m, b4.origin()[1]), xytext=(m, b2.origin()[1]), arrowprops=ap)
+# text(rscale*m, 0, 'rotation \sffamily \\bfseries R')
+ax.annotate('', xy=(b2.origin()[0], -inner), xytext=(b2.origin()[0], inner), arrowprops=ap)
+# text(-rscale*m, 0, 'rotation \sffamily \\bfseries R')
+text(b2.origin()[0], 0, 'rotation \sffamily \\bfseries R')
+
+ax.annotate('', xy=(inner, -inner), xytext=(-inner, inner), arrowprops=ap)
+text(0, 0, '\sffamily \\bfseries F')
 
 ax.axis('equal')
 
@@ -230,13 +276,14 @@ ax.grid(b=True, which='major', linestyle=':')
 # minor axes
 # no operations
 
-ax.set_xlabel(r'reference configuration $X_1, x_1$')
-ax.set_ylabel(r'reference configuration $X_2, x_2$')
-a = 8
-b = a
-ax.set_xlim(-a, a)
-ax.set_ylim(-b, b)
+ax.set_xlabel(r'$X_1, x_1$')
+ax.set_ylabel(r'$X_2, x_2$')
+ax.set_xlim(-edge, edge)
+ax.set_ylim(-edge, edge)
 # ax.legend(loc='lower right', framealpha=1.0)
+
+ax.set_xticklabels(['', '', -3, -2, -1, 0, 1, 2, 3, '', -3, -2, -1, 0, 1, 2, 3])
+ax.set_yticklabels(['', '', -3, -2, -1, 0, 1, 2, 3, '', -3, -2, -1, 0, 1, 2, 3])
 
 # fig.tight_layout()
 plt.show()
