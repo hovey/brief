@@ -61,6 +61,10 @@
 %\restylefloat{table}   % To re-style the 'table' float
 % END float definitions for boxes
  
+% Fix text figures showing as Fig. 3.2.1 (in Section 3.2.1), but 
+% figure caption appears as Fig. 3.1.  Want the text reference to
+% also be Fig 3.1.
+% \renewcommand{\thefigure}{\arabic{figure}}
 
 % ----------
 % PAGE SETUP
@@ -102,7 +106,7 @@
 \setlength{\parskip}{0mm}
 
 % Space between lines
-\renewcommand{\baselinestretch}{1.1}
+\renewcommand{\baselinestretch}{1.0}
 
 
 % -----------------
@@ -157,6 +161,7 @@
 %\includeonly{notation,formulation,motion_general,motion_specific,simple_shear}
 %\includeonly{notation,formulation,simple_shear}
 %\includeonly{motion_general,strain}
+\includeonly{formulation}
 % -----------------
 % THE MAIN DOCUMENT
 % -----------------
@@ -193,7 +198,7 @@
 \include{plasticity_time_step}
 \include{contact002}
 \include{shock}
-\include{implementation}
-\include{element}
+%\include{implementation}
+%\include{element}
 \end{document}
 
