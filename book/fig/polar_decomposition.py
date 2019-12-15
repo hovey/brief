@@ -271,7 +271,8 @@ ax.axis('equal')
 # major axes
 ax.xaxis.set_major_locator(MultipleLocator(1.0))
 ax.yaxis.set_major_locator(MultipleLocator(1.0))
-ax.grid(b=True, which='major', linestyle=':')
+#ax.grid(b=True, which='major', linestyle=':')
+ax.grid(b=True, which='major', linestyle='solid', linewidth=0.5, color='lightgray')
 
 # minor axes
 # no operations
@@ -297,7 +298,7 @@ ax.text(b4.origin()[0] - 0.5, b4.origin()[1] - 0.5, '$\\boldsymbol{x}$')
 # fig.tight_layout()
 plt.show()
 
-print_to_pdf = 0
+print_to_pdf = 1
 if print_to_pdf:
     script_name = os.path.basename(__file__)
     figure_name = os.path.splitext(script_name)[0]

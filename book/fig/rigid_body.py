@@ -7,9 +7,9 @@ import matplotlib.pyplot as plt
 from matplotlib.ticker import MultipleLocator
 
 
-rc('font', **{'family': 'serif', 'serif': ['Computer Modern Roman']})
 rc('text', usetex=True)
-
+# rc('font', **{'family': 'serif', 'serif': ['Computer Modern Roman']})
+rc('font', family='serif')
 
 def rotate(X, Y, R):
     """ Given list of reference points (X, Y), rotate them about the 
@@ -53,7 +53,7 @@ def draw(axis, ux=0, uy=0, ur=0, showlabels=0):
     X = X[-1] + ox
     Y = Y[-1] + oy
     x, y = rotate(X, Y, ur)
-    axis.text(x + ux, y + uy, r'$\hat{\mathbf{b}}_1$', ha='center', va='center', backgroundcolor='white')
+    axis.text(x + ux, y + uy, r'$\mathbf{E}_1$', ha='center', va='center', backgroundcolor='white')
     
     # y-axis
     X = np.array([0, 0])
@@ -65,7 +65,7 @@ def draw(axis, ux=0, uy=0, ur=0, showlabels=0):
     X = X[-1] + ox
     Y = Y[-1] + oy
     x, y = rotate(X, Y, ur)
-    axis.text(x + ux, y + uy, r'$\hat{\mathbf{b}}_2$', ha='center', va='center', backgroundcolor='white')
+    axis.text(x + ux, y + uy, r'$\mathbf{E}_2$', ha='center', va='center', backgroundcolor='white')
     
     # z-axis start
     z_angle = np.linspace(-np.pi/2.0, np.pi)
@@ -80,7 +80,7 @@ def draw(axis, ux=0, uy=0, ur=0, showlabels=0):
     X = X[-1] + ox
     Y = Y[-1] + oy
     x, y = rotate(X, Y, ur)
-    axis.text(x + ux, y + uy, r'$\hat{\mathbf{b}}_3$', ha='center', va='center', backgroundcolor='white')
+    axis.text(x + ux, y + uy, r'$\mathbf{E}_3$', ha='center', va='center', backgroundcolor='white')
 
     # body
     body_color = 'black'
@@ -162,7 +162,8 @@ ax.yaxis.set_major_locator(MultipleLocator(1.0))
 
 # ax.grid(which='both')
 # ax.grid(b=True, which='major', linestyle='-')
-ax.grid(b=True, which='major', linestyle=':')
+#ax.grid(b=True, which='major', linestyle=':')
+ax.grid(b=True, which='major', linestyle='solid', linewidth=0.5, color='lightgray')
 # ax.grid(b=True, which='minor', linestyle=':')
 ax.set_xlabel(r'body coordinate $X_1$')
 ax.set_ylabel(r'body coordinate $X_2$')

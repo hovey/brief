@@ -61,11 +61,11 @@ ax.text(-0.5, -0.4, r'$\mathbf{e}_3$', ha='center', va='center', backgroundcolor
 pt_color = 'purple'
 px, py = 3, 4
 ax.plot(px, py, 'o', color=pt_color, 
-    label=r'spatial point {\bf \em p} = (' + str(px) + ', ' + str(py) + ', 0)')
+    label=r'spatial point $p$ = (' + str(px) + ', ' + str(py) + ', 0)')
 ax.plot([0, px], [0, py], color=pt_color, 
     label=r'spatial position vector {\bf \em r}$^{op} = (' + str(px) + ', ' + str(py) + ', 0)$', zorder=4)
 o = 0.25
-ax.text(px + o, py + o, r'{\bf \em p}', ha='center', va='center')
+ax.text(px + o, py + o, r'$p$', ha='center', va='center')
 angle = np.arctan(py / px)  # radians
 angle_deg = angle * RADTODEG  # degrees
 r_off = 0.25

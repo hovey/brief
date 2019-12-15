@@ -7,9 +7,9 @@ import matplotlib.pyplot as plt
 from matplotlib.ticker import MultipleLocator
 
 
-rc('font', **{'family': 'serif', 'serif': ['Computer Modern Roman']})
 rc('text', usetex=True)
-
+#rc('font', **{'family': 'serif', 'serif': ['Computer Modern Roman']})
+rc('font', family='serif')
 
 def rotate(X, Y, R):
     """ Given list of reference points (X, Y), rotate them about the 
@@ -220,8 +220,10 @@ ax2.yaxis.set_major_locator(MultipleLocator(1.0))
 
 # ax.grid(which='both')
 # ax.grid(b=True, which='major', linestyle='-')
-ax1.grid(b=True, which='major', linestyle=':')
-ax2.grid(b=True, which='major', linestyle=':')
+#ax1.grid(b=True, which='major', linestyle=':')
+#ax2.grid(b=True, which='major', linestyle=':')
+ax1.grid(b=True, which='major', linestyle='solid', linewidth=0.5, color='lightgray')
+ax2.grid(b=True, which='major', linestyle='solid', linewidth=0.5, color='lightgray')
 # ax.grid(b=True, which='minor', linestyle=':')
 ax1.set_xlabel(r'reference configuration $X_1, x_1$')
 ax1.set_ylabel(r'reference configuration $X_2, x_2$')

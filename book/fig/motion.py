@@ -46,7 +46,7 @@ plt.xlabel(r'position ($X_1$)')
 plt.ylabel(r'position ($X_2$)')
 plt.title(r'reference configuration ($t=t_0$)')
 
-#plt.show()
+plt.show()
 plt.savefig('configuration_reference.pdf', orientation='landscape', format='pdf')
 #fig.savefig('test.pdf')
 #plt.close(fig)
@@ -108,7 +108,7 @@ plt.axes().add_patch(
 )
 plt.plot(x1t, x2t, 'ro')
 plt.title(r'current configuration ($t>t_0$)')
-#plt.show()
+plt.show()
 plt.savefig('configuration_volumetric.pdf', orientation='landscape', format='pdf')
 
 
