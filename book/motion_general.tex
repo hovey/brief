@@ -783,13 +783,12 @@ and the relationship between the two strain tensors is given through a rotation 
 \tebold^{(-m)} = \tRbold \tEbold^{(m)} \tRbold\transpose,
 \ee
 obtained through use of (\ref{eq:Emem}) with (\ref{eq:ntoNalpha}).
-In the case when $m \rightarrow \infty$, the material and spatial {\bf logarithmic strain tensors}, also known as the {\bf Hencky} material and spatial strain tensors, $\tHbold$ and $\thbold$, are
+In the case when $m \rightarrow \infty$, the material and spatial {\bf logarithmic strain tensors}, also known as the {\bf Hencky} material and spatial strain tensors, $\tHbold$ and $\thbold$, are obtained as\footnote{See Xiao H, Bruhns OT, Meyers A. Hypo-elasticity model based upon the logarithmic stress rate. Journal of Elasticity. 1997 Apr 1;47(1):51-68, at page 54, Eq.~(2.2).}
 \begin{align}
-    \tHbold = \tEbold^{(0)} = \sum_{\alpha = 1}^3 \; \ln \lambda_{\alpha} \;\vN_{\alpha} \otimes \vN_{\alpha}, \hspace{0.5cm} 
-& 
-    \thbold = \tebold^{(0)} = \sum_{\alpha = 1}^3 \ln \lambda_{\alpha} \;\vn_{\alpha} \otimes \vn_{\alpha},
+    \tHbold = \ln \tUbold = \tEbold^{(0)} & = \sum_{\alpha = 1}^3 \; \ln \lambda_{\alpha} \;\vN_{\alpha} \otimes \vN_{\alpha}, \mbox{ and}
+\\
+    \thbold = \ln \tvbold = \tebold^{(0)} & = \sum_{\alpha = 1}^3 \ln \lambda_{\alpha} \;\vn_{\alpha} \otimes \vn_{\alpha}.
 \end{align}
-where $\tEbold^{(0)} = \ln \tUbold$ and $\tebold^{(0)} = \ln \tvbold$.
 
 
 % ==========================
