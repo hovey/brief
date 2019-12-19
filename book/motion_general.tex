@@ -848,15 +848,15 @@ $[\grad \vphi] \; \vv$, used in
 \clearpage
 \section{Lie Derivatives}
 % ==========================
-The {\bf pull back operator} is defined as the pulling back of a spatial field to the reference configuration.  For a spatial tensor $[\;\cdot\;]$, this operator is defined as 
+The {\bf pull back operator} $\pullback{\cdot}$ is defined as the mapping back of a spatial field to the reference configuration.  For a spatial tensor $[\;\cdot\;]$, this operator is defined as 
 \be
 \pullback{\cdot} \defe \tFbold\transpose \;[\;\cdot\;]\; \tFbold.
 \ee
-The {\bf push forward operator} is defined as the pushing forward of a material field to the current configuration.  For a material tensor $[\;\bullet\;]$, this operator is defined as 
+The {\bf push forward operator} $\pushforward{\bullet}$ is defined as the mapping forward of a material field to the current configuration.  For a material tensor $[\;\bullet\;]$, this operator is defined as 
 \be
 \pushforward{\bullet} \defe \tFbold\minustranspose \;[\;\bullet\;]\; \tFbold\inverse.
 \ee
-The {\bf Lie Derivative} of a spatial tensor $[\;\cdot\;]$ is defined as its pull back, time derivative, and push forward, as follows
+The {\bf Lie Derivative} of a spatial tensor $\lie{\cdot}$ is defined as its pull back, time derivative, and push forward,
 \be
     \lie{\cdot} \defe \pushforward{\dst\frac{\partial}{\partial t} \pullback{\cdot}} = \tFbold\minustranspose \; \dst\frac{\partial}{\partial t} 
 \left( 
@@ -904,11 +904,19 @@ which is the result.
 \end{Hproof}
 
 \begin{Hresult}
-The Lie derivative of the Euler-Almansi strain tensor $\tebold$ is the rate of deformation tensor $\tdbold$.
+The Lie derivative of the Euler-Almansi strain tensor $\tebold$ is the rate of deformation tensor $\tdbold$.  Figure \ref{fig:lie_derivative_e_to_d} illustrates this result.
 \end{Hresult}
 
 \begin{Hproof}
 Combine Eq.~(\ref{eq:lie_derivative}), Result~\ref{Hresult:pullback_e}, and 
     Result~\ref{Hresult:pushforward_E} to get the result.
 \end{Hproof}
+
+\begin{figure}[htb]
+  \begin{center}
+    \includegraphics[width=0.9\textwidth]{fig/lie_derivative_e_to_d.pdf}
+  \end{center}
+  \caption{Lie derivative of the Euler-Almansi strain tensor $\tebold$ to the rate of deformation tensor $\tdbold$, as the pull back, time derivative, and push forward.  Source: {\tt lie\_derivative\_e\_to\_d.py}.}
+  \label{fig:lie_derivative_e_to_d}  % label must come after caption
+\end{figure}
 
