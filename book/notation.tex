@@ -38,22 +38,23 @@ Following is a list of notation and a brief description, grouped by topic.
 \item [$\vU$] displacement vector from $\vX$ to $\vx$, objective
 \item [$\vvarphi$] motion of material particle $\vX$ 
 \item 
-% \item [$\ve{\varphi}_*(\;\cdot\;)$] push forward operator
-\item [$\pushforward{\cdot}$] push forward operator
 % \item [$\ve{\varphi}^{-1}_*(\;\cdot\;)$] pull back operator
-\item [$\pullback{\cdot}$] pull back operator
+\item [$\pullback{\cdot}$] pull back operator, $\pullback{\cdot} \defe \tFbold\transpose \;[\;\cdot\;]\; \tFbold$
+% \item [$\ve{\varphi}_*(\;\cdot\;)$] push forward operator
+\item [$\pushforward{\bullet}$] push forward operator, $\pushforward{\bullet} \defe \tFbold\minustranspose \;[\;\bullet\;]\; \tFbold\inverse$
+\item
 \item [$\lie{\cdot}$] Lie derivative, 
-$\lie{\cdot} \defe \tFbold \; \dst\frac{\partial}{\partial t} 
+    $\lie{\cdot} \defe \pushforward{\dst\frac{\partial}{\partial t} \pullback{\cdot}} = \tFbold\minustranspose \; \dst\frac{\partial}{\partial t} 
 \left( 
-\tFbold\inverse \;[\; \cdot \;]\; \tFbold\minustranspose
-\right) \tFbold\transpose$
+\tFbold\transpose \;[\; \cdot \;]\; \tFbold
+\right) \tFbold\inverse$
 \item 
 \item [$\vv$] velocity of material particle in current 
 configuration, non-objective
 \item [$\va$] acceleration of material particle in current 
 configuration, non-objective
 \item 
-\item [$\Grad (\;\cdot\;)$] gradient operator in the reference configuration
+\item [$\Grad (\;\bullet\;)$] gradient operator in the reference configuration
 \item [$\grad (\;\cdot\;)$] gradient operator in the current configuration
 \item 
 \item [$\Grad \vU$] displacement gradient in the 

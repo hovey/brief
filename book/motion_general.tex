@@ -75,10 +75,10 @@ To each configuration $\vvarphi$, we define a {\bf deformation gradient} $\tFbol
 
 Lower case indices represent components of tensors in the current configuration.  Upper case indices represent components of tensors in the reference configuration.  Real, square matrices of dimension three and positive determinants are denoted $\Mthreeplus$.  Gradient operations with and without a subscript ``$0$'' are gradients taken in the reference and current configurations, respectively:
 \begin{align}
-\Grad(\cdot) = \partial (\cdot) / \partial X_J, & \hspace{1cm} \mbox{reference configuration gradient, and} \\
+\Grad(\bullet) = \partial (\bullet) / \partial X_J, & \hspace{1cm} \mbox{reference configuration gradient, and} \\
 \grad(\cdot) = \partial (\cdot) / \partial x_j, & \hspace{1cm} \mbox{current configuration gradient}.
 \end{align}
-Alternative notatations are $\mbox{GRAD}(\cdot)$ and $\mbox{grad}(\cdot)$, respectively.
+Alternative notatations are $\mbox{GRAD}(\bullet)$ and $\mbox{grad}(\cdot)$, respectively.
 %%Remarks:
 %\begin{Hremark}
 %\begin{itemize}
@@ -353,7 +353,7 @@ strain tensor $\ve{\epsilon}$, defined as
  \ve{\epsilon} \defe \dst\half(\grad \vu + (\grad \vu)\transpose).
  \label{eq:infinitesimal_strain}
 \ee
-Note that the $\Grad(\cdot)$ notation has been dropped since the
+Note that the $\Grad(\bullet)$ notation has been dropped since the
 distinction between the reference and current configurations is 
 nonexistent. Also, note that the factor of $\half$ appears because
 it then follows that the infinitesimal strain is simply the symmetric
@@ -843,4 +843,72 @@ Some texts prefer the notation $\vv \cdot \grad \vphi$ to
 $[\grad \vphi] \; \vv$, used in 
 (\ref{eq:total_time_derivative_vector}).
 \end{Hremark}
+
+% ==========================
+\clearpage
+\section{Lie Derivatives}
+% ==========================
+The {\bf pull back operator} is defined as the pulling back of a spatial field to the reference configuration.  For a spatial tensor $[\;\cdot\;]$, this operator is defined as 
+\be
+\pullback{\cdot} \defe \tFbold\transpose \;[\;\cdot\;]\; \tFbold.
+\ee
+The {\bf push forward operator} is defined as the pushing forward of a material field to the current configuration.  For a material tensor $[\;\bullet\;]$, this operator is defined as 
+\be
+\pushforward{\bullet} \defe \tFbold\minustranspose \;[\;\bullet\;]\; \tFbold\inverse.
+\ee
+The {\bf Lie Derivative} of a spatial tensor $[\;\cdot\;]$ is defined as its pull back, time derivative, and push forward, as follows
+\be
+    \lie{\cdot} \defe \pushforward{\dst\frac{\partial}{\partial t} \pullback{\cdot}} = \tFbold\minustranspose \; \dst\frac{\partial}{\partial t} 
+\left( 
+\tFbold\transpose \;[\; \cdot \;]\; \tFbold
+\right) \tFbold\inverse
+\label{eq:lie_derivative}
+\ee
+
+
+\begin{Hresult}
+    The pull back $\pullback{\cdot}$ of the Euler-Almansi strain tensor $\tebold$ is the Green-Lagrange strain tensor $\tEbold$.
+    \label{Hresult:pullback_e}
+\end{Hresult}
+
+\begin{Hproof}
+\begin{align}
+    \pullback{\tebold} 
+    & = \tFbold\transpose \;\tebold\; \tFbold = 
+    \half \; \tFbold\transpose \left(\vid - \left(\tFbold \tFbold\transpose\right)\inverse\right) \tFbold
+    = \half \; \tFbold\transpose\left(\vid - \tFbold\minustranspose \tFbold\inverse\right)\tFbold, \\
+    & = \half \; \left(\tFbold\transpose\tFbold - \tFbold\transpose \tFbold\minustranspose \tFbold\inverse \tFbold \right) = \half \; \left(\tCbold - \vid \right) = \tEbold,
+\end{align}
+which is the result.
+\end{Hproof}
+
+\begin{Hresult}
+    The push forward $\pushforward{\bullet}$ of the Green-Lagrange strain rate tensor $\dot{\tEbold}$ is the rate of deformation tensor $\tdbold$.
+    \label{Hresult:pushforward_E}
+\end{Hresult}
+
+\begin{Hproof}
+\begin{align}
+    \pushforward{\dot{\tEbold}} 
+    & = \tFbold\minustranspose \;\dot{\tEbold}\; \tFbold\inverse
+    = \half \; \tFbold\minustranspose \left(\dot{\tFbold}\transpose \tFbold + \tFbold\transpose \dot{\tFbold}\right) \tFbold\inverse, \\
+    & = \half \left(\tFbold\minustranspose \dot{\tFbold}\transpose + \dot{\tFbold} \tFbold\inverse\right)
+    = \half \left(\left(\dot{\tFbold}\tFbold\inverse\right)\transpose + \dot{\tFbold} \tFbold\inverse\right).
+\end{align}
+    Now, $\grad \vv = \dot{\tFbold} \tFbold\inverse$, thus
+\be
+    \pushforward{\dot{\tEbold}} = 
+    \half \left( \left(\grad \vv\right)\transpose + \grad \vv \right) = \tdbold,
+\ee
+which is the result.
+\end{Hproof}
+
+\begin{Hresult}
+The Lie derivative of the Euler-Almansi strain tensor $\tebold$ is the rate of deformation tensor $\tdbold$.
+\end{Hresult}
+
+\begin{Hproof}
+Combine Eq.~(\ref{eq:lie_derivative}), Result~\ref{Hresult:pullback_e}, and 
+    Result~\ref{Hresult:pushforward_E} to get the result.
+\end{Hproof}
 
