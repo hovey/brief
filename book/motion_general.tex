@@ -512,8 +512,8 @@ stretch ratio $\lambda = \ell / L$.
     %\includegraphics[width=\textwidth]{fig/strain_v_stretch.pdf}
     \includegraphics[width=\textwidth]{fig/stretch_strain.pdf}
   \end{center}
-  \label{fig:strain_v_stretch}
-  \caption{One dimensional strain as a function of stretch ratio.}
+    \caption{One dimensional strain as a function of stretch ratio.  Source: {\tt stretch\_strain.py}.}
+  \label{fig:strain_v_stretch} % label must come after caption
 \end{figure}
 The figure illustrates several results:
 \begin{itemize}
@@ -573,6 +573,17 @@ Figure~\ref{fig:strain_v_stretch}
 illustrate that the log strain $\tEbold^{(0)}$ retains more of the desired qualities than any other strain tensor, in the context finite compression and extension.\footnote{ The Ba\v{z}ant strain, $f(\lambda) = \half\left(\lambda - \frac{1}{\lambda}\right)$, not considered here, also satisfies $-f(\lambda) = f(\frac{1}{\lambda})$.}
 
 For infinitesimal deformation, all tensors converge to the infinitesimal strain tensor $\ve{\epsilon} = \mbox{\sym}(\grad \vu)$.
+For finite deformation, however, the Seth-Hill strain measures given by the $f(\lambda)$ function diverge quickly for both large compression and large tension.
+Figure~\ref{fig:strainrelative_v_stretch}
+illustrates the one-dimensional strains subtracted from the natural logarithmic strain, $\ln \lambda$, as a function of stretch ratio $\lambda = \ell / L$.   The log strain is considered as the finite deformation baseline.  The results show, for example, that in compression at $\lambda = 0.8$, the Green-Langrage strain tensor underreports the log strain by nearly 5\%.  Such a result illustrates that for finite deformation, (1) strain measures are {\bf not} interchangeable, and (2) it is incomplete to simply say ``strain.'' Rather, both the strain value {\em and} strain tensor must be specified. 
+\begin{figure}[htb]
+  \begin{center}
+    \includegraphics[width=\textwidth]{fig/stretch_strain_rel.pdf}
+  \end{center}
+    \caption{One dimensional strain difference of strain function minus the natural logarithmic strain as a function of stretch ratio.  Source: {\tt stretch\_strain.py}.}
+  \label{fig:strainrelative_v_stretch} % label must come after caption
+\end{figure}
+
 
 
 \clearpage
@@ -769,13 +780,13 @@ The Green-Lagrange stain tensor $\tEbold$ and the Euler-Almansi strain tensor $\
 \begin{align}
 \tEbold = \sum_{\alpha = 1}^3 \; \half \left(\lambda^2_{\alpha} - 1 \right)\;\vN_{\alpha} \otimes \vN_{\alpha}, \hspace{1cm} 
 & 
-\tebold = \sum_{\alpha = 1}^3 \half \left(1 - \lambda^{-2}_{\alpha} \right) \;\vn_{\alpha} \otimes \vn_{\alpha}.
+\tebold = \sum_{\alpha = 1}^3 \; \half \left(1 - \lambda^{-2}_{\alpha} \right) \;\vn_{\alpha} \otimes \vn_{\alpha}.
 \end{align}
 The generalization of the Seth-Hill material stain tensor $\tEbold^{(m)}$ and spatial strain tensor $\tebold^{(m)}$, in principal stretches and stretch directions, are
 \begin{align}
     \tEbold^{(m)} = \sum_{\alpha = 1}^3 \; \frac{1}{m} \left(\lambda^m_{\alpha} - 1 \right)\;\vN_{\alpha} \otimes \vN_{\alpha}, \hspace{0.5cm} 
 & 
-    \tebold^{(m)} = \sum_{\alpha = 1}^3 \frac{1}{m} \left(1 - \lambda^{-m}_{\alpha} \right) \;\vn_{\alpha} \otimes \vn_{\alpha}, 
+    \tebold^{(m)} = \sum_{\alpha = 1}^3 \; \frac{1}{m} \left(1 - \lambda^{-m}_{\alpha} \right) \;\vn_{\alpha} \otimes \vn_{\alpha}, 
     \label{eq:Emem}
 \end{align}
 and the relationship between the two strain tensors is given through a rotation $\tRbold$ transformation,
@@ -787,7 +798,7 @@ In the case when $m \rightarrow \infty$, the material and spatial {\bf logarithm
 \begin{align}
     \tHbold = \ln \tUbold = \tEbold^{(0)} & = \sum_{\alpha = 1}^3 \; \ln \lambda_{\alpha} \;\vN_{\alpha} \otimes \vN_{\alpha}, \mbox{ and}
 \\
-    \thbold = \ln \tvbold = \tebold^{(0)} & = \sum_{\alpha = 1}^3 \ln \lambda_{\alpha} \;\vn_{\alpha} \otimes \vn_{\alpha}.
+    \thbold = \ln \tvbold = \tebold^{(0)} & = \sum_{\alpha = 1}^3 \; \ln \lambda_{\alpha} \;\vn_{\alpha} \otimes \vn_{\alpha}.
 \end{align}
 
 
