@@ -865,6 +865,15 @@ The {\bf Lie Derivative} of a spatial tensor $\lie{\cdot}$ is defined as its pul
 \label{eq:lie_derivative}
 \ee
 
+\begin{figure}[htb]
+  \begin{center}
+    \includegraphics[width=0.9\textwidth]{fig/lie_derivative_e_to_d.pdf}
+  \end{center}
+  \caption{Illustration of Result~\ref{Hresult:e_to_d}: Lie derivative of the Euler-Almansi strain tensor $\tebold$ to the rate of deformation tensor $\tdbold$, as the pull back, time derivative, and push forward.  Source: {\tt lie\_derivative\_e\_to\_d.py}.}
+  \label{fig:lie_derivative_e_to_d}  % label must come after caption
+\end{figure}
+    \label{Hresult:e_to_d}
+
 
 \begin{Hresult}
     The pull back $\pullback{\cdot}$ of the Euler-Almansi strain tensor $\tebold$ is the Green-Lagrange strain tensor $\tEbold$.
@@ -905,6 +914,7 @@ which is the result.
 
 \begin{Hresult}
 The Lie derivative of the Euler-Almansi strain tensor $\tebold$ is the rate of deformation tensor $\tdbold$.  Figure \ref{fig:lie_derivative_e_to_d} illustrates this result.
+    \label{Hresult:e_to_d}
 \end{Hresult}
 
 \begin{Hproof}
@@ -912,11 +922,4 @@ Combine Eq.~(\ref{eq:lie_derivative}), Result~\ref{Hresult:pullback_e}, and
     Result~\ref{Hresult:pushforward_E} to get the result.
 \end{Hproof}
 
-\begin{figure}[htb]
-  \begin{center}
-    \includegraphics[width=\textwidth]{fig/lie_derivative_e_to_d.pdf}
-  \end{center}
-  \caption{Lie derivative of the Euler-Almansi strain tensor $\tebold$ to the rate of deformation tensor $\tdbold$, as the pull back, time derivative, and push forward.  Source: {\tt lie\_derivative\_e\_to\_d.py}.}
-  \label{fig:lie_derivative_e_to_d}  % label must come after caption
-\end{figure}
 

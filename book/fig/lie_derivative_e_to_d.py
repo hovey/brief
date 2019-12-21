@@ -4,6 +4,7 @@ import numpy as np
 # import matplotlib as mpl
 from matplotlib import rc, rcParams
 import matplotlib.pyplot as plt
+import matplotlib.patches as mpatches
 from matplotlib.ticker import MultipleLocator
 from abc import ABC
 
@@ -15,10 +16,9 @@ if latex:
     # matplotlib.rcParams['text.latex.preamble']=[r"\usepackage{amsmath}"]
     rcParams['text.latex.preamble']=[r"\usepackage{amsmath}"]
 
-
 # horizontal and vertical dividing lines
 edgex = 6
-edgey = 4.5
+edgey = 3
 #fig = plt.figure(figsize=(6, 6))  # inches, (wide, tall)
 fig = plt.figure(figsize=(edgex, edgey))  # inches, (wide, tall)
 ax = fig.add_subplot(1, 1, 1)
@@ -27,25 +27,24 @@ def text(x, y, text):
     ax.text(x, y, text, backgroundcolor="white",
         ha='center', va='center_baseline', weight='bold', color='black')
 
-c = 4  # notational origin (center) for each of the four plots
-#m = c + 3  # motional origin plus margin
-inner = 3  # inner margin position
-
-ap = dict(arrowstyle='<-') # arrow properites
-ax.annotate('', xy=(inner, c), xytext=(-inner, c), arrowprops=ap)
-text(0, c, 'pull back $\\varphi_*^{-1}$')
 # https://tex.stackexchange.com/questions/7669/bfseries-is-to-textbf-as-what-is-to-textsf/7670
+ap = dict(arrowstyle='->') # arrow properties
 
-ap = dict(arrowstyle='->') # arrow properites
-ax.annotate('', xy=(-c, -inner), xytext=(-c, inner), arrowprops=ap)
-rscale = 0.9
-text(-c, 0, 'time derivative $\\frac{\partial}{\partial t}$')
+x, y = (4, 1)
 
-ax.annotate('', xy=(inner, -c), xytext=(-inner, -c), arrowprops=ap)
-text(0, -c, 'push forward $\\varphi_*$')
+ax.annotate('', xy=(-x, -y), xytext=(-x, y), arrowprops=ap)
+text(-x, 0, 'time derivative $\\frac{\partial}{\partial t}$')
 
-ax.annotate('', xy=(c, -inner), xytext=(c, inner), arrowprops=ap)
-text(c, 0, 'Lie derivative $\\mathcal L$')
+ax.annotate('', xy=(x, -y), xytext=(x, y), arrowprops=ap)
+text(x, 0, 'Lie derivative $\\mathcal L$')
+
+x, y = (3, 2)
+
+ax.annotate('', xy=(-x, y), xytext=(x, y), arrowprops=ap)
+text(0, y, 'pull back $\\varphi_*^{-1}$')
+
+ax.annotate('', xy=(x, -y), xytext=(-x, -y), arrowprops=ap)
+text(0, -y, 'push forward $\\varphi_*$')
 
 ax.axis('equal')
 
@@ -65,15 +64,20 @@ ax.set_ylim(-edgey, edgey)
 #ax.set_xticklabels(['', '', -3, -2, -1, 0, 1, 2, 3, '', -3, -2, -1, 0, 1, 2, 3])
 #ax.set_yticklabels(['', '', -3, -2, -1, 0, 1, 2, 3, '', -3, -2, -1, 0, 1, 2, 3])
 
-#text(-edge + 1, edge - 1, '(b)')
-#text(edge - 1, edge - 1, '(a)')
-#text(-edge + 1, -edge + 1, '(c)')
-#text(edge - 1, -edge + 1, '(d)')
+x, y = (4, 2)
+r = 0.75
+ax.add_patch(mpatches.Circle((x, y), radius=r, facecolor='lightgray', edgecolor='black')) # e
+ax.text(x, y, '\sffamily \\bfseries e', ha='center', va='center')
 
-text( c,  c, '\sffamily \\bfseries e')
-text(-c,  c, '\sffamily \\bfseries E') # no white background
-text(-c, -c, '$\\frac{\partial}{\partial t}$ \sffamily \\bfseries E')
-text( c, -c, '\sffamily \\bfseries d')
+ax.add_patch(mpatches.Circle((-x, y), radius=r, facecolor='lightgray', edgecolor='black')) # E
+ax.text(-x, y, '\sffamily \\bfseries E', ha='center', va='center') # no white background
+
+ax.add_patch(mpatches.Circle((x, -y), radius=r, facecolor='lightgray', edgecolor='black')) # d
+nudge_y = 0.0625
+ax.text(-x, -(y + nudge_y), '$\\frac{\partial}{\partial t}$ \sffamily \\bfseries E', ha='center', va='center')
+
+ax.add_patch(mpatches.Circle((-x, -y), radius=r, facecolor='lightgray', edgecolor='black')) # Edot
+ax.text( x, -y, '\sffamily \\bfseries d', ha='center', va='center')
 
 
 # fig.tight_layout()
