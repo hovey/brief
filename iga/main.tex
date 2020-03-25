@@ -1,0 +1,685 @@
+%%!TEX TS-program = latex
+
+% [chama] $ pdflatex main.tex
+
+% [local] $ ~/bin/  // bash scripts
+% [local] $ la  // pdflatex -shell-escape main.tex
+% [local] $ lae // la then open is TEMP explorer (Windows)
+% [local] $ lax // la then open as main.pdf in explorer (Windows)
+
+
+% --------------
+% DOCUMENT CLASS
+% --------------
+\documentclass[10pt,twoside,letterpaper,fleqn]{report}
+% \documentclass[12pt,letterpaper,fleqn]{report}
+ \documentclass[11pt,letterpaper,fleqn]{article}
+%\documentclass[12pt,a4paper,twoside,fleqn]{book}
+% \documentclass[12pt,letterpaper,twoside,fleqn]{book}
+% A4 paper measures 210 × 297 millimeters (8.27 × 11.69 inches).
+
+
+% -------
+% PACKAGE
+% -------
+\usepackage{amsmath} % needed for align of equations
+\usepackage{amssymb}
+\usepackage[toc,titletoc,header]{appendix}
+\usepackage{datetime}  \renewcommand{\dateseparator}{-}
+\usepackage{epsfig}
+%\usepackage{include/fancyheadings}
+%\usepackage{fancyheadings}
+\usepackage{fancyhdr}
+\usepackage{multirow} 
+\usepackage[percent]{overpic}
+\usepackage{pifont} % required for dingbats
+\usepackage{psfrag}
+%\usepackage[cleanup={.tex,.dvi,.ps,.log},process=all]{pstool}
+%\usepackage{showframe} % bounding boxes on all LaTeX text areas
+%\usepackage{subfigure} % requires \usepackage{epsfig} too
+\usepackage{cancel}
+% 
+% Lowercase fourth order tensors begin
+% \usepackage{bbm}  % alternative to lowercase fourth order tensors
+% \usepackage{bbold} % fourth order tensors from default serif to sans serif
+% \usepackage{mathbbol}  % lowercase mathbb
+% \usepackage[utf8]{inputenc}  % Unicode and TeX
+% https://tex.stackexchange.com/questions/384265/how-to-use-mathbbol-only-for-greek-and-lowercase
+% \usepackage[bbgreekl]{mathbbol} 
+%   \DeclareSymbolFontAlphabet{\mathbbm}{bbold}
+%   \DeclareSymbolFontAlphabet{\mathbb}{AMSb}
+% % Lowercase fourth order tensors end
+%
+\usepackage{enumitem}
+%\usepackage[usenames, dvipsnames]{color}
+%\definecolor{hg}{gray}{0.6} % Hovey gray
+\usepackage[x11names,table]{xcolor}
+% See color names at https://tex.stackexchange.com/questions/102777/does-anyone-have-a-newrgbcolorcolournamex-x-x-list
+
+% \usepackage{tcolorbox}
+
+\usepackage{minted}
+% See minted documentation 
+% http://mirrors.rit.edu/CTAN/macros/latex/contrib/minted/minted.pdf0
+% $pdflatex -shell-escape main.tex
+
+% \usepackage{showframe} % show/hide bounding boxes for all margins
+
+% -------
+% INCLUDE
+% -------
+
+%\include{include/Hformatams}
+%\include{Hformatams}
+% 2017-10-16 Too many version of Hformatams floating around, so 
+% rename the format file used for the book to
+% \include{h_math_ams}
+% \include{hovey_styles}
+% \input{../../material/doc/materials_colors}
+\input{../book/h_math_ams} % reach back into the book, for D.R.Y. singleton
+% BEGIN float definitions for boxes
+%  \usepackage{float}
+%  \floatstyle{boxed}
+%  % define box float; top bottom here; list of boxes; 
+%  %\newfloat{Box}{tbh}{lob}[chapter]
+%  \newfloat{hboxfloat}{tbh}{lob}
+%  \floatname{hboxfloat}{Box}
+%\restylefloat{table}   % To re-style the 'table' float
+% END float definitions for boxes
+ 
+% Fix text figures showing as Fig. 3.2.1 (in Section 3.2.1), but 
+% figure caption appears as Fig. 3.1.  Want the text reference to
+% also be Fig 3.1.
+% \renewcommand{\thefigure}{\arabic{figure}}
+
+% ------------
+% ENVIRONMENTS
+% ------------
+
+
+% ----------
+% PAGE SETUP
+% ----------
+% =============================================
+% https://www.sharelatex.com/learn/Page_size_and_margins (page was removed?)
+% https://en.wikibooks.org/wiki/LaTeX/Page_Layout
+% =============================================
+% 0
+%\setlength{\paperwidth}{8.5in}
+%\setlength{\paperheight}{11.0in}
+% 1
+\setlength{\hoffset}{0.0in}
+% 2
+\setlength{\voffset}{0.0in}
+% 3
+\setlength{\oddsidemargin}{0.0in}
+\setlength{\evensidemargin}{0.0in}
+% 4
+\setlength{\topmargin}{-0.25in}
+% 5
+\setlength{\headheight}{0.125in}
+% 6
+\setlength{\headsep}{0.25in}
+% 7
+\setlength{\textheight}{8.5in}
+% 8
+\setlength{\textwidth}{6.5in}
+% 9
+% \setlength{\marginparsep}{10pt}
+\setlength{\marginparsep}{0pt}
+% 10 
+\setlength{\marginparwidth}{0mm}
+\setlength{\voffset}{0pt}
+% 11
+\setlength{\footskip}{10mm}
+
+% Paragraphs
+\setlength{\parindent}{10mm}
+\setlength{\parskip}{0mm}
+
+% Space between lines
+\renewcommand{\baselinestretch}{1.2}
+
+
+% -----------------
+% HEADER AND FOOTER
+% -----------------
+
+\newcommand{\titlestring}{A Phenomenological Model for Cavitation}  
+\newcommand{\authorstring}{A.C. Sokolow, C.B. Hovey}
+\newcommand{\yearstring}{2020}
+\newcommand{\datestring}{\yyyymmdddate\today}
+\title{\titlestring}
+\author{\authorstring}
+
+\date{\today}
+
+%\pagestyle{empty} % before redefining, empty head and foot
+%\chead{\sc{\small  \titlestring
+%   \hfill \footnotesize \thepage}}
+%\lhead[\small \thesection ]{\small \titlestring}
+%\lhead[\thepage]{\chaptermark}
+%\rhead[\thesection]{\thepage}
+%\chead{} % leave empty
+%\rhead[\thesubsection]{\thepage}
+%\chead{} % leave empty
+%\rhead[\small CCC]{\sc{\small \thepage}}
+%\lhead[square bracket]{squiggly backet}
+%\rhead[]{\titlestring}
+%\chead{} % leave empty
+%\lfoot[\small \thepage]{\yyyymmdddate\today}
+%\rfoot[\yyyymmdddate\today]{\thepage}
+%\cfoot{} % leave empty
+%\cfoot{ \sc{\small c.b.~hovey} \hfill \footnotesize \today}
+
+%\setlength{\footrulewidth}{0.4pt}
+
+\fancyhead{} % clear all header fields
+\fancyhead[LE,RO]{\thepage}
+\fancyhead[LO]{\rightmark}
+\fancyhead[RE]{\leftmark}
+\fancyfoot{} % clear all footer fields
+% \fancyfoot[LE,RO]{\scriptsize \yyyymmdddate\today}
+\fancyfoot[LE,RO]{\scriptsize \datestring}
+\fancyfoot[LO,RE]{\scriptsize \titlestring \; \copyright \; \authorstring }
+\pagestyle{fancy}
+
+% \newcommand{\abs}[1]{\left| \, #1 \, \right|}
+
+% ==========================================
+
+% --------------------------------------------------------
+% INCLUDE ONLY THESE FILES BUT ACCOUNT FOR REMAINING FILES
+% --------------------------------------------------------
+%\includeonly{math,quaternions}
+%\includeonly{motion_general,strain,simple_shear}
+%\includeonly{notation,formulation,motion_general,motion_specific,simple_shear}
+%\includeonly{notation,formulation,simple_shear}
+%\includeonly{motion_general,strain}
+%\includeonly{motion_general}
+% -----------------
+% THE MAIN DOCUMENT
+% -----------------
+\begin{document}
+\title{\titlestring}
+% \author{\authorstring\footnote{Corresponding author: chovey@sandia.gov}}
+\author{Adam C. Sokolow$^1$ and Chad B. Hovey$^1$\footnote{Corresponding author: chovey@sandia.gov}}
+\date{Sandia Injury Biomechanics Laboratory \\ $^1$Sandia National Laboratories\footnote{The Sandia National Laboratories 
+is a multimission laboratory managed and operated by National Technology and Engineering 
+Solutions of Sandia, LLC, a wholly owned subsidiary of Honeywell International, Inc., 
+for the U.S.~Department of Energy's National Nuclear Security Administration 
+under contract DE-NA0003525.} \\ [2ex] \datestring}
+\maketitle
+%
+% \include{front}
+% \include{preface}
+%
+% \newpage
+% \setcounter{page}{1}
+% \pagenumbering{arabic}
+%
+%\include{include/Hformatams}
+
+\abstract{A phenomenological model of cavitation is presented, based on 
+observations that both high relative negative pressure and high relative 
+negative time gradients
+of pressure are required for cavitation onset.  We simulated two cavitation 
+experiments to generate cavitation scaling parameters for relative pressure 
+drop and relative pressure drop rate.  The parameters were then used in a 
+computational model to predict both the location of cavitation
+and the probability of cavitation.  Our results show the model, while simple, 
+is effective at reproducing results from laboratory experiments of cavitation.  
+We used our verified model as a predictive tool for cavitation expectation in the 
+human brain, secondary to blast exposure.  The results suggest
+that the magnitudes of blast overpressure observed in field data is sufficient to cause 
+intracranial cavitation.}
+
+\newpage
+{\tableofcontents}
+
+
+\newpage
+\section{Introduction}
+Cavitation in a fluid, such as water, is the phenomenon of vapor-containing
+bubble formation, caused by a rapid drop of pressure in the fluid.  
+Conceptually, the pressure drop attempts to ``pull apart'' liquid water under
+high tension, causing the water volume to expand rapidly.  The high pressure
+drop leads to a water phase change, from liquid to vapor, and small vapor 
+cavities (bubbles) appear throughout the liquid.  
+    
+Once formed, the vapor-filled bubbles are highly unstable, leading to a quick collapse, 
+returning the vapor back to a liquid.  While the bubbles generally have spherical
+symmetry, the collapse of the bubble generally is asymmetric, brought about 
+by boundary conditions in the liquid, such as an adjacent hard surface or liquid
+impurity.  The asymmetric collapse forms a water jet, with significant 
+pressure elevation capable of eroding adjacent surfaces, such as the erosion
+seen in propellers, impellers, and pumps.
+
+The formation and collapse of cavitation bubbles has long been implicated
+as a brain injury mechanism.  [Expand and cite].  
+
+While existing models have sought to predict intracranial cavitation, 
+they are complex in their formulation, and are prone to mesh-dependent errors 
+caused by multi-scale effects.  We hypothesized that a simpler, phenomenological
+model might be sufficiently endowed to capture cavitation events without 
+suffering undue complexity brought on by multi-scale behaviors.  Moreover, to 
+our knowledge, this is the first study that ties human head exposure of blast overpressure to
+injury risk through expectation of cavitation mapped to human brain anatomy.
+
+In the following sections, we motivate the need for a simplified, phenomenological
+model.  We then explicate the model formulation and details.  Next, we apply
+the model to a conceptual scenario, two cavitation experiments, and a human head
+numerical surrogate.  We then summarize and discuss the results, followed by our
+conclusions drawn from this modeling effort.  
+
+\newpage
+\section{Methods}
+
+\subsection{Motivation}
+
+Figure~\ref{fig:motivation} shows 10 example ``convergence tests'' using the Tillotson-Brundage(?) cavitation model.
+In all simulations the z-domain is 10~cm long, fixed at the origin and pulled at uniform velocity at the boundary at 10~cm.
+Grey filled regions represent grey matter, and white regions white matter.
+The z-displacements are shown by the colored lines.
+Dark blue is 50 elements along the z-axis, progressively lighter colors in blue to green are 100, 150, 200, and 250 elements.
+
+Comment on Bob's resolution and the number of elements.
+Green line is 0.4~mm element size and is radically different from 0.5~mm element size.
+There is no convergence for this type of model since it will always localize. BAD
+
+\begin{figure}[htb]
+  \begin{center}
+    \includegraphics[width=\textwidth]{figs/Motivation/ConvergenceTest09-Mar-2020.pdf}
+  \end{center}
+    \caption{Convergence test.  Additional detail to come.}
+  \label{fig:motivation} % label must come after caption 
+\end{figure}
+
+\subsection{Model Formulation}
+
+The objective of the phenomenological model is to relate a mechanical state, i.e., pressure, that is favorable for a cavitation bubble to form with a probability.
+These probabilities vary in time due to the dynamics of the system and are integrated in time to produce the final likelihood of cavitation as a spatial varaible.
+In what follows, we denote the probability of an event ``C'' at a specific location and time as $\textrm{Pr}(C; X, t)$.
+The total liklihood of an event ``C'' occuring at some location $X$ is then:
+\begin{equation}
+\textrm{Pr}(C;X) = \textrm{min}\left(1, \int_0^\infty \textrm{Pr}[C;X,t]\textrm dt\right)
+\end{equation}
+In the finite element model, $\textrm{Pr}(C;X)$ is a state variable that is integrated using a forward-Euler method where the instantaneous probability $\textrm{Pr}(C;X,t)$ is determined by the following criteria.
+Pressure $P = P(X, t)$ is a time and space dependent variable, with positive 
+pressures taken as compressive and negative pressures taken as tensile.
+The first criteria is that for the probability of cavitation to be non-zero, the pressure, $P$, needs to be sufficiently tensile as to exceed a threshold for cavitation, $P_c$, i.e.,
+\begin{equation}
+ \mbox{\tt if } P < P_c \hspace{1cm} \mbox{ note: need bounds on } P_c
+\end{equation}
+\begin{equation}
+ \mbox{\tt then } \textrm{Pr}(C;X,t) = \alpha   > 0, \hspace{1cm} \mbox{ s.t. } \alpha > 0
+\end{equation}
+Alpha is the probability of cavitation occuring in a stable tensile state.
+The second criteria that adds to the probability of cavitation is that if the pressure is rapidly decreasing, i.e., 
+\begin{equation}
+ \mbox{\tt and if } \displaystyle\frac{\partial P}{\partial t} < 0
+\end{equation}
+\begin{equation}
+ \mbox{\tt and if } \displaystyle\abs{\frac{\partial P}{\partial t}} < \delta_h,  \hspace{1cm} \mbox{ s.t. } 0 < \delta_h < \infty
+\end{equation}
+(implied) the pressure frequency is below the high-frequency cutoff (disregard noise), 
+\begin{equation}
+ \mbox{\tt and if } \displaystyle\abs{\frac{\partial P}{\partial t}} > \delta_l,  \hspace{1cm} \mbox{ s.t. } 0 < \delta_l < \delta_h
+\end{equation}
+(implied) the pressure onset is sufficient to overcome inertia and surface tension, (disregard quasi-statics), 
+
+%\begin{equation}
+% \mbox{\tt then } E(c) = \alpha P + \beta \abs{\displaystyle\frac{\partial P}{\partial t}} > 0, \hspace{1cm} \mbox{ s.t. } \alpha > 0, \beta > 0,
+%\end{equation}
+\begin{equation}
+ \mbox{\tt then instead } \textrm{Pr}(C;X,t) = \alpha  + \beta  > 0, \hspace{1cm} \mbox{ s.t. } \alpha > 0, \beta > 0,
+\end{equation}
+When neither of these conditions occur the probability of cavitation is zero, i.e.,
+\begin{equation}
+ \mbox{\tt else } \textrm{Pr}(C;X,t) = 0,
+\end{equation}
+the likelihood of cavitation is greater than zero, where $\alpha$ and $\beta$ are {\em cavitation parameters} to be used to reproduce experimental results;
+
+Comment on units of all parameters? alpha and beta are probability units, thresholds are pressure and dpdt
+
+\subsection{Conceptual Example}
+
+\begin{figure}[htb]
+  \begin{center}
+      \includegraphics[width=\textwidth]{figs/1TheModel/Figure1TheModel09-Mar-2020.pdf}
+  \end{center}
+    \caption{Figure1TheModel09-Mar-2020.pdf. Caption to come.}
+  \label{fig:concept} % label must come after caption 
+\end{figure}
+
+\begin{itemize}
+    \item Need to rerun with parameters that mach what we ultimately choose for $\alpha$ and $\beta$?
+    \item Dual axes?
+\end{itemize}
+
+\subsection{Validation}
+
+For the purposes of this work, we take {\bf validation} of a numerical model to mean 
+a model that is capable of reproducing the cavitation onset
+and location observed in laboratory experiments.    
+Our 
+validations\footnote{Validation answers the question, ``Are you building the 
+correct model?'' In contrast, {\em verification} answers the question, ``Are you
+building the model correctly?''  Code verification has been performed, but is too
+detailed to be explicated here.} seek to confirm that the proposed model is sufficient to
+predict cavitation, despite its relative simplicity.
+
+
+\subsubsection{The Kang Experiments}
+Kang and coauthors\footnote{Kang W, Chen Y, Bagchi A, O’Shaughnessy TJ. 
+Characterization and detection of acceleration-induced cavitation in soft materials 
+using a drop-tower-based integrated system. 
+Review of Scientific Instruments. 2017 Dec 21;88(12):125113.}
+demonstrated the ability to create cavitation in water filled cuvettes subjected
+to drop table accelerations.  At drop heights of 4 and 6 cm, absence of cavitation was 
+observed.  At 8 cm however, cavitation was observed, with nucleation occurring at
+the trough of the acceleration time history (just after 0.5 ms) and bubble 
+collapse initiating near 1 ms.  
+Figure~\ref{fig:Kang_input} shows Kang's three experimental 
+acceleration histories, in addition to the acceleration time history used for 
+our simulation.  
+
+
+\begin{figure}[htb]
+  \begin{center}
+      \includegraphics[width=\textwidth]{figs/2Kang/FilteredKangAccelData03-Feb-2020.pdf}
+  \end{center}
+    \caption{FilteredKangAccelData03-Feb-2020.pdf. Caption to come.}
+  \label{fig:Kang_input} % label must come after caption 
+\end{figure}
+
+The acceleration data was integrated twice in time to produce velocity and 
+displacement cuvette time histories (Fig.~\ref{fig:uva_history}).  Quiescent initial conditions were used.
+The velocity time history was used as a boundary condition for the model.  
+Peak initial velocity exceeded 100~cm/s.  Total displacement was less than
+1~cm.
+
+This is out of date. The loading we use is the actual 4,6,8 drops from Kang.
+\begin{figure}[htb]
+  \begin{center}
+      \includegraphics[width=\textwidth]{figs/2Kang/loadingPlot09-Mar-2020.pdf}
+  \end{center}
+    \caption{loadingPlot19-Nov-2019. Caption to come.}
+  \label{fig:uva_history} % label must come after caption 
+\end{figure}
+
+Need to add cavitation probability plots for Kang tests.
+\begin{figure}[htb]
+  \begin{center}
+      \includegraphics[width=0.3\textwidth]{figs/2Kang/4/CavLikelihood.pdf}
+      \includegraphics[width=0.3\textwidth]{figs/2Kang/6/CavLikelihood.pdf}
+      \includegraphics[width=0.3\textwidth]{figs/2Kang/8/CavLikelihood.pdf}
+  \end{center}
+    \caption{drops of 4, 6 ,8 . Caption to come.}
+  \label{fig:likelihood_by_dropheight} % label must come after caption 
+\end{figure}
+
+% ================================================
+\clearpage
+\noindent\textcolor{blue}{Wish list
+\begin{itemize}
+    \item Stack three curves vertically, not horizontally.
+    \item Same y-axis extents for all three curves (apples-to-apples).
+\end{itemize}
+} % close wish list
+\clearpage
+% ================================================
+
+
+
+\subsubsection{The Geoller Experiments}
+
+
+
+\subsection{Application to the Human Digital Twin}
+
+The human digital twin, 
+colloquially referred to as ``Bob,'' has been 
+used with several numerical experiments and validations.  
+The Bob model consists of a geometric model, describing the anatomy 
+of the human subject, and a collection of material models, describing the 
+constitutive response of the model to blast, blunt impact, and ballistic 
+loading conditions.
+
+Conversation starter figs...
+\begin{figure}[htb]
+  \begin{center}
+      \includegraphics[width=\textwidth]{figs/4NoHelmetBob/HE0BL0MontageMar9.pdf}
+  \end{center}
+    \caption{NO HELMET BOB. Caption to come.}
+  \label{fig:uva_history} % label must come after caption 
+\end{figure}
+\begin{figure}[htb]
+  \begin{center}
+      \includegraphics[width=\textwidth]{figs/5HelmetBob/HE1BL0MontageMar9.pdf}
+  \end{center}
+    \caption{HELMETED BOB. Caption to come.}
+  \label{fig:uva_history} % label must come after caption 
+\end{figure}
+
+% ================================================
+\clearpage
+\noindent\textcolor{blue}{Wish list
+\begin{itemize}
+    \item Unhelmeted Bob has 4 rows and 7 columns (n=28).  Helmeted bob has 4 rows and 7 columns, minus 1 (n=27).  
+    \item Update: equal number of rows and columns for helmeted and unhelmeted cases (apples-to-apples).  
+    \item Update: prior to the two axial slice diagrams, show a frontal view diagram with same number of rows and columns, indicating the elevation cross-line for each diagram.
+    \item Update: change from landscape to portrait, so make number of rows be 7 (or what ever is optimal) and number of columns be 4 (or what ever is optimal).
+    \item Note: we will eventually show these three figures, spanning three pages in this document, over one slides, which will make for a nice comparison.
+    \item Update: color bars (scales) for each of the cases, helmeted and non, showing the probability of cavitation that each color corresponds to.
+    \item Tight cropping around all figures, so that margins top, bottom, left, right are all set to zero.  Margins will be controls by the \LaTeX document.
+\end{itemize}
+} % close wish list
+\clearpage
+% ================================================
+
+\clearpage
+\subsubsection{Historical Validations and Use}
+
+Taylor~{\em et al.}\footnote{Taylor PA, Ludwigsen JS, Ford CC, Vakhtin AA. 
+Verification and Validation of Simulation Framework for Analysis of 
+Traumatic Brain Injury. Sandia National Lab.(SNL-NM), 
+Albuquerque, NM (United States); 2018 Jul 1.} 
+% 
+validated the model against head impact data from 
+Nahum~{\em et al.}\footnote{Nahum AM, Smith R, Ward CC. Intracranial pressure 
+dynamics during head impact. SAE Technical Paper; 1977 Feb 1.} and 
+Feng~{\em et al.}\footnote{Feng Y, Abney TM, Okamoto RJ, Pless RB, Genin GM, 
+Bayly PV. Relative brain displacement and deformation during constrained 
+mild frontal head impact. Journal of the Royal Society Interface. 
+2010 Dec 6;7(53):1677-88.}  
+%
+Additional, Taylor validated the model against 
+laboratory blast results from Johns Hopkins Applied 
+Physics Laboratory.\footnote{Merkle A., 2011, personal communication.}
+
+The model was used extensively by Taylor and coworkers to predict the human head
+and torso response to field-relevant blast scenarios.\footnote{Haniff S, 
+Taylor PA. In silico investigation of blast-induced intracranial fluid cavitation 
+as it potentially leads to traumatic brain injury. Shock Waves. 
+2017 Nov 1;27(6):929-45.}$^,$\footnote{Taylor PA, Ludwigsen JS, Ford CC. 
+Investigation of blast-induced traumatic brain injury. Brain injury. 2014 Jun 
+1;28(7):879-95.}$^,$\footnote{Taylor PA, Ludwigsen JS, Vakhtin AA, 
+Ford CC. Simulation and clinical assessment of blast-induced traumatic brain 
+injury. IBIA Neurotrauma Lett., accepted. 2014.}$^,$\footnote{Vakhtin AA, 
+Calhoun VD, Jung RE, Prestopnik JL, Taylor PA, Ford CC. Changes in intrinsic 
+functional brain networks following blast-induced mild traumatic brain injury. 
+Brain injury. 2013 Oct 1;27(11):1304-10.}$^,$\footnote{Taylor PA, Ford CC. 
+Simulation of blast-induced early-time intracranial wave physics leading to 
+traumatic brain injury. Journal of biomechanical engineering. 2009 Jun 1;131(6).}
+When these historical efforts examined the topic of cavitation, it was done 
+through the context of liquid-to-vapor content of the cerebral spinal fluid, 
+modeled with a Tillotson equation of state modified by 
+Brundage\footnote{Brundage AL. Implementation of Tillotson equation of state for hypervelocity impact of metals, geologic materials, and liquids.  Procedia Engineering. 2013 Jan 1;58:461-70. doi:10.1016/j.proeng.2013.05.053}$^,$\footnote{Brundage A. Prediction of shock-induced cavitation in water. In Journal of Physics: Conference Series 2014 (Vol. 500, No. 10, p. 102002). IOP Publishing. doi:10.1088/1742-6596/500/10/102002}
+%
+and based on the original work by Tillotson to 
+model metal vaporization secondary to hypervelocity compressive 
+impact.\footnote{Tillotson JH. Metallic equations of state for hypervelocity 
+impact. General Dynamics San Diego CA, General Atomic Div; 1962 Jul 18.}
+
+The methodology described herein is a departure from and simplification of the
+foregoing Tillotson approach.  In addition, the our blast scenarios use the 
+CONWEP\footnote{Plews JA, Crane NK, de Frias GJ, Le S, Littlewood DJ, Merewether MT, Mosby MD, Pierson KH, Porter VL, Shelton T, Thomas JD. Sierra/SolidMechanics 4.44 User's Guide: Addendum for Shock Capabilities. Sandia National Lab.(SNL-NM), Albuquerque, NM (United States); Sandia National Laboratories, Livermore, CA; 2017 Apr 1.}
+functionality of Sierra Solid Mechanics 
+(SSM),\footnote{SIERRA solid Mechanics and Structural Dynamics Department, Sierra/Solid Mechanics 4.54 User's Guide, Engineering Sciences Center, SAND2019-10735, September 17, 2019.} 
+%
+a three-dimensional Lagrangian code for nonlinear analysis of solids and structures, 
+instead of 
+CTH,\footnote{Hertel ES, Bell RL, Elrick MG, Farnsworth AV, Kerley GI, McGlaun JM, Petney SV, Silling SA, Taylor PA, Yarrington LC.  CTH: A software family for multi-dimensional shock physics analysis.  In Shock Waves at Marseille I 1995 (pp. 377-382). Springer, Berlin, Heidelberg.}  
+%
+a three-dimensional Eulerian code for analysis of shock physics.
+
+\newpage
+\section{Results}
+
+\section{Discussion}
+
+\section{Conclusions}
+
+\section{Acknowledgements}
+The authors gratefully acknowledge support from the Office of Naval Research 
+(Dr.~Timothy Bentley) under C2B2 grant N0001419IP00069.
+
+
+% APPENDIX ================================================
+
+
+\clearpage
+\appendix 
+\appendixpage
+The Appendices memorialize the implementation details.  We have included these details to support reproducibility of our results.
+
+\section{Acronyms}
+
+\begin{itemize}
+    \item CSF: cerebral spinal fluid
+    \item PPE: personal protective equipment
+    \item SIBL: Sandia Injury Biomechanics Laboratory
+    \item SNL: Sandia National Laboratories
+    \item SSM: Sierra Solid Mechanics
+\end{itemize}
+
+\section{Geometric Model}
+
+The geometric model was originally developed for blast and ballistic 
+simulations in CTH.
+Beginning in 2018, our laboratory developed a finite element model 
+from the finite volume model, for use with blunt impact simulations 
+with SSM.
+
+
+% Sierra Solid Mechanics (SSM),\footnote{SIERRA solid Mechanics and Structural
+% Dynamics Department, Sierra/Solid Mechanics 4.54 User's Guide, 
+% Engineering Sciences Center, SAND2019-10735, September 17, 
+% 2019.}
+% a three-dimensional Lagrangian code for nonlinear analysis of solids and structures.
+
+\section{Material Models}
+
+\subsection{Finite Deformation Elastic}
+
+All Sierra Solid Mechanics (SSM) material models used in this study employed finite deformation kinematic measures.\footnote{Internal reference: material/doc/ssm\_elastic.tex.} 
+\input{../../material/doc/ssm_elastic}
+
+\subsection{Finite Deformation Elastic-Plastic}
+
+The elastic-plastic extends the elastic formulation, allowing for permanent plastic deformation when the effective stress exceeds a yield surface.\footnote{Internal reference: material/doc/ssm\_elastic\_plastic.tex}
+\input{../../material/doc/ssm_elastic_plastic}
+
+\subsection{Finite Strain Neo-Hookean}
+Prior to considering the Swanson viscoelastic response, we explicate some details pertaining to finite strain neo-Hookean models, often used as comparison to the Swanson model.\footnote{Internal reference: material/doc/hookean.tex}
+\input{../../material/doc/hookean}
+
+\subsection{Swanson Viscoelastic}
+Next consider the Swanson viscoelastic response.\footnote{Internal reference: material/doc/swanson.tex}
+\input{../../material/doc/swanson}
+
+
+\clearpage
+\section{Material Properties}
+
+Below we record the material properties used for the human and PPE models.
+The human consists of bone, vertebral discs, vasculature, airway/sinus, membrane, cerebral spinal fluid (CSF), white matter (WM), gray matter (GM), muscle, and skin. The helmet consists of the shell and pads.  The pads are composed of two layers: hard and soft.  The hard (protective) layer resides between the helmet shell interior and the soft layer.  The soft layer resides between the hard layer and the exterior of the scalp.  The hemispherical impactor, not used in the simulations herein but included for completeness, is steel.
+
+An overview summary of the material properties is shown in the following table.\footnote{Internal reference: material/doc/materials\_summary.tex.} 
+\input{../../material/doc/materials_summary}
+
+\clearpage
+\subsection{Bone}
+Brief introduction to come.\footnote{Internal reference: material/doc/bone.tex.}
+\input{../../material/doc/bone}
+
+\clearpage
+\subsection{Disc}
+Brief introduction to come.\footnote{Internal reference: material/doc/disc.tex.}
+\input{../../material/doc/disc}
+
+\subsection{Vasculature}
+Vasculature is currently modeled as identical to cerebral spinal fluid.
+
+\clearpage
+\subsection{Airway/Sinus}
+Brief introduction to come.\footnote{Internal reference: material/doc/airway.tex.}
+\input{../../material/doc/airway}
+
+%\clearpage
+\subsection{Membrane}
+Brief introduction to come.\footnote{Internal reference: material/doc/membrane.tex.}
+\input{../../material/doc/membrane}
+
+\clearpage
+\subsection{Cerebral Spinal Fluid (CSF)}
+Brief introduction to come.\footnote{Internal reference: material/doc/csf.tex.}
+\input{../../material/doc/csf}
+
+\clearpage
+\subsection{White Matter}
+Brief introduction to come.\footnote{Internal reference: material/doc/whitematter.tex.}
+\input{../../material/doc/whitematter}
+
+\clearpage
+\subsection{Gray Matter}
+Brief introduction to come.\footnote{Internal reference: material/doc/graymatter.tex.} \input{../../material/doc/graymatter}
+
+\clearpage
+\subsection{Muscle}
+Brief introduction to come.\footnote{Internal reference: material/doc/muscle.tex.} \input{../../material/doc/muscle}
+
+\subsection{Skin}
+Skin is modeled identically as muscle, consistent with Taylor~[2018].\footnote{Taylor 2018 {\em op.~cit.}}
+
+\clearpage
+\subsection{Helmet Shell}
+Brief introduction to come.\footnote{Internal reference: material/doc/shell.tex.} \input{../../material/doc/shell}
+
+\clearpage
+\subsection{Hard Foam}
+To come.  
+
+\subsection{Soft Foam}
+To come. 
+
+\subsection{Steel}
+This section is included for completeness.  The simulations contained herein did not use the steel hemispherical impactor, used for blunt impact tests in related work.\footnote{Internal reference: material/doc/steel.tex.} \input{../../material/doc/steel}
+
+
+\clearpage
+\section{Input Data}
+
+\subsection{Convergence Tests}
+
+
+\subsection{Kang Experiments}
+
+\subsection{Goeller Experiments}
+
+\subsection{Application to Human Digital Twin}
+
+
+\end{document}
+
