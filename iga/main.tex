@@ -11,9 +11,9 @@
 % --------------
 % DOCUMENT CLASS
 % --------------
-\documentclass[10pt,twoside,letterpaper,fleqn]{report}
+% \documentclass[10pt,twoside,letterpaper,fleqn]{report}
 % \documentclass[12pt,letterpaper,fleqn]{report}
- \documentclass[11pt,letterpaper,fleqn]{article}
+\documentclass[12pt,letterpaper,fleqn]{article}
 %\documentclass[12pt,a4paper,twoside,fleqn]{book}
 % \documentclass[12pt,letterpaper,twoside,fleqn]{book}
 % A4 paper measures 210 × 297 millimeters (8.27 × 11.69 inches).
@@ -287,13 +287,13 @@ Comment on Bob's resolution and the number of elements.
 Green line is 0.4~mm element size and is radically different from 0.5~mm element size.
 There is no convergence for this type of model since it will always localize. BAD
 
-\begin{figure}[htb]
-  \begin{center}
-    \includegraphics[width=\textwidth]{figs/Motivation/ConvergenceTest09-Mar-2020.pdf}
-  \end{center}
-    \caption{Convergence test.  Additional detail to come.}
-  \label{fig:motivation} % label must come after caption 
-\end{figure}
+%\begin{figure}[htb]
+%  \begin{center}
+%    \includegraphics[width=\textwidth]{figs/Motivation/ConvergenceTest09-Mar-2020.pdf}
+%  \end{center}
+%    \caption{Convergence test.  Additional detail to come.}
+%  \label{fig:motivation} % label must come after caption 
+%\end{figure}
 
 \subsection{Model Formulation}
 
@@ -344,13 +344,13 @@ Comment on units of all parameters? alpha and beta are probability units, thresh
 
 \subsection{Conceptual Example}
 
-\begin{figure}[htb]
-  \begin{center}
-      \includegraphics[width=\textwidth]{figs/1TheModel/Figure1TheModel09-Mar-2020.pdf}
-  \end{center}
-    \caption{Figure1TheModel09-Mar-2020.pdf. Caption to come.}
-  \label{fig:concept} % label must come after caption 
-\end{figure}
+%\begin{figure}[htb]
+%  \begin{center}
+%      \includegraphics[width=\textwidth]{figs/1TheModel/Figure1TheModel09-Mar-2020.pdf}
+%  \end{center}
+%    \caption{Figure1TheModel09-Mar-2020.pdf. Caption to come.}
+%  \label{fig:concept} % label must come after caption 
+%\end{figure}
 
 \begin{itemize}
     \item Need to rerun with parameters that mach what we ultimately choose for $\alpha$ and $\beta$?
@@ -385,301 +385,19 @@ acceleration histories, in addition to the acceleration time history used for
 our simulation.  
 
 
-\begin{figure}[htb]
-  \begin{center}
-      \includegraphics[width=\textwidth]{figs/2Kang/FilteredKangAccelData03-Feb-2020.pdf}
-  \end{center}
-    \caption{FilteredKangAccelData03-Feb-2020.pdf. Caption to come.}
-  \label{fig:Kang_input} % label must come after caption 
-\end{figure}
+% \begin{figure}[htb]
+%   \begin{center}
+%       \includegraphics[width=\textwidth]{figs/2Kang/FilteredKangAccelData03-Feb-2020.pdf}
+%   \end{center}
+%     \caption{FilteredKangAccelData03-Feb-2020.pdf. Caption to come.}
+%   \label{fig:Kang_input} % label must come after caption 
+% \end{figure}
 
 The acceleration data was integrated twice in time to produce velocity and 
 displacement cuvette time histories (Fig.~\ref{fig:uva_history}).  Quiescent initial conditions were used.
 The velocity time history was used as a boundary condition for the model.  
 Peak initial velocity exceeded 100~cm/s.  Total displacement was less than
 1~cm.
-
-This is out of date. The loading we use is the actual 4,6,8 drops from Kang.
-\begin{figure}[htb]
-  \begin{center}
-      \includegraphics[width=\textwidth]{figs/2Kang/loadingPlot09-Mar-2020.pdf}
-  \end{center}
-    \caption{loadingPlot19-Nov-2019. Caption to come.}
-  \label{fig:uva_history} % label must come after caption 
-\end{figure}
-
-Need to add cavitation probability plots for Kang tests.
-\begin{figure}[htb]
-  \begin{center}
-      \includegraphics[width=0.3\textwidth]{figs/2Kang/4/CavLikelihood.pdf}
-      \includegraphics[width=0.3\textwidth]{figs/2Kang/6/CavLikelihood.pdf}
-      \includegraphics[width=0.3\textwidth]{figs/2Kang/8/CavLikelihood.pdf}
-  \end{center}
-    \caption{drops of 4, 6 ,8 . Caption to come.}
-  \label{fig:likelihood_by_dropheight} % label must come after caption 
-\end{figure}
-
-% ================================================
-\clearpage
-\noindent\textcolor{blue}{Wish list
-\begin{itemize}
-    \item Stack three curves vertically, not horizontally.
-    \item Same y-axis extents for all three curves (apples-to-apples).
-\end{itemize}
-} % close wish list
-\clearpage
-% ================================================
-
-
-
-\subsubsection{The Geoller Experiments}
-
-
-
-\subsection{Application to the Human Digital Twin}
-
-The human digital twin, 
-colloquially referred to as ``Bob,'' has been 
-used with several numerical experiments and validations.  
-The Bob model consists of a geometric model, describing the anatomy 
-of the human subject, and a collection of material models, describing the 
-constitutive response of the model to blast, blunt impact, and ballistic 
-loading conditions.
-
-Conversation starter figs...
-\begin{figure}[htb]
-  \begin{center}
-      \includegraphics[width=\textwidth]{figs/4NoHelmetBob/HE0BL0MontageMar9.pdf}
-  \end{center}
-    \caption{NO HELMET BOB. Caption to come.}
-  \label{fig:uva_history} % label must come after caption 
-\end{figure}
-\begin{figure}[htb]
-  \begin{center}
-      \includegraphics[width=\textwidth]{figs/5HelmetBob/HE1BL0MontageMar9.pdf}
-  \end{center}
-    \caption{HELMETED BOB. Caption to come.}
-  \label{fig:uva_history} % label must come after caption 
-\end{figure}
-
-% ================================================
-\clearpage
-\noindent\textcolor{blue}{Wish list
-\begin{itemize}
-    \item Unhelmeted Bob has 4 rows and 7 columns (n=28).  Helmeted bob has 4 rows and 7 columns, minus 1 (n=27).  
-    \item Update: equal number of rows and columns for helmeted and unhelmeted cases (apples-to-apples).  
-    \item Update: prior to the two axial slice diagrams, show a frontal view diagram with same number of rows and columns, indicating the elevation cross-line for each diagram.
-    \item Update: change from landscape to portrait, so make number of rows be 7 (or what ever is optimal) and number of columns be 4 (or what ever is optimal).
-    \item Note: we will eventually show these three figures, spanning three pages in this document, over one slides, which will make for a nice comparison.
-    \item Update: color bars (scales) for each of the cases, helmeted and non, showing the probability of cavitation that each color corresponds to.
-    \item Tight cropping around all figures, so that margins top, bottom, left, right are all set to zero.  Margins will be controls by the \LaTeX document.
-\end{itemize}
-} % close wish list
-\clearpage
-% ================================================
-
-\clearpage
-\subsubsection{Historical Validations and Use}
-
-Taylor~{\em et al.}\footnote{Taylor PA, Ludwigsen JS, Ford CC, Vakhtin AA. 
-Verification and Validation of Simulation Framework for Analysis of 
-Traumatic Brain Injury. Sandia National Lab.(SNL-NM), 
-Albuquerque, NM (United States); 2018 Jul 1.} 
-% 
-validated the model against head impact data from 
-Nahum~{\em et al.}\footnote{Nahum AM, Smith R, Ward CC. Intracranial pressure 
-dynamics during head impact. SAE Technical Paper; 1977 Feb 1.} and 
-Feng~{\em et al.}\footnote{Feng Y, Abney TM, Okamoto RJ, Pless RB, Genin GM, 
-Bayly PV. Relative brain displacement and deformation during constrained 
-mild frontal head impact. Journal of the Royal Society Interface. 
-2010 Dec 6;7(53):1677-88.}  
-%
-Additional, Taylor validated the model against 
-laboratory blast results from Johns Hopkins Applied 
-Physics Laboratory.\footnote{Merkle A., 2011, personal communication.}
-
-The model was used extensively by Taylor and coworkers to predict the human head
-and torso response to field-relevant blast scenarios.\footnote{Haniff S, 
-Taylor PA. In silico investigation of blast-induced intracranial fluid cavitation 
-as it potentially leads to traumatic brain injury. Shock Waves. 
-2017 Nov 1;27(6):929-45.}$^,$\footnote{Taylor PA, Ludwigsen JS, Ford CC. 
-Investigation of blast-induced traumatic brain injury. Brain injury. 2014 Jun 
-1;28(7):879-95.}$^,$\footnote{Taylor PA, Ludwigsen JS, Vakhtin AA, 
-Ford CC. Simulation and clinical assessment of blast-induced traumatic brain 
-injury. IBIA Neurotrauma Lett., accepted. 2014.}$^,$\footnote{Vakhtin AA, 
-Calhoun VD, Jung RE, Prestopnik JL, Taylor PA, Ford CC. Changes in intrinsic 
-functional brain networks following blast-induced mild traumatic brain injury. 
-Brain injury. 2013 Oct 1;27(11):1304-10.}$^,$\footnote{Taylor PA, Ford CC. 
-Simulation of blast-induced early-time intracranial wave physics leading to 
-traumatic brain injury. Journal of biomechanical engineering. 2009 Jun 1;131(6).}
-When these historical efforts examined the topic of cavitation, it was done 
-through the context of liquid-to-vapor content of the cerebral spinal fluid, 
-modeled with a Tillotson equation of state modified by 
-Brundage\footnote{Brundage AL. Implementation of Tillotson equation of state for hypervelocity impact of metals, geologic materials, and liquids.  Procedia Engineering. 2013 Jan 1;58:461-70. doi:10.1016/j.proeng.2013.05.053}$^,$\footnote{Brundage A. Prediction of shock-induced cavitation in water. In Journal of Physics: Conference Series 2014 (Vol. 500, No. 10, p. 102002). IOP Publishing. doi:10.1088/1742-6596/500/10/102002}
-%
-and based on the original work by Tillotson to 
-model metal vaporization secondary to hypervelocity compressive 
-impact.\footnote{Tillotson JH. Metallic equations of state for hypervelocity 
-impact. General Dynamics San Diego CA, General Atomic Div; 1962 Jul 18.}
-
-The methodology described herein is a departure from and simplification of the
-foregoing Tillotson approach.  In addition, the our blast scenarios use the 
-CONWEP\footnote{Plews JA, Crane NK, de Frias GJ, Le S, Littlewood DJ, Merewether MT, Mosby MD, Pierson KH, Porter VL, Shelton T, Thomas JD. Sierra/SolidMechanics 4.44 User's Guide: Addendum for Shock Capabilities. Sandia National Lab.(SNL-NM), Albuquerque, NM (United States); Sandia National Laboratories, Livermore, CA; 2017 Apr 1.}
-functionality of Sierra Solid Mechanics 
-(SSM),\footnote{SIERRA solid Mechanics and Structural Dynamics Department, Sierra/Solid Mechanics 4.54 User's Guide, Engineering Sciences Center, SAND2019-10735, September 17, 2019.} 
-%
-a three-dimensional Lagrangian code for nonlinear analysis of solids and structures, 
-instead of 
-CTH,\footnote{Hertel ES, Bell RL, Elrick MG, Farnsworth AV, Kerley GI, McGlaun JM, Petney SV, Silling SA, Taylor PA, Yarrington LC.  CTH: A software family for multi-dimensional shock physics analysis.  In Shock Waves at Marseille I 1995 (pp. 377-382). Springer, Berlin, Heidelberg.}  
-%
-a three-dimensional Eulerian code for analysis of shock physics.
-
-\newpage
-\section{Results}
-
-\section{Discussion}
-
-\section{Conclusions}
-
-\section{Acknowledgements}
-The authors gratefully acknowledge support from the Office of Naval Research 
-(Dr.~Timothy Bentley) under C2B2 grant N0001419IP00069.
-
-
-% APPENDIX ================================================
-
-
-\clearpage
-\appendix 
-\appendixpage
-The Appendices memorialize the implementation details.  We have included these details to support reproducibility of our results.
-
-\section{Acronyms}
-
-\begin{itemize}
-    \item CSF: cerebral spinal fluid
-    \item PPE: personal protective equipment
-    \item SIBL: Sandia Injury Biomechanics Laboratory
-    \item SNL: Sandia National Laboratories
-    \item SSM: Sierra Solid Mechanics
-\end{itemize}
-
-\section{Geometric Model}
-
-The geometric model was originally developed for blast and ballistic 
-simulations in CTH.
-Beginning in 2018, our laboratory developed a finite element model 
-from the finite volume model, for use with blunt impact simulations 
-with SSM.
-
-
-% Sierra Solid Mechanics (SSM),\footnote{SIERRA solid Mechanics and Structural
-% Dynamics Department, Sierra/Solid Mechanics 4.54 User's Guide, 
-% Engineering Sciences Center, SAND2019-10735, September 17, 
-% 2019.}
-% a three-dimensional Lagrangian code for nonlinear analysis of solids and structures.
-
-\section{Material Models}
-
-\subsection{Finite Deformation Elastic}
-
-All Sierra Solid Mechanics (SSM) material models used in this study employed finite deformation kinematic measures.\footnote{Internal reference: material/doc/ssm\_elastic.tex.} 
-\input{../../material/doc/ssm_elastic}
-
-\subsection{Finite Deformation Elastic-Plastic}
-
-The elastic-plastic extends the elastic formulation, allowing for permanent plastic deformation when the effective stress exceeds a yield surface.\footnote{Internal reference: material/doc/ssm\_elastic\_plastic.tex}
-\input{../../material/doc/ssm_elastic_plastic}
-
-\subsection{Finite Strain Neo-Hookean}
-Prior to considering the Swanson viscoelastic response, we explicate some details pertaining to finite strain neo-Hookean models, often used as comparison to the Swanson model.\footnote{Internal reference: material/doc/hookean.tex}
-\input{../../material/doc/hookean}
-
-\subsection{Swanson Viscoelastic}
-Next consider the Swanson viscoelastic response.\footnote{Internal reference: material/doc/swanson.tex}
-\input{../../material/doc/swanson}
-
-
-\clearpage
-\section{Material Properties}
-
-Below we record the material properties used for the human and PPE models.
-The human consists of bone, vertebral discs, vasculature, airway/sinus, membrane, cerebral spinal fluid (CSF), white matter (WM), gray matter (GM), muscle, and skin. The helmet consists of the shell and pads.  The pads are composed of two layers: hard and soft.  The hard (protective) layer resides between the helmet shell interior and the soft layer.  The soft layer resides between the hard layer and the exterior of the scalp.  The hemispherical impactor, not used in the simulations herein but included for completeness, is steel.
-
-An overview summary of the material properties is shown in the following table.\footnote{Internal reference: material/doc/materials\_summary.tex.} 
-\input{../../material/doc/materials_summary}
-
-\clearpage
-\subsection{Bone}
-Brief introduction to come.\footnote{Internal reference: material/doc/bone.tex.}
-\input{../../material/doc/bone}
-
-\clearpage
-\subsection{Disc}
-Brief introduction to come.\footnote{Internal reference: material/doc/disc.tex.}
-\input{../../material/doc/disc}
-
-\subsection{Vasculature}
-Vasculature is currently modeled as identical to cerebral spinal fluid.
-
-\clearpage
-\subsection{Airway/Sinus}
-Brief introduction to come.\footnote{Internal reference: material/doc/airway.tex.}
-\input{../../material/doc/airway}
-
-%\clearpage
-\subsection{Membrane}
-Brief introduction to come.\footnote{Internal reference: material/doc/membrane.tex.}
-\input{../../material/doc/membrane}
-
-\clearpage
-\subsection{Cerebral Spinal Fluid (CSF)}
-Brief introduction to come.\footnote{Internal reference: material/doc/csf.tex.}
-\input{../../material/doc/csf}
-
-\clearpage
-\subsection{White Matter}
-Brief introduction to come.\footnote{Internal reference: material/doc/whitematter.tex.}
-\input{../../material/doc/whitematter}
-
-\clearpage
-\subsection{Gray Matter}
-Brief introduction to come.\footnote{Internal reference: material/doc/graymatter.tex.} \input{../../material/doc/graymatter}
-
-\clearpage
-\subsection{Muscle}
-Brief introduction to come.\footnote{Internal reference: material/doc/muscle.tex.} \input{../../material/doc/muscle}
-
-\subsection{Skin}
-Skin is modeled identically as muscle, consistent with Taylor~[2018].\footnote{Taylor 2018 {\em op.~cit.}}
-
-\clearpage
-\subsection{Helmet Shell}
-Brief introduction to come.\footnote{Internal reference: material/doc/shell.tex.} \input{../../material/doc/shell}
-
-\clearpage
-\subsection{Hard Foam}
-To come.  
-
-\subsection{Soft Foam}
-To come. 
-
-\subsection{Steel}
-This section is included for completeness.  The simulations contained herein did not use the steel hemispherical impactor, used for blunt impact tests in related work.\footnote{Internal reference: material/doc/steel.tex.} \input{../../material/doc/steel}
-
-
-\clearpage
-\section{Input Data}
-
-\subsection{Convergence Tests}
-
-
-\subsection{Kang Experiments}
-
-\subsection{Goeller Experiments}
-
-\subsection{Application to Human Digital Twin}
-
 
 \end{document}
 
