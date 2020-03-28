@@ -12,8 +12,8 @@
 % DOCUMENT CLASS
 % --------------
 % \documentclass[10pt,twoside,letterpaper,fleqn]{report}
-% \documentclass[12pt,letterpaper,fleqn]{report}
-\documentclass[12pt,letterpaper,fleqn]{article}
+\documentclass[11pt,letterpaper,fleqn]{report}
+% \documentclass[12pt,letterpaper,fleqn]{article}
 %\documentclass[12pt,a4paper,twoside,fleqn]{book}
 % \documentclass[12pt,letterpaper,twoside,fleqn]{book}
 % A4 paper measures 210 × 297 millimeters (8.27 × 11.69 inches).
@@ -26,18 +26,18 @@
 \usepackage{amssymb}
 \usepackage[toc,titletoc,header]{appendix}
 \usepackage{datetime}  \renewcommand{\dateseparator}{-}
-\usepackage{epsfig}
-%\usepackage{include/fancyheadings}
-%\usepackage{fancyheadings}
+% \usepackage{epsfig}
+% \usepackage{include/fancyheadings}
+% \usepackage{fancyheadings}
 \usepackage{fancyhdr}
-\usepackage{multirow} 
-\usepackage[percent]{overpic}
-\usepackage{pifont} % required for dingbats
-\usepackage{psfrag}
+% \usepackage{multirow} 
+% \usepackage[percent]{overpic}
+% \usepackage{pifont} % required for dingbats
+% \usepackage{psfrag}
 %\usepackage[cleanup={.tex,.dvi,.ps,.log},process=all]{pstool}
 %\usepackage{showframe} % bounding boxes on all LaTeX text areas
 %\usepackage{subfigure} % requires \usepackage{epsfig} too
-\usepackage{cancel}
+% \usepackage{cancel}
 % 
 % Lowercase fourth order tensors begin
 % \usepackage{bbm}  % alternative to lowercase fourth order tensors
@@ -50,15 +50,15 @@
 %   \DeclareSymbolFontAlphabet{\mathbb}{AMSb}
 % % Lowercase fourth order tensors end
 %
-\usepackage{enumitem}
+% \usepackage{enumitem}
 %\usepackage[usenames, dvipsnames]{color}
 %\definecolor{hg}{gray}{0.6} % Hovey gray
-\usepackage[x11names,table]{xcolor}
+\usepackage[x11names,table]{xcolor}  % needed by ../book/h_math_ams.tex
 % See color names at https://tex.stackexchange.com/questions/102777/does-anyone-have-a-newrgbcolorcolournamex-x-x-list
 
 % \usepackage{tcolorbox}
 
-\usepackage{minted}
+% \usepackage{minted}
 % See minted documentation 
 % http://mirrors.rit.edu/CTAN/macros/latex/contrib/minted/minted.pdf0
 % $pdflatex -shell-escape main.tex
@@ -105,8 +105,8 @@
 % https://en.wikibooks.org/wiki/LaTeX/Page_Layout
 % =============================================
 % 0
-%\setlength{\paperwidth}{8.5in}
-%\setlength{\paperheight}{11.0in}
+\setlength{\paperwidth}{8.5in}
+\setlength{\paperheight}{11.0in}
 % 1
 \setlength{\hoffset}{0.0in}
 % 2
@@ -145,8 +145,8 @@
 % HEADER AND FOOTER
 % -----------------
 
-\newcommand{\titlestring}{A Phenomenological Model for Cavitation}  
-\newcommand{\authorstring}{A.C. Sokolow, C.B. Hovey}
+\newcommand{\titlestring}{Geometry from Spline Interpolation}  
+\newcommand{\authorstring}{C.B. Hovey}
 \newcommand{\yearstring}{2020}
 \newcommand{\datestring}{\yyyymmdddate\today}
 \title{\titlestring}
@@ -203,8 +203,8 @@
 \begin{document}
 \title{\titlestring}
 % \author{\authorstring\footnote{Corresponding author: chovey@sandia.gov}}
-\author{Adam C. Sokolow$^1$ and Chad B. Hovey$^1$\footnote{Corresponding author: chovey@sandia.gov}}
-\date{Sandia Injury Biomechanics Laboratory \\ $^1$Sandia National Laboratories\footnote{The Sandia National Laboratories 
+\author{Chad B. Hovey\footnote{Corresponding author: chovey@sandia.gov}}
+\date{Sandia Injury Biomechanics Laboratory \\ Sandia National Laboratories\footnote{The Sandia National Laboratories 
 is a multimission laboratory managed and operated by National Technology and Engineering 
 Solutions of Sandia, LLC, a wholly owned subsidiary of Honeywell International, Inc., 
 for the U.S.~Department of Energy's National Nuclear Security Administration 
@@ -220,184 +220,90 @@ under contract DE-NA0003525.} \\ [2ex] \datestring}
 %
 %\include{include/Hformatams}
 
-\abstract{A phenomenological model of cavitation is presented, based on 
-observations that both high relative negative pressure and high relative 
-negative time gradients
-of pressure are required for cavitation onset.  We simulated two cavitation 
-experiments to generate cavitation scaling parameters for relative pressure 
-drop and relative pressure drop rate.  The parameters were then used in a 
-computational model to predict both the location of cavitation
-and the probability of cavitation.  Our results show the model, while simple, 
-is effective at reproducing results from laboratory experiments of cavitation.  
-We used our verified model as a predictive tool for cavitation expectation in the 
-human brain, secondary to blast exposure.  The results suggest
-that the magnitudes of blast overpressure observed in field data is sufficient to cause 
-intracranial cavitation.}
+\abstract{To come.}
 
-\newpage
+%\newpage
 {\tableofcontents}
 
 
-\newpage
-\section{Introduction}
-Cavitation in a fluid, such as water, is the phenomenon of vapor-containing
-bubble formation, caused by a rapid drop of pressure in the fluid.  
-Conceptually, the pressure drop attempts to ``pull apart'' liquid water under
-high tension, causing the water volume to expand rapidly.  The high pressure
-drop leads to a water phase change, from liquid to vapor, and small vapor 
-cavities (bubbles) appear throughout the liquid.  
-    
-Once formed, the vapor-filled bubbles are highly unstable, leading to a quick collapse, 
-returning the vapor back to a liquid.  While the bubbles generally have spherical
-symmetry, the collapse of the bubble generally is asymmetric, brought about 
-by boundary conditions in the liquid, such as an adjacent hard surface or liquid
-impurity.  The asymmetric collapse forms a water jet, with significant 
-pressure elevation capable of eroding adjacent surfaces, such as the erosion
-seen in propellers, impellers, and pumps.
+%\newpage
+\chapter{Introduction}
+To come.
 
-The formation and collapse of cavitation bubbles has long been implicated
-as a brain injury mechanism.  [Expand and cite].  
-
-While existing models have sought to predict intracranial cavitation, 
-they are complex in their formulation, and are prone to mesh-dependent errors 
-caused by multi-scale effects.  We hypothesized that a simpler, phenomenological
-model might be sufficiently endowed to capture cavitation events without 
-suffering undue complexity brought on by multi-scale behaviors.  Moreover, to 
-our knowledge, this is the first study that ties human head exposure of blast overpressure to
-injury risk through expectation of cavitation mapped to human brain anatomy.
-
-In the following sections, we motivate the need for a simplified, phenomenological
-model.  We then explicate the model formulation and details.  Next, we apply
-the model to a conceptual scenario, two cavitation experiments, and a human head
-numerical surrogate.  We then summarize and discuss the results, followed by our
-conclusions drawn from this modeling effort.  
-
-\newpage
-\section{Methods}
-
-\subsection{Motivation}
-
-Figure~\ref{fig:motivation} shows 10 example ``convergence tests'' using the Tillotson-Brundage(?) cavitation model.
-In all simulations the z-domain is 10~cm long, fixed at the origin and pulled at uniform velocity at the boundary at 10~cm.
-Grey filled regions represent grey matter, and white regions white matter.
-The z-displacements are shown by the colored lines.
-Dark blue is 50 elements along the z-axis, progressively lighter colors in blue to green are 100, 150, 200, and 250 elements.
-
-Comment on Bob's resolution and the number of elements.
-Green line is 0.4~mm element size and is radically different from 0.5~mm element size.
-There is no convergence for this type of model since it will always localize. BAD
-
-%\begin{figure}[htb]
-%  \begin{center}
-%    \includegraphics[width=\textwidth]{figs/Motivation/ConvergenceTest09-Mar-2020.pdf}
-%  \end{center}
-%    \caption{Convergence test.  Additional detail to come.}
-%  \label{fig:motivation} % label must come after caption 
-%\end{figure}
-
-\subsection{Model Formulation}
-
-The objective of the phenomenological model is to relate a mechanical state, i.e., pressure, that is favorable for a cavitation bubble to form with a probability.
-These probabilities vary in time due to the dynamics of the system and are integrated in time to produce the final likelihood of cavitation as a spatial varaible.
-In what follows, we denote the probability of an event ``C'' at a specific location and time as $\textrm{Pr}(C; X, t)$.
-The total liklihood of an event ``C'' occuring at some location $X$ is then:
-\begin{equation}
-\textrm{Pr}(C;X) = \textrm{min}\left(1, \int_0^\infty \textrm{Pr}[C;X,t]\textrm dt\right)
-\end{equation}
-In the finite element model, $\textrm{Pr}(C;X)$ is a state variable that is integrated using a forward-Euler method where the instantaneous probability $\textrm{Pr}(C;X,t)$ is determined by the following criteria.
-Pressure $P = P(X, t)$ is a time and space dependent variable, with positive 
-pressures taken as compressive and negative pressures taken as tensile.
-The first criteria is that for the probability of cavitation to be non-zero, the pressure, $P$, needs to be sufficiently tensile as to exceed a threshold for cavitation, $P_c$, i.e.,
-\begin{equation}
- \mbox{\tt if } P < P_c \hspace{1cm} \mbox{ note: need bounds on } P_c
-\end{equation}
-\begin{equation}
- \mbox{\tt then } \textrm{Pr}(C;X,t) = \alpha   > 0, \hspace{1cm} \mbox{ s.t. } \alpha > 0
-\end{equation}
-Alpha is the probability of cavitation occuring in a stable tensile state.
-The second criteria that adds to the probability of cavitation is that if the pressure is rapidly decreasing, i.e., 
-\begin{equation}
- \mbox{\tt and if } \displaystyle\frac{\partial P}{\partial t} < 0
-\end{equation}
-\begin{equation}
- \mbox{\tt and if } \displaystyle\abs{\frac{\partial P}{\partial t}} < \delta_h,  \hspace{1cm} \mbox{ s.t. } 0 < \delta_h < \infty
-\end{equation}
-(implied) the pressure frequency is below the high-frequency cutoff (disregard noise), 
-\begin{equation}
- \mbox{\tt and if } \displaystyle\abs{\frac{\partial P}{\partial t}} > \delta_l,  \hspace{1cm} \mbox{ s.t. } 0 < \delta_l < \delta_h
-\end{equation}
-(implied) the pressure onset is sufficient to overcome inertia and surface tension, (disregard quasi-statics), 
-
-%\begin{equation}
-% \mbox{\tt then } E(c) = \alpha P + \beta \abs{\displaystyle\frac{\partial P}{\partial t}} > 0, \hspace{1cm} \mbox{ s.t. } \alpha > 0, \beta > 0,
-%\end{equation}
-\begin{equation}
- \mbox{\tt then instead } \textrm{Pr}(C;X,t) = \alpha  + \beta  > 0, \hspace{1cm} \mbox{ s.t. } \alpha > 0, \beta > 0,
-\end{equation}
-When neither of these conditions occur the probability of cavitation is zero, i.e.,
-\begin{equation}
- \mbox{\tt else } \textrm{Pr}(C;X,t) = 0,
-\end{equation}
-the likelihood of cavitation is greater than zero, where $\alpha$ and $\beta$ are {\em cavitation parameters} to be used to reproduce experimental results;
-
-Comment on units of all parameters? alpha and beta are probability units, thresholds are pressure and dpdt
-
-\subsection{Conceptual Example}
-
-%\begin{figure}[htb]
-%  \begin{center}
-%      \includegraphics[width=\textwidth]{figs/1TheModel/Figure1TheModel09-Mar-2020.pdf}
-%  \end{center}
-%    \caption{Figure1TheModel09-Mar-2020.pdf. Caption to come.}
-%  \label{fig:concept} % label must come after caption 
-%\end{figure}
-
-\begin{itemize}
-    \item Need to rerun with parameters that mach what we ultimately choose for $\alpha$ and $\beta$?
-    \item Dual axes?
-\end{itemize}
-
-\subsection{Validation}
-
-For the purposes of this work, we take {\bf validation} of a numerical model to mean 
-a model that is capable of reproducing the cavitation onset
-and location observed in laboratory experiments.    
-Our 
-validations\footnote{Validation answers the question, ``Are you building the 
-correct model?'' In contrast, {\em verification} answers the question, ``Are you
-building the model correctly?''  Code verification has been performed, but is too
-detailed to be explicated here.} seek to confirm that the proposed model is sufficient to
-predict cavitation, despite its relative simplicity.
+\chapter{Methods}
 
 
-\subsubsection{The Kang Experiments}
-Kang and coauthors\footnote{Kang W, Chen Y, Bagchi A, O’Shaughnessy TJ. 
-Characterization and detection of acceleration-induced cavitation in soft materials 
-using a drop-tower-based integrated system. 
-Review of Scientific Instruments. 2017 Dec 21;88(12):125113.}
-demonstrated the ability to create cavitation in water filled cuvettes subjected
-to drop table accelerations.  At drop heights of 4 and 6 cm, absence of cavitation was 
-observed.  At 8 cm however, cavitation was observed, with nucleation occurring at
-the trough of the acceleration time history (just after 0.5 ms) and bubble 
-collapse initiating near 1 ms.  
-Figure~\ref{fig:Kang_input} shows Kang's three experimental 
-acceleration histories, in addition to the acceleration time history used for 
-our simulation.  
+\section{Cubic Splines}
+Cubic splines are useful because of their inherent smoothness.  
+The cubic spline, its first derivative, and its second derivative are all
+continuous.  Starting with the cubic spine's third derivative, discontinuity
+arises.
+
+Let a collection of $n+1$ points $(x_i, y_i)$ for $ i=0, 1, \ldots, n$ 
+approximate the function $y=f(x)$ over the domain $[x_0, x_n]$.  In total, 
+there are $n+1$ points and $n$ intervals.  
+Let $S(x)$ be the piecewise continuous spine, cubic in this case, that
+threads through each of the points $(x_i, y_i)$.  The spline takes on $n$ 
+interval definitions as follows: 
+\be
+S_i(x) \defe a_i + b_i (x - x_i) + c_i (x - x_i)^2 + d_i (x - x_i)^3 \;\;\; 
+\mbox{for}
+\; x \in [x_i, x_{i+1}] \;\mbox{and}\; i=0, 1, \ldots, n-1.
+\ee
+The $n$ foregoing definitions, with the coefficients $a_i, b_i, c_i, d_i$,
+give rise to $4n$ (currently unknown) parameters 
+used to define the complete spline $S(x)$.  
+
+Next we endow the spline with constraints on continuity and differentiability,
+which allow the $4n$ unknown parameters to be solved.  First, function
+continuity requires that the spline, on a particular interval, thread through
+collection of points $(x_i, y_i)$ and the beginning and end of each interval.  
+Thus, 
+\be
+S_i(x_i) = y_i \;\mbox{and}\; S_i(x_{i+1}) = y_{i+1}
+\;\;\;\mbox{for}\;i=0, 1, \ldots, n-1.
+\ee
+This is the {\bf continuity constraint}, 
+which gives rise to $2n$ conditions\footnote{Two conditions per interval
+times $n$ intervals yields $2n$ conditions.}
+and creates a spline that
+is piecewise continuous.
+Next, consider two {\bf differentiability constraints}, which state that the
+first and second derivatives at a point $x_i$ are continuous.  That is, 
+the first and second derivatives approaching a point $x_i$ from the interval
+to the left side of the point must match the respective first and second 
+derivatives
+approaching the point $x_i$ from the interval to the right side of the point:
+\be
+S'_{i-1}(x_i) = S'_{i}(x_i) 
+\;\mbox{and}\; 
+S''_{i-1}(x_i) = S''_{i}(x_i) 
+\;\;\;\mbox{for}\;i=1, 2, \ldots, n-1.
+\ee
+Because they apply only to the interior points
+(and not the endpoints $x_0$ and $x_n$), the differentiability constraints
+give rise to $2(n-1)$ constraints.\footnote{Two conditions per interior
+point times $n-1$ interior points yields $2(n-1)$ conditions.}
+
+Finally, two more conditions are necessary to completely define the spline
+$S(x)$.  The two conditions are obtained by specifying differentiability
+conditions on the two spline endpoints $x_0$ and $x_n$.  
+Frequently, the first derivative is set to the known value of the function's
+derivatives at the endpoints, 
+\be
+S'_0(x_0) = f'(x_0) 
+\;\mbox{and}\; 
+S'_{n-1}(x_n) = f'(x_n).
+\ee
+Alternatives include specifying the second derivative instead of the first, 
+\be
+S''_0(x_0) = 0 
+\;\mbox{and}\; 
+S''_{n-1}(x_n) = 0.
+\ee
 
 
-% \begin{figure}[htb]
-%   \begin{center}
-%       \includegraphics[width=\textwidth]{figs/2Kang/FilteredKangAccelData03-Feb-2020.pdf}
-%   \end{center}
-%     \caption{FilteredKangAccelData03-Feb-2020.pdf. Caption to come.}
-%   \label{fig:Kang_input} % label must come after caption 
-% \end{figure}
 
-The acceleration data was integrated twice in time to produce velocity and 
-displacement cuvette time histories (Fig.~\ref{fig:uva_history}).  Quiescent initial conditions were used.
-The velocity time history was used as a boundary condition for the model.  
-Peak initial velocity exceeded 100~cm/s.  Total displacement was less than
-1~cm.
 
 \end{document}
 
