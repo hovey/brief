@@ -232,6 +232,78 @@ To come.
 
 \chapter{Methods}
 
+\section{General Splines}
+Let a collection of $n+1$ points $(x_i, y_i)$ for $ i=0, 1, \ldots, n$ 
+approximate the function $y=f(x)$ over the domain $[x_0, x_n]$.  In total, 
+there are $n+1$ points and $n$ intervals.  
+Let $S(x)$ be the piecewise continuous spine that
+threads through each of the points $(x_i, y_i)$.  
+For $x \in [x_i, x_{i+1}]$ and  $i=0, 1, \ldots, n-1$, 
+the spline takes on $n$ 
+interval definitions as follows: 
+\be
+S_i(x) 
+\defe a_i + b_i (x - x_i) + c_i (x - x_i)^2 
++ d_i (x - x_i)^3 + 
+\cdots + z_i (x - x_i)^p. 
+\ee
+where constant coefficients\footnote{Here the $z_i$
+is arbitrary, meant to denote the last coefficient, but not necessarily the 
+twenty-sixth coefficient.}
+multiply successive powers\footnote{The powers are non-negative integers.} 
+of $(x-x_i$), summed
+to an arbitrary polynomial power $p$.  This is referred to as the {\bf
+interval spline definition} to polynomial order $p$.
+Below we consider linear splines ($p=1$), quadratic splines ($p=2$), and
+cubic splines ($p=3$).
+
+\section{Linear Splines}
+For linear splines, the interval spline definition is
+\be
+S_i(x) 
+=
+a_i + b_i (x - x_i)
+\;\;\;
+\mbox{for}
+\; x \in [x_i, x_{i+1}] \;\mbox{and}\; i=0, 1, \ldots, n-1.
+\ee
+For any collection of points $(x_i, y_i)$, all coefficients $a_i$ and
+$b_i$ for $i=0, 1, \ldots, n-1$ can be found using the {\bf zeroth derivative
+continuity constraint}, which creates a spline that connects to each point
+at the beginning and end of each interval, thus
+\be
+S_i(x_i) = y_i 
+\;\;\;
+\mbox{and}
+\;\;\; 
+S_i(x_{i+1}) = y_{i+1}
+\;\;\;\mbox{for}\;i=0, 1, \ldots, n-1.
+\ee
+Here we see there are two constraints per interval $i$ and two unknowns, 
+$a_i$ and $b_i$, per interval $i$.  The unknowns can be found directly by
+evaluating the interval spline definition with each of the two constraint
+equations.  In turn, these are, for 
+$i=0, 1, \ldots, n-1$,
+\begin{align}
+S_i(x_i) 
+&
+= a_i + b_i(x_i - x_i) 
+\overset{\mbox{\footnotesize set}}{=} y_i 
+\implies 
+a_i = y_i, \;\mbox{and}
+\\
+S_i(x_{i+1}) 
+& 
+= a_i + b_i (x_{i+1} - x_i) 
+\overset{\mbox{\footnotesize set}}{=} y_{i+1}
+\implies
+b_i = \frac{y_{i+1} - y_i}{x_{i+1} - x_i}.
+\end{align}
+No additional continuity constraints can be created since the linear
+spline has only $C^0$ continuity, meaning no derivatives of the 
+function $S_i(x)$ are continuous.
+
+\section{Quadratic Splines}
 
 \section{Cubic Splines}
 Cubic splines are useful because of their inherent smoothness.  
@@ -246,13 +318,15 @@ Let $S(x)$ be the piecewise continuous spine, cubic in this case, that
 threads through each of the points $(x_i, y_i)$.  The spline takes on $n$ 
 interval definitions as follows: 
 \be
-S_i(x) \defe a_i + b_i (x - x_i) + c_i (x - x_i)^2 + d_i (x - x_i)^3 \;\;\; 
+S_i(x) \defe a_i + b_i (x - x_i) + c_i (x - x_i)^2 + d_i (x - x_i)^3
+\;\;\;
 \mbox{for}
 \; x \in [x_i, x_{i+1}] \;\mbox{and}\; i=0, 1, \ldots, n-1.
 \ee
 The $n$ foregoing definitions, with the coefficients $a_i, b_i, c_i, d_i$,
 give rise to $4n$ (currently unknown) parameters 
-used to define the complete spline $S(x)$.  
+used to define the complete spline $S(x)$.  Note that maintain its cubic nature, 
+the spline must have $d_i \neq 0$.
 
 Next we endow the spline with constraints on continuity and differentiability,
 which allow the $4n$ unknown parameters to be solved.  First, function
@@ -295,14 +369,19 @@ S'_0(x_0) = f'(x_0)
 \;\mbox{and}\; 
 S'_{n-1}(x_n) = f'(x_n).
 \ee
-Alternatives include specifying the second derivative instead of the first, 
+This is defined as a {\bf clamped spline}.
+Alternatively, a {\bf natural spline} defines the second derivatives to be
+zero at the endpoints, 
 \be
 S''_0(x_0) = 0 
 \;\mbox{and}\; 
 S''_{n-1}(x_n) = 0.
 \ee
-
-
+Finally, a {\bf not-a-knot} spline requires no additional constraints on the 
+endpoint derivatives,\footnote{This has no effect on the original continuity
+constraint on the endpoints, that $S_0(x_0) = y_0$ and $S_{n-1}(x_n) = y_n$.}
+but requires that the {\em third} derivative be continuous at $x_1$ and 
+$x_{n-1}$.
 
 
 \end{document}
