@@ -309,7 +309,7 @@ Let $y = f(x) = \sin(\pi x)$ for $x \in [0, 1]$ be approximated by a linear
 spline and a collection of three points equally spaced on the domain.  
 Note $n+1 = 3$, thus $n=2$, indicating three points and two intervals.
 Table~\ref{tab:linear_spline_example} summarizes the spline data.
-Figure~\ref{fig:linear_spline_example} shows the $\sin$ function and the
+Figure~\ref{fig:linear_spline_example}(a) shows the $\sin$ function and the
 linear spline interpolations.
 \begin{table}[h]
 \caption{Linear spline approximation of $y = f(x) = \sin(\pi x)$ 
@@ -319,22 +319,58 @@ using three points and two intervals.}
 $i$ & $x_i$ & $y_i$ & $\implies$  & $a_i$ & $b_i$ & $\implies$ & $S_i(x)$
 \\
 \hline
-0 & 0 & 0 &  & 0 & 2 &   & $2 x$
+0 & 0/2 & 0 &  & 0 & 2 &   & $2 x$
 \\
-1 & $\half$ & 1 &  & 1 & -2 &   & $1 - 2\left(x - \half\right)$
+1 & 1/2 & 1 &  & 1 & -2 &   & $1 - 2(x - 1/2)$
 \\
-2 & 1 & 0 &  & --- & --- &   & ---
+2 & 2/2 & 0 &  & --- & --- &   & ---
 \end{tabular}
 \label{tab:linear_spline_example}
 \end{table}
 } % end Hexample
 \end{Hexample}
 
+\noindent\begin{Hexample}
+{ % begin Hexample
+Repeat the previous example, but now with a
+collection of five points equally spaced on the domain.  
+Thus $n+1 = 5$, thus $n=4$, indicating five points and four intervals.
+Table~\ref{tab:linear_spline_example_two} summarizes the spline data.
+Figure~\ref{fig:linear_spline_example}(b) shows the $\sin$ function and the
+linear spline interpolations.
+\begin{table}[h]
+\caption{Linear spline approximation of $y = f(x) = \sin(\pi x)$ 
+using five points and four intervals.}
+\centering
+\begin{tabular}{c|c|ccc|ccc}
+$i$ & $x_i$ & $y_i$ & $\implies$  & $a_i$ & $b_i$ & $\implies$ & $S_i(x)$
+\\
+\hline
+0 & 0/4 & 0 &  & 0 & $2\sqrt{2}$ &   & $2\sqrt{2} x$
+\\
+1 & 1/4 & $\sqrt{2}/2$ &  & $\sqrt{2}/2$ & $4 - 2\sqrt{2}$ &   
+& $\sqrt{2}/2 + (4-2\sqrt{2})(x - 1/4)$
+\\
+2 & 2/4 & 1 &  & 1 & $2\sqrt{2} - 4$ &   & $1 + (2\sqrt{2}-4)(x - 2/4)$
+\\
+3 & 3/4 & $\sqrt{2}/2$ &  & $\sqrt{2}/2$ & $-2\sqrt{2}$ &   & $\sqrt{2}/2 - 
+2\sqrt{2}(x - 3/4)$
+\\
+4 & 4/4 & 0 &  & --- & --- &   & ---
+\end{tabular}
+\label{tab:linear_spline_example_two}
+\end{table}
+} % end Hexample
+\end{Hexample}
+
 \begin{figure}[htb]
   \begin{center}
-    \includegraphics[width=0.8\textwidth]{fig/linear_spline.pdf}
+    \includegraphics[width=0.6\textwidth]{fig/linear_spline.pdf}
   \end{center}
-    \caption{Linear spline example.}
+    \caption{Linear spline example (a) with three points and (b) with five 
+    points, see Table~\ref{tab:linear_spline_example_two} for individual 
+    definitions of $S_i(x)$.
+    Reference: fig/linear\_spline.py}
   \label{fig:linear_spline_example} % label must come after caption 
 \end{figure}
 
