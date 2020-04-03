@@ -1,0 +1,40 @@
+\chapter{Introduction}
+
+The concept of converting pixels to a geometric representation, hereinafter
+referred to as PTG (Pixel To Geometry), can be introduced 
+by consideration of two similar processes, optical character recognition (OCR) 
+and analytic geometry.
+
+OCR is the process of converting pixel values scanned from a piece of paper with
+printed or handwritten text into a digital encoding of letters and
+number, e.g., \\
+{\tt A a B b C c $\ldots$ Z z 0 1 2 3 4 5 6 7 8 9},
+where a collection of pixels is composed to map to letters and numbers.
+
+Figure~\ref{fig:geometry_pixels} illustrates the difference between vector
+graphics and rasterized graphics.  
+\\ \\ % not sure why we need to extra bump space to move the figure down?
+\begin{figure}[htb]
+  \begin{center}
+    % \includegraphics[width=\textwidth]{fig/geometry.pdf}
+    % \begin{overpic}[width=0.62\textwidth, abs, grid, unit=0.5in, tics=1]{fig/geometry.pdf}
+    % \begin{overpic}[width=0.62\textwidth, abs, unit=0.5in, tics=1]{fig/geometry.pdf}
+    % \begin{overpic}[width=0.8\textwidth, abs, grid, unit=0.5in, tics=1]{fig/geometry.pdf}
+    \begin{overpic}[width=0.8\textwidth, abs, unit=0.5in, tics=1]{fig/geometry.pdf}
+      \put(1.15, 0){10 ppi}
+      \put(3.65, 0){20 ppi}
+      \put(6.15, 0){40 ppi}
+      \put(8.65, 0){80 ppi}
+    \end{overpic}
+  \end{center}
+    \caption{The word ``geometry'' appearing with font 
+    size 48~point (72 points = 1 inch) composed of 
+    vector graphics, and the ``e'' in yellow, with font size 72~point, 
+    appearing from left-to-right 
+    at half-inch intervals in rasterized 
+    graphics at 10 pixels per inch (ppi), 20 ppi, 40 ppi, and 80 ppi.  The 
+    image was saved in vectorized format at 600 ppi.
+    Reference: fig/geometry.pdf}
+  \label{fig:geometry_pixels} % label must come after caption 
+\end{figure}
+
