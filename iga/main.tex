@@ -145,7 +145,7 @@
 % HEADER AND FOOTER
 % -----------------
 
-\newcommand{\titlestring}{Geometry from Spline Interpolation}  
+\newcommand{\titlestring}{Pixel To Geometry (PTG)}  
 \newcommand{\authorstring}{C.B. Hovey}
 \newcommand{\yearstring}{2020}
 \newcommand{\datestring}{\yyyymmdddate\today}
@@ -220,7 +220,23 @@ under contract DE-NA0003525.} \\ [2ex] \datestring}
 %
 %\include{include/Hformatams}
 
-\abstract{To come.}
+\abstract{Classification of pixel values from human CT/MR scans has been 
+successfully undertaken by this laboratory using the U-Net deep learning
+algorithm.  We have also demonstrated successful conversion of pixels 
+to voxels, as a proxy for finite volume or finite element meshes, a process
+we have called Pixel To Mesh (PTM).
+This mesh step  
+quickly becomes intractable when the number of voxels
+grows past the 10s of millions.  Essentially, a map of every pixel (voxel) to
+a single finite volume or finite element creates computational domains of
+excessively large and equally unnecessary mesh refinement.  
+
+In light of this, we investigated an alternative approach, which we call 
+Pixel To Geometry (PTG).  This alternative seeks to selectively use the 
+categorized pixel values as a scaffold for construction of analytical geometric 
+descriptions in 2D and 3D.  Thereafter, we propose using the 
+analytical geometries directly in simulation, using isogeometric analysis (IGA).
+The use of IGA completely eliminates any need to complete the mesh step.}
 
 %\newpage
 {\tableofcontents}
@@ -233,16 +249,16 @@ To come.
 \chapter{Methods}
 \section{Non-local Methods}
 \subsection{Polynomials}
-Let $P(x)$ be the function of order $p$ that is a sum of variable
+Let $f(x)$ be the function of order $p$ that is a sum of variable
 $x$ raised to some increasing non-negative integer power, starting 
 from zero, and multiplied
 by a constant coefficient $a$, such that
 \be
-P(x) \defe
+f(x) \defe
 a_0 + a_1 x + a_2 x^2 + a_3 x^3 + \cdots + a_p x^p = 
 \sum_{i=0}^p a_i x^i.
 \ee
-The function $P(x)$ is a {\bf polynomial} of {\bf degree} $p$, the highest
+The function $f(x)$ is a {\bf polynomial} of {\bf degree} $p$, the highest
 non-zero power used in the summation.  Table~\ref{tab:polynomials} lists
 the first five polynomials by degree, name, and function.  
 
@@ -252,17 +268,17 @@ the first five polynomials by degree, name, and function.
 \begin{tabular}{c|l|l}
 {\bf degree} & {\bf name} & {\bf function} \\
 \hline \hline
-$p=0$ & constant & $P_0(x) = a_0$ \\
-$p=1$ & linear & $P_1(x) = a_0 + a_1 x$ \\
-$p=2$ & quadratic & $P_2(x) = a_0 + a_1 x + a_2 x^2$ \\
-$p=3$ & cubic & $P_3(x) = a_0 + a_1 x + a_2 x^2 + a_3 x^3$ \\
-$p=4$ & quartic & $P_4(x) = a_0 + a_1 x + a_2 x^2 + a_3 x^3 + a_4 x^4$ \\
+$p=0$ & constant & $f_0(x) = a_0$ \\
+$p=1$ & linear & $f_1(x) = a_0 + a_1 x$ \\
+$p=2$ & quadratic & $f_2(x) = a_0 + a_1 x + a_2 x^2$ \\
+$p=3$ & cubic & $f_3(x) = a_0 + a_1 x + a_2 x^2 + a_3 x^3$ \\
+$p=4$ & quartic & $f_4(x) = a_0 + a_1 x + a_2 x^2 + a_3 x^3 + a_4 x^4$ \\
 \end{tabular}
 \label{tab:polynomials}
 \end{table}
 
 For a polynomial of degree $p$, the function has $p-1$ changes of direction, 
-from $-P(x)$ to $P(x)$, or vice versa.
+from $-f(x)$ to $f(x)$, or vice versa.
 This characteristic
 leads causes an overfitting behavior, which makes polynomials disadvantageous
 to use.  For this reason, polynomials are not further explicated.  They are
@@ -275,8 +291,8 @@ three coordinates $(x_i, y_i, z_i)$ in 3D.
 The parameter is typically denoted $t$.  The bounds for $t$ are 
 always $0 \leq t \leq 1$.  
 
-A B\'ezier curve of order $p$ will have $p+1$
-control points required to construct the curve.  For example, a B\'ezier 
+A B\'ezier curve of order $p$ requires $p+1$
+control points. For example, a B\'ezier 
 curve that is a line (order $p=1$) requires two control points.
 Affine transformations may be used to modify the control points, e.g., to 
 scale, reflect, rotate, or translate (offset) the control points.
@@ -287,7 +303,7 @@ two points $\vP_0 = (x_0, y_0, z_0)$ and $\vP_1 = (x_1, y_1, z_1)$, with
 $\vx = (x, y, z)$.
 Then, let $t$ be the parameter bounded by $0 \leq t \leq 1$.  Then 
 the B\'ezier line between $\vx_0$ and $\vx_1$ is simply the parameterized 
-connection between $\vP_0$ and $\vP_1$, 
+linear interpolation $\vP_0$ and $\vP_1$, 
 \be
 \vP(t; \vP_0, \vP_1) \defe (1 - t) \vP_0 + t \vP_1, 
 \ee
@@ -315,7 +331,8 @@ parameterized by three points $\vP_0$, $\vP_1$, and $\vP_2$, such that
 Thus, the position of $\vQ_0$ is on the line between points $\vP_0$ and 
 $\vP_1$.  The position of $\vQ_1$ is on the line between points $\vP_1$ and 
 $\vP_2$.
-At $t=0$, $\vQ_0$ resides at $\vP_0$.  At $t=1$, $\vQ_1$ resides at $\vP_1$.
+At $t=0$, $\vQ_0$ resides at $\vP_0$, $\vQ_1$ resides at $\vP_1$.  
+At $t=1$, $\vQ_0$ resides at $\vP_1$, $\vQ_1$ resides at $\vP_2$.
 Finally, let position along the quadratic B\'ezier curve $\vQ(t; \vx)$ 
 be defined as 
 \be
@@ -333,8 +350,13 @@ using
 \subsubsection{de Casteljau's Algorithm}
 The foregoing development can be generalized, and is known as 
 {\bf de Casteljau's algorithm}.  Let $\vP_{i,j}$ be control points
-where $i$ denotes the control point index and $j$ denote the order of the 
-curve.  Thus $\vP_{i,0}$ denote the base level control points. 
+where 
+\begin{itemize}
+\item $i$ denotes the {\bf control point index}, $i=0, 1, \ldots n$, (total 
+of $n+1$ control points), and
+\item $j$ denote the {\bf order} of the curve, $j=0, 1, \ldots p$.
+\end{itemize}
+Thus $\vP_{i,0}$ denote the base level control points. 
 In the preceding section, 
 \begin{align}
 \vP_0 & \mapsto \vP_{0,0}, \;\;\;\mbox{$j=0$, thus $\vP_{i,0}$ is a point}\\
@@ -360,14 +382,20 @@ Equation~(\ref{eq:bezier_quadratic}) would then be rewritten as
 2t (1-t) \vP_{1,0} + t^2 \vP_{2,0},
 \end{align}
 where only the $t$ parameter is used to describe $\vP_{0,2}(\cdot)$ for the 
-sake of brevity.
+sake of brevity.  Figure~\ref{fig:de_casteljau} illustrates for the B\'ezier
+quadratic development, (a) the original notation and (b) the de 
+Casteljau's algorithm notation.
 
 \begin{figure}[htb]
   \begin{center}
-    \includegraphics[width=0.6\textwidth]{fig/de_casteljau.pdf}
+    \includegraphics[width=\textwidth]{fig/de_casteljau.pdf}
   \end{center}
-    \caption{To redo, concept of $Q(t)$ for de Casteljau's algorithm.
-    Reference: fig/to\_come.py}
+    \caption{A B\'ezier quadratic curve illustrated at $t=0.5$
+    with (a) original notation 
+    and (b) the de Casteljau's algorithm notation.  The number of control 
+    points is three, so the maximum order B\'ezier that can be constructed is
+    two (order $p$ requires $p+1$ control points).
+    Reference: fig/de\_casteljau.py}
   \label{fig:de_casteljau} % label must come after caption 
 \end{figure}
 
