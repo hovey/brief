@@ -348,6 +348,34 @@ using
 \vQ(t; \vP_0, \vP_1, \vP_2) = (1-t)^2 \vP_0 + 2t (1-t) \vP_1 + t^2 \vP_2.
 \label{eq:bezier_quadratic}
 \ee
+Figure~\ref{fig:de_casteljau}, discussed in more detail below, illustrates 
+an example quadratic B\'ezier curve, with control points indicated.
+Figure~\ref{fig:de_casteljau_sequence} illustrates the same quadratic
+B\'ezier curve, generated at  
+six discrete points in the interval $t \in [0, 1]$.
+\begin{figure}[htb]
+  \begin{center}
+    \includegraphics[width=\textwidth]{fig/de_casteljau.pdf}
+  \end{center}
+    \caption{A B\'ezier quadratic curve illustrated at $t=0.5$
+    with (a) original notation 
+    and (b) the de Casteljau's algorithm notation.  The number of control 
+    points is three, so the maximum order B\'ezier that can be constructed is
+    two (order $p$ requires $p+1$ control points).
+    Reference: fig/de\_casteljau.py}
+  \label{fig:de_casteljau} % label must come after caption 
+\end{figure}
+
+\begin{figure}[htb]
+  \begin{center}
+    \includegraphics[width=\textwidth]{fig/de_casteljau_sequence.pdf}
+  \end{center}
+    \caption{The B\'ezier quadratic curve discussed in 
+    Figure~\ref{fig:de_casteljau}, 
+    illustrated in sequence with $t$ starting at 0 and ending at 1.
+    Reference: fig/de\_casteljau.py}
+  \label{fig:de_casteljau_sequence} % label must come after caption 
+\end{figure}
 
 \subsubsection{de Casteljau's Algorithm}
 The foregoing development can be generalized, and is known as 
@@ -387,19 +415,6 @@ where only the $t$ parameter is used to describe $\vP_{0,2}(\cdot)$ for the
 sake of brevity.  Figure~\ref{fig:de_casteljau} illustrates for the B\'ezier
 quadratic development, (a) the original notation and (b) the de 
 Casteljau's algorithm notation.
-
-\begin{figure}[htb]
-  \begin{center}
-    \includegraphics[width=\textwidth]{fig/de_casteljau.pdf}
-  \end{center}
-    \caption{A B\'ezier quadratic curve illustrated at $t=0.5$
-    with (a) original notation 
-    and (b) the de Casteljau's algorithm notation.  The number of control 
-    points is three, so the maximum order B\'ezier that can be constructed is
-    two (order $p$ requires $p+1$ control points).
-    Reference: fig/de\_casteljau.py}
-  \label{fig:de_casteljau} % label must come after caption 
-\end{figure}
 
 \subsubsection{B\'ezier Cubic}
 The cubic B\'ezier curve $\vP_{0,3}(t)$, given four control points
