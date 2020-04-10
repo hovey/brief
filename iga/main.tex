@@ -372,7 +372,7 @@ an example quadratic B\'ezier curve, with control points indicated.
     and (b) the de Casteljau's algorithm notation.  The number of control 
     points is three, so the maximum order B\'ezier that can be constructed is
     two (order $p$ requires $p+1$ control points).
-    Reference: fig/de\_casteljau.py}
+    Reference: fig/de\_casteljau.py.}
   \label{fig:de_casteljau} % label must come after caption 
 \end{figure}
 
@@ -387,7 +387,7 @@ six discrete points in the interval $t \in [0, 1]$.
     \caption{The B\'ezier quadratic curve discussed in 
     Figure~\ref{fig:de_casteljau}, 
     illustrated in sequence with $t$ starting at 0 and ending at 1.
-    Reference: fig/de\_casteljau.py}
+    Reference: fig/de\_casteljau.py.}
   \label{fig:de_casteljau_sequence} % label must come after caption 
 \end{figure}
 }
@@ -520,6 +520,16 @@ t^3 (1-t)^{3-3} = t^3,
 which match the coefficients in (\ref{eq:bezier_cubic}).
 } % end Hexpo
 \end{Hexpo}
+
+\begin{figure}[htb]
+  \begin{center}
+    \includegraphics[width=0.6\textwidth]{fig/bernstein.pdf}
+  \end{center}
+    \caption{Bernstein polynomials for (a) quadratic B\'ezier ($p=2$), and
+    (b) cubic B\'ezier ($p=3$).
+    Reference: fig/bernstein.py.}
+  \label{fig:bernstein} % label must come after caption 
+\end{figure}
 
 
 \clearpage
@@ -664,7 +674,7 @@ $i$ & $x_i$ & $y_i$ & $\implies$  & $a_i$ & $b_i$ & $\implies$ & $S_i(x)$
     \caption{Linear spline example (a) with three points and (b) with five 
     points, see Table~\ref{tab:linear_spline_example_two} for individual 
     definitions of $S_i(x)$.
-    Reference: fig/linear\_spline.py}
+    Reference: fig/linear\_spline.py.}
   \label{fig:linear_spline_example} % label must come after caption 
 \end{figure}
 
