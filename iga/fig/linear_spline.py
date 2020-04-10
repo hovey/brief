@@ -21,7 +21,7 @@ s0 = 2*x0
 x1 = np.linspace(0.5, 1, 50)
 s1 = 1 - 2*(x1 - 0.5)
 
-fig = plt.figure(figsize=(6, 12))  # 6 in inches wide, 12 inches tall
+fig = plt.figure(figsize=(4, 8))  # x in inches wide, y inches tall
 ax = fig.add_subplot(2, 1, 1, aspect=1)
 ax2 = fig.add_subplot(2, 1, 2, aspect=1)
 
@@ -33,7 +33,7 @@ ax.xaxis.set_major_locator(MultipleLocator(0.25))
 ax.yaxis.set_major_locator(MultipleLocator(0.25))
 ax.set_xlabel(r'$x$')
 ax.set_ylabel(r'$y$')
-lax, lay = 0.05, 0.95
+lax, lay = 0.1, 0.9
 ax.text(lax, lay, '(a)', backgroundcolor='white', ha='center', va='baseline')
 ax.grid()
 ax.legend()

@@ -517,13 +517,16 @@ b_{3,3}(t) & = \left(\begin{tabular}{c} 3 \\ 3 \end{tabular} \right)
 t^3 (1-t)^{3-3} = t^3,
 %
 \end{align}
-which match the coefficients in (\ref{eq:bezier_cubic}).
+which match the coefficients in (\ref{eq:bezier_cubic}).  
+These polynomials are shown in Figure~\ref{fig:bernstein}(b).  
+The Bernstein polynomials for a quadratic B\'ezier curve ($p=2$)
+are shown in Figure~\ref{fig:bernstein}(a) for comparison.
 } % end Hexpo
 \end{Hexpo}
 
 \begin{figure}[htb]
   \begin{center}
-    \includegraphics[width=0.6\textwidth]{fig/bernstein.pdf}
+    \includegraphics[width=0.62\textwidth]{fig/bernstein.pdf}
   \end{center}
     \caption{Bernstein polynomials for (a) quadratic B\'ezier ($p=2$), and
     (b) cubic B\'ezier ($p=3$).
@@ -531,6 +534,11 @@ which match the coefficients in (\ref{eq:bezier_cubic}).
   \label{fig:bernstein} % label must come after caption 
 \end{figure}
 
+Notice that for any of the Bernstein polynomials, their sum always adds to one, 
+\be
+\sum_{i=0}^p b_{i,p}(t) = 1.0.
+\ee
+This concept is called {\bf partition of unity}.
 
 \clearpage
 \section{Local Methods}
@@ -620,7 +628,7 @@ using three points and two intervals.}
 \begin{tabular}{c|c|ccc|ccc}
 $i$ & $x_i$ & $y_i$ & $\implies$  & $a_i$ & $b_i$ & $\implies$ & $S_i(x)$
 \\
-\hline
+\hline \hline
 0 & 0/2 & 0 &  & 0 & 2 &   & $2 x$
 \\
 1 & 1/2 & 1 &  & 1 & -2 &   & $1 - 2(x - 1/2)$
@@ -648,7 +656,7 @@ using five points and four intervals.}
 \begin{tabular}{c|c|ccc|ccc}
 $i$ & $x_i$ & $y_i$ & $\implies$  & $a_i$ & $b_i$ & $\implies$ & $S_i(x)$
 \\
-\hline
+\hline \hline
 0 & 0/4 & 0 &  & 0 & $2\sqrt{2}$ &   & $2\sqrt{2} x$
 \\
 1 & 1/4 & $\sqrt{2}/2$ &  & $\sqrt{2}/2$ & $4 - 2\sqrt{2}$ &   
@@ -669,7 +677,7 @@ $i$ & $x_i$ & $y_i$ & $\implies$  & $a_i$ & $b_i$ & $\implies$ & $S_i(x)$
 % \clearpage
 \begin{figure}[htb]
   \begin{center}
-    \includegraphics[width=0.6\textwidth]{fig/linear_spline.pdf}
+    \includegraphics[width=0.62\textwidth]{fig/linear_spline.pdf}
   \end{center}
     \caption{Linear spline example (a) with three points and (b) with five 
     points, see Table~\ref{tab:linear_spline_example_two} for individual 

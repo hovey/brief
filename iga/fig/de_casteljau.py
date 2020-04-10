@@ -111,7 +111,8 @@ if SERIALIZE:
 # plt.figure()
 nrow, ncol = 2, 3
 # fig2 = plt.figure(figsize=(3*ncol, 3*nrow))  # x in inches wide, y inches tall
-fig2 = plt.figure(figsize=(10.5, 5))  # x in inches wide, y inches tall, hard code to match 10 x 14 grid on figure
+# fig2 = plt.figure(figsize=(10.5, 5))  # x in inches wide, y inches tall, hard code to match 10 x 14 grid on figure
+fig2 = plt.figure(figsize=(6.5, 3.25))  # x in inches wide, y inches tall, hard code 
 tcapture = np.linspace(0, 1, 6)  # 0, 0.2, 0.3, ..., 1.0
 for i in range(nrow):
   for j in range(ncol):
