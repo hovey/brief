@@ -1118,7 +1118,11 @@
 
 %\usepackage{amssymb}  % must have been included already
 \definecolor{hdarkblue}{rgb}{0,0,0.5}  % dark blue [0,1] channel
-\definecolor{hlightgray}{rgb}{0.9,0.9,0.9}
+% \definecolor{hindigo}{rgb}{0.294,0,0.510}  % #4b0082 
+\definecolor{hdimdimgray}{HTML}{262626}  
+\definecolor{hindigo}{HTML}{4B0082}  % #4b0082 
+\definecolor{hdarkgray}{rgb}{0.05,0.05,0.05}
+\definecolor{hlightgray}{rgb}{0.95,0.95,0.95}
 \newenvironment{Hproof}{           % beginning the environment
     %\\
     \medskip
@@ -1219,8 +1223,22 @@
 %    }{
 %    }
 
+% *------------------------------*
+% | HOVEY'S Hexpo ENVIRONMENT |
+% *------------------------------*--------------------------------
 
-
+\newcounter{Hexpoctr}
+\renewcommand{\theHexpoctr}{\arabic{Hexpoctr}.}
+\newenvironment{Hexpo}[1]  % takes 1 argument
+{
+  \stepcounter{Hexpoctr}%
+  % \medskip
+  \noindent 
+  {\colorbox{hlightgray}{\parbox{\linewidth}{
+    {\bf \textcolor{hdimdimgray}{\hfill Example \theHexpoctr \hfill}} }}} \\ \textcolor{hdimdimgray}{#1 $\square$} % \\ \centering $\square$
+}{
+  \medskip
+}
 
 % *--------------------------*
 % | HOVEY'S Hbox ENVIRONMENT |
