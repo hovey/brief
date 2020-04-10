@@ -362,6 +362,9 @@ using
 \ee
 Figure~\ref{fig:de_casteljau} illustrates 
 an example quadratic B\'ezier curve, with control points indicated.
+The number of control points is three, so the maximum 
+order B\'ezier that can be constructed is two 
+(order $p$ requires $p+1$ control points).
 
 \begin{figure}[htb]
   \begin{center}
@@ -369,9 +372,7 @@ an example quadratic B\'ezier curve, with control points indicated.
   \end{center}
     \caption{A B\'ezier quadratic curve illustrated at $t=0.5$
     with (a) original notation 
-    and (b) the de Casteljau's algorithm notation.  The number of control 
-    points is three, so the maximum order B\'ezier that can be constructed is
-    two (order $p$ requires $p+1$ control points).
+    and (b) the de Casteljau's algorithm notation.  
     Reference: fig/de\_casteljau.py.}
   \label{fig:de_casteljau} % label must come after caption 
 \end{figure}
@@ -427,11 +428,72 @@ Equation~(\ref{eq:bezier_quadratic}) would then be rewritten as
     t     \left[ (1-t) \vP_{1,0} + t \vP_{2,0} \right], \\
 & = (1-t)^2 \vP_{0,0} + 
 2t (1-t) \vP_{1,0} + t^2 \vP_{2,0},
+\label{eq:quadratic_bezier}
 \end{align}
 where only the $t$ parameter is used to describe $\vP_{0,2}(\cdot)$ for the 
 sake of brevity.  Figure~\ref{fig:de_casteljau} illustrates for the B\'ezier
 quadratic development, (a) the original notation and (b) the de 
 Casteljau's algorithm notation.
+
+For efficiency during computational implementation, 
+it is common to rewrite the quadratic B\'ezier $\vP_{0,2}$ 
+in matrix form for {\em any} set of {\bf three control points}.  
+This is somewhat of a return map, undoing the notation adopted to
+explain de~Casteljau's algorithm.  With
+\begin{align}
+\vP_{0,0} & \mapsto \vP_0, \\
+\vP_{1,0} & \mapsto \vP_1, \\
+\vP_{2,0} & \mapsto \vP_2, \mbox{ and } \\
+\vP_{0,2} & \mapsto \vC_2, \mbox{ to denote a curve } C \mbox { of order } p=2,
+\end{align}
+the quadratic B\'ezier $\vC_2$ is written in matrix form as
+\be
+\vC_2(t) = 
+\left\{\begin{tabular}{c} $x(t)$ \\ $y(t)$ \\ $z(t)$ \end{tabular} \right\}
+= 
+\left[\begin{tabular}{ccc} 
+$x_{P_0}$ 
+& 
+$x_{P_1}$ 
+& 
+$x_{P_2}$ 
+\\ 
+$y_{P_0}$ 
+& 
+$y_{P_1}$ 
+& 
+$y_{P_2}$ 
+\\ 
+$z_{P_0}$ 
+& 
+$z_{P_1}$ 
+& 
+$z_{P_2}$ 
+\end{tabular} \right]
+%
+\left[\begin{tabular}{crr} 
+1 
+& 
+-2
+& 
+1
+\\ 
+% 
+& 
+2
+& 
+0
+\\ 
+sym.
+& 
+%
+& 
+0
+\end{tabular} \right]
+%
+\left\{\begin{tabular}{c} $t^2$ \\ $t$ \\ $1$ \end{tabular} \right\}.
+\ee
+
 
 \subsubsection{B\'ezier Cubic}
 The cubic B\'ezier curve $\vP_{0,3}(t)$, given four control points
@@ -448,6 +510,86 @@ is given by
 t^3 \vP_{3,0}.
 \label{eq:bezier_cubic}
 \ee
+
+Again for efficiency, 
+it is common to rewrite the cubic B\'ezier $\vP_{0,3}$ 
+in matrix form for {\em any} set of {\bf four control points}.
+With
+\begin{align}
+\vP_{0,0} & \mapsto \vP_0, \\
+\vP_{1,0} & \mapsto \vP_1, \\
+\vP_{2,0} & \mapsto \vP_2, \\
+\vP_{3,0} & \mapsto \vP_3, \mbox{ and } \\
+\vP_{0,3} & \mapsto \vC_3, \mbox{ to denote a curve } C \mbox { of order } p=3,
+\end{align}
+the cubic B\'ezier $\vC_3$ is written in matrix form as
+\be
+\vC_3(t) = 
+\left\{\begin{tabular}{c} $x(t)$ \\ $y(t)$ \\ $z(t)$ \end{tabular} \right\}
+= 
+\left[\begin{tabular}{cccc}
+$x_{P_0}$ 
+& 
+$x_{P_1}$ 
+& 
+$x_{P_2}$ 
+& 
+$x_{P_3}$ 
+\\ 
+$y_{P_0}$ 
+& 
+$y_{P_1}$ 
+& 
+$y_{P_2}$ 
+& 
+$y_{P_3}$ 
+\\ 
+$z_{P_0}$ 
+& 
+$z_{P_1}$ 
+& 
+$z_{P_2}$ 
+& 
+$z_{P_3}$ 
+\end{tabular} \right]
+%
+\left[\begin{tabular}{crrr}
+-1 
+& 
+3
+& 
+-3
+&
+1
+\\ 
+% 
+& 
+-6
+& 
+3
+&
+0
+\\ 
+%
+& 
+% 
+&
+0
+& 
+0
+\\
+sym.
+& 
+% 
+& 
+% 
+& 
+0
+\end{tabular} \right]
+%
+\left\{\begin{tabular}{c} $t^3$ \\ $t^2$ \\ $t$ \\ $1$ \end{tabular} \right\}.
+\ee
+
 
 \subsubsection{Bernstein Polynomials}
 The general form of a degree $p$ B\'ezier curve $\vC(t)$ defined by 
