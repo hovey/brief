@@ -1,3 +1,4 @@
+
 %%!TEX TS-program = latex
 
 % [chama] $ pdflatex main.tex
@@ -22,6 +23,15 @@
 % -------
 % PACKAGE
 % -------
+% http://ctan.mirrors.hoobly.com/macros/latex/contrib/hyperref/doc/manual.pdf
+\usepackage{hyperref}
+\hypersetup{
+  colorlinks=true, % instead of default boxed links, use color links
+  linkcolor=blue, % instead of red default, use blue
+  citecolor=blue, % instead of default green, use blue
+  urlcolor=blue % instead of magenta default, use blue
+} % close hyperref
+%
 \usepackage{amsmath} % needed for align of equations
 \usepackage{amssymb}
 \usepackage[toc,titletoc,header]{appendix}
@@ -287,6 +297,8 @@ to use.  For this reason, polynomials are not further explicated.  They are
 simply included here for context.
 
 \subsection{B\'ezier Curves}
+Several of the ideas in this section are due to the excellent references
+of \cite{Bartels-1995}, \cite{Rogers-2000}, and \cite{Shiach-2015}.
 A B\'ezier curve is a parametric curve defined by control points.
 A control point $\vP_i$ will have two coordinates $(x_i, y_i)$ in 2D and
 three coordinates $(x_i, y_i, z_i)$ in 3D.
@@ -348,11 +360,9 @@ using
 \vQ(t; \vP_0, \vP_1, \vP_2) = (1-t)^2 \vP_0 + 2t (1-t) \vP_1 + t^2 \vP_2.
 \label{eq:bezier_quadratic}
 \ee
-Figure~\ref{fig:de_casteljau}, discussed in more detail below, illustrates 
+Figure~\ref{fig:de_casteljau} illustrates 
 an example quadratic B\'ezier curve, with control points indicated.
-Figure~\ref{fig:de_casteljau_sequence} illustrates the same quadratic
-B\'ezier curve, generated at  
-six discrete points in the interval $t \in [0, 1]$.
+
 \begin{figure}[htb]
   \begin{center}
     \includegraphics[width=\textwidth]{fig/de_casteljau.pdf}
@@ -366,6 +376,10 @@ six discrete points in the interval $t \in [0, 1]$.
   \label{fig:de_casteljau} % label must come after caption 
 \end{figure}
 
+\begin{Hexpo}
+{Figure~\ref{fig:de_casteljau_sequence} illustrates the same quadratic
+B\'ezier curve, generated at  
+six discrete points in the interval $t \in [0, 1]$.
 \begin{figure}[htb]
   \begin{center}
     \includegraphics[width=\textwidth]{fig/de_casteljau_sequence.pdf}
@@ -376,7 +390,10 @@ six discrete points in the interval $t \in [0, 1]$.
     Reference: fig/de\_casteljau.py}
   \label{fig:de_casteljau_sequence} % label must come after caption 
 \end{figure}
+}
+\end{Hexpo}
 
+\newpage
 \subsubsection{de Casteljau's Algorithm}
 The foregoing development can be generalized, and is known as 
 {\bf de Casteljau's algorithm}.  Let $\vP_{i,j}$ be control points
@@ -389,11 +406,11 @@ of $n+1$ control points), and
 Thus $\vP_{i,0}$ denote the base level control points. 
 In the preceding section, 
 \begin{align}
-\vP_0 & \mapsto \vP_{0,0}, \;\;\;\mbox{$j=0$, thus $\vP_{i,0}$ is a point}\\
+\vP_0 & \mapsto \vP_{0,0}, \;\;\;\mbox{$j=0$, thus $\vP_{i,0}$ is a point,}\\
 \vP_1 & \mapsto \vP_{1,0}, \\
 \vP_2 & \mapsto \vP_{2,0}, \\
  & \nonumber \\
-\vQ_0 & \mapsto \vP_{0,1}, \;\;\;\mbox{$j=1$, thus $\vP_{i,1}$ is a line}\\
+\vQ_0 & \mapsto \vP_{0,1}, \;\;\;\mbox{$j=1$, thus $\vP_{i,1}$ is a line,}\\
 \vQ_1 & \mapsto \vP_{1,1}, \;\;\;\mbox{and} \\
  & \nonumber \\
 \vQ(t) & \mapsto \vP_{0,2}, \;\;\;\mbox{$j=2$, thus $\vP_{0,2}$ is a quadratic.}
@@ -429,11 +446,12 @@ is given by
 3t(1-t)^2 \vP_{1,0} + 
 3t^2 (1-t) \vP_{2,0} + 
 t^3 \vP_{3,0}.
+\label{eq:bezier_cubic}
 \ee
 
 \subsubsection{Bernstein Polynomials}
-The general form of a degree $p$ B\'ezier curve $\vC(t)$ defined by $\vP_i$ 
-control points, $i=0, 1, \ldots,p$, is given by
+The general form of a degree $p$ B\'ezier curve $\vC(t)$ defined by 
+$p + 1$ control points $\vP_i$, $i=0, 1, \ldots,p$, is given by
 \be
 \vC(t) = \sum_{i=0}^p b_{i,p}(t) \vP_i,
 \ee
@@ -457,11 +475,12 @@ $p$ \\
 $i$
 \end{tabular}
 \right)
-= \dst\frac{p!}{i! (p-i)!}
+= \dst\frac{p!}{i!\; (p-i)!}
 \ee
-is the binomial coefficient.
+is the {\bf binomial coefficient}.
 The binomial coefficients are readily 
-attained from Pascal's triangle, written up to $p=4$ below,
+attained from {\bf Pascal's triangle}, written up to $p=4$ in
+Table~\ref{tab:pascal}.
 
 \begin{table}[htb]
 \caption{First five orders of binomial coefficients from Pascal's triangle.}
@@ -477,6 +496,30 @@ $p=4$ & 1 & & 4 & & 6 & & 4 & & 1
 \end{tabular}
 \label{tab:pascal}
 \end{table}
+
+\begin{Hexpo}
+{Find the Bernstein polynomials for a cubic ($p=3$) B\'ezier curve.
+These are
+\begin{align}
+b_{0,3}(t) & = \left(\begin{tabular}{c} 3 \\ 0 \end{tabular} \right) 
+t^0 (1-t)^{3-0} = (1 - t)^3,
+\\
+%
+b_{1,3}(t) & = \left(\begin{tabular}{c} 3 \\ 1 \end{tabular} \right) 
+t^1 (1-t)^{3-1} = 3t (1 - t)^2,
+\\
+%
+b_{2,3}(t) & = \left(\begin{tabular}{c} 3 \\ 2 \end{tabular} \right) 
+t^2 (1-t)^{3-2} = 3 t^2 (1 - t),
+\\
+%
+b_{3,3}(t) & = \left(\begin{tabular}{c} 3 \\ 3 \end{tabular} \right) 
+t^3 (1-t)^{3-3} = t^3,
+%
+\end{align}
+which match the coefficients in (\ref{eq:bezier_cubic}).
+} % end Hexpo
+\end{Hexpo}
 
 
 \clearpage
@@ -552,9 +595,9 @@ No additional continuity constraints can be created since the linear
 spline has only $C^0$ continuity, meaning no derivatives of the 
 function $S_i(x)$ are continuous.
 
-\begin{Hexample}
-{ % begin Hexample
-Let $y = f(x) = \sin(\pi x)$ for $x \in [0, 1]$ be approximated by a linear
+\newpage
+\begin{Hexpo}
+{Let $y = f(x) = \sin(\pi x)$ for $x \in [0, 1]$ be approximated by a linear
 spline and a collection of three points equally spaced on the domain.  
 Note $n+1 = 3$, thus $n=2$, indicating three points and two intervals.
 Table~\ref{tab:linear_spline_example} summarizes the spline data.
@@ -576,12 +619,13 @@ $i$ & $x_i$ & $y_i$ & $\implies$  & $a_i$ & $b_i$ & $\implies$ & $S_i(x)$
 \end{tabular}
 \label{tab:linear_spline_example}
 \end{table}
-} % end Hexample
-\end{Hexample}
+} % end Hexpo
+\end{Hexpo}
 
-\noindent\begin{Hexample}
-{ % begin Hexample
-Repeat the previous example, but now with a
+
+\newpage
+\begin{Hexpo}
+{Repeat the previous example, but now with a
 collection of five points equally spaced on the domain.  
 Thus $n+1 = 5$, thus $n=4$, indicating five points and four intervals.
 Table~\ref{tab:linear_spline_example_two} summarizes the spline data.
@@ -609,9 +653,10 @@ $i$ & $x_i$ & $y_i$ & $\implies$  & $a_i$ & $b_i$ & $\implies$ & $S_i(x)$
 \end{tabular}
 \label{tab:linear_spline_example_two}
 \end{table}
-} % end Hexample
-\end{Hexample}
+} % end Hexpo
+\end{Hexpo}
 
+% \clearpage
 \begin{figure}[htb]
   \begin{center}
     \includegraphics[width=0.6\textwidth]{fig/linear_spline.pdf}
@@ -624,7 +669,7 @@ $i$ & $x_i$ & $y_i$ & $\implies$  & $a_i$ & $b_i$ & $\implies$ & $S_i(x)$
 \end{figure}
 
 
-\clearpage
+% \clearpage
 \subsection{Quadratic Splines}
 
 For quadratic splines, the interval spline definition is 
@@ -714,6 +759,18 @@ constraint on the endpoints, that $S_0(x_0) = y_0$ and $S_{n-1}(x_n) = y_n$.}
 but requires that the {\em third} derivative be continuous at $x_1$ and 
 $x_{n-1}$.
 
+% Manual creation of bibliography (as opposed to automatic BibTeX creation).
+% https://www.overleaf.com/learn/latex/hyperlinks
+% https://web.iit.edu/sites/web/files/departments/academic-affairs/graduate-academic-affairs/pdfs/biblio-help2.pdf
+% \begin{thebibliography}{largest number of items as integer}
+\begin{thebibliography}{2}
+\bibitem[Bartels 1995]{Bartels-1995} Bartels RH, Beatty JC, Barsky BA. An introduction to splines for use in computer graphics and geometric modeling. Morgan Kaufmann; 1995 Sep 15.
+
+\bibitem[Rogers 2000]{Rogers-2000} Rogers DF. An introduction to NURBS: with historical perspective. Elsevier; 2000 Aug 22.
+
+\bibitem[Shiach 2015]{Shiach-2015} Shiach J. B\'ezier Curves.  \url{https://youtu.be/2HvH9cmHbG4}; 2015 Mar 09.
+
+\end{thebibliography}
 
 \end{document}
 

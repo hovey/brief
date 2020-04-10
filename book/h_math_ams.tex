@@ -1232,10 +1232,14 @@
 \newenvironment{Hexpo}[1]  % takes 1 argument
 {
   \stepcounter{Hexpoctr}%
-  % \medskip
+  \medskip
   \noindent 
   {\colorbox{hlightgray}{\parbox{\linewidth}{
-    {\bf \textcolor{hdimdimgray}{\hfill Example \theHexpoctr \hfill}} }}} \\ \textcolor{hdimdimgray}{#1 $\square$} % \\ \centering $\square$
+    {\bf \textcolor{hdimdimgray}{
+            \sffamily
+	    \hfill Example \theHexpoctr \hfill}} }}} 
+	    \\ 
+	    \textcolor{hdimdimgray}{\sffamily\noindent#1 $\square$} % \\ \centering $\square$
 }{
   \medskip
 }
