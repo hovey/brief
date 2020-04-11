@@ -258,9 +258,16 @@ The use of IGA completely eliminates any need to complete the mesh step.}
 
 \include{introduction}
 
-\chapter{Methods}
-\section{Non-local Methods}
-\subsection{Polynomials}
+\chapter{Non-local Methods}
+In the following sections, we introduce non-local methods
+to create parameterized curves from control points.  Thereafter, we
+introduce local methods.
+Non-local methods mean that any change in a control point affects 
+the {\em entire} parameterization.  This is generally undesirable.  
+However, non-local methods are simpler than local methods, so they 
+are introduced first.
+
+\section{Polynomials}
 Let $f(x)$ be the function of order $p$ that is a sum of variable
 $x$ raised to some increasing non-negative integer power, starting 
 from zero, and multiplied
@@ -296,7 +303,7 @@ leads causes an overfitting behavior, which makes polynomials disadvantageous
 to use.  For this reason, polynomials are not further explicated.  They are
 simply included here for context.
 
-\subsection{B\'ezier Curves}
+\section{B\'ezier Curves}
 Several of the ideas in this section are due to the excellent references
 of \cite{Bartels-1995}, \cite{Rogers-2000}, and \cite{Shiach-2015}.
 A B\'ezier curve is a parametric curve defined by control points.
@@ -311,7 +318,7 @@ curve that is a line (order $p=1$) requires two control points.
 Affine transformations may be used to modify the control points, e.g., to 
 scale, reflect, rotate, or translate (offset) the control points.
 
-\subsubsection{B\'ezier Line}
+\subsection{B\'ezier Line}
 Let $\vP(t; \vx)$ be {\bf parametric} equation for a line between 
 two points $\vP_0 = (x_0, y_0, z_0)$ and $\vP_1 = (x_1, y_1, z_1)$, with
 $\vx = (x, y, z)$.
@@ -331,7 +338,7 @@ or in explicit coordinate form,
 t \left\{\begin{tabular}{c} $x_1$ \\ $y_1$ \\ $z_1$ \end{tabular} \right\}.
 \ee
 
-\subsubsection{B\'ezier Quadratic}
+\subsection{B\'ezier Quadratic}
 Let $\vQ(t; \vx)$ be the parametric equation for a quadratic between two points
 $\vQ_0$ and $\vQ_1$.  Let the position of these two points themselves be 
 parameterized by three points $\vP_0$, $\vP_1$, and $\vP_2$, such that
@@ -395,7 +402,7 @@ six discrete points in the interval $t \in [0, 1]$.
 \end{Hexpo}
 
 \newpage
-\subsubsection{de Casteljau's Algorithm}
+\subsection{de Casteljau's Algorithm}
 The foregoing development can be generalized, and is known as 
 {\bf de Casteljau's algorithm}.  Let $\vP_{i,j}$ be control points
 where 
@@ -495,7 +502,7 @@ sym.
 \ee
 
 
-\subsubsection{B\'ezier Cubic}
+\subsection{B\'ezier Cubic}
 The cubic B\'ezier curve $\vP_{0,3}(t)$, given four control points
 $\vP_{0,0}$,
 $\vP_{1,0}$,
@@ -591,7 +598,7 @@ sym.
 \ee
 
 
-\subsubsection{Bernstein Polynomials}
+\subsection{Bernstein Polynomials}
 The general form of a degree $p$ B\'ezier curve $\vC(t)$ defined by 
 $p + 1$ control points $\vP_i$, $i=0, 1, \ldots,p$, is given by
 \be
@@ -639,9 +646,9 @@ $p=4$ & 1 & & 4 & & 6 & & 4 & & 1
 \label{tab:pascal}
 \end{table}
 
+\clearpage
 \begin{Hexpo}
-{Find the Bernstein polynomials for a cubic ($p=3$) B\'ezier curve.
-These are
+{The Bernstein polynomials for a cubic ($p=3$) B\'ezier curve are
 \begin{align}
 b_{0,3}(t) & = \left(\begin{tabular}{c} 3 \\ 0 \end{tabular} \right) 
 t^0 (1-t)^{3-0} = (1 - t)^3,
@@ -660,18 +667,44 @@ t^3 (1-t)^{3-3} = t^3,
 %
 \end{align}
 which match the coefficients in (\ref{eq:bezier_cubic}).  
-These polynomials are shown in Figure~\ref{fig:bernstein}(b).  
-The Bernstein polynomials for a quadratic B\'ezier curve ($p=2$)
-are shown in Figure~\ref{fig:bernstein}(a) for comparison.
+These polynomials are shown in Figure~\ref{fig:bernstein}(c).
+} % end Hexpo
+\end{Hexpo}
+
+\begin{Hexpo}
+{The Bernstein polynomials for a quartic ($p=4$) B\'ezier curve are
+\begin{align}
+b_{0,4}(t) & = \left(\begin{tabular}{c} 4 \\ 0 \end{tabular} \right) 
+t^0 (1-t)^{4-0} = (1 - t)^4,
+\\
+%
+b_{1,4}(t) & = \left(\begin{tabular}{c} 4 \\ 1 \end{tabular} \right) 
+t^1 (1-t)^{4-1} = 4 t (1 - t)^3,
+\\
+%
+b_{2,4}(t) & = \left(\begin{tabular}{c} 4 \\ 2 \end{tabular} \right) 
+t^2 (1-t)^{4-2} = 6 t^2 (1 - t)^2,
+\\
+%
+b_{3,4}(t) & = \left(\begin{tabular}{c} 4 \\ 3 \end{tabular} \right) 
+t^3 (1-t)^{4-3} = 4 t^3 (1 - t),
+\\
+%
+b_{4,4}(t) & = \left(\begin{tabular}{c} 4 \\ 4 \end{tabular} \right) 
+t^4 (1-t)^{4-4} = t^4.
+\end{align}
+These polynomials are shown in Figure~\ref{fig:bernstein}(d).
 } % end Hexpo
 \end{Hexpo}
 
 \begin{figure}[htb]
   \begin{center}
-    \includegraphics[width=0.62\textwidth]{fig/bernstein.pdf}
+    \includegraphics[width=\textwidth]{fig/bernstein.pdf}
   \end{center}
-    \caption{Bernstein polynomials for (a) quadratic B\'ezier ($p=2$), and
-    (b) cubic B\'ezier ($p=3$).
+    \caption{Bernstein polynomials for B\'ezier (a) linear ($p=1$), 
+    (b) quadratic ($p=2$), 
+    (c) cubic ($p=3$), and
+    (d) quartic ($p=4$) curves.
     Reference: fig/bernstein.py.}
   \label{fig:bernstein} % label must come after caption 
 \end{figure}
@@ -682,9 +715,25 @@ Notice that for any of the Bernstein polynomials, their sum always adds to one,
 \ee
 This concept is called {\bf partition of unity}.
 
+\newpage
+\section{B\'ezier Surfaces}
+The B\'ezier curve was parameterized by $t$.  For the
+B\'ezier surface, we have two parameters, $u$ and $v$.
+
+
+
+
 \clearpage
-\section{Local Methods}
-\subsection{General Splines}
+\chapter{Local Methods}
+Local methods mean that any change in a control point does not necessarily
+affects 
+the {\em entire} parameterization.  This is generally very desirable, as
+changes can be focused on a specific region, without
+disrupting the balance of the parameterization.
+However, local methods are more complicated than non-local methods, 
+and require definition over intervals, as well be seen below.
+
+\section{General Splines}
 Let a collection of $n+1$ points $(x_i, y_i)$ for $ i=0, 1, \ldots, n$ 
 approximate the function $y=f(x)$ over the domain $[x_0, x_n]$.  In total, 
 there are $n+1$ points and $n$ intervals.  
@@ -709,7 +758,7 @@ interval spline definition} to polynomial order $p$.
 Below we consider linear splines ($p=1$), quadratic splines ($p=2$), and
 cubic splines ($p=3$).
 
-\subsection{Linear Splines}
+\section{Linear Splines}
 For linear splines, the interval spline definition is
 \be
 S_i(x) 
@@ -830,7 +879,7 @@ $i$ & $x_i$ & $y_i$ & $\implies$  & $a_i$ & $b_i$ & $\implies$ & $S_i(x)$
 
 
 % \clearpage
-\subsection{Quadratic Splines}
+\section{Quadratic Splines}
 
 For quadratic splines, the interval spline definition is 
 \be
@@ -841,7 +890,7 @@ S_i(x) \defe a_i + b_i (x - x_i) + c_i (x - x_i)^2
 \ee
 
 
-\subsection{Cubic Splines}
+\section{Cubic Splines}
 Cubic splines are useful because of their inherent smoothness.  
 The cubic spline, its first derivative, and its second derivative are all
 continuous.  Starting with the cubic spine's third derivative, discontinuity
@@ -919,16 +968,22 @@ constraint on the endpoints, that $S_0(x_0) = y_0$ and $S_{n-1}(x_n) = y_n$.}
 but requires that the {\em third} derivative be continuous at $x_1$ and 
 $x_{n-1}$.
 
+\section{B-Splines}
+To come.
+
 % Manual creation of bibliography (as opposed to automatic BibTeX creation).
 % https://www.overleaf.com/learn/latex/hyperlinks
 % https://web.iit.edu/sites/web/files/departments/academic-affairs/graduate-academic-affairs/pdfs/biblio-help2.pdf
 % \begin{thebibliography}{largest number of items as integer}
 \begin{thebibliography}{2}
+
 \bibitem[Bartels 1995]{Bartels-1995} Bartels RH, Beatty JC, Barsky BA. An introduction to splines for use in computer graphics and geometric modeling. Morgan Kaufmann; 1995 Sep 15.
 
 \bibitem[Rogers 2000]{Rogers-2000} Rogers DF. An introduction to NURBS: with historical perspective. Elsevier; 2000 Aug 22.
 
-\bibitem[Shiach 2015]{Shiach-2015} Shiach J. B\'ezier Curves.  \url{https://youtu.be/2HvH9cmHbG4}; 2015 Mar 09.
+\bibitem[Shiach 2015]{Shiach-2015} Shiach J. B\'ezier Curves.  Mathematics of Computer Graphics and Virtual Environments.  \url{https://youtu.be/2HvH9cmHbG4}; 2015 Mar 09.
+
+\bibitem[Shiach 2015b]{Shiach-2015b} Shiach J. B-Splines.  Mathematics of Computer Graphics and Virtual Environments.  \url{https://youtu.be/qhQrRCJ-mVg}; 2015 Mar 13.
 
 \end{thebibliography}
 
