@@ -40,7 +40,7 @@
 % \usepackage{include/fancyheadings}
 % \usepackage{fancyheadings}
 \usepackage{fancyhdr}
-% \usepackage{multirow} 
+\usepackage{multirow} 
 \usepackage[percent]{overpic}  % \includegraphics 
 % \usepackage{pifont} % required for dingbats
 % \usepackage{psfrag}
@@ -260,12 +260,29 @@ The use of IGA completely eliminates any need to complete the mesh step.}
 
 \chapter{Non-local Methods}
 In the following sections, we introduce non-local methods
-to create parameterized curves from control points.  Thereafter, we
+to create curves from data points.  Thereafter, we
 introduce local methods.
-Non-local methods mean that any change in a control point affects 
-the {\em entire} parameterization.  This is generally undesirable.  
+Non-local methods mean that any change in a data point affects 
+the {\em entire} curve.  This is generally undesirable.  
 However, non-local methods are simpler than local methods, so they 
-are introduced first.
+are introduced first.  Table~\ref{tab:concept_map} presents an overview
+of the four methods to be covered, categorized by interpolation and 
+locality.
+
+\begin{table}[htb]
+\caption{Categorization of methods by interpolation and locality.}
+% \centering
+\begin{center}
+\begin{tabular}{cc||c|c}
+& & \multicolumn{2}{c}{\bf Locality} \\
+& & non-local methods & local methods \\
+\hline \hline
+\multirow{2}{*}{\bf Interpolation} & data points & polynomial & General splines \\ \cline{2-4}
+& basis functions & B\'ezier, Bernstein & B-spline, NURB \\
+\end{tabular}
+\end{center}
+\label{tab:concept_map}
+\end{table}
 
 \section{Polynomials}
 Let $f(x)$ be the function of order $p$ that is a sum of variable
@@ -283,7 +300,8 @@ the first five polynomials by degree, name, and function.
 
 \begin{table}[htb]
 \caption{First five orders of a polynomial function.}
-\centering
+% \centering
+\begin{center}
 \begin{tabular}{c|l|l}
 {\bf degree} & {\bf name} & {\bf function} \\
 \hline \hline
@@ -293,6 +311,7 @@ $p=2$ & quadratic & $f_2(x) = a_0 + a_1 x + a_2 x^2$ \\
 $p=3$ & cubic & $f_3(x) = a_0 + a_1 x + a_2 x^2 + a_3 x^3$ \\
 $p=4$ & quartic & $f_4(x) = a_0 + a_1 x + a_2 x^2 + a_3 x^3 + a_4 x^4$ \\
 \end{tabular}
+\end{center}
 \label{tab:polynomials}
 \end{table}
 
@@ -633,7 +652,8 @@ Table~\ref{tab:pascal}.
 
 \begin{table}[htb]
 \caption{First five orders of binomial coefficients from Pascal's triangle.}
-\centering
+% \centering
+\begin{center}
 \begin{tabular}{c|ccccccccc}
 {\bf degree} & \multicolumn{9}{c}{\bf binomial coefficient} \\
 \hline \hline
@@ -643,6 +663,7 @@ $p=2$ & & & 1 & & 2 & & 1 & & \\
 $p=3$ & & 1 & & 3 & & 3 & & 1 & \\
 $p=4$ & 1 & & 4 & & 6 & & 4 & & 1
 \end{tabular}
+\end{center}
 \label{tab:pascal}
 \end{table}
 
@@ -815,7 +836,8 @@ linear spline interpolations.
 \begin{table}[h]
 \caption{Linear spline approximation of $y = f(x) = \sin(\pi x)$ 
 using three points and two intervals.}
-\centering
+% \centering
+\begin{center}
 \begin{tabular}{c|c|ccc|ccc}
 $i$ & $x_i$ & $y_i$ & $\implies$  & $a_i$ & $b_i$ & $\implies$ & $S_i(x)$
 \\
@@ -826,6 +848,7 @@ $i$ & $x_i$ & $y_i$ & $\implies$  & $a_i$ & $b_i$ & $\implies$ & $S_i(x)$
 \\
 2 & 2/2 & 0 &  & --- & --- &   & ---
 \end{tabular}
+\end{center}
 \label{tab:linear_spline_example}
 \end{table}
 } % end Hexpo
@@ -843,7 +866,8 @@ linear spline interpolations.
 \begin{table}[h]
 \caption{Linear spline approximation of $y = f(x) = \sin(\pi x)$ 
 using five points and four intervals.}
-\centering
+% \centering
+\begin{center}
 \begin{tabular}{c|c|ccc|ccc}
 $i$ & $x_i$ & $y_i$ & $\implies$  & $a_i$ & $b_i$ & $\implies$ & $S_i(x)$
 \\
@@ -860,6 +884,7 @@ $i$ & $x_i$ & $y_i$ & $\implies$  & $a_i$ & $b_i$ & $\implies$ & $S_i(x)$
 \\
 4 & 4/4 & 0 &  & --- & --- &   & ---
 \end{tabular}
+\end{center}
 \label{tab:linear_spline_example_two}
 \end{table}
 } % end Hexpo
