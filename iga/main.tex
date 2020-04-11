@@ -599,10 +599,10 @@ sym.
 
 
 \subsection{Bernstein Polynomials}
-The general form of a degree $p$ B\'ezier curve $\vC(t)$ defined by 
+The general form of a degree $p$ B\'ezier curve $\vC_p(t)$ defined by 
 $p + 1$ control points $\vP_i$, $i=0, 1, \ldots,p$, is given by
 \be
-\vC(t) = \sum_{i=0}^p b_{i,p}(t) \vP_i,
+\vC_p(t) = \sum_{i=0}^p b_{i,p}(t) \vP_i,
 \ee
 where
 $b_{i,p}(t)$ is a {\bf Bernstein polynomial}, defined as
@@ -701,10 +701,10 @@ These polynomials are shown in Figure~\ref{fig:bernstein}(d).
   \begin{center}
     \includegraphics[width=\textwidth]{fig/bernstein.pdf}
   \end{center}
-    \caption{Bernstein polynomials for B\'ezier (a) linear ($p=1$), 
-    (b) quadratic ($p=2$), 
-    (c) cubic ($p=3$), and
-    (d) quartic ($p=4$) curves.
+    \caption{Bernstein polynomials for B\'ezier (a) linear, 
+    (b) quadratic, 
+    (c) cubic, and
+    (d) quartic curves.
     Reference: fig/bernstein.py.}
   \label{fig:bernstein} % label must come after caption 
 \end{figure}

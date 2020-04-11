@@ -32,7 +32,7 @@ b34 = 4 * t**3 * (1 - t)
 b44 = t**4
 
 # fig = plt.figure(figsize=(6, 6))  # x in inches wide, y inches tall
-fig = plt.figure(figsize=(6, 6))  # x in inches wide, y inches tall
+fig = plt.figure(figsize=(6.5, 6.5))  # x in incmes wide, y inches tall
 ax2 = fig.add_subplot(2, 2, 3, aspect=1)
 ax0 = fig.add_subplot(2, 2, 1, aspect=1)
 ax3 = fig.add_subplot(2, 2, 4, aspect=1, sharey=ax2)
