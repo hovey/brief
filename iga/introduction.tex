@@ -29,6 +29,80 @@ in this manuscript, followed by details of each.
 \section{Overview}
 To come.
 
+\clearpage
+\section{Class Segmentation}
+
+\begin{figure}[h!]
+  \begin{center}
+    \includegraphics[width=0.7\textwidth]{fig/image.pdf}
+    \includegraphics[width=0.7\textwidth]{fig/classification.pdf}
+  \end{center}
+    \caption{Illustration of an image captured into colored pixel values (top)
+    and then color-coded by category, e.g., sky, building, car, road, person, 
+    crosswalk (bottom).
+    Reference: fig/image.pdf, fig/classification.pdf, \cite{Heinrich-2016}.}
+  \label{fig:image_class_segmentation} % label must come after caption 
+\end{figure}
+
+\begin{figure}[htb]
+  \begin{center}
+    %\includegraphics[width=0.3\textwidth]{fig/ptm_scan.pdf}
+    %\includegraphics[width=0.3\textwidth]{fig/ptm_ground_truth.pdf}
+    %\includegraphics[width=0.3\textwidth]{fig/ptm_prediction.pdf}
+    % \begin{overpic}[width=0.3\textwidth, grid]{fig/ptm_scan.pdf}
+    \begin{overpic}[width=0.3\textwidth]{fig/ptm_scan.pdf}
+      \put(20, -10){(a) medical image}
+    \end{overpic}
+    % \begin{overpic}[width=0.3\textwidth, grid]{fig/ptm_ground_truth.pdf}
+    \begin{overpic}[width=0.3\textwidth]{fig/ptm_ground_truth.pdf}
+      \put(21, -10){(b) ground truth}
+    \end{overpic}
+    % \begin{overpic}[width=0.3\textwidth, grid]{fig/ptm_prediction.pdf}
+    \begin{overpic}[width=0.3\textwidth]{fig/ptm_prediction.pdf}
+      \put(10, -10){(c) machine prediction}
+    \end{overpic}
+  \end{center}
+    \caption{Pixel to Mesh (PTM) result of class segmentation, bone versus
+    non-bone, from (a) medical scan; (b) ground truth
+    versus (b) machine prediction.
+    Reference: 
+    fig/ptm\_scan.pdf, 
+    fig/ptm\_ground\_truth.pdf,
+    fig/ptm\_prediction.pdf.}
+  \label{fig:ptm_class_segmentation} % label must come after caption 
+\end{figure}
+
+\begin{figure}[htb]
+  \begin{center}
+    \includegraphics[width=0.7\textwidth]{fig/ptm_20_torsos.pdf}
+  \end{center}
+    \caption{Results of the U-NET deep learning algorithm applied 
+    \cite{Ronneberger-2015} applied to the IRCAD data set 
+    \cite{IRCAD-2019}.
+    Reference: fig/ptm\_20\_torsos.pdf}
+  \label{fig:ptm_20_torsos} % label must come after caption 
+\end{figure}
+
+\clearpage
+\section{Instance Segmentation}
+
+\begin{figure}[h!]
+  \begin{center}
+    \includegraphics[width=0.5\textwidth]{fig/people_photo.pdf}
+    \includegraphics[width=0.5\textwidth]{fig/people_class_seg.pdf}
+    \includegraphics[width=0.5\textwidth]{fig/people_instance_seg.pdf}
+  \end{center}
+    \caption{A photograph (top) used for (middle) class segmentation, 
+    e.g., people versus non-people, and for (bottom) instance segmentation, 
+    e.g., a unique person.
+    Reference: fig/people\_photo.pdf, 
+    fig/people\_class\_seg.pdf, 
+    fig/people\_instance\_seg.pdf, 
+    \cite{Heinrich-2016}.}
+  \label{fig:image_instance_segmentation} % label must come after caption 
+\end{figure}
+
+\newpage
 \section{Motivation by Analogy}
 
 The concept of converting pixels to a geometric representation, hereinafter
