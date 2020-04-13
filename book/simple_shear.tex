@@ -1,5 +1,17 @@
 \section{Simple Shear}
-Figure~\ref{fig:simple_shear} illustrates {\bf simple shear}, with 
+In this section, we cover {\bf simple shear}, 
+a deformation that illustrates several concepts without
+being too complicated.  That said, we will find that
+simple shear isn't quite as trivial as its name would 
+suggest.  In fact, a paper titled 
+{\em Simple shear is not so 
+simple}\footnote{Destrade M, 
+Murphy JG, Saccomandi G. Simple shear is 
+not so simple. International Journal of 
+Non-Linear Mechanics. 2012 Mar 1;47(2):210-4.}
+reviews some details not discussed here.
+
+Figure~\ref{fig:simple_shear} illustrates simple shear, with 
 relative motion of planes normal to the vertical axis.
 For all configurations (reference and current):
 \begin{itemize}
@@ -220,9 +232,12 @@ v_{i,j} =
 From this, the rate of deformation, 
 $\tdbold = \half[\grad \vv + (\grad \vv)\transpose]$, 
 and spin, 
-$\twbold = \half[\grad \vv - (\grad \vv)\transpose]$, respectively, are
+$\twbold = \half[\grad \vv - (\grad \vv)\transpose]$, 
+respectively, are
 \be
 \td_{ij} = 
+\underset{\mbox{\footnotesize pure shear}}{
+\underbrace{
 \half
 \left[
 \begin{tabular}{ccc}
@@ -231,8 +246,12 @@ $\dot{a}$ & 0 & 0 \\
 0 & 0 & 0
 \end{tabular}
 \right]
+} % underbrace
+} % underset
 \;\;\mbox{ and }\;\;
 \tw_{ij} = 
+\underset{\mbox{\footnotesize rigid rotation}}{
+\underbrace{
 \half
 \left[
 \begin{tabular}{ccc}
@@ -240,8 +259,19 @@ $\dot{a}$ & 0 & 0 \\
 $-\dot{a}$ & 0 & 0 \\
 0 & 0 & 0
 \end{tabular}
-\right].
+\right]
+} % underbrace
+} % underset
+.
 \ee
+Thus in rate form, 
+simple shear is the 
+additive decomposition 
+($\grad \vv = \tdbold + \twbold$) of
+two {\em even more simple} 
+motions: (a)  pure shear and (b) rigid body 
+rotation about the $\vethree$ axis.
+
 The eigenvalues of $\tdbold$ and their
 corresponding eigenvectors, satisfying $[\;\tdbold\;] \left\{\vn\right\} 
 = \lambda \left\{\vn\right\}$, are
