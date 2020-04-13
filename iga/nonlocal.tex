@@ -18,6 +18,7 @@ locality.
 \begin{tabular}{cc||c|c}
 & & \multicolumn{2}{c}{\bf Locality} \\
 & & non-local methods & local methods \\
+& & ``curves'' & ``splines'' \\
 \hline \hline
 \multirow{2}{*}{\bf Interpolation} & data points & polynomial & spline \\ \cline{2-4}
 & control points & B\'ezier, Bernstein & B-spline, NURB \\
@@ -25,9 +26,18 @@ locality.
 \end{center}
 \label{tab:concept_map}
 \end{table}
+In general, we will refer to non-local methods as {\bf curves} of 
+degree $p$, denoted
+$f_p(x) \in \real$ for non-parameterized curves (univariate polynomials, as
+in Table~\ref{tab:polynomials}) and 
+$\vC_p(t; \vx) \in \realthree$ for parameterized curves (B\'ezier curves written
+in the Bernstein basis, as in (\ref{eq:general_bezier_curve})).  
+In contrast, we will refer to local methods as {\bf splines} of 
+degree $p$, denoted $S_p(t; x) \in \real$ and 
+$\vS_p(t; \vx) \in \realthree$ (used throughout Chapter~\ref{chapter:local_methods}).
 
 \section{Polynomials}
-We discuss polynomials briefly for three main reasons:  
+We briefly discuss polynomials for three main reasons:  
 (1)~To be explicit
 regarding the terminology of {\bf power} versus {\bf order} and be clear
 on the conventions and notations used in this document, 
@@ -107,6 +117,7 @@ but also with concepts from initial boundary value problems (IBVPs),
 which denote initial conditions, the first values, as occurring at $t_0$.
 
 \section{B\'ezier Curves}
+\label{sec:bezier_curves}
 Several of the ideas in this section are due to the excellent references
 of \cite{Bartels-1995}, \cite{Rogers-2000}, and \cite{Shiach-2015}.
 A B\'ezier curve is a parametric curve defined by control points.
@@ -343,7 +354,6 @@ is given by
 t^3 \vP_{3,0}.
 \label{eq:bezier_cubic}
 \ee
-
 Again for efficiency, 
 it is common to rewrite the cubic B\'ezier $\vP_{0,3}$ 
 in matrix form for {\em any} set of {\bf four control points}.
@@ -442,7 +452,8 @@ sym.
 The general form of a degree $p$ B\'ezier curve $\vC_p(t)$ defined by 
 $p + 1$ control points $\vP_i$, $i=0, 1, \ldots,p$, is given by
 \be
-\vC_p(t) = \sum_{i=0}^p b_{i,p}(t) \vP_i,
+\vC_p(t) \defe \sum_{i=0}^p b_{i,p}(t) \vP_i,
+\label{eq:general_bezier_curve}
 \ee
 where
 $b_{i,p}(t)$ is a {\bf Bernstein polynomial}, defined as
@@ -454,10 +465,7 @@ $p$ \\
 $i$
 \end{tabular}
 \right) 
-t^i (1-t)^{p-i}.
-\ee
-Here, 
-\be
+t^i (1-t)^{p-i}, \;\;\mbox{ and where } \;\;
 \left(
 \begin{tabular}{c}
 $p$ \\ 
@@ -470,6 +478,26 @@ is the {\bf binomial coefficient}.
 The binomial coefficients are readily 
 attained from {\bf Pascal's triangle}, written up to $p=4$ in
 Table~\ref{tab:pascal}.
+Using (\ref{eq:general_bezier_curve}),
+the quadratic ($p=2$), cubic ($p=3$), and quartic ($p=4$) B\'ezier curves
+can be written, respectively, in explicit form as 
+\begin{align}
+\vC_2(t) 
+&=
+b_{0,2} \vP_0 + b_{1,2} \vP_1 + b_{2,2} \vP_2 \\
+\vC_3(t) 
+&=
+b_{0,3} \vP_0 + b_{1,3} \vP_1 + b_{2,3} \vP_2 + b_{3,3} \vP_3 \\
+\vC_4(t) 
+&=
+b_{0,4} \vP_0 + b_{1,4} \vP_1 + b_{2,4} \vP_2 + b_{3,4} \vP_3 + b_{4,4} \vP_4.
+\end{align}
+Notice that for any of the Bernstein polynomials, their sum always adds to one, 
+\be
+\sum_{i=0}^p b_{i,p}(t) = 1.0.
+\ee
+This concept is called {\bf partition of unity}.
+
 
 \begin{table}[htb]
 \caption{First five degrees of binomial coefficients from Pascal's triangle.}
@@ -487,6 +515,10 @@ $p=4$ & 1 & & 4 & & 6 & & 4 & & 1
 \end{center}
 \label{tab:pascal}
 \end{table}
+
+
+
+
 
 \clearpage
 \begin{Hexpo}
@@ -551,13 +583,8 @@ These polynomials are shown in Figure~\ref{fig:bernstein}(d).
   \label{fig:bernstein} % label must come after caption 
 \end{figure}
 
-Notice that for any of the Bernstein polynomials, their sum always adds to one, 
-\be
-\sum_{i=0}^p b_{i,p}(t) = 1.0.
-\ee
-This concept is called {\bf partition of unity}.
 
-\newpage
+\clearpage
 \section{B\'ezier Surfaces}
 The B\'ezier curve was parameterized by $t$.  For the
 B\'ezier surface, we have two parameters, $u$ and $v$.

@@ -1,5 +1,6 @@
 
 \chapter{Local Methods}
+\label{chapter:local_methods}
 Local methods mean that any change in a control point does not necessarily
 affects 
 the {\em entire} parameterization.  This is generally very desirable, as
@@ -79,7 +80,6 @@ No additional continuity constraints can be created since the linear
 spline has only $C^0$ continuity, meaning no derivatives of the 
 function $S_i(x)$ are continuous.
 
-\newpage
 \begin{Hexpo}
 {Let $y = f(x) = \sin(\pi x)$ for $x \in [0, 1]$ be approximated by a linear
 spline and a collection of three points equally spaced on the domain.  
@@ -107,7 +107,6 @@ $i$ & $x_i$ & $y_i$ & $\implies$  & $a_i$ & $b_i$ & $\implies$ & $S_i(x)$
 \end{table}
 } % end Hexpo
 \end{Hexpo}
-
 
 \newpage
 \begin{Hexpo}
@@ -157,7 +156,7 @@ $i$ & $x_i$ & $y_i$ & $\implies$  & $a_i$ & $b_i$ & $\implies$ & $S_i(x)$
 \end{figure}
 
 
-% \clearpage
+\clearpage
 \section{Quadratic Splines}
 
 For quadratic splines, the interval spline definition is 
@@ -248,5 +247,57 @@ but requires that the {\em third} derivative be continuous at $x_1$ and
 $x_{n-1}$.
 
 \section{B-Splines}
-To come.
+A {\bf B-spline} is a spline composed of two or more B\'ezier curves, joined 
+end-to-end.  The ``B'' in B-spline stands for {\bf basis}, as the spline
+curves defined over an interval utilize
+control points that are interpolated with a basis.  
+In contrast, 
+general splines, 
+such as the linear, quadratic, and cubic splines discussed in the previous 
+sections, 
+use data points that are interpolated directly, without basis functions.
+
+B-splines are {\bf parametric}, so the functional form for a general
+B-spline curve $\vS \in \realthree$, will will be written
+explicitly as $\vS(t; \vx)$, similar to the notation introduced with
+the B\'ezier curves in Section~\ref{sec:bezier_curves}.  As with 
+the compact notation used previously with B\'ezier curves, B-spline 
+curves are typically written in terms of the parametric variable $t$, without
+the explicit notation on control points located in space with coordinates 
+$\vx$.
+
+Similar to the definition of a general B\'ezier curve $\vC_p(t)$ of degree
+$p$ in (\ref{eq:general_bezier_curve}), the general form for a 
+B-spline $\vS_p(t)$ of degree $p$, with $p+1$ control points 
+$\vP_i$, $i=0, 1, \ldots, p$, is given by
+\be
+\vS_p(t) \defe \sum_{i=0}^n
+\ee
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
