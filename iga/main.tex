@@ -374,11 +374,18 @@ A B\'ezier curve is a parametric curve defined by control points.
 A control point $\vP_i$ will have two coordinates $(x_i, y_i)$ in 2D and
 three coordinates $(x_i, y_i, z_i)$ in 3D.
 The parameter is typically denoted $t$.  The bounds for $t$ are 
-always $0 \leq t \leq 1$.  
+$0 \leq t \leq 1$ unless otherwise indicated.
 
-A B\'ezier curve of order $p$ requires $p+1$
+Here, $t$ does not denote time, as is customary in solid mechanics.  
+Rather, $t$ can be thought of as a ``pseudo-time,'' wherein the 
+parameterization flows from beginning to end of the $t$ bounds.
+Also, the bounds of $t$ will later be shown to be arbitrary.  For now, 
+however, it is much more convenient to state the bounds as between zero
+and one.
+
+A B\'ezier curve of degree $p$ requires $p+1$
 control points. For example, a B\'ezier 
-curve that is a line (order $p=1$) requires two control points.
+curve that is a line (degree $p=1$) requires two control points.
 Affine transformations may be used to modify the control points, e.g., to 
 scale, reflect, rotate, or translate (offset) the control points.
 
@@ -434,8 +441,8 @@ using
 Figure~\ref{fig:de_casteljau} illustrates 
 an example quadratic B\'ezier curve, with control points indicated.
 The number of control points is three, so the maximum 
-order B\'ezier that can be constructed is two 
-(order $p$ requires $p+1$ control points).
+degree B\'ezier that can be constructed is two 
+(degree $p$ requires $p+1$ control points).
 
 \begin{figure}[htb]
   \begin{center}
@@ -473,7 +480,7 @@ where
 \begin{itemize}
 \item $i$ denotes the {\bf control point index}, $i=0, 1, \ldots n$, (total 
 of $n+1$ control points), and
-\item $j$ denote the {\bf order} of the curve, $j=0, 1, \ldots p$.
+\item $j$ denote the {\bf degree} of the curve, $j=0, 1, \ldots p$.
 \end{itemize}
 Thus $\vP_{i,0}$ denote the base level control points. 
 In the preceding section, 
@@ -515,7 +522,7 @@ explain de~Casteljau's algorithm.  With
 \vP_{0,0} & \mapsto \vP_0, \\
 \vP_{1,0} & \mapsto \vP_1, \\
 \vP_{2,0} & \mapsto \vP_2, \mbox{ and } \\
-\vP_{0,2} & \mapsto \vC_2, \mbox{ to denote a curve } C \mbox { of order } p=2,
+\vP_{0,2} & \mapsto \vC_2, \mbox{ to denote a curve } C \mbox { of degree } p=2,
 \end{align}
 the quadratic B\'ezier $\vC_2$ is written in matrix form as
 \be
@@ -591,7 +598,7 @@ With
 \vP_{1,0} & \mapsto \vP_1, \\
 \vP_{2,0} & \mapsto \vP_2, \\
 \vP_{3,0} & \mapsto \vP_3, \mbox{ and } \\
-\vP_{0,3} & \mapsto \vC_3, \mbox{ to denote a curve } C \mbox { of order } p=3,
+\vP_{0,3} & \mapsto \vC_3, \mbox{ to denote a curve } C \mbox { of degree } p=3,
 \end{align}
 the cubic B\'ezier $\vC_3$ is written in matrix form as
 \be
@@ -696,7 +703,7 @@ attained from {\bf Pascal's triangle}, written up to $p=4$ in
 Table~\ref{tab:pascal}.
 
 \begin{table}[htb]
-\caption{First five orders of binomial coefficients from Pascal's triangle.}
+\caption{First five degrees of binomial coefficients from Pascal's triangle.}
 % \centering
 \begin{center}
 \begin{tabular}{c|ccccccccc}
@@ -820,7 +827,7 @@ twenty-sixth coefficient.}
 multiply successive powers\footnote{The powers are non-negative integers.} 
 of $(x-x_i$), summed
 to an arbitrary polynomial power $p$.  This is referred to as the {\bf
-interval spline definition} to polynomial order $p$.
+interval spline definition} to polynomial degree $p$.
 Below we consider linear splines ($p=1$), quadratic splines ($p=2$), and
 cubic splines ($p=3$).
 
