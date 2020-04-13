@@ -268,12 +268,56 @@ $\vx$.
 
 Similar to the definition of a general B\'ezier curve $\vC_p(t)$ of degree
 $p$ in (\ref{eq:general_bezier_curve}), the general form for a 
-B-spline $\vS_p(t)$ of degree $p$, with $p+1$ control points 
-$\vP_i$, $i=0, 1, \ldots, p$, is given by
+B-spline $\vS_p(t)$ of degree $p$, with $n+1$ (not necessarily $p+1$, as
+with B\'ezier curves) control points 
+$\vP_i$, $i=0, 1, \ldots, n$, is given by
 \be
-\vS_p(t) \defe \sum_{i=0}^n
+\vS_p(t) \defe \sum_{i=0}^n N_{i,p}(t) \vP_i, 
 \ee
-
+where $N_{i,p}$ is the {\bf normalized basis function} and $\vP_i \in \realthree$
+are the control points $\vP_0, \vP_1, \ldots, \vP_n$.
+The normalized basis functions are defined by the {\bf Cox-de~Boor recursion
+formulas}:
+\be
+\mbox{for } p=0: \;\;\; N_{i,0}(t) \;\; \defe \;\;
+\left\{
+\begin{tabular}{cl}
+1
+&
+if $t_i \leq t < t_{i+1}$,
+\\
+0 
+& 
+otherwise.
+\end{tabular}
+\right.
+\ee
+%
+\be
+\mbox{for } p\geq 1: \;\;\; 
+N_{i,p}(t) \;\; \defe \;\;
+\dst\frac{\;\;\;\;t - t_i}{t_{i+p} - t_i} \; N_{i,p-1}(t) 
+\;\; + \;\;
+\dst\frac{t_{i+p+1} - t\;\;\;\;}{t_{i+p+1} - t_{i+1}} \; N_{i+1,p-1}(t).
+\ee
+The $t_i$, $t_{i+1}$, $t_{i+p}$, and $t_{i+p+1}$ are referred to as {\bf knots}, which
+mark the termination points, beginning or end, of an interval for the
+parameter $t$.
+The structure of the Cox-de~Boor recursion formulas is shown below through
+illustrations of linear ($p=1$), quadratic ($p=2$), and cubic ($p=3$)
+examples.
+\begin{Hexpo}
+{% Hexpo open
+Linear B-spline ($p=1$): \\
+\be
+\mbox{for } p=1: \;\;\;
+N_{i,1}(t) = 
+\dst\frac{\;\;\;\;t - t_i}{t_{i+1} - t_i} \; N_{i,0}(t) 
+\;\; + \;\;
+\dst\frac{t_{i+2} - t\;\;\;\;}{t_{i+2} - t_{i+1}} \; N_{i+1,0}(t)
+\ee
+}% Hexpo close
+\end{Hexpo}
 
 
 
