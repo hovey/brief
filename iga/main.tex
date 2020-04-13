@@ -32,6 +32,8 @@
   urlcolor=blue % instead of magenta default, use blue
 } % close hyperref
 %
+\usepackage{framed} % for Hquote environment
+
 \usepackage{amsmath} % needed for align of equations
 \usepackage{amssymb}
 \usepackage[toc,titletoc,header]{appendix}
@@ -262,7 +264,8 @@ The use of IGA completely eliminates any need to complete the mesh step.}
 In the following sections, we introduce non-local methods
 to create curves from data points.  Thereafter, we
 introduce local methods.
-Non-local methods mean that any change in a data point affects 
+Non-local methods mean that any change in a data point (or a control point) 
+affects 
 the {\em entire} curve.  This is generally undesirable.  
 However, non-local methods are simpler than local methods, so they 
 are introduced first.  Table~\ref{tab:concept_map} presents an overview
@@ -277,7 +280,7 @@ locality.
 & & \multicolumn{2}{c}{\bf Locality} \\
 & & non-local methods & local methods \\
 \hline \hline
-\multirow{2}{*}{\bf Interpolation} & data points & polynomial & General splines \\ \cline{2-4}
+\multirow{2}{*}{\bf Interpolation} & data points & polynomial & spline \\ \cline{2-4}
 & control points & B\'ezier, Bernstein & B-spline, NURB \\
 \end{tabular}
 \end{center}
@@ -285,42 +288,84 @@ locality.
 \end{table}
 
 \section{Polynomials}
-Let $f(x)$ be the function of order $p$ that is a sum of variable
+We discuss polynomials briefly for three main reasons:  
+(1)~To be explicit
+regarding the terminology of {\bf power} versus {\bf order} and be clear
+on the conventions and notations used in this document, 
+(2)~to
+illustrate the shortcomings of polynomials and thus motivate alternative 
+approaches, and 
+(3)~to lay the framework
+for more sophisticated interpolations that will rely on polynomials in some 
+form.
+
+First, with regard to {\em power} versus {\em order}, \cite{Cottrell-2009}
+noted the following:
+
+\begin{Hquote}
+Page 18, Note 3: ``There is a terminology conflict between the geometry and analysis communities. 
+Geometers will say a cubic polynomial has degree 3 and order 4.  In geometry,
+order equals degree plus one.  Analysts will say a cubic polynomial is order
+three, and use the term order and degree synonymously.  This is the convention
+we [Cottrell, Hughes, Bazilevs] adhere to.'' 
+\end{Hquote}
+
+Unlike \cite{Cottrell-2009}, we adopt the geometry community 
+convention in this document, thus 
+we distinguish between {\em order} and {\em power}.  
+We have elected this approach primarily for consistency of this 
+document with historical writings of the geometry community.
+
+Next, we state as {\em prima facie} a well-known shortcoming of polynomials
+is their propensity to overfit the data.  This characteristic arises because
+a polynomial of degree $p$ has $p-1$ changes of direction, from $-f(x)$ to
+$f(x)$, or vice versa.  No further discussion on overfitting is given here, 
+though explications of this topic are widely available.  
+
+Finally, there is some basic notation used with polynomials that we need 
+to make clear and concrete.  
+Let $f(x)$ be the function of degree $p$ 
+(equivalently, order $p+1$) that is a sum of variable
 $x$ raised to some increasing non-negative integer power, starting 
 from zero, and multiplied
 by a constant coefficient $a$, such that
 \be
 f(x) \defe
-a_0 + a_1 x + a_2 x^2 + a_3 x^3 + \cdots + a_p x^p = 
+a_0 x^0 + a_1 x^1 + a_2 x^2 + a_3 x^3 + \cdots + a_p x^p = 
 \sum_{i=0}^p a_i x^i.
 \ee
 The function $f(x)$ is a {\bf polynomial} of {\bf degree} $p$, the highest
-non-zero power used in the summation.  Table~\ref{tab:polynomials} lists
-the first five polynomials by degree, name, and function.  
+non-zero {\bf power}\footnote{We suggest the mnemonic of ``$p$'' as the 
+index used for the ``\underline{p}ower'' in a ``\underline{p}olynomial.''} used in the summation.  
+Table~\ref{tab:polynomials} lists
+the first five polynomials by order, degree, name, and function.  
+Hereinafter, $p$ will be considered the index of the 
+power of a polynomial.  The $p$-index, a subset of non-negative integers, 
+will start from zero and consecutively increase by one.
 
 \begin{table}[htb]
 \caption{First five orders of a polynomial function.}
 % \centering
 \begin{center}
-\begin{tabular}{c|l|l}
-{\bf degree} & {\bf name} & {\bf function} \\
+\begin{tabular}{c|c|l|l}
+{\bf order} & {\bf degree} & {\bf name} & {\bf function} \\
 \hline \hline
-$p=0$ & constant & $f_0(x) = a_0$ \\
-$p=1$ & linear & $f_1(x) = a_0 + a_1 x$ \\
-$p=2$ & quadratic & $f_2(x) = a_0 + a_1 x + a_2 x^2$ \\
-$p=3$ & cubic & $f_3(x) = a_0 + a_1 x + a_2 x^2 + a_3 x^3$ \\
-$p=4$ & quartic & $f_4(x) = a_0 + a_1 x + a_2 x^2 + a_3 x^3 + a_4 x^4$ \\
+$\mathcal{O}(1)$ & $p=0$ & constant & $f_0(x) = a_0$ \\
+$\mathcal{O}(2)$ &  $p=1$ & linear & $f_1(x) = a_0 + a_1 x$ \\
+$\mathcal{O}(3)$ & $p=2$ & quadratic & $f_2(x) = a_0 + a_1 x + a_2 x^2$ \\
+$\mathcal{O}(4)$ & $p=3$ & cubic & $f_3(x) = a_0 + a_1 x + a_2 x^2 + a_3 x^3$ \\
+$\mathcal{O}(5)$ & $p=4$ & quartic & $f_4(x) = a_0 + a_1 x + a_2 x^2 + a_3 x^3 + a_4 x^4$ \\
 \end{tabular}
 \end{center}
 \label{tab:polynomials}
 \end{table}
 
-For a polynomial of degree $p$, the function has $p-1$ changes of direction, 
-from $-f(x)$ to $f(x)$, or vice versa.
-This characteristic
-leads causes an overfitting behavior, which makes polynomials disadvantageous
-to use.  For this reason, polynomials are not further explicated.  They are
-simply included here for context.
+One final note regarding conventions of indices.  We use the first
+item of a series {\tt s} to be {\tt s[0]}, the second item to be 
+{\tt s[1]}, and so forth.  We prefer the zero-based indices because 
+it is consistent not only with our work in Python, which is zero-based, 
+but also with concepts from initial boundary value problems (IBVPs), 
+which denote initial conditions, the first values, as occurring at $t_0$.
 
 \section{B\'ezier Curves}
 Several of the ideas in this section are due to the excellent references
@@ -1003,6 +1048,8 @@ To come.
 \begin{thebibliography}{2}
 
 \bibitem[Bartels 1995]{Bartels-1995} Bartels RH, Beatty JC, Barsky BA. An introduction to splines for use in computer graphics and geometric modeling. Morgan Kaufmann; 1995 Sep 15.
+
+\bibitem[Cottrell 2009]{Cottrell-2009} Cottrell JA, Hughes TJ, Bazilevs Y. Isogeometric analysis: toward integration of CAD and FEA. John Wiley \& Sons; 2009 Aug 11.
 
 \bibitem[Heinrich 2016]{Heinrich-2016} Heinrich G.  Image segementation using DIGITS 5, NVIDIA Developer Blog.  \url{https://devblogs.nvidia.com/image-segmentation-using-digits-5}; 2016 Nov 10.
 
