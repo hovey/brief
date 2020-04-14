@@ -90,7 +90,6 @@ ax1.plot(t, N1(2, t, fs), **kwargs)
 ax1.grid()
 
 # quadratic (p=2)
-# ax2.plot(t, N1(0, t, fs), **kwargs)
 ax2.plot(t, N2(0, t, fs), **kwargs)
 ax2.plot(t, N2(1, t, fs), **kwargs)
 ax2.grid()
