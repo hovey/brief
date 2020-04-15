@@ -248,13 +248,13 @@ $x_{n-1}$.
 
 \section{B-Splines}
 A {\bf B-spline} is a spline composed of two or more B\'ezier curves, joined 
-end-to-end.  The ``B'' in B-spline stands for {\bf basis}, as the spline
-curves defined over an interval utilize
-control points that are interpolated with a basis.  
+end-to-end, subject to certain restrictions, which will be discussed below.
+The ``B'' in B-spline stands for {\bf basis}, as the spline
+curves, defined over an interval, utilize
+control points that are interpolated with basis functions.
 In contrast, 
-general splines, 
-such as the linear, quadratic, and cubic splines discussed in the previous 
-sections, 
+general splines (\eg the linear, quadratic, and cubic 
+splines discussed in the previous sections)
 use data points that are interpolated directly, without basis functions.
 
 B-splines are {\bf parametric}, so the functional form for a general
@@ -264,7 +264,8 @@ the B\'ezier curves in Section~\ref{sec:bezier_curves}.  As with
 the compact notation used previously with B\'ezier curves, B-spline 
 curves are typically written in terms of the parametric variable $t$, without
 the explicit notation on control points located in space with coordinates 
-$\vx$.
+$\vx$ of the control points, \ie $\vP_i(\vx)$, $\vx = \langle \; x_i, y_i, z_i
+\; \rangle$.
 
 Similar to the definition of a general B\'ezier curve $\vC_p(t)$ of degree
 $p$ in (\ref{eq:general_bezier_curve}), the general form for a 
@@ -300,12 +301,12 @@ N_{i,p}(t) \;\; \defe \;\;
 \;\; + \;\;
 \dst\frac{t_{i+p+1} - t\;\;\;\;\;}{t_{i+p+1} - t_{i+1}} \; N_{i+1,p-1}(t).
 \ee
-The $t_i$, $t_{i+1}$, $t_{i+p}$, and $t_{i+p+1}$ are referred to as {\bf knots}, which
-mark the termination points, beginning or end, of an interval for the
-parameter $t$.
 The structure of the Cox-de~Boor recursion formulas is shown below through
 illustrations of linear ($p=1$), quadratic ($p=2$), and cubic ($p=3$)
 examples.
+% make sure to break with LF prior to Hexpo
+\\  % This is the break
+%  
 \begin{Hexpo}
 {% Hexpo open
 Linear B-spline ($p=1$): \\
@@ -358,6 +359,29 @@ N_{i,3}(t) =
     Reference: fig/bspline.py.}
   \label{fig:bspline} % label must come after caption 
 \end{figure}
+
+The $t_i$, $t_{i+1}$, $t_{i+p}$, and $t_{i+p+1}$ are referred to as {\bf knots}, which
+mark the termination points, beginning or end, of an interval for the
+parameter $t$.  The collection of all knots is called a {\bf knot vector}, 
+designated by $\vT$.
+We define the knot vector $\vT$
+as a non-decreasing set of integer coordinates 
+in parameter space, 
+\be
+\vT \defe 
+\langle 
+\; t_0, t_1, t_2, \ldots, t_m \;
+\rangle.
+\ee
+Thus, thus values for parameter $t$ are $t \in \real \subset [t_0, t_m)$.
+In total, there are $(m+1$) knot vectors.
+
+Presently, we are considering a knot vector in one dimension only. 
+Additional dimensions will be discussed later.  Also, for now we will
+limit the discussion to a {\bf uniform knot vector}, wherein the distance
+between any two consecutive knots is the same.  Later, we consider
+variable knot-to-knot distance will creates a {\bf non-uniform knot vector}, 
+which is the ``non-uniform'' of NURBs (non-uniform rational B-splines).
 
 
 
