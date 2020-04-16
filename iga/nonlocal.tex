@@ -41,12 +41,12 @@ We briefly discuss polynomials for three main reasons:
 (1)~To be explicit
 regarding the terminology of {\bf power} versus {\bf order} and be clear
 on the conventions and notations used in this document, 
-(2)~to
-illustrate the shortcomings of polynomials and thus motivate alternative 
-approaches, and 
-(3)~to lay the framework
+(2)~to lay the framework
 for more sophisticated interpolations that will rely on polynomials in some 
-form.
+form, and 
+(3)~to
+the  note shortcomings of polynomials and thus motivate alternative 
+approaches.
 
 First, with regard to {\em power} versus {\em order}, \cite{Cottrell-2009}
 noted the following:
@@ -65,25 +65,19 @@ we distinguish between {\em order} and {\em power}.
 We have elected this approach primarily for consistency of this 
 document with historical writings of the geometry community.
 
-Next, we state as {\em prima facie} a well-known shortcoming of polynomials
-is their propensity to overfit the data.  This characteristic arises because
-a polynomial of degree $p$ has $p-1$ changes of direction, from $-f(x)$ to
-$f(x)$, or vice versa.  No further discussion on overfitting is given here, 
-though explications of this topic are widely available.  
-
-Finally, there is some basic notation used with polynomials that we need 
+Next, there is some basic notation used with polynomials that we need 
 to make clear and concrete.  
-Let $f(x)$ be the function of degree $p$ 
+Let $f_p(x)$ be the function of degree $p$ 
 (equivalently, order $p+1$) that is a sum of variable
 $x$ raised to some increasing non-negative integer power, starting 
 from zero, and multiplied
 by a constant coefficient $a$, such that
 \be
-f(x) \defe
+f_p(x) \defe
 a_0 x^0 + a_1 x^1 + a_2 x^2 + a_3 x^3 + \cdots + a_p x^p = 
 \sum_{i=0}^p a_i x^i.
 \ee
-The function $f(x)$ is a {\bf polynomial} of {\bf degree} $p$, the highest
+The function $f_p(x)$ is a {\bf polynomial} of {\bf degree} $p$, the highest
 non-zero {\bf power}\footnote{We suggest the mnemonic of ``$p$'' as the 
 index used for the ``\underline{p}ower'' in a ``\underline{p}olynomial.''} used in the summation.  
 Table~\ref{tab:polynomials} lists
@@ -109,12 +103,19 @@ $\mathcal{O}(5)$ & $p=4$ & quartic & $f_4(x) = a_0 + a_1 x + a_2 x^2 + a_3 x^3 +
 \label{tab:polynomials}
 \end{table}
 
-One final note regarding conventions of indices.  We use the first
+One note regarding conventions of indices.  We use the first
 item of a series {\tt s} to be {\tt s[0]}, the second item to be 
 {\tt s[1]}, and so forth.  We prefer the zero-based indices because 
 it is consistent not only with our work in Python, which is zero-based, 
 but also with concepts from initial boundary value problems (IBVPs), 
 which denote initial conditions, the first values, as occurring at $t_0$.
+
+Finally, we state as {\em prima facie} a well-known shortcoming of polynomials
+is their propensity to overfit the data.  This characteristic arises because
+a polynomial of degree $p$ has $p-1$ changes of direction, from $-f_p(x)$ to
+$f_p(x)$, or vice versa.  No further discussion on overfitting is given here, 
+though explications of this topic are widely available.  
+
 
 \section{B\'ezier Curves}
 \label{sec:bezier_curves}
@@ -140,7 +141,7 @@ Affine transformations may be used to modify the control points, \eg to
 scale, reflect, rotate, or translate (offset) the control points.
 
 \subsection{B\'ezier Line}
-Let $\vP(t; \vx)$ be {\bf parametric} equation for a line between 
+Let $\vP(t; \vx) \in \realthree$ be {\bf parametric} equation for a line between 
 two points $\vP_0 = (x_0, y_0, z_0)$ and $\vP_1 = (x_1, y_1, z_1)$, with
 $\vx = (x, y, z)$.
 Then, let $t$ be the parameter bounded by $0 \leq t \leq 1$.  Then 
@@ -180,19 +181,33 @@ be defined as
 \be
 \vQ(t; \vQ_0, \vQ_1) \defe (1 - t) \vQ_0 + t \vQ_1.
 \ee
-This curve can be recast in terms of $\vP$ points
-using 
+This curve can be recast in terms of the three points $\vP_0$, $\vP_1$, 
+and $\vP_2$ by substituting
 (\ref{eq:bezier_quad_one}) and
-(\ref{eq:bezier_quad_two}), producing
+(\ref{eq:bezier_quad_two}),
 \be
 \vQ(t; \vP_0, \vP_1, \vP_2) = (1-t)^2 \vP_0 + 2t (1-t) \vP_1 + t^2 \vP_2.
 \label{eq:bezier_quadratic}
 \ee
-Figure~\ref{fig:de_casteljau} illustrates 
-an example quadratic B\'ezier curve, with control points indicated.
-The number of control points is three, so the maximum 
+Figure~\ref{fig:de_casteljau}(a) illustrates 
+an example quadratic B\'ezier curve, with the three control 
+points $\vP_0$, $\vP_1$, and $\vP_2$ indicated.\footnote{We do
+not call $\vQ_0$ and $\vQ_1$ control points, since they are dependent
+on $\vP_0$, $\vP_1$, and $\vP_1$ through parameter $t$ in 
+(\ref{eq:bezier_quad_one}) 
+and (\ref{eq:bezier_quad_two}).}$^,$\footnote{Figure~\ref{fig:de_casteljau}(b)
+shows the same curve as in Figure~\ref{fig:de_casteljau}(a), just with 
+a recursive notation, discussed in Section~\ref{sec:de_casteljau}.}
+We will designate the number of control points to be $(n+1)$.  
+Thus, the number of control points in the 
+current example (Figure~\ref{fig:de_casteljau})
+is $(n+1) = 3 \implies n=2$.  Each control
+point can be identified in sequence as $\vP_i$, with $i = 0, 1, \ldots n$.
+The maximum 
 degree B\'ezier that can be constructed is two 
-(degree $p$ requires $p+1$ control points).
+(degree $p$ requires $p+1$ control points).  Thus we see 
+for a series of $(n+1)$ control points, we can construct a 
+B\'ezier curve of degree $p=n$.
 
 \begin{figure}[htb]
   \begin{center}
@@ -222,8 +237,32 @@ six discrete points in the interval $t \in [0, 1]$.
 }
 \end{Hexpo}
 
+With these Figures~\ref{fig:de_casteljau}--\ref{fig:de_casteljau_sequence} 
+in mind, a few additional observations\footnote{These items
+are stated as true but not proven here. Consult
+the references in the Bibliography section for proofs.} can be made:
+\begin{itemize}
+ \item The control points sequence $\vP_0$, $\vP_1$, $\vP_2$ is a coarse 
+ and discrete {\em approximation} the continuous quadratic B\'ezier curve
+ $\vQ(t)$.
+ \item The end points, $\vP_0$ and $\vP_2$, are interpolated, but 
+ the interior point $\vP_1$ is not
+ interpolated.\footnote{This will generalize to all interior points for
+ higher-degree B\'ezier curves.}
+ \item The tangent of the curve $\vQ(t)$ at $t=0$ is parallel to the line
+ $\vP_1 - \vP_0$.
+ The tangent of the curve $\vQ(t)$ at $t=1$ is parallel to the line
+ $\vP_2 - \vP_0$.
+ \item The entire curve $\vQ(t)$ is contained in the triangle formed with vertices
+ $\vP_0$, $\vP_1$, $\vP_2$.
+\end{itemize}
+
+
+
+
 \newpage
 \subsection{de Casteljau's Algorithm}
+\label{sec:de_casteljau}
 The foregoing development can be generalized, and is known as 
 {\bf de Casteljau's algorithm}.  Let $\vP_{i,j}$ be control points
 where 
@@ -242,7 +281,7 @@ In the preceding section,
 \vQ_0 & \mapsto \vP_{0,1}, \;\;\;\mbox{$j=1$, thus $\vP_{i,1}$ is a line,}\\
 \vQ_1 & \mapsto \vP_{1,1}, \;\;\;\mbox{and} \\
  & \nonumber \\
-\vQ(t) & \mapsto \vP_{0,2}, \;\;\;\mbox{$j=2$, thus $\vP_{0,2}$ is a quadratic.}
+\vQ(t) & \mapsto \vP_{0,2}, \;\;\;\mbox{$j=2$, thus $\vP_{i,2}$ is a quadratic.}
 \end{align}
 Then, {\bf de Casteljau's algorithm} states
 \be
@@ -265,18 +304,24 @@ Casteljau's algorithm notation.
 
 For efficiency during computational implementation, 
 it is common to rewrite the quadratic B\'ezier $\vP_{0,2}$ 
-in matrix form for {\em any} set of {\bf three control points}.  
-This is somewhat of a return map, undoing the notation adopted to
-explain de~Casteljau's algorithm.  With
+in matrix form for {\bf any sequence} of {\bf three control 
+points}\footnote{This is 
+somewhat of a 
+return map, undoing the notation adopted to
+explain de~Casteljau's algorithm 
+with $i = 0$.}
+$\vP_i$, $\vP_{i+1}$, and $\vP_{i+2}$.
+With
 \begin{align}
-\vP_{0,0} & \mapsto \vP_0, \\
-\vP_{1,0} & \mapsto \vP_1, \\
-\vP_{2,0} & \mapsto \vP_2, \mbox{ and } \\
-\vP_{0,2} & \mapsto \vC_2, \mbox{ to denote a curve } C \mbox { of degree } p=2,
+\vP_{0,0} & \mapsto \vP_i, \\
+\vP_{1,0} & \mapsto \vP_{i+1}, \\
+\vP_{2,0} & \mapsto \vP_{i+2}, \mbox{ and } \\
+\vP_{0,2} & \mapsto \vC_2, \mbox{ to denote a curve } \vC_p \mbox { of degree } p=2,
 \end{align}
 the quadratic B\'ezier $\vC_2$ is written in matrix form as
 \begin{align}
-\vC_2(t) \;\;\;\;\; & = \; \left[\;\; \vP_0 \;\;\; \vP_1 \;\;\; \vP_2 \;\; \right] 
+\vC_2(t) \;\;\;\;\; & = \; \left[\;\; \vP_i \;\;\; \vP_{i+1} \;\;\; 
+\vP_{i+2} \;\; \right] 
 \; \cdot \; \vf(t^2, t, 1),
 \\
 \left\{\begin{tabular}{c} $x(t)$ \\ $y(t)$ \\ $z(t)$ \end{tabular} \right\}
@@ -288,23 +333,23 @@ the quadratic B\'ezier $\vC_2$ is written in matrix form as
 %\underset{\mbox{\footnotesize control points}}{% underset open
 \underbrace{% underbrace open
 \left[\begin{tabular}{ccc} 
-$x_0$ 
+$x_i$ 
 & 
-$x_1$ 
+$x_{i+1}$ 
 & 
-$x_2$ 
+$x_{i+2}$ 
 \\ 
-$y_0$ 
+$y_i$ 
 & 
-$y_1$ 
+$y_{i+1}$ 
 & 
-$y_2$ 
+$y_{i+2}$ 
 \\ 
-$z_0$ 
+$z_i$ 
 & 
-$z_1$ 
+$z_{i+1}$ 
 & 
-$z_2$ 
+$z_{i+2}$ 
 \end{tabular} \right]
 }% underbrace close
 }% underset close
@@ -356,20 +401,22 @@ t^3 \vP_{3,0}.
 \ee
 Again for efficiency, 
 it is common to rewrite the cubic B\'ezier $\vP_{0,3}$ 
-in matrix form for {\em any} set of {\bf four control points}.
+in matrix form for {\bf any sequence} of {\bf four control 
+points}
+$\vP_i$, $\vP_{i+1}$, $\vP_{i+2}$ and $\vP_{i+3}$.
 With
 \begin{align}
-\vP_{0,0} & \mapsto \vP_0, \\
-\vP_{1,0} & \mapsto \vP_1, \\
-\vP_{2,0} & \mapsto \vP_2, \\
-\vP_{3,0} & \mapsto \vP_3, \mbox{ and } \\
-\vP_{0,3} & \mapsto \vC_3, \mbox{ to denote a curve } C \mbox { of degree } p=3,
+\vP_{0,0} & \mapsto \vP_i, \\
+\vP_{1,0} & \mapsto \vP_{i+1}, \\
+\vP_{2,0} & \mapsto \vP_{i+2}, \\
+\vP_{3,0} & \mapsto \vP_{i+3}, \mbox{ and } \\
+\vP_{0,3} & \mapsto \vC_3, \mbox{ to denote a curve } \vC_p \mbox { of degree } p=3,
 \end{align}
 the cubic B\'ezier $\vC_3$ is written in matrix form as
 \begin{align}
 \vC_3(t) \;\;\;\;\; 
 &= 
-\left[\;\; \vP_0 \;\;\; \vP_1 \;\;\; \vP_2 \;\;\; \vP_3 
+\left[\;\; \vP_i \;\;\; \vP_{i+1} \;\;\; \vP_{i+2} \;\;\; \vP_{i+3}
 \;\; \right] \; \cdot \; \vf(t^2, t, 1),
 \\
 \left\{\begin{tabular}{c} $x(t)$ \\ $y(t)$ \\ $z(t)$ \end{tabular} \right\}
@@ -377,29 +424,29 @@ the cubic B\'ezier $\vC_3$ is written in matrix form as
 \underset{\underset{\mbox{\footnotesize curve dependent}}{\mbox{\footnotesize control points}}}{% underset open
 \underbrace{% underbrace open
 \left[\begin{tabular}{cccc}
-$x_0$ 
+$x_i$ 
 & 
-$x_1$ 
+$x_{i+1}$ 
 & 
-$x_2$ 
+$x_{i+2}$ 
 & 
-$x_3$ 
+$x_{i+3}$ 
 \\ 
-$y_0$ 
+$y_i$ 
 & 
-$y_1$ 
+$y_{i+1}$ 
 & 
-$y_2$ 
+$y_{i+2}$ 
 & 
-$y_3$ 
+$y_{i+3}$ 
 \\ 
-$z_0$ 
+$z_i$ 
 & 
-$z_1$ 
+$z_{i+1}$ 
 & 
-$z_2$ 
+$z_{i+2}$ 
 & 
-$z_3$ 
+$z_{i+3}$ 
 \end{tabular} \right]
 }% underbrace close
 }% underset close
@@ -478,26 +525,6 @@ is the {\bf binomial coefficient}.
 The binomial coefficients are readily 
 attained from {\bf Pascal's triangle}, written up to $p=4$ in
 Table~\ref{tab:pascal}.
-Using (\ref{eq:general_bezier_curve}),
-the quadratic ($p=2$), cubic ($p=3$), and quartic ($p=4$) B\'ezier curves
-can be written, respectively, in explicit form as 
-\begin{align}
-\vC_2(t) 
-&=
-b_{0,2} \vP_0 + b_{1,2} \vP_1 + b_{2,2} \vP_2 \\
-\vC_3(t) 
-&=
-b_{0,3} \vP_0 + b_{1,3} \vP_1 + b_{2,3} \vP_2 + b_{3,3} \vP_3 \\
-\vC_4(t) 
-&=
-b_{0,4} \vP_0 + b_{1,4} \vP_1 + b_{2,4} \vP_2 + b_{3,4} \vP_3 + b_{4,4} \vP_4.
-\end{align}
-Notice that for any of the Bernstein polynomials, their sum always adds to one, 
-\be
-\sum_{i=0}^p b_{i,p}(t) = 1.0.
-\ee
-This concept is called {\bf partition of unity}.
-
 
 \begin{table}[htb]
 \caption{First five degrees of binomial coefficients from Pascal's triangle.}
@@ -516,8 +543,40 @@ $p=4$ & 1 & & 4 & & 6 & & 4 & & 1
 \label{tab:pascal}
 \end{table}
 
-
-
+Using (\ref{eq:general_bezier_curve}),
+the quadratic ($p=2$), cubic ($p=3$), and quartic ($p=4$) B\'ezier curves
+can be written, respectively, in explicit form as 
+\begin{align}
+\vC_2(t) 
+&=
+b_{0,2} \vP_0 + b_{1,2} \vP_1 + b_{2,2} \vP_2, \\
+\vC_3(t) 
+&=
+b_{0,3} \vP_0 + b_{1,3} \vP_1 + b_{2,3} \vP_2 + b_{3,3} \vP_3, \\
+\vC_4(t) 
+&=
+b_{0,4} \vP_0 + b_{1,4} \vP_1 + b_{2,4} \vP_2 + b_{3,4} \vP_3 + b_{4,4} \vP_4.
+\end{align}
+Observations\footnote{See Bibliography for references containing 
+proofs.} include (see \ref{fig:bernstein} for a visual illustration of these 
+properties):
+\begin{itemize}
+\item The Bernstein polynomials always sum to one, 
+\be
+\sum_{i=0}^p b_{i,p}(t) = 1.0.
+\ee
+This concept is called {\bf partition of unity}.  
+\item The first basis is unity $b_{0,p}(0) = 1$ at the start of the interval $t=0$,
+when all other bases are zero.  Similarly, the last basis is unity  
+$b_{p,p}(1) = 1$ and the end of the interval $t=1$, when all other bases go to zero.
+\item The polynomials are {\bf non-negative},
+\be
+b_{i,p}(t) \geq 0 \mbox{ for all} \left\{i,p\right\} \mbox{ with } t \in [0, 1].
+\ee
+\item Each polynomial $b_{i,p}(t)$ has a single maximum in the parameter space 
+$t \in [0,1]$ at $t=i/p$.  
+\item All polynomials are symmetric in $t$ about $t=1/2$.
+\end{itemize}
 
 
 \clearpage

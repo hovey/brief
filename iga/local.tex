@@ -260,11 +260,12 @@ use data points that are interpolated directly, without basis functions.
 B-splines are {\bf parametric}, so the functional form for a general
 B-spline curve $\vS \in \realthree$, will will be written
 explicitly as $\vS(t; \vx)$, similar to the notation introduced with
-the B\'ezier curves in Section~\ref{sec:bezier_curves}.  As with 
-the compact notation used previously with B\'ezier curves, B-spline 
+the B\'ezier curves in Section~\ref{sec:bezier_curves}.  Similar to
+the B\'ezier 
+compact notation discussed previously, B-spline 
 curves are typically written in terms of the parametric variable $t$, without
-the explicit notation on control points located in space with coordinates 
-$\vx$ of the control points, \ie $\vP_i(\vx)$, $\vx = \langle \; x_i, y_i, z_i
+the explicit notation of the space coordinates 
+$\vx$ of the control points, \ie $\vP_i(\vx) = \langle \; x_i, y_i, z_i
 \; \rangle$.
 
 Similar to the definition of a general B\'ezier curve $\vC_p(t)$ of degree
@@ -350,7 +351,7 @@ N_{i,3}(t) =
 }% Hexpo close
 \end{Hexpo}
 
-\begin{figure}[htb]
+\begin{figure}[h!]
   \begin{center}
     \includegraphics[width=\textwidth]{fig/bspline.pdf}
   \end{center}
@@ -360,12 +361,14 @@ N_{i,3}(t) =
   \label{fig:bspline} % label must come after caption 
 \end{figure}
 
-The $t_i$, $t_{i+1}$, $t_{i+p}$, and $t_{i+p+1}$ are referred to as {\bf knots}, which
+The discrete values (\eg
+$t_i$, $t_{i+1}$, $t_{i+2}$, $t_{i+3}$, $t_{i+4}$, $t_{i+p}$, and $t_{i+p+1}$)
+are referred to as {\bf knots}, which
 mark the termination points, beginning or end, of an interval for the
 parameter $t$.  The collection of all knots is called a {\bf knot vector}, 
 designated by $\vT$.
 We define the knot vector $\vT$
-as a non-decreasing set of integer coordinates 
+as a non-decreasing set of non-negative integer coordinates 
 in parameter space, 
 \be
 \vT \defe 
@@ -373,15 +376,44 @@ in parameter space,
 \; t_0, t_1, t_2, \ldots, t_m \;
 \rangle.
 \ee
-Thus, thus values for parameter $t$ are $t \in \real \subset [t_0, t_m)$.
-In total, there are $(m+1$) knot vectors.
+The values for parameter $t$ are $t \in \real \subset [t_0, t_m]$
+In total, there are $(m+1)$ knots in knot vector $\vT$.
 
-Presently, we are considering a knot vector in one dimension only. 
+\begin{Hexpo}
+{% Hexpo open
+A uniform knot vector containing 10 knots is written as
+\be
+\vT = \langle\; 0, 1, 2, 3, 4, 5, 6, 7, 8, 9 \; \rangle, \mbox{ with } 
+t \in \real \subset [0, 9].
+\ee
+}% Hexpo close
+\end{Hexpo}
+
+
+
+
+To construct the B-spline $\vS_p(t)$ with normalized basis 
+functions $N_{i,p}(t)$,
+$(n+1)$ control points 
+$\vP_0, \vP_1, \ldots \vP_n$, and degree $p$, exactly $(m+1)$ knots
+must be specified.  The number of knots, $(m+1)$, is related to the
+number of control points, $(n+1)$, and the degree, $p$, as
+\be
+m = (n+1) + p.
+\ee
+
+Presently, we consider a knot vector in one dimension only. 
 Additional dimensions will be discussed later.  Also, for now we will
 limit the discussion to a {\bf uniform knot vector}, wherein the distance
-between any two consecutive knots is the same.  Later, we consider
-variable knot-to-knot distance will creates a {\bf non-uniform knot vector}, 
-which is the ``non-uniform'' of NURBs (non-uniform rational B-splines).
+between any two consecutive knots is the same,
+\be
+\Delta t = t_1 - t_0 = t_2 - t_1 = \cdots = t_m - t_{m-1} = 1 = \mbox{constant}.
+\ee
+Later, we will consider two additional concepts:
+{\em repeated} knots and {\em non-uniform} 
+knots.\footnote{The variable knot-to-knot distance 
+will create a {\bf non-uniform knot vector}, 
+which is the ``non-uniform'' of NURBs (non-uniform rational B-splines).}
 
 
 
