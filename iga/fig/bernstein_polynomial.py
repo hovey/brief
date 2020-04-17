@@ -17,24 +17,3 @@ def bernstein_polynomial(i, p, nti):
     t = np.linspace(0, 1, nti+1)
     bp = math.factorial(p) / (math.factorial(i) * math.factorial(p-i)) * t**i * (1-t)**(p-i)
     return bp
-
-def main(argv):
-    """
-    Parses command line input then passes to internal 
-    function bernstein_polynomial.
-    """
-    try:
-        i = argv[0]
-        p = argv[1]
-        nti = argv[2]
-    except IndexError as error:
-        print(f'Error: {error}.')
-        sys.exit('Abnormal script termination.')
-
-    bipt = bernstein_polynomial(i, p, nti)
-    print('Bernstein polynomial:')
-    print(bipt)
-
-
-if __name__ == '__main__':
-    main(sys.argv[1:])
