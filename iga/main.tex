@@ -238,20 +238,27 @@ under contract DE-NA0003525.} \\ [2ex] \datestring}
 \abstract{Classification of pixel values from human CT scans has been 
 successfully undertaken by this laboratory using the U-Net deep learning
 algorithm.  We have also demonstrated successful conversion of pixels 
-to voxels, as a proxy for finite volume or finite element meshes, a process
-we have called Pixel To Mesh (PTM).
-This mesh step  
-quickly becomes intractable when the number of voxels
-grows past the 10s of millions.  Essentially, a map of every pixel (voxel) to
-a single finite volume or finite element creates computational domains of
-excessively large and equally unnecessary mesh refinement.  
+to voxels, as a proxy for finite volume or finite element meshes.
+We have called these two processes, taken in serial, 
+Pixel To Mesh (PTM).
 
-In light of this, we investigated an alternative approach, which we call 
-Pixel To Geometry (PTG).  This alternative seeks to selectively use the 
+Within the PTM workflow, we found that the mesh step  
+quickly became intractable when the number of voxels
+grew past the 10s of millions.  Essentially, a map of every pixel (voxel) to
+a single finite volume or finite element created computational domains of
+excessively large and equally unnecessary mesh refinement.  We briefly 
+considered concepts of element/volume decimation and coalescence, but 
+abandoned these starts because the return on time and resource investments 
+soon appeared significantly less compelling than an alternative approach 
+called isogeometric analysis (IGA).
+
+This document details our investigations using IGA in an alternative 
+workflow that we call Pixel To Geometry (PTG).  
+This alternative seeks to selectively use the 
 categorized pixel values as a scaffold for construction of analytical geometric 
 descriptions in 2D and 3D.  Thereafter, we propose using the 
-analytical geometries directly in simulation, using isogeometric analysis (IGA).
-The use of IGA completely eliminates any need to complete the mesh step.}
+analytical geometries directly in simulation using IGA, which 
+eliminates the mesh step.}
 
 %\newpage
 {\tableofcontents}

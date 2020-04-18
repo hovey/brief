@@ -3,10 +3,10 @@ import matplotlib.pyplot as plt
 from matplotlib import rc
 from matplotlib.ticker import AutoMinorLocator, MultipleLocator
 
-USELATEX = 1
+LATEX = 1
 SAVEFIG = 1
 
-if USELATEX:
+if LATEX:
   rc('font', **{'family': 'serif', 'serif': ['Computer Modern Roman']})
   rc('text', usetex=True)
 
@@ -21,9 +21,10 @@ s0 = 2*x0
 x1 = np.linspace(0.5, 1, 50)
 s1 = 1 - 2*(x1 - 0.5)
 
-fig = plt.figure(figsize=(4, 8))  # x in inches wide, y inches tall
-ax = fig.add_subplot(2, 1, 1, aspect=1)
-ax2 = fig.add_subplot(2, 1, 2, aspect=1)
+# fig = plt.figure(figsize=(4, 8))  # x in inches wide, y inches tall
+fig = plt.figure(figsize=(8, 4))  # x in inches wide, y inches tall
+ax = fig.add_subplot(1, 2, 1, aspect=1)
+ax2 = fig.add_subplot(1, 2, 2, aspect=1, sharey=ax)
 
 ax.plot(x, y, color='navy', label=r'$f(x) = \sin(\pi x)$')
 ax.plot(x0, s0, marker='o', linestyle='dashed', markevery=[0], label=r'$S_0(x) = 2 x$')
@@ -61,10 +62,10 @@ ax2.plot(x3, s3, marker='o', linestyle='solid', markevery=[0], label=r'$S_3(x)$'
 ax2.xaxis.set_major_locator(MultipleLocator(0.25))
 ax2.yaxis.set_major_locator(MultipleLocator(0.25))
 ax2.set_xlabel(r'$x$')
-ax2.set_ylabel(r'$y$')
 ax2.text(lax, lay, '(b)', backgroundcolor='white', ha='center', va='baseline')
 ax2.grid()
 ax2.legend()
+plt.setp(ax2.get_yticklabels(), visible=False)
 
 plt.show()
 
