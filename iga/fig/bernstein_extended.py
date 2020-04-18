@@ -48,4 +48,4 @@ for q in np.arange(p+1):
 plt.show()
 
 if SERIALIZE:
-  fig.savefig("bernstein.pdf", bbox_inches="tight")
+  fig.savefig("bernstein_extended.pdf", bbox_inches="tight")

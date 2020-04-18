@@ -67,10 +67,12 @@
 %\definecolor{hg}{gray}{0.6} % Hovey gray
 \usepackage[x11names,table]{xcolor}  % needed by ../book/h_math_ams.tex
 % See color names at https://tex.stackexchange.com/questions/102777/does-anyone-have-a-newrgbcolorcolournamex-x-x-list
-
+\usepackage[x11names]{xcolor}
+\definecolor{hred}{rgb}{1,0,0}
+\definecolor{hivory}{rgb}{1,1,0.94}
 % \usepackage{tcolorbox}
 
-% \usepackage{minted}
+\usepackage{minted}
 % See minted documentation 
 % http://mirrors.rit.edu/CTAN/macros/latex/contrib/minted/minted.pdf0
 % $pdflatex -shell-escape main.tex
@@ -258,6 +260,7 @@ The use of IGA completely eliminates any need to complete the mesh step.}
 \include{introduction}
 \include{nonlocal}
 \include{local}
+\include{appendix}
 \include{hbib}
 
 \end{document}
