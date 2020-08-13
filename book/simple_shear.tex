@@ -128,19 +128,6 @@ $\vN_3 =
 \right\}\transpose$.
 \end{tabular}
 \ee
-The eigenvectors 
-
-The right stretch, $\tUbold = \sqrt{\tCbold}$, is
-\be
-\tU_{IJ} = 
-\left[
-\begin{tabular}{ccc}
-tk0 & tk0 & tk0 \\
-tk0 & tk0 & tk0 \\
-tk0 & tk0 & tk0
-\end{tabular}
-\right].
-\ee
 %
 The Green-Lagrange strain, $\tEbold = \half (\tCbold - \vid)$, in simple shear is
 \be
@@ -335,17 +322,7 @@ $\dot{a}$ & $2 a \dot{a}$ & 0 \\
 \ee
 The rotated rate of deformation, 
 $\tDbold = \tRbold\transpose \tdbold \tRbold$, is
-\be
-{\tD}_{IJ} = 
-\left[
-\begin{tabular}{ccc}
-tk0 & tk0 & tk0 \\
-tk0 & tk0 & tk0 \\
-tk0 & tk0 & tk0
-\end{tabular}
-\right],
-\ee
-and is related to the Green-Lagrange strain rate through 
+is related to the Green-Lagrange strain rate through 
 $\dot{\tEbold} = \tUbold \tDbold \tUbold$ since 
 \be
 \dot{\tEbold} = \tFbold\transpose \tdbold \tFbold 
@@ -360,6 +337,7 @@ $\dot{\tEbold} = \tUbold \tDbold \tUbold$ since
   \begin{center}
     \includegraphics[width=\textwidth]{fig/simple_shear_on_body.pdf}
   \end{center}
-  \caption{Simple shear of body from the reference configuration $B$ to the current configurtion $\vvarphi(B)$. Source:~{\tt simple\_shear\_on\_body.py}.}
+  \caption{Simple shear of body from the reference configuration $B$ to the current configuration $\vvarphi(B)$. Source:~{\tt simple\_shear\_on\_body.py}.}
   \label{fig:simple_shear_on_body} % label must come after caption
 \end{figure}
+

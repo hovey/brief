@@ -19,7 +19,9 @@
 %\usepackage{include/fancyheadings}
 %\usepackage{fancyheadings}
 \usepackage{fancyhdr}
-\usepackage{minted}
+%
+% \usepackage{minted}
+\usepackage[outputdir=./temp]{minted}
 % See minted documentation 
 % http://mirrors.rit.edu/CTAN/macros/latex/contrib/minted/minted.pdf0
 % $pdflatex -shell-escape main.tex
@@ -185,7 +187,9 @@
 \include{expectation}  
 \include{variance} % includes covariance
 \include{linearregression}
-\include{crosscorrelation} 
+\section{Cross-Correlation (Series Dot Product)}
+%\include{crosscorrelation}  % \include does a page break, try \input instead
+\input{crosscorrelation} 
 \include{error}
 \include{dependentvariables}
 \include{confusionmatrix}

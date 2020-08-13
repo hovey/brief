@@ -1,4 +1,6 @@
-\section{Cross-Correlation (Series Dot Product)}
+% \section{Cross-Correlation (Series Dot Product)}
+% now put section header in main.tex so crosscorrelation.tex can be
+% used with \include in the SAND reports.
 
 The cross-correlation is a measure of the {\em similarity  
 in time}
@@ -52,14 +54,14 @@ The two vectors are written explicitly as
 
 \begin{Hremark}
 To account for the {\em initial condition} of the time series, 
-we decrement the counter, 
-\be
-1 \ldots n,
-\ee
-to become 
-\be
-0 \ldots n-1.
-\ee
+we decrement the counter, $1 \ldots n$, to become $0 \ldots n-1$.
+% \be
+% 1 \ldots n,
+% \ee
+% to become 
+% \be
+% 0 \ldots n-1.
+% \ee
 In both of these cases, the number of sample 
 points is identical, but the indexing is different by one. 
 \end{Hremark}
@@ -119,6 +121,8 @@ https://anomaly.io/understand-auto-cross-correlation-normalized-shift/}
 	\ee
 	}
 \end{Hexample}
+
+\clearpage
 
 \subsection{Limitation of Cross-Correlation}
 A significant limitation of the cross-correlation method is its 
@@ -557,28 +561,28 @@ https://anomaly.io/understand-auto-cross-correlation-normalized-shift/}
 	}
 \end{Hexample}
 
-\subsection{Continuous Case - Disregard this Section for Now}
-Finally, let the cross-correlation function $y(t)$ 
-be the sliding inner product of the signal $x(t)$ with
-the weighting function $w(t)$ such that 
-\be
-y(t) = \int_0^{t_f} x(t) \; w(t - \tau) \; d\tau,
-\;\;\mbox{[or?]}\;\;
-y(t) = \int_0^{t_f} x(\tau) \; w(t - \tau) \; d\tau,
-\ee
-which is the filter {\bf slide-forward option}, and 
-\be
-y(t) = \int_{-t_f}^{0} x(t) \; w(t - \tau) \; d\tau 
-\;\;\mbox{[or?]}\;\;
-y(t) = \int_{-t_f}^{0} x(\tau) \; w(t - \tau) \; d\tau 
-\ee
-is the {\bf slide-backward operation}. 
-The two forgoing operations
-can be combined to generally be the {\bf 
-sliding dot product operation} as 
-\be
-y(t) = \int_{-t_f}^{t_f} x(t) \; w(t - \tau) \; d\tau.
-\ee
+% \subsection{Continuous Case - Disregard this Section for Now}
+% Finally, let the cross-correlation function $y(t)$ 
+% be the sliding inner product of the signal $x(t)$ with
+% the weighting function $w(t)$ such that 
+% \be
+% y(t) = \int_0^{t_f} x(t) \; w(t - \tau) \; d\tau,
+% \;\;\mbox{[or?]}\;\;
+% y(t) = \int_0^{t_f} x(\tau) \; w(t - \tau) \; d\tau,
+% \ee
+% which is the filter {\bf slide-forward option}, and 
+% \be
+% y(t) = \int_{-t_f}^{0} x(t) \; w(t - \tau) \; d\tau 
+% \;\;\mbox{[or?]}\;\;
+% y(t) = \int_{-t_f}^{0} x(\tau) \; w(t - \tau) \; d\tau 
+% \ee
+% is the {\bf slide-backward operation}. 
+% The two forgoing operations
+% can be combined to generally be the {\bf 
+% sliding dot product operation} as 
+% \be
+% y(t) = \int_{-t_f}^{t_f} x(t) \; w(t - \tau) \; d\tau.
+% \ee
 
 \subsection{From Deterministic to Stochastic}
 In this section, we apply some of the notions of expectation, 
