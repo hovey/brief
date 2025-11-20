@@ -34,11 +34,8 @@ for ii in range(len(names)):
     flex.cmd(' visibility mesh [{}] toggle '.format(mesh_name))
     pnames.append(pname)
 
-
 for ii in range(len(names)):    
     flex.cmd('model_tree "geometry frames {} label" "frame-{}" undefined '.format(str(ii),str(ii)))
-
-
 
 ## flex models 
 
@@ -51,7 +48,6 @@ for ii in range(len(pnames)):
     flex.cmd('flex_models "flex_models_1" parts "{}" part "{}" '.format(instance_name, pnames[ii]))
     flex.cmd('flex_models "flex_models_1" parts "{}" material "aluminum" '.format(instance_name))
     flex.cmd('flex_models "flex_models_1" parts "{}" material_model elastic '.format(instance_name))
-
 
 ## modal 
 flex.cmd('structural_modal_analysis_definitions modal_solution_methods "modal_solution_methods_1" new')
@@ -100,8 +96,6 @@ flex.cmd('procedures procedures_1 structural_modal_analysis interactions 0 delet
 flex.cmd('procedures procedures_1 structural_modal_analysis outputs new')
 flex.cmd('procedures procedures_1 structural_modal_analysis outputs 0 outputs_1')
 
-
-
 flex.cmd('model_tree "job_manager jobs 0 job_type trim processor_count" "64" undefined')
 flex.cmd('model_tree "job_manager jobs 0 job_type trim parts" new')
 flex.cmd('model_tree "job_manager jobs 0 job_type trim parts 0" "part_1" undefined')
@@ -109,14 +103,7 @@ flex.cmd('model_tree "job_manager jobs 0 job_type simulation processor_count" "6
 flex.cmd('model_tree "job_manager jobs 0 job_type simulation render variable displacement" "undefined" undefined')
 flex.cmd('model_tree "job_manager jobs 0 job_type simulation render variable displacement" "all" undefined')
 
-
-
 ## end 
-
-
-
-
-
 
 ## intervals
 
@@ -162,8 +149,6 @@ flex.cmd('functions "linear_ramp" new ')
 flex.cmd('functions "linear_ramp" piecewise_linear abscissa [0 1] ')
 flex.cmd('functions "linear_ramp" piecewise_linear ordinate [0 1] ')
 
-
-
 ## boundary conditions
 
 flex.cmd('set "set_bc" pick curve 5448') 
@@ -176,7 +161,6 @@ flex.cmd('solid_mechanics_definitions boundary_conditions "fixed" displacement c
 flex.cmd('solid_mechanics_definitions boundary_conditions "fixed" displacement components 1 y ')
 flex.cmd('solid_mechanics_definitions boundary_conditions "fixed" displacement components 2 z ')
 flex.cmd('solid_mechanics_definitions boundary_conditions "fixed" displacement scale_factor 0 ')
-
 
 ## load
 
@@ -198,8 +182,6 @@ flex.cmd('solid_mechanics_definitions outputs "cb_statics_results" field variabl
 flex.cmd('solid_mechanics_definitions outputs "cb_statics_results" field variables displacement 1 y ')
 flex.cmd('solid_mechanics_definitions outputs "cb_statics_results" field variables displacement 2 z ')
 flex.cmd('solid_mechanics_definitions outputs "cb_statics_results" field variables stress 0 von_mises ')
-
-
 
 ## procedure
 

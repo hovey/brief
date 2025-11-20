@@ -79,20 +79,20 @@
 %
 % Set the title, author, and date
 %
-    \title{A Trivially Short SAND Report (justified, report-style}
+    \title{Isogeometric Analysis (IGA) for Components (justified, report-style}
 
-    \author{John E. Smith \& Jane S. Miller}
+    \author{John M. Emery, Jeremy L. Guthrie, Chad B. Hovey, David A. Najera-Flores, Alejandro D. Carrizales}
 
     % There is a "Printed" date on the title page of a SAND report, so
     % the generic \date should generally be empty.
-    \date{}
+    \date{November 20, 2025}
 
 
 % ---------------------------------------------------------------------------- %
 % Set some things we need for SAND reports. These are mandatory
 %
-\SANDnum{SAND2002-xxxx}
-\SANDprintDate{June 2002}
+\SANDnum{SAND2025-xxxx}
+\SANDprintDate{Date TBD}
 
 % ---------------------------------------------------------------------------- %
 % The following definition does not have a default value and will not
@@ -112,7 +112,7 @@
 % An Abstract is required for SAND reports
 %
 \begin{abstract}
-  So abstract it hurts.
+To come.
 \end{abstract}
 
 
@@ -135,14 +135,20 @@
 \chapter{Introduction}
 % ---------------------------------------------------------------------- %
 \label{Intro}
-Very glad to meet you.
+Isogeometric Analysis (IGA) represents a paradigm shift in computational mechanics by unifying the mathematical frameworks of Computer-Aided Design (CAD) and numerical analysis. Introduced by Hughes et al. in 2005, IGA employs the same basis functions—typically Non-Uniform Rational B-Splines (NURBS), T-splines, or subdivision surfaces—for both the geometric representation and the solution approximation. 
 
+Traditional Finite Element Analysis (FEA) has served as the cornerstone of computational engineering for decades, offering robust capabilities for solving partial differential equations across diverse applications. Its strengths include mature software ecosystems, well-established theoretical foundations, extensive validation in industrial settings, and flexibility in handling complex physics through various element formulations. However, FEA suffers from inherent limitations stemming from the geometric disconnect between CAD and analysis domains. The mesh generation process introduces geometric approximation errors, requires significant preprocessing time, and creates $C^0$-continuous approximations that may be inadequate for higher-order problems such as thin shell analysis, phase-field modeling, and gradient-based theories. Additionally, design optimization workflows necessitate repeated geometry-mesh conversions, introducing inefficiencies and potential information loss.
+
+IGA addresses these deficiencies through its geometric fidelity and mathematical elegance. By maintaining exact geometric representation at all refinement levels, IGA eliminates geometric discretization errors and the cumbersome mesh generation step. The inherent higher-order continuity of spline basis functions—providing $C^1$, $C^2$, or arbitrary $C^k$ continuity—yields superior accuracy per degree of freedom for many problem classes, particularly those involving fourth-order operators or requiring smooth solution fields. The seamless integration with CAD systems enables direct analysis on design geometries and facilitates efficient shape optimization. Furthermore, IGA demonstrates enhanced performance in capturing complex phenomena such as boundary layers, stress concentrations, and wave propagation with coarser discretizations than traditional FEA.
+
+Despite its advantages, IGA faces several challenges that have tempered its widespread industrial adoption. The technology requires specialized software implementations with limited commercial availability compared to mature FEA platforms. Integration of trimmed surfaces, boolean operations, and complex multi-patch geometries from industrial CAD models remains an active research area. Volumetric parameterization of three-dimensional solids presents non-trivial difficulties, particularly for complex topologies. The computational cost per degree of freedom can be higher due to increased basis function support and quadrature requirements. Additionally, the engineering community's familiarity with traditional FEA methods, coupled with substantial investments in existing workflows and validation databases, creates institutional inertia against adoption.
 
 \section{A Section}
-Underpromising, and hopefully over-delivering.
+Work in progress.
+
 
 \section{Another Section}
-Look at us go!
+Work in progress.
 
 % ---------------------------------------------------------------------- %
 \chapter{Background}
@@ -177,20 +183,29 @@ Look at us go!
     \item Boundary conditions: fixed at base
     \item Loads: N/A
     \item Solver: direct
+    \item Geomety included in Coreform Flex distribution, no additional cleanup needed for IGA.
+    \item Modal analysis performed
+    \item Requested modes in $(1, 4000)$ Hz
+    \item Solved locally on laptop (1 cpu)
 \end{itemize}
 
-\subsection{\tt{cframe\_modal/jobs\_coarse.iga}}
+\subsection{\tt{jobs\_coarse.iga}}
 \inputminted[stripnl=false]{json}{cframe_modal/jobs_coarse.json}
 
-\subsection{\tt{cframe\_modal/jobs\_fine.iga}}
+\subsection{\tt{jobs\_fine.iga}}
 \inputminted[stripnl=false]{json}{cframe_modal/jobs_fine.json}
 
-\subsection{\tt{cframe\_modal/jobs\_fine\_x2.iga}}
+\subsection{\tt{jobs\_fine\_x2.iga}}
 \inputminted[stripnl=false]{json}{cframe_modal/jobs_fine_x2.json}
 
-% ---------------
+% ------------------
 \section{Door Hinge}
-% ---------------
+% ------------------
+
+\begin{itemize}
+    \item Analysis type: nonlinear statics
+    \item Features: frictional contact, plasticity
+\end{itemize}
 
 \begin{figure}[h!]
     \begin{center}
@@ -200,14 +215,41 @@ Look at us go!
     \label{fig:door-hinge}
 \end{figure}
 
-\subsection{\tt{door\_hinge/door\_hinge\_static/door\_hinge\_failure\_workflow.txt}}
+\subsection{\tt{door\_hinge\_failure\_workflow.txt}}
 \inputminted[stripnl=false]{text}{door_hinge/door_hinge_failure_workflow.txt}
 
-\subsection{\tt{door\_hinge/job\_door\_hinge\_failure.iga}}
+\subsection{\tt{job\_door\_hinge\_failure.iga}}
 \inputminted[stripnl=false]{json}{door_hinge/job_door_hinge_failure.json}
 
-\subsection{\tt{door\_hinge/read\_force\_vm.py}}
+\subsection{\tt{read\_force\_vm.py}}
 \inputminted[stripnl=false]{python}{door_hinge/read_force_vm.py}
+
+% ---------------------
+\section{Circuit Board}
+% ---------------------
+
+\begin{itemize}
+    \item Analysis type: nonlinear statics, modal
+    \item Features: linear eleastic materials
+    \item Note: required slight geometry clean up
+\end{itemize}
+
+\begin{figure}[h!]
+    \begin{center}
+    \includegraphics[width=0.4\textwidth]{img/circuit-board.png}
+    \end{center}
+    \caption{Circuit board geometry used for nonlinear static and modal analysis.}
+    \label{fig:circuit-board}
+\end{figure}
+
+\subsection{\tt{cb\_modal\_workflow\_journal\_separate.txt}}
+\inputminted[stripnl=false]{text}{circuit_board/cb_modal_workflow_journal_separate.txt}
+
+\subsection{\tt{cb\_modal\_workflow\_journal.txt}}
+\inputminted[stripnl=false]{text}{circuit_board/cb_modal_workflow_journal.txt}
+
+\subsection{\tt{cb\_workflow\_journal.txt}}
+\inputminted[stripnl=false]{text}{circuit_board/cb_workflow_journal.txt}
 
 % ---------------------------------------------------------------------- %
 \chapter{Methods}

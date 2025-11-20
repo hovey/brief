@@ -18,7 +18,6 @@ flex.cmd('materials aluminum elastic thermal_expansion reference_temperature 0.0
 names = ['volume_0', 'volume_1', 'volume_2', 'volume_3', 'volume_4', 'volume_5', 'volume_6', 'volume_7', 'volume_8', 'volume_9', 'volume_10', 'volume_11', 'volume_12', 'volume_13', 'volume_14', 'volume_15', 'volume_16', 'volume_17', 'volume_18', 'volume_19', 'volume_20', 'volume_21', 'volume_22', 'volume_23', 'volume_24', 'volume_25', 'volume_26', 'volume_27', 'volume_28', 'volume_29', 'volume_30', 'volume_31', 'volume_32', 'volume_33', 'volume_34', 'volume_35', 'volume_36', 'volume_37', 'volume_38', 'volume_39', 'volume_40', 'volume_41', 'volume_42', 'volume_43', 'volume_44', 'volume_45', 'volume_46', 'volume_47', 'volume_48', 'volume_49', 'volume_50', 'volume_51', 'volume_52', 'volume_53', 'volume_54', 'volume_55', 'volume_56', 'volume_57', 'volume_58', 'volume_59', 'volume_60', 'volume_61', 'volume_62', 'volume_63', 'volume_64', 'volume_65', 'volume_66', 'volume_67', 'volume_68', 'volume_69', 'volume_70', 'volume_71', 'volume_72', 'volume_73', 'volume_74', 'volume_75', 'volume_76', 'volume_77', 'volume_78', 'volume_79', 'volume_80', 'volume_81', 'volume_82', 'volume_83', 'volume_84', 'volume_85', 'volume_86', 'volume_87', 'volume_88', 'volume_89', 'volume_90', 'volume_91', 'volume_92', 'volume_93', 'volume_94', 'volume_95', 'volume_96', 'volume_97', 'volume_98', 'volume_99', 'volume_100', 'volume_101', 'volume_102', 'volume_103', 'volume_104', 'volume_105', 'volume_106', 'volume_107', 'volume_108', 'volume_109', 'volume_110', 'volume_111', 'volume_112', 'volume_113', 'volume_114', 'volume_115', 'volume_116', 'volume_117', 'volume_118', 'volume_119']
 char_lens = [0.09999999999999964, 0.09999999999999964, 0.125, 0.125, 0.125, 0.125, 0.09999999999999964, 0.09999999999999964, 6.075098173652298, 2.164999999999999, 4.9900000000000055, 0.26000000000000023, 0.009274631851750925, 1.0299999999999998, 0.23525317391444212, 0.23525317391443856, 0.23525326482660702, 0.23525326482661058, 0.94, 0.7949999999999989, 1.25, 1.25, 1.25, 1.25, 0.1999999999999993, 0.1999999999999993, 0.1999999999999993, 0.1999999999999993, 0.1999999999999993, 0.1999999999999993, 0.1999999999999993, 0.1999999999999993, 0.1999999999999993, 0.1999999999999993, 0.1999999999999993, 0.1999999999999993, 0.1999999999999993, 0.1999999999999993, 0.1999999999999993, 0.1999999999999993, 0.1999999999999993, 0.1999999999999993, 0.1999999999999993, 0.1999999999999993, 0.1999999999999993, 0.1999999999999993, 0.1999999999999993, 0.1999999999999993, 0.1999999999999993, 0.1999999999999993, 0.1999999999999993, 0.1999999999999993, 0.1999999999999993, 0.1999999999999993, 0.1999999999999993, 0.1999999999999993, 0.24249999999999994, 0.24249999999999983, 0.24249999999999994, 0.24249999999999994, 0.39999999999999947, 0.40000000000000013, 0.3999999999999999, 0.40000000000000013, 0.3999999999999999, 0.40000000000000036, 0.39999999999999947, 0.47499999999999964, 0.47499999999999964, 0.40000000000000013, 0.40000000000000013, 0.42499999999999893, 0.2749999999999998, 0.2749999999999999, 0.375, 0.5249999999999999, 0.3749999999999999, 0.375, 0.3750000000000002, 0.5, 0.3749999999999999, 0.42500000000000004, 0.5500000000000007, 0.7249999999999999, 0.8999999999999999, 0.55, 0.5, 0.375, 0.2749999999999999, 0.2749999999999998, 0.5714999999999995, 0.5714999999999995, 1.0413999999999999, 0.36115737867878117, 0.125, 0.44989615503082714, 0.3000000000000007, 1.299406919836394, 3.299999999999999, 4.3999999999999995, 4.116703784960141, 3.870772707314833, 1.27, 0.3175000000000008, 0.3175000000000008, 0.3174999999999999, 0.3174999999999999, 0.3174999999999999, 0.3174999999999999, 1.27, 0.317499999999999, 0.317499999999999, 0.317499999999999, 0.317499999999999, 0.317499999999999, 0.317499999999999, 0.09999999999999998, 0.5, 0.7250000000000004, 0.7250000000000003]
 
-
 flex.cmd('data_output_file "cf_iga_data_output_0p1.json"')
 flex.cmd('label "cb_modal_0p1"')
 
@@ -35,11 +34,8 @@ for ii in range(len(names)):
     flex.cmd(' visibility mesh [{}] toggle '.format(mesh_name))
     pnames.append(pname)
 
-
 for ii in range(len(names)):    
     flex.cmd('model_tree "geometry frames {} label" "frame-{}" undefined '.format(str(ii),str(ii)))
-
-
 
 ## flex models 
 
@@ -52,7 +48,6 @@ for ii in range(len(pnames)):
     flex.cmd('flex_models "flex_models_1" parts "{}" part "{}" '.format(instance_name, pnames[ii]))
     flex.cmd('flex_models "flex_models_1" parts "{}" material "aluminum" '.format(instance_name))
     flex.cmd('flex_models "flex_models_1" parts "{}" material_model elastic '.format(instance_name))
-
 
 ## modal 
 flex.cmd('structural_modal_analysis_definitions modal_solution_methods "modal_solution_methods_1" new')
@@ -100,8 +95,6 @@ flex.cmd('structural_modal_analysis_definitions outputs outputs_2 field variable
 flex.cmd('structural_modal_analysis_definitions outputs outputs_2 field variables displacement 0 all')
 flex.cmd('structural_modal_analysis_definitions outputs outputs_2 field set "all_parts" ')
 
-
-
 ## functions
 
 flex.cmd('functions "constant_1" new ')
@@ -119,7 +112,6 @@ flex.cmd('procedures procedures_1 structural_modal_analysis outputs new')
 flex.cmd('procedures procedures_1 structural_modal_analysis outputs 0 outputs_1')
 flex.cmd('procedures procedures_1 structural_modal_analysis outputs new')
 flex.cmd('procedures procedures_1 structural_modal_analysis outputs 1 outputs_2')
-
 
 ## interactions 
 
@@ -145,11 +137,6 @@ fstr = fstr + ']'
 
 flex.cmd('job "job_cb_modal_001" trim trim_parts {} '.format(fstr))
 
-
-
-
-
-
 flex.cmd('model_tree "job_manager jobs 0 job_type trim processor_count" "64" undefined')
 flex.cmd('model_tree "job_manager jobs 0 job_type trim parts" new')
 flex.cmd('model_tree "job_manager jobs 0 job_type trim parts 0" "part_1" undefined')
@@ -157,14 +144,7 @@ flex.cmd('model_tree "job_manager jobs 0 job_type simulation processor_count" "6
 flex.cmd('model_tree "job_manager jobs 0 job_type simulation render variable displacement" "undefined" undefined')
 flex.cmd('model_tree "job_manager jobs 0 job_type simulation render variable displacement" "all" undefined')
 
-
-
 ## end 
-
-
-
-
-
 
 ## intervals
 
@@ -211,8 +191,6 @@ flex.cmd('functions "linear_ramp" new ')
 flex.cmd('functions "linear_ramp" piecewise_linear abscissa [0 1] ')
 flex.cmd('functions "linear_ramp" piecewise_linear ordinate [0 1] ')
 
-
-
 ## boundary conditions
 
 flex.cmd('set "set_bc" pick curve 5448') 
@@ -225,7 +203,6 @@ flex.cmd('solid_mechanics_definitions boundary_conditions "fixed" displacement c
 flex.cmd('solid_mechanics_definitions boundary_conditions "fixed" displacement components 1 y ')
 flex.cmd('solid_mechanics_definitions boundary_conditions "fixed" displacement components 2 z ')
 flex.cmd('solid_mechanics_definitions boundary_conditions "fixed" displacement scale_factor 0 ')
-
 
 ## load
 
@@ -247,8 +224,6 @@ flex.cmd('solid_mechanics_definitions outputs "cb_statics_results" field variabl
 flex.cmd('solid_mechanics_definitions outputs "cb_statics_results" field variables displacement 1 y ')
 flex.cmd('solid_mechanics_definitions outputs "cb_statics_results" field variables displacement 2 z ')
 flex.cmd('solid_mechanics_definitions outputs "cb_statics_results" field variables stress 0 von_mises ')
-
-
 
 ## procedure
 

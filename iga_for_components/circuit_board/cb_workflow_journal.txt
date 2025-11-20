@@ -34,11 +34,8 @@ for ii in range(len(names)):
     flex.cmd(' visibility mesh [{}] toggle '.format(mesh_name))
     pnames.append(pname)
 
-
 for ii in range(len(names)):    
     flex.cmd('model_tree "geometry frames {} label" "frame-{}" undefined '.format(str(ii),str(ii)))
-
-
 
 ## flex models 
 
@@ -96,8 +93,6 @@ flex.cmd('functions "linear_ramp" new ')
 flex.cmd('functions "linear_ramp" piecewise_linear abscissa [0 1] ')
 flex.cmd('functions "linear_ramp" piecewise_linear ordinate [0 1] ')
 
-
-
 ## boundary conditions
 
 flex.cmd('set "set_bc" pick curve 5448') 
@@ -132,8 +127,6 @@ flex.cmd('solid_mechanics_definitions outputs "cb_statics_results" field variabl
 flex.cmd('solid_mechanics_definitions outputs "cb_statics_results" field variables displacement 1 y ')
 flex.cmd('solid_mechanics_definitions outputs "cb_statics_results" field variables displacement 2 z ')
 flex.cmd('solid_mechanics_definitions outputs "cb_statics_results" field variables stress 0 von_mises ')
-
-
 
 ## procedure
 
