@@ -1,0 +1,121 @@
+{
+  "coreform_iga_version": "2025.7",
+  "data_output_file": "cf_iga_data_output.json",
+  "data_output_interval": "intervals_1",
+  "flex_models": [
+    {
+      "database_name": "geom",
+      "label": "flex_models_1",
+      "parts": [
+        {
+          "label": "parts_1",
+          "material": "materials_1",
+          "material_model": "elastic",
+          "part": "part_1",
+          "quadrature_options": {
+            "optimization_lawson_hanson_solve_completion": true,
+            "optimization_method": "tet_pruning",
+            "optimization_residual_tolerance": 1.0000000000000002e-12,
+            "optimized_cut_quadrature_strategy": "reduce_from_uncut",
+            "quadrature": "QP1"
+          }
+        }
+      ],
+      "small_cell_volume_ratio": 0
+    }
+  ],
+  "functions": [
+    {
+      "constant": {
+        "value": 1
+      },
+      "label": "functions_1"
+    }
+  ],
+  "intervals": [
+    {
+      "label": "intervals_1",
+      "start_step": 0,
+      "step_increment": 1,
+      "stop_step": 20,
+      "time_increment": 1
+    }
+  ],
+  "label": "iga_1",
+  "materials": [
+    {
+      "elastic": {
+        "poissons_ratio": 0.29,
+        "youngs_modulus": 28000000
+      },
+      "label": "materials_1",
+      "mass_density": 0.000735
+    }
+  ],
+  "procedures": [
+    {
+      "label": "procedures_1",
+      "structural_modal_analysis": {
+        "boundary_conditions": [
+          "boundary_conditions_1"
+        ],
+        "flex_model": "flex_models_1",
+        "modal_solution_method": "modal_solution_methods_1",
+        "outputs": [
+          "outputs_1"
+        ]
+      }
+    }
+  ],
+  "structural_modal_analysis_definitions": {
+    "boundary_conditions": [
+      {
+        "components": [
+          "x",
+          "y",
+          "z"
+        ],
+        "label": "boundary_conditions_1",
+        "penalty": {
+          "dimensionless": true,
+          "value": 10
+        },
+        "quadrature_options": {
+          "optimization_lawson_hanson_solve_completion": true,
+          "optimization_method": "tet_pruning",
+          "optimization_residual_tolerance": 1.0000000000000002e-12,
+          "optimized_cut_quadrature_strategy": "reduce_from_uncut",
+          "quadrature": "QP1"
+        },
+        "set": "fixed"
+      }
+    ],
+    "modal_solution_methods": [
+      {
+        "frequency_extraction": {
+          "maximum_frequency": 4000,
+          "minimum_frequency": 1
+        },
+        "label": "modal_solution_methods_1"
+      }
+    ],
+    "outputs": [
+      {
+        "field": {
+          "database_name": "cframe_modal_fine_x2",
+          "external_surfaces_only": false,
+          "include_integration_point_output": false,
+          "interval": "intervals_1",
+          "part": "part_1",
+          "variables": {
+            "displacement": [
+              "all"
+            ]
+          }
+        },
+        "label": "outputs_1",
+        "tessellate": true
+      }
+    ]
+  }
+}

@@ -1,0 +1,221 @@
+#!python
+
+import pickle
+
+flex.cmd('reset')
+flex.cmd('cd "C:\\Users\\danajer\\Documents\\fy25_coreform_eval\\iga\\circuit_board" ')
+
+flex.cmd('open "C:\\Users\\danajer\\Documents\\fy25_coreform_eval\\iga\\circuit_board\\united_cb.cf" ')
+
+flex.cmd('materials "materials_1" new')
+flex.cmd('materials materials_1 label "aluminum" ')
+flex.cmd('materials aluminum mass_density 0.0002538597037 ')
+flex.cmd('materials aluminum elastic youngs_modulus 9.9e6')
+flex.cmd('materials aluminum elastic poissons_ratio 0.33')
+flex.cmd('materials aluminum elastic thermal_expansion thermal_expansion_coefficient 1e-6 ')
+flex.cmd('materials aluminum elastic thermal_expansion reference_temperature 0.0 ') # assume C
+
+names = ['ARDUINO_UNO_REV3_SMD_NAUO1_1001-003-02000_1001-003-02000_Chamfer3']
+char_lens = [0.3] 
+
+flex.cmd('data_output_file "cf_iga_data_output_0p1.json"')
+flex.cmd('label "cb_modal_0p1"')
+
+pnames = []
+for ii in range(len(names)):
+    pname = "part_{}".format(str(ii + 1))
+    flex.cmd(' name part {} "{}" '.format(ii + 1, pname))
+    mesh_name = "mesh_" + pname #names[ii]
+    ms = char_lens[ii]/3.0
+    print('mesh "{}" rectilinear degree 2 continuity 1 element_size [{} {} {}] padding [2 2 2]'.format(mesh_name, ms, ms, ms))
+    flex.cmd('mesh "{}" rectilinear degree 2 continuity 1 element_size [{} {} {}] padding [2 2 2]'.format(mesh_name, ms, ms, ms))
+    flex.cmd('part "{}" mesh "{}" '.format(pname, mesh_name))
+    flex.cmd('part "{}" volume_box'.format(pname))
+    flex.cmd(' visibility mesh [{}] toggle '.format(mesh_name))
+    pnames.append(pname)
+
+
+for ii in range(len(names)):    
+    flex.cmd('model_tree "geometry frames {} label" "frame-{}" undefined '.format(str(ii),str(ii)))
+
+
+
+## flex models 
+
+flex.cmd('flex_models "flex_models_1" new ')
+flex.cmd('flex_models "flex_models_1" database_name "geom" ')
+flex.cmd('flex_models "flex_models_1" small_cell_volume_ratio 0')
+
+for ii in range(len(pnames)):
+    instance_name = "instance_" + pnames[ii]
+    flex.cmd('flex_models "flex_models_1" parts "{}" part "{}" '.format(instance_name, pnames[ii]))
+    flex.cmd('flex_models "flex_models_1" parts "{}" material "aluminum" '.format(instance_name))
+    flex.cmd('flex_models "flex_models_1" parts "{}" material_model elastic '.format(instance_name))
+
+
+## modal 
+flex.cmd('structural_modal_analysis_definitions modal_solution_methods "modal_solution_methods_1" new')
+flex.cmd('structural_modal_analysis_definitions modal_solution_methods modal_solution_methods_1 frequency_extraction minimum_frequency 1')
+flex.cmd('structural_modal_analysis_definitions modal_solution_methods modal_solution_methods_1 frequency_extraction maximum_frequency 5000')
+
+## boundary conditions
+
+flex.cmd('set "set_bc" pick curve 5448') 
+flex.cmd('set "set_bc" pick curve 5434' )
+
+flex.cmd('structural_modal_analysis_definitions boundary_conditions "fixed" new ')
+flex.cmd('structural_modal_analysis_definitions boundary_conditions "fixed" set "set_bc" ')
+flex.cmd('structural_modal_analysis_definitions boundary_conditions fixed components new')
+flex.cmd('structural_modal_analysis_definitions boundary_conditions fixed components 0 x')
+flex.cmd('structural_modal_analysis_definitions boundary_conditions fixed components new')
+flex.cmd('structural_modal_analysis_definitions boundary_conditions fixed components 1 y')
+flex.cmd('structural_modal_analysis_definitions boundary_conditions fixed components new')
+flex.cmd('structural_modal_analysis_definitions boundary_conditions fixed components 2 z')
+
+## output
+
+flex.cmd('structural_modal_analysis_definitions outputs "outputs_1" new')
+flex.cmd('structural_modal_analysis_definitions outputs outputs_1 field database_name "cb_modal_0p1"')
+flex.cmd('intervals "intervals_1" new')
+flex.cmd('structural_modal_analysis_definitions outputs outputs_1 field interval "intervals_1"')
+flex.cmd('intervals intervals_1 start_time 1')
+flex.cmd('intervals intervals_1 step_increment 1')
+flex.cmd('structural_modal_analysis_definitions outputs outputs_1 field variables displacement new')
+flex.cmd('structural_modal_analysis_definitions outputs outputs_1 field variables displacement 0 all')
+flex.cmd('structural_modal_analysis_definitions outputs outputs_1 field part "part_1" ')
+
+## functions
+
+flex.cmd('functions "constant_1" new ')
+flex.cmd('functions "constant_1" constant value 1 ')
+
+## procedure
+
+flex.cmd('procedures procedures_1 structural_modal_analysis flex_model "flex_models_1" ')
+flex.cmd('procedures procedures_1 structural_modal_analysis modal_solution_method "modal_solution_methods_1"')
+flex.cmd('procedures procedures_1 structural_modal_analysis boundary_conditions new')
+flex.cmd('procedures procedures_1 structural_modal_analysis boundary_conditions 0 fixed')
+flex.cmd('procedures procedures_1 structural_modal_analysis interactions new')
+flex.cmd('procedures procedures_1 structural_modal_analysis interactions 0 delete')
+flex.cmd('procedures procedures_1 structural_modal_analysis outputs new')
+flex.cmd('procedures procedures_1 structural_modal_analysis outputs 0 outputs_1')
+
+
+
+flex.cmd('model_tree "job_manager jobs 0 job_type trim processor_count" "64" undefined')
+flex.cmd('model_tree "job_manager jobs 0 job_type trim parts" new')
+flex.cmd('model_tree "job_manager jobs 0 job_type trim parts 0" "part_1" undefined')
+flex.cmd('model_tree "job_manager jobs 0 job_type simulation processor_count" "64" undefined')
+flex.cmd('model_tree "job_manager jobs 0 job_type simulation render variable displacement" "undefined" undefined')
+flex.cmd('model_tree "job_manager jobs 0 job_type simulation render variable displacement" "all" undefined')
+
+
+
+## end 
+
+
+
+
+
+
+## intervals
+
+flex.cmd('intervals "simulation_interval" new')
+flex.cmd('intervals "simulation_interval" start_time 0')
+flex.cmd('intervals "simulation_interval" stop_time 1')
+flex.cmd('intervals "simulation_interval" time_increment 5e-4')
+flex.cmd('intervals "simulation_output_interval" new')
+flex.cmd('intervals "simulation_output_interval" use_start_stop_from_interval "simulation_interval"')
+flex.cmd('intervals "simulation_output_interval" step_increment 1')
+#flex.cmd('intervals simulation_output_interval number_equally_spaced_values 10')
+
+## linear eq solvers
+
+flex.cmd('linear_equation_solvers "direct_lu" new')
+flex.cmd('linear_equation_solvers "direct_lu" direct lu')
+flex.cmd('linear_equation_solvers "direct_multi_frontal" new')
+flex.cmd('linear_equation_solvers "direct_multi_frontal" direct multi_frontal')
+
+## nonlinear eq. solvers 
+
+flex.cmd('nonlinear_equation_solvers "newton_raphson" new')
+flex.cmd('nonlinear_equation_solvers "newton_raphson" newton linear_equation_solver "direct_multi_frontal"')
+flex.cmd('nonlinear_equation_solvers "newton_raphson" newton maximum_iterations 20')
+flex.cmd('nonlinear_equation_solvers "newton_raphson" newton target_relative_residual 1e-8')
+
+## timesteppers
+
+flex.cmd('time_steppers "implicit_dynamics_quasistatic" new ')
+flex.cmd('time_steppers "implicit_dynamics_quasistatic" generalized_alpha spectral_radius 0 ')
+flex.cmd('time_steppers "implicit_dynamics_quasistatic" generalized_alpha predictor constant_velocity ')
+flex.cmd('time_steppers "implicit_dynamics_quasistatic" generalized_alpha nonlinear_equation_solver "newton_raphson" ')
+flex.cmd('time_steppers "implicit_dynamics_quasistatic" generalized_alpha adaptivity maximum_time_step 0.1 ')
+flex.cmd('time_steppers "implicit_dynamics_quasistatic" generalized_alpha adaptivity minimum_time_step 1e-5 ')
+flex.cmd('time_steppers "implicit_dynamics_quasistatic" generalized_alpha adaptivity decrease_factor 0.25 ')
+flex.cmd('time_steppers "implicit_dynamics_quasistatic" generalized_alpha adaptivity increase_factor 1.5 ')
+
+## functions
+
+flex.cmd('functions "constant_1" new ')
+flex.cmd('functions "constant_1" constant value 1 ')
+flex.cmd('functions "linear_ramp" new ')
+flex.cmd('functions "linear_ramp" piecewise_linear abscissa [0 1] ')
+flex.cmd('functions "linear_ramp" piecewise_linear ordinate [0 1] ')
+
+
+
+## boundary conditions
+
+flex.cmd('set "set_bc" pick curve 5448') 
+flex.cmd('set "set_bc" pick curve 5434' )
+
+flex.cmd('solid_mechanics_definitions boundary_conditions "fixed" new ')
+flex.cmd('solid_mechanics_definitions boundary_conditions "fixed" set "set_bc" ')
+flex.cmd('solid_mechanics_definitions boundary_conditions "fixed" displacement function "constant_1" ')
+flex.cmd('solid_mechanics_definitions boundary_conditions "fixed" displacement components 0 x ')
+flex.cmd('solid_mechanics_definitions boundary_conditions "fixed" displacement components 1 y ')
+flex.cmd('solid_mechanics_definitions boundary_conditions "fixed" displacement components 2 z ')
+flex.cmd('solid_mechanics_definitions boundary_conditions "fixed" displacement scale_factor 0 ')
+
+
+## load
+
+flex.cmd('solid_mechanics_definitions load_conditions "load_conditions_1" new')
+flex.cmd('solid_mechanics_definitions load_conditions load_conditions_1 body_force active ')
+flex.cmd('solid_mechanics_definitions load_conditions load_conditions_1 body_force components new ')
+flex.cmd('solid_mechanics_definitions load_conditions load_conditions_1 body_force components 0 y ')
+flex.cmd('solid_mechanics_definitions load_conditions load_conditions_1 body_force function "linear_ramp" ')
+flex.cmd('solid_mechanics_definitions load_conditions load_conditions_1 part "part_1" ')
+flex.cmd('solid_mechanics_definitions load_conditions load_conditions_1 body_force scale_factor [50] ')
+
+## output
+
+flex.cmd('solid_mechanics_definitions outputs "cb_statics_results" new ')
+flex.cmd('solid_mechanics_definitions outputs "cb_statics_results" field database_name "cb_statics_result"')
+flex.cmd('solid_mechanics_definitions outputs "cb_statics_results" field interval "simulation_output_interval"')
+flex.cmd('solid_mechanics_definitions outputs "cb_statics_results" field part "part_1"  ')
+flex.cmd('solid_mechanics_definitions outputs "cb_statics_results" field variables displacement 0 x ')
+flex.cmd('solid_mechanics_definitions outputs "cb_statics_results" field variables displacement 1 y ')
+flex.cmd('solid_mechanics_definitions outputs "cb_statics_results" field variables displacement 2 z ')
+flex.cmd('solid_mechanics_definitions outputs "cb_statics_results" field variables stress 0 von_mises ')
+
+
+
+## procedure
+
+flex.cmd('label "uur_mech_analysis" ')
+flex.cmd('procedures "cb_statics" solid_mechanics ')
+flex.cmd('procedures "cb_statics" solid_mechanics interval "simulation_interval" ')
+flex.cmd('procedures "cb_statics" solid_mechanics flex_model "flex_models_1" ')
+flex.cmd('procedures "cb_statics" solid_mechanics time_stepping_method "implicit_dynamics_quasistatic" ')
+flex.cmd('procedures "cb_statics" solid_mechanics boundary_conditions 0 "fixed" ')
+
+flex.cmd('procedures "cb_statics" solid_mechanics outputs 0 "cb_statics_results" ')
+flex.cmd('procedures "cb_statics" solid_mechanics load_conditions 0 load_conditions_1 ')
+
+flex.cmd('model_tree "job_manager jobs 0 label" "cb_static_" undefined')
+flex.cmd('model_tree "job_manager jobs 0 label" "cb_static_0p1" undefined')
+flex.cmd('model_tree "job_manager jobs 0 job_type trim" "undefined" undefined')
+flex.cmd('model_tree "job_manager jobs 0 job_type trim parts" new')
+flex.cmd('model_tree "job_manager jobs 0 job_type trim parts 0" "part_1" undefined')
+flex.cmd('model_tree "job_manager jobs 0 job_type trim processor_count" "24" undefined')

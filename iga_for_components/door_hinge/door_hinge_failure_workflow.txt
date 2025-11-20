@@ -1,0 +1,229 @@
+
+#=Door Lock Hinge Assembly Problem
+reset
+dev rimport "/tutorials/door_lock_assembly/door_lock_assembly.sat"
+#!=Door Lock Hinge Assembly Problem
+#=DEFINE PARTS AND SETS
+name part 1 "door_link"
+name part 2 "door_hinge"
+name part 3 "door_pin"
+set "door_link_bottom_surfaces" add surfaces [21 29]
+set "door_hinge_bolt_surfaces" add surfaces [111 115]
+#!=DEFINE PARTS AND SETS
+#=MESH GENERATION
+mesh "mesh_door_link" rectilinear degree 2 continuity 1 element_size [1 1 1] padding [2 2 2]
+part "door_link" mesh "mesh_door_link"
+part "door_link" volume_box
+mesh "mesh_door_hinge" rectilinear degree 2 continuity 1 element_size [1 1 1] padding [2 2 2]
+part "door_hinge" mesh "mesh_door_hinge"
+part "door_hinge" volume_box
+mesh "mesh_door_pin" rectilinear degree 2 continuity 1 element_size [1 1 1] padding [2 2 2]
+part "door_pin" mesh "mesh_door_pin"
+part "door_pin" volume_box
+#!=MESH GENERATION
+#=FUNCTIONS
+functions "aluminum_plastic_hardening" new
+functions "aluminum_plastic_hardening" piecewise_linear abscissa [0 10]
+functions "aluminum_plastic_hardening" piecewise_linear ordinate [0 100]
+functions "steel_plastic_hardening" new
+functions "steel_plastic_hardening" piecewise_linear abscissa [0 10]
+functions "steel_plastic_hardening" piecewise_linear ordinate [0 100]
+functions "constant_1" new
+functions "constant_1" constant value 1
+functions "linear_ramp" new
+functions "linear_ramp" piecewise_linear abscissa [0 1]
+functions "linear_ramp" piecewise_linear ordinate [0 1]
+#!=FUNCTIONS
+#=MATERIALS
+materials "aluminum" new
+materials "aluminum" mass_density 2.7e-9
+materials "aluminum" neohookean_isotropic_plasticity neohookean youngs_modulus 73.8e3
+materials "aluminum" neohookean_isotropic_plasticity neohookean poissons_ratio 0.3
+materials "aluminum" neohookean_isotropic_plasticity isotropic_plasticity yield_stress 322
+materials "aluminum" neohookean_isotropic_plasticity isotropic_plasticity hardening_function "aluminum_plastic_hardening"
+materials "steel" new
+materials "steel" mass_density 2.7e-9
+materials "steel" neohookean_isotropic_plasticity neohookean youngs_modulus 200e3
+materials "steel" neohookean_isotropic_plasticity neohookean poissons_ratio 0.29
+materials "steel" neohookean_isotropic_plasticity isotropic_plasticity yield_stress 2e3
+materials "steel" neohookean_isotropic_plasticity isotropic_plasticity hardening_function "steel_plastic_hardening"
+tessellation_options "tessellation_options_1" meshgems average_triangle_edge_subdivisions 4
+#!=MATERIALS
+#=FLEX MODELS
+flex_models "flex_models_1" new
+flex_models "flex_models_1" database_name "geom"
+flex_models "flex_models_1" small_cell_volume_ratio 0
+flex_models "flex_models_1" parts "door_hinge_instance" part "door_hinge"
+flex_models "flex_models_1" parts "door_hinge_instance" material "aluminum"
+flex_models "flex_models_1" parts "door_hinge_instance" material_model neohookean_isotropic_plasticity
+flex_models "flex_models_1" parts "door_hinge_instance" quadrature_options tessellation_option "tessellation_options_1"
+flex_models "flex_models_1" parts "door_link_instance" part "door_link"
+flex_models "flex_models_1" parts "door_link_instance" material "aluminum"
+flex_models "flex_models_1" parts "door_link_instance" material_model neohookean_isotropic_plasticity
+flex_models "flex_models_1" parts "door_link_instance" quadrature_options tessellation_option "tessellation_options_1"
+flex_models "flex_models_1" parts "door_pin_instance" part "door_pin"
+flex_models "flex_models_1" parts "door_pin_instance" material "steel"
+flex_models "flex_models_1" parts "door_pin_instance" material_model neohookean_isotropic_plasticity
+flex_models "flex_models_1" parts "door_pin_instance" quadrature_options tessellation_option "tessellation_options_1"
+#!=FLEX MODELS
+#=INTERVALS
+intervals "simulation_interval" new
+intervals "simulation_interval" start_time 0
+intervals "simulation_interval" stop_time 1
+intervals "simulation_interval" time_increment 5e-4
+intervals "simulation_output_interval" new
+intervals "simulation_output_interval" use_start_stop_from_interval "simulation_interval"
+intervals "simulation_output_interval" step_increment 1
+#!=INTERVALS
+#=LINEAR EQUATION SOLVERS
+linear_equation_solvers "direct_lu" new
+linear_equation_solvers "direct_lu" direct lu
+linear_equation_solvers "direct_multi_frontal" new
+linear_equation_solvers "direct_multi_frontal" direct multi_frontal
+#!=LINEAR EQUATION SOLVERS
+#=NONLINEAR EQUATION SOLVERS
+nonlinear_equation_solvers "newton_raphson" new
+nonlinear_equation_solvers "newton_raphson" newton linear_equation_solver "direct_multi_frontal"
+nonlinear_equation_solvers "newton_raphson" newton maximum_iterations 20
+nonlinear_equation_solvers "newton_raphson" newton target_relative_residual 1e-8
+#!=NONLINEAR EQUATION SOLVERS
+#=TIMESTEPPERS
+time_steppers "implicit_dynamics_quasistatic" new
+time_steppers "implicit_dynamics_quasistatic" generalized_alpha spectral_radius 0
+time_steppers "implicit_dynamics_quasistatic" generalized_alpha predictor constant_velocity
+time_steppers "implicit_dynamics_quasistatic" generalized_alpha nonlinear_equation_solver "newton_raphson"
+time_steppers "implicit_dynamics_quasistatic" generalized_alpha adaptivity maximum_time_step 0.1
+time_steppers "implicit_dynamics_quasistatic" generalized_alpha adaptivity minimum_time_step 1e-5
+time_steppers "implicit_dynamics_quasistatic" generalized_alpha adaptivity decrease_factor 0.25
+time_steppers "implicit_dynamics_quasistatic" generalized_alpha adaptivity increase_factor 1.5
+#!=TIMESTEPPERS
+#=BOUNDARY CONDITIONS
+solid_mechanics_definitions boundary_conditions "hold_door_link_bottom" new
+solid_mechanics_definitions boundary_conditions "hold_door_link_bottom" set "door_link_bottom_surfaces"
+solid_mechanics_definitions boundary_conditions "hold_door_link_bottom" displacement function "constant_1"
+solid_mechanics_definitions boundary_conditions "hold_door_link_bottom" displacement components 0 x
+solid_mechanics_definitions boundary_conditions "hold_door_link_bottom" displacement components 1 y
+solid_mechanics_definitions boundary_conditions "hold_door_link_bottom" displacement components 2 z
+solid_mechanics_definitions boundary_conditions "hold_door_link_bottom" displacement scale_factor 0
+solid_mechanics_definitions boundary_conditions "hold_door_link_bottom" quadrature_options tessellation_option "tessellation_options_1"
+solid_mechanics_definitions boundary_conditions "pull_door_hinge_bolts" new
+solid_mechanics_definitions boundary_conditions "pull_door_hinge_bolts" set "door_hinge_bolt_surfaces"
+solid_mechanics_definitions boundary_conditions "pull_door_hinge_bolts" displacement function "linear_ramp"
+solid_mechanics_definitions boundary_conditions "pull_door_hinge_bolts" displacement components 0 x
+solid_mechanics_definitions boundary_conditions "pull_door_hinge_bolts" displacement components 1 y
+solid_mechanics_definitions boundary_conditions "pull_door_hinge_bolts" displacement components 2 z
+solid_mechanics_definitions boundary_conditions "pull_door_hinge_bolts" displacement scale_factor [0 0 9]
+solid_mechanics_definitions boundary_conditions "pull_door_hinge_bolts" quadrature_options tessellation_option "tessellation_options_1"
+#!=BOUNDARY CONDITIONS
+#=INTERACTIONS
+solid_mechanics_definitions interaction_properties "friction" new
+solid_mechanics_definitions interaction_properties "friction" coulomb_friction coefficient_with_regularization friction_coefficient 0.3
+solid_mechanics_definitions interaction_properties "friction" coulomb_friction coefficient_with_regularization regularization_velocity 0.1
+solid_mechanics_definitions interactions "frictional_contact" new
+solid_mechanics_definitions interactions "frictional_contact" mechanical_contact base_contact complement true
+solid_mechanics_definitions interactions "frictional_contact" mechanical_contact interaction_properties "friction"
+solid_mechanics_definitions interactions "frictional_contact" mechanical_contact approximate_tangent_iterations 6
+solid_mechanics_definitions interactions "frictional_contact" quadrature_options tessellation_option "tessellation_options_1"
+solid_mechanics_definitions interactions "frictional_contact" mechanical_contact activation_distance value 0.5
+solid_mechanics_definitions interactions "frictional_contact" mechanical_contact activation_zone_influential_radius_factor 1.0
+solid_mechanics_definitions interactions "frictional_contact" mechanical_contact potential_cutoff_distance_factor 0.5
+#!=INTERACTIONS
+#=PROBES
+solid_mechanics_definitions probes "door_link_reaction_force" new
+solid_mechanics_definitions probes "door_link_reaction_force" integrated_surface_quantity
+solid_mechanics_definitions probes "door_link_reaction_force" integrated_surface_quantity use_set_from_boundary_condition "hold_door_link_bottom"
+solid_mechanics_definitions probes "door_link_reaction_force" integrated_surface_quantity variables reaction_force 0 x
+solid_mechanics_definitions probes "door_link_reaction_force" integrated_surface_quantity variables reaction_force 1 y
+solid_mechanics_definitions probes "door_link_reaction_force" integrated_surface_quantity variables reaction_force 2 z
+solid_mechanics_definitions probes "door_hinge_reaction_force" new
+solid_mechanics_definitions probes "door_hinge_reaction_force" integrated_surface_quantity
+solid_mechanics_definitions probes "door_hinge_reaction_force" integrated_surface_quantity use_set_from_boundary_condition "pull_door_hinge_bolts"
+solid_mechanics_definitions probes "door_hinge_reaction_force" integrated_surface_quantity variables reaction_force 0 x
+solid_mechanics_definitions probes "door_hinge_reaction_force" integrated_surface_quantity variables reaction_force 1 y
+solid_mechanics_definitions probes "door_hinge_reaction_force" integrated_surface_quantity variables reaction_force 2 z
+solid_mechanics_definitions probes "door_hinge_max_vm" new
+solid_mechanics_definitions probes door_hinge_max_vm field extremum part active
+solid_mechanics_definitions probes door_hinge_max_vm field extremum part ""
+solid_mechanics_definitions probes door_hinge_max_vm field extremum part ""
+solid_mechanics_definitions probes door_hinge_max_vm field extremum part "door_hinge"
+solid_mechanics_definitions probes door_hinge_max_vm field extremum maximum active
+solid_mechanics_definitions probes door_hinge_max_vm field extremum maximum stress active
+solid_mechanics_definitions probes door_hinge_max_vm field extremum maximum stress von_mises
+solid_mechanics_definitions probes door_hinge_max_vm field variables stress new
+solid_mechanics_definitions probes door_hinge_max_vm field variables stress 0 von_mises
+#!=PROBES
+#=FIELD OUTPUT
+solid_mechanics_definitions outputs "door_link_field_results" new
+solid_mechanics_definitions outputs "door_link_field_results" field database_name "door_link_results"
+solid_mechanics_definitions outputs "door_link_field_results" field interval "simulation_output_interval"
+solid_mechanics_definitions outputs "door_link_field_results" field part "door_link"
+solid_mechanics_definitions outputs "door_link_field_results" field variables displacement 0 x
+solid_mechanics_definitions outputs "door_link_field_results" field variables displacement 1 y
+solid_mechanics_definitions outputs "door_link_field_results" field variables displacement 2 z
+solid_mechanics_definitions outputs "door_link_field_results" field variables stress 0 von_mises
+solid_mechanics_definitions outputs "door_link_field_results" field variables plastic_strain 0 equivalent
+solid_mechanics_definitions outputs "door_hinge_field_results" new
+solid_mechanics_definitions outputs "door_hinge_field_results" field database_name "door_hinge_results"
+solid_mechanics_definitions outputs "door_hinge_field_results" field interval "simulation_output_interval"
+solid_mechanics_definitions outputs "door_hinge_field_results" field part "door_hinge"
+solid_mechanics_definitions outputs "door_hinge_field_results" field variables displacement 0 x
+solid_mechanics_definitions outputs "door_hinge_field_results" field variables displacement 1 y
+solid_mechanics_definitions outputs "door_hinge_field_results" field variables displacement 2 z
+solid_mechanics_definitions outputs "door_hinge_field_results" field variables stress 0 von_mises
+solid_mechanics_definitions outputs "door_hinge_field_results" field variables plastic_strain 0 equivalent
+solid_mechanics_definitions outputs "door_pin_field_results" new
+solid_mechanics_definitions outputs "door_pin_field_results" field database_name "door_pin_results"
+solid_mechanics_definitions outputs "door_pin_field_results" field interval "simulation_output_interval"
+solid_mechanics_definitions outputs "door_pin_field_results" field part "door_pin"
+solid_mechanics_definitions outputs "door_pin_field_results" field variables displacement 0 x
+solid_mechanics_definitions outputs "door_pin_field_results" field variables displacement 1 y
+solid_mechanics_definitions outputs "door_pin_field_results" field variables displacement 2 z
+solid_mechanics_definitions outputs "door_pin_field_results" field variables stress 0 von_mises
+solid_mechanics_definitions outputs "door_pin_field_results" field variables plastic_strain 0 equivalent
+solid_mechanics_definitions outputs "door_link_reaction_force_results" new
+solid_mechanics_definitions outputs "door_link_reaction_force_results" history interval "simulation_output_interval"
+solid_mechanics_definitions outputs "door_link_reaction_force_results" history probe_variables 0 door_link_reaction_force
+solid_mechanics_definitions outputs "door_hinge_reaction_force_results" new
+solid_mechanics_definitions outputs "door_hinge_reaction_force_results" history interval "simulation_output_interval"
+solid_mechanics_definitions outputs "door_hinge_reaction_force_results" history probe_variables 0 door_hinge_reaction_force
+solid_mechanics_definitions outputs "door_hinge_max_vm_results" new
+solid_mechanics_definitions outputs "door_hinge_max_vm_results" history interval "simulation_output_interval"
+solid_mechanics_definitions outputs "door_hinge_max_vm_results" history probe_variables 0 door_hinge_max_vm
+#!=FIELD OUTPUT
+#=PROCEDURES
+label "door_hinge_failure"
+procedures "pull_door_hinge" solid_mechanics
+procedures "pull_door_hinge" solid_mechanics interval "simulation_interval"
+procedures "pull_door_hinge" solid_mechanics flex_model "flex_models_1"
+procedures "pull_door_hinge" solid_mechanics time_stepping_method "implicit_dynamics_quasistatic"
+procedures "pull_door_hinge" solid_mechanics boundary_conditions 0 "hold_door_link_bottom"
+procedures "pull_door_hinge" solid_mechanics boundary_conditions 1 "pull_door_hinge_bolts"
+procedures "pull_door_hinge" solid_mechanics interactions 0 "frictional_contact"
+procedures "pull_door_hinge" solid_mechanics outputs 0 "door_link_field_results"
+procedures "pull_door_hinge" solid_mechanics outputs 1 "door_hinge_field_results"
+procedures "pull_door_hinge" solid_mechanics outputs 2 "door_pin_field_results"
+procedures "pull_door_hinge" solid_mechanics outputs 3 "door_link_reaction_force_results"
+procedures "pull_door_hinge" solid_mechanics outputs 4 "door_hinge_reaction_force_results"
+procedures pull_door_hinge solid_mechanics outputs 5 door_hinge_max_vm_results
+#!=PROCEDURES
+#=Save the Coreform Flex project
+save "door_lock_assembly.cf"
+#!=Save the Coreform Flex project
+#=SUBMIT TRIM JOB
+# Check the trimmed mesh
+job "job_door_hinge_trim" new
+job "job_door_hinge_trim" trim processor_count 16
+job "job_door_hinge_trim" trim trim_parts [door_link door_hinge door_pin]
+job "job_door_hinge_trim" submit
+job "job_door_hinge_trim" wait
+#!=SUBMIT TRIM JOB
+#=SUBMIT SIMULATION JOB
+job "job_door_hinge_failure" new
+job "job_door_hinge_failure" simulation processor_count 16
+job "job_door_hinge_failure" submit
+job "job_door_hinge_failure" wait
+#!=SUBMIT SIMULATION JOB
+#=VISUALIZE SIMULATION RESULTS
+job "job_door_hinge_failure" render_iga timestep last scalars stress von_mises
+#!=VISUALIZE SIMULATION RESULTS
+
