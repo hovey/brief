@@ -15,4 +15,3 @@ compile LaTeX with
 
 pdflatex -shell-escape main.tex
 
-
