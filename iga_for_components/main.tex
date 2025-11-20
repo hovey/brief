@@ -47,6 +47,7 @@
 \documentclass[12pt,report,justified]{SANDreport}
 \usepackage{minted}
 \usepackage{xcolor}
+\usepackage{graphicx}
 
 
 % Define custom colors
@@ -130,7 +131,9 @@
 %
 \SANDmain		% Start the main part of the report
 
+% ---------------------------------------------------------------------- %
 \chapter{Introduction}
+% ---------------------------------------------------------------------- %
 \label{Intro}
 Very glad to meet you.
 
@@ -141,13 +144,40 @@ Underpromising, and hopefully over-delivering.
 \section{Another Section}
 Look at us go!
 
+% ---------------------------------------------------------------------- %
 \chapter{Background}
+% ---------------------------------------------------------------------- %
 
+% ---------------------------------------------------------------------- %
 \chapter{Objective}
+% ---------------------------------------------------------------------- %
 
+% ---------------------------------------------------------------------- %
 \chapter{Data}
+% ---------------------------------------------------------------------- %
 
-\section{C Frame Modal}
+% ---------------
+\section{C-Frame}
+% ---------------
+
+\begin{figure}[h!]
+    \begin{center}
+    \includegraphics[width=0.4\textwidth]{img/cframe.png}
+    \end{center}
+    \caption{C-frame geometry used for modal analysis.}
+    \label{fig:cframe}
+\end{figure}
+
+
+\begin{itemize}
+    \item Analysis type: modal
+    \item Material: isotropic linear elastic
+    \item Mesh: IGA
+    \item Geometry: C-frame
+    \item Boundary conditions: fixed at base
+    \item Loads: N/A
+    \item Solver: direct
+\end{itemize}
 
 \subsection{\tt{cframe\_modal/jobs\_coarse.iga}}
 \inputminted[stripnl=false]{json}{cframe_modal/jobs_coarse.json}
@@ -158,16 +188,44 @@ Look at us go!
 \subsection{\tt{cframe\_modal/jobs\_fine\_x2.iga}}
 \inputminted[stripnl=false]{json}{cframe_modal/jobs_fine_x2.json}
 
+% ---------------
+\section{Door Hinge}
+% ---------------
 
+\begin{figure}[h!]
+    \begin{center}
+    \includegraphics[width=0.4\textwidth]{img/door-hinge.png}
+    \end{center}
+    \caption{Door hinge geometry used for nonlinear static analysis.}
+    \label{fig:door-hinge}
+\end{figure}
+
+\subsection{\tt{door\_hinge/door\_hinge\_static/door\_hinge\_failure\_workflow.txt}}
+\inputminted[stripnl=false]{text}{door_hinge/door_hinge_failure_workflow.txt}
+
+\subsection{\tt{door\_hinge/job\_door\_hinge\_failure.iga}}
+\inputminted[stripnl=false]{json}{door_hinge/job_door_hinge_failure.json}
+
+\subsection{\tt{door\_hinge/read\_force\_vm.py}}
+\inputminted[stripnl=false]{python}{door_hinge/read_force_vm.py}
+
+% ---------------------------------------------------------------------- %
 \chapter{Methods}
+% ---------------------------------------------------------------------- %
 
+% ---------------------------------------------------------------------- %
 \chapter{Results}
+% ---------------------------------------------------------------------- %
 
+% ---------------------------------------------------------------------- %
 \chapter{Conclusion}
+% ---------------------------------------------------------------------- %
 That is, as they say, all, folks.
 
 
+% ---------------------------------------------------------------------- %
 \appendix
+% ---------------------------------------------------------------------- %
 \chapter{Appendices}
     Include any supplementary material, such as additional data, calculations, or detailed explanations of methods that are too lengthy for the main sections.
 

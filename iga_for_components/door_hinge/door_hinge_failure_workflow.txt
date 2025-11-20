@@ -1,4 +1,3 @@
-
 #=Door Lock Hinge Assembly Problem
 reset
 dev rimport "/tutorials/door_lock_assembly/door_lock_assembly.sat"
