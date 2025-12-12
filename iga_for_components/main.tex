@@ -62,12 +62,23 @@
 \definecolor{linegray}{RGB}{128,128,128}    % gray for line numbers
 \definecolor{altlinebg}{RGB}{230,230,230}   % alternating line color
 
-\definecolor{tableaublue}{RGB}{31, 119, 180}   % Blue
-\definecolor{tableaulightblue}{RGB}{102, 194, 255} % Lighter Blue
-\definecolor{tableauorange}{RGB}{255, 127, 14} % Orange
-\definecolor{tableaulightorange}{RGB}{255, 178, 102} % Lighter Orange
-\definecolor{tableaugreen}{RGB}{44, 160, 44}   % Green
-\definecolor{tableaulightgreen}{RGB}{102, 255, 102} % Lighter Green
+% \definecolor{tableaublue}{RGB}{31, 119, 180}   % Blue
+% \definecolor{tableaulightblue}{RGB}{102, 194, 255} % Lighter Blue
+% \definecolor{tableauorange}{RGB}{255, 127, 14} % Orange
+% \definecolor{tableaulightorange}{RGB}{255, 178, 102} % Lighter Orange
+% \definecolor{tableaugreen}{RGB}{44, 160, 44}   % Green
+% \definecolor{tableaulightgreen}{RGB}{102, 255, 102} % Lighter Green
+
+% Define 20% lighter colors
+\definecolor{tableaublue}{RGB}{51, 153, 204}   % 20% Lighter Blue
+\definecolor{tableaulightblue}{RGB}{153, 217, 255} % 20% Lighter Lighter Blue
+\definecolor{tableauorange}{RGB}{255, 153, 51} % 20% Lighter Orange
+\definecolor{tableaulightorange}{RGB}{255, 204, 153} % 20% Lighter Lighter Orange
+\definecolor{tableaugreen}{RGB}{68, 204, 68}   % 20% Lighter Green
+\definecolor{tableaulightgreen}{RGB}{153, 255, 153} % 20% Lighter Lighter Green
+
+
+
 
 % Set global minted style
 \setminted{
@@ -215,14 +226,14 @@ Work in progress.
         \centering
         % Placeholder for Subfigure 1
         \includegraphics[width=\textwidth]{img/cframe/mode1.png}
-        \caption{Subfigure 1}
+        \caption{Mode 1}
     \end{subfigure}
     \hfill
     \begin{subfigure}{0.45\textwidth}
         \centering
         % Placeholder for Subfigure 2
         \includegraphics[width=\textwidth]{img/cframe/mode2.png}
-        \caption{Subfigure 2}
+        \caption{Mode 2}
     \end{subfigure}
     
     \vspace{0.5cm} % Space between rows
@@ -231,14 +242,14 @@ Work in progress.
         \centering
         % Placeholder for Subfigure 3
         \includegraphics[width=\textwidth]{img/cframe/mode3.png}
-        \caption{Subfigure 3}
+        \caption{Mode 3}
     \end{subfigure}
     \hfill
     \begin{subfigure}{0.45\textwidth}
         \centering
         % Placeholder for Subfigure 4
         \includegraphics[width=\textwidth]{img/cframe/mode4.png}
-        \caption{Subfigure 4}
+        \caption{Mode 4}
     \end{subfigure}
 
     \vspace{0.5cm} % Space between rows
@@ -247,28 +258,28 @@ Work in progress.
         \centering
         % Placeholder for Subfigure 5
         \includegraphics[width=\textwidth]{img/cframe/mode5.png}
-        \caption{Subfigure 5}
+        \caption{Mode 5}
     \end{subfigure}
     \hfill
     \begin{subfigure}{0.45\textwidth}
         \centering
         % Placeholder for Subfigure 6
         \includegraphics[width=\textwidth]{img/cframe/mode6.png}
-        \caption{Subfigure 6}
+        \caption{Mode 6}
     \end{subfigure}
 
-    \caption{Mode shapes and frequencies for the C-frame model using IGA.  The first six modes are shown.  The IGA model used is the medium coarse resolution.}
+    \caption{Mode shapes and frequencies for the C-frame IGA model.  The first six modes are shown.  The IGA model used is first refinement model (13,332 DOF).}
 \end{figure}
 
 \newpage
 Status: Alejandro trying to match the DOF x-axis.
 David to set up meeting with Alejandro and Chad to discuss results.
 Alejandro has DOF data for existing FEA models.
-Showing the 2nd resolution.
-Aljenadro defeatured hex model, but not the tet model.
+Alejandro defeatured hex model, but not the tet model.
 David to email to Chad four IGA models (coarse, fine, finer, finest) by next Friday 19 Dec 2025.
-David to put python, Excel, and 
+David to put python, Excel, and supporting files on the repository.
 
+\newpage
 \begin{figure}[h!]
     \begin{center}
     \includegraphics[width=\textwidth]{img/cframe/modes_iga_sierra_dofs.png}
@@ -276,8 +287,6 @@ David to put python, Excel, and
     \caption{Model frequency convergence as a function of degree of freedom (DOF) for IGA and FEA models.  FEA included SSD tetrahedral (10-noded) and SSD hexahedral (8-noded) meshes.  DOF count increases from left (coarse) to right (fine).  The IGA model shows faster convergence with DOF compared to the traditional FEA models.  DOF count specifics appear in Table~\ref{tab:cframe-resolutions}.}
     \label{fig:cframe}
 \end{figure}
-
-
 
 \begin{table}[h!]
     \centering
@@ -287,18 +296,28 @@ David to put python, Excel, and
         \hline
         \textbf{Analysis Type} & \multicolumn{4}{c|}{\textbf{Coarse \hspace{0.5cm} \(\longleftarrow \cdots\cdots\cdots \cdots\cdots\cdots \cdots\cdots\cdots \longrightarrow\) \hspace{0.5cm} Fine}} \\
         \hline
-        \rowcolor{tableaulightblue} \multirow{2}{*}{IGA} & 3,420 & 13,332 & 69,426 & 383,250 \\
-        & 15s (1 core) & 37s (1 core) & 209s (1 core) & 1,303s (1 core) \\
+        % \rowcolor{tableaulightblue} \multirow{2}{*}{IGA} & 3,420 & 13,332 & 69,426 & 383,250 \\
+        \rowcolor{tableaublue} IGA & 3,420 & 13,332 & 69,426 & 383,250 \\
+        \rowcolor{tableaulightblue} & 15s (1 core) & 37s (1 core) & 209s (1 core) & 1,303s (1 core) \\
         \hline
-        \rowcolor{tableauorange} \multirow{2}{*}{SSD tet10} & 13,146 & 69,234 & 382,791 & 4,072,959 \\
-        & r3c2 & r3c3 & r3c4 & 225s (128 cores) \\
+        % \rowcolor{tableauorange} \multirow{2}{*}{SSD tet10} & 13,146 & 69,234 & 382,791 & 4,072,959 \\
+        \rowcolor{tableauorange} SSD tet10 & 13,146 & 69,234 & 382,791 & 4,072,959 \\
+        \rowcolor{tableaulightorange} & r3c2 & r3c3 & r3c4 & 225s (128 cores) \\
         \hline
-        \rowcolor{tableaugreen} \multirow{2}{*}{SSD hex8} & 23,682 & 160,059 & 1,167,897 & r4c5-a \\
-        & 6s (12 cores) & 20s (128 cores) & 75s (128 cores) & r4c5-b \\
+        % \rowcolor{tableaugreen} \multirow{2}{*}{SSD hex8} & 23,682 & 160,059 & 1,167,897 & r4c5-a \\
+        \rowcolor{tableaugreen} SSD hex8 & 23,682 & 160,059 & 1,167,897 & --- \\
+        \rowcolor{tableaulightgreen} & 6s (12 cores) & 20s (128 cores) & 75s (128 cores) & --- \\
         \hline
     \end{tabular}
 \end{table}
 
+\begin{figure}[h!]
+    \begin{center}
+    \includegraphics[width=0.5\textwidth]{img/cframe/processor_time_v_dof.png}
+    \end{center}
+    \caption{Processor time versus degree of freedom (DOF) for C-frame IGA and FEA models.  The IGA model shows lower processor time for a given DOF count compared to the traditional FEA models.}
+    \label{fig:cframe-processor-time-dof}
+\end{figure}
 
 % ------------------
 \newpage
