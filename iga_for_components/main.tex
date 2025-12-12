@@ -49,6 +49,9 @@
 \usepackage{xcolor}
 \usepackage{graphicx}
 \usepackage{draftwatermark}
+\usepackage{subcaption}
+\usepackage{multirow}
+\usepackage{xcolor}
 
 \SetWatermarkText{DRAFT}
 \SetWatermarkScale{1}
@@ -58,6 +61,13 @@
 \definecolor{codebg}{RGB}{245,245,245}      % light gray background
 \definecolor{linegray}{RGB}{128,128,128}    % gray for line numbers
 \definecolor{altlinebg}{RGB}{230,230,230}   % alternating line color
+
+\definecolor{tableaublue}{RGB}{31, 119, 180}   % Blue
+\definecolor{tableaulightblue}{RGB}{102, 194, 255} % Lighter Blue
+\definecolor{tableauorange}{RGB}{255, 127, 14} % Orange
+\definecolor{tableaulightorange}{RGB}{255, 178, 102} % Lighter Orange
+\definecolor{tableaugreen}{RGB}{44, 160, 44}   % Green
+\definecolor{tableaulightgreen}{RGB}{102, 255, 102} % Lighter Green
 
 % Set global minted style
 \setminted{
@@ -121,9 +131,7 @@ To come.
 
 To do:
 \begin{itemize}
-\item Input decks to appendix
-\item Names Hovey first, then alpha, then Emery last
-\item John Bishop as reviewer
+\item Joe Bishop as reviewer (jebisho@sandia.gov)
 \end{itemize}
 \end{abstract}
 
@@ -171,7 +179,7 @@ Work in progress.
 % ---------------------------------------------------------------------- %
 
 % ---------------------------------------------------------------------- %
-\chapter{Data}
+\chapter{Models}
 % ---------------------------------------------------------------------- %
 
 % ---------------
@@ -180,12 +188,11 @@ Work in progress.
 
 \begin{figure}[h!]
     \begin{center}
-    \includegraphics[width=0.4\textwidth]{img/cframe.png}
+    \includegraphics[width=0.4\textwidth]{img/cframe/cframe.png}
     \end{center}
-    \caption{C-frame geometry used for modal analysis.}
+    \caption{C-frame geometry.}
     \label{fig:cframe}
 \end{figure}
-
 
 \begin{itemize}
     \item Analysis type: modal
@@ -198,19 +205,103 @@ Work in progress.
     \item Geomety included in Coreform Flex distribution, no additional cleanup needed for IGA.
     \item Modal analysis performed
     \item Requested modes in $(1, 4000)$ Hz
-    \item Solved locally on laptop (1 cpu)
+    \item Solved locally on laptop 1 cpu, Windows 11, 32 GB RAM, Intel i7 (13th gen)
 \end{itemize}
 
-\subsection{\tt{jobs\_coarse.iga}}
-\inputminted[stripnl=false]{json}{cframe_modal/jobs_coarse.json}
+\newpage
+\begin{figure}[h!]
+    \centering
+    \begin{subfigure}{0.45\textwidth}
+        \centering
+        % Placeholder for Subfigure 1
+        \includegraphics[width=\textwidth]{img/cframe/mode1.png}
+        \caption{Subfigure 1}
+    \end{subfigure}
+    \hfill
+    \begin{subfigure}{0.45\textwidth}
+        \centering
+        % Placeholder for Subfigure 2
+        \includegraphics[width=\textwidth]{img/cframe/mode2.png}
+        \caption{Subfigure 2}
+    \end{subfigure}
+    
+    \vspace{0.5cm} % Space between rows
 
-\subsection{\tt{jobs\_fine.iga}}
-\inputminted[stripnl=false]{json}{cframe_modal/jobs_fine.json}
+    \begin{subfigure}{0.45\textwidth}
+        \centering
+        % Placeholder for Subfigure 3
+        \includegraphics[width=\textwidth]{img/cframe/mode3.png}
+        \caption{Subfigure 3}
+    \end{subfigure}
+    \hfill
+    \begin{subfigure}{0.45\textwidth}
+        \centering
+        % Placeholder for Subfigure 4
+        \includegraphics[width=\textwidth]{img/cframe/mode4.png}
+        \caption{Subfigure 4}
+    \end{subfigure}
 
-\subsection{\tt{jobs\_fine\_x2.iga}}
-\inputminted[stripnl=false]{json}{cframe_modal/jobs_fine_x2.json}
+    \vspace{0.5cm} % Space between rows
+
+    \begin{subfigure}{0.45\textwidth}
+        \centering
+        % Placeholder for Subfigure 5
+        \includegraphics[width=\textwidth]{img/cframe/mode5.png}
+        \caption{Subfigure 5}
+    \end{subfigure}
+    \hfill
+    \begin{subfigure}{0.45\textwidth}
+        \centering
+        % Placeholder for Subfigure 6
+        \includegraphics[width=\textwidth]{img/cframe/mode6.png}
+        \caption{Subfigure 6}
+    \end{subfigure}
+
+    \caption{Mode shapes and frequencies for the C-frame model using IGA.  The first six modes are shown.  The IGA model used is the medium coarse resolution.}
+\end{figure}
+
+\newpage
+Status: Alejandro trying to match the DOF x-axis.
+David to set up meeting with Alejandro and Chad to discuss results.
+Alejandro has DOF data for existing FEA models.
+Showing the 2nd resolution.
+Aljenadro defeatured hex model, but not the tet model.
+David to email to Chad four IGA models (coarse, fine, finer, finest) by next Friday 19 Dec 2025.
+David to put python, Excel, and 
+
+\begin{figure}[h!]
+    \begin{center}
+    \includegraphics[width=\textwidth]{img/cframe/modes_iga_sierra_dofs.png}
+    \end{center}
+    \caption{Model frequency convergence as a function of degree of freedom (DOF) for IGA and FEA models.  FEA included SSD tetrahedral (10-noded) and SSD hexahedral (8-noded) meshes.  DOF count increases from left (coarse) to right (fine).  The IGA model shows faster convergence with DOF compared to the traditional FEA models.  DOF count specifics appear in Table~\ref{tab:cframe-resolutions}.}
+    \label{fig:cframe}
+\end{figure}
+
+
+
+\begin{table}[h!]
+    \centering
+    \caption{C-frame model resolutions (DOF \#), run times, and number of processors.}
+    \label{tab:cframe-resolutions}
+    \begin{tabular}{|c|c|c|c|c|}
+        \hline
+        \textbf{Analysis Type} & \multicolumn{4}{c|}{\textbf{Coarse \hspace{0.5cm} \(\longleftarrow \cdots\cdots\cdots \cdots\cdots\cdots \cdots\cdots\cdots \longrightarrow\) \hspace{0.5cm} Fine}} \\
+        \hline
+        \rowcolor{tableaulightblue} \multirow{2}{*}{IGA} & 3,420 & 13,332 & 69,426 & 383,250 \\
+        & 15s (1 core) & 37s (1 core) & 209s (1 core) & 1,303s (1 core) \\
+        \hline
+        \rowcolor{tableauorange} \multirow{2}{*}{SSD tet10} & 13,146 & 69,234 & 382,791 & 4,072,959 \\
+        & r3c2 & r3c3 & r3c4 & 225s (128 cores) \\
+        \hline
+        \rowcolor{tableaugreen} \multirow{2}{*}{SSD hex8} & 23,682 & 160,059 & 1,167,897 & r4c5-a \\
+        & 6s (12 cores) & 20s (128 cores) & 75s (128 cores) & r4c5-b \\
+        \hline
+    \end{tabular}
+\end{table}
+
 
 % ------------------
+\newpage
 \section{Door Hinge}
 % ------------------
 
@@ -226,15 +317,6 @@ Work in progress.
     \caption{Door hinge geometry used for nonlinear static analysis.}
     \label{fig:door-hinge}
 \end{figure}
-
-\subsection{\tt{door\_hinge\_failure\_workflow.txt}}
-\inputminted[stripnl=false]{text}{door_hinge/door_hinge_failure_workflow.txt}
-
-\subsection{\tt{job\_door\_hinge\_failure.iga}}
-\inputminted[stripnl=false]{json}{door_hinge/job_door_hinge_failure.json}
-
-\subsection{\tt{read\_force\_vm.py}}
-\inputminted[stripnl=false]{python}{door_hinge/read_force_vm.py}
 
 % ---------------------
 \section{Circuit Board}
@@ -254,14 +336,9 @@ Work in progress.
     \label{fig:circuit-board}
 \end{figure}
 
-\subsection{\tt{cb\_modal\_workflow\_journal\_separate.txt}}
-\inputminted[stripnl=false]{text}{circuit_board/cb_modal_workflow_journal_separate.txt}
-
-\subsection{\tt{cb\_modal\_workflow\_journal.txt}}
-\inputminted[stripnl=false]{text}{circuit_board/cb_modal_workflow_journal.txt}
-
-\subsection{\tt{cb\_workflow\_journal.txt}}
-\inputminted[stripnl=false]{text}{circuit_board/cb_workflow_journal.txt}
+% -------------------------
+\section{UUR Discriminator}
+% -------------------------
 
 % ---------------------------------------------------------------------- %
 \chapter{Methods}
@@ -285,8 +362,48 @@ Hughes, T.J.R., Cottrell, J.A., and Bazilevs, Y. (2005). "Isogeometric analysis:
 \appendix
 % ---------------------------------------------------------------------- %
 \chapter{Appendices}
-    Include any supplementary material, such as additional data, calculations, or detailed explanations of methods that are too lengthy for the main sections.
 
+% ---------------
+\section{C-Frame}
+% ---------------
 
+\subsection{\tt{jobs\_coarse.iga}}
+\inputminted[stripnl=false]{json}{cframe_modal/jobs_coarse.json}
+
+\subsection{\tt{jobs\_fine.iga}}
+\inputminted[stripnl=false]{json}{cframe_modal/jobs_fine.json}
+
+\subsection{\tt{jobs\_fine\_x2.iga}}
+\inputminted[stripnl=false]{json}{cframe_modal/jobs_fine_x2.json}
+
+% ------------------
+\section{Door Hinge}
+% ------------------
+
+\subsection{\tt{door\_hinge\_failure\_workflow.txt}}
+\inputminted[stripnl=false]{text}{door_hinge/door_hinge_failure_workflow.txt}
+
+\subsection{\tt{job\_door\_hinge\_failure.iga}}
+\inputminted[stripnl=false]{json}{door_hinge/job_door_hinge_failure.json}
+
+\subsection{\tt{read\_force\_vm.py}}
+\inputminted[stripnl=false]{python}{door_hinge/read_force_vm.py}
+
+% ---------------------
+\section{Circuit Board}
+% ---------------------
+
+\subsection{\tt{cb\_modal\_workflow\_journal\_separate.txt}}
+\inputminted[stripnl=false]{text}{circuit_board/cb_modal_workflow_journal_separate.txt}
+
+\subsection{\tt{cb\_modal\_workflow\_journal.txt}}
+\inputminted[stripnl=false]{text}{circuit_board/cb_modal_workflow_journal.txt}
+
+\subsection{\tt{cb\_workflow\_journal.txt}}
+\inputminted[stripnl=false]{text}{circuit_board/cb_workflow_journal.txt}
+
+% -------------------------
+\section{UUR Discriminator}
+% -------------------------
 
 \end{document}
