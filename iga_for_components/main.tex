@@ -173,6 +173,18 @@ Source document reference: {\em brief/iga\_for\_components/main.tex}
 \SANDmain		% Start the main part of the report
 
 % ---------------------------------------------------------------------- %
+\chapter*{Abbreviations and Acronyms}
+% ---------------------------------------------------------------------- %
+\begin{itemize}
+\item CAD - Computer-Aided Design
+\item GitLab repository - {\em cee-gitlab.sandia.gov/structMechTools/iga}
+\item FEA - Finite Element Analysis
+\item IGA - Isogeometric Analysis
+\item NURBS - Non-Uniform Rational B-Splines
+\item SSM - Sierra Solid Mechanics
+\end{itemize}
+
+% ---------------------------------------------------------------------- %
 \chapter{Introduction}
 % ---------------------------------------------------------------------- %
 \label{Intro}
@@ -362,6 +374,8 @@ Alejandro defeatured hex model, but not the tet model.
 David to email to Chad four IGA models (coarse, fine, finer, finest) by next Friday 19 Dec 2025.
 David to put python, Excel, and supporting files on the repository.
 
+The model frequency convergence results are shown in Figure~\ref{fig:cframe}.  The IGA model shows faster convergence with mesh refinement compared to the traditional FEA models.  The FEA models included solid standard (SSD) tetrahedral (10-noded) and SSD hexahedral (8-noded) elements.  The DOF count increases from left (coarse) to right (fine).  The DOF count specifics appear in Table~\ref{tab:cframe-resolutions}.  The source for Figure~\ref{fig:cframe} is the Python script {\em read\_modes\_upd.py} and the Excel file {\em cframe\_modes\_vs\_dof.xlsx} in the {\em pre\_post\_processing} folder on the GitLab repository.
+
 \newpage
 \begin{figure}[h!]
     \begin{center}
@@ -395,7 +409,7 @@ David to put python, Excel, and supporting files on the repository.
 \end{table}
 
 The data in Table~\ref{tab:cframe-resolutions} summarizes the model resolutions (DOF counts), run times, and number of processors used for each C-frame model.  The IGA models were run on a single core, while the FEA models were run on multiple cores to reduce wall time.  The cores were multiplied by wall time to estimate total processor time for the FEA models.  These comparisons are shown in Figure~\ref{fig:cframe-processor-time-dof}.
-The source for Figure~\ref{fig:cframe-processor-time-dof} is the Excel file {\em cframe\_modal/C-frame\_processor\_time\_vs\_dof.xlsx} in the {\em cee-gitlab.sandia.gov/structMechTools/iga} repository.
+The source for Figure~\ref{fig:cframe-processor-time-dof} is the Excel file {\em cframe\_modal/C-frame\_processor\_time\_vs\_dof.xlsx} in the GitLab repository.
 
 \begin{figure}[h!]
     \begin{center}
