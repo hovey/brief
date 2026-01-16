@@ -52,6 +52,8 @@
 \usepackage{subcaption}
 \usepackage{multirow}
 \usepackage{xcolor}
+\usepackage[colorlinks=true, linkcolor=blue, citecolor=blue]{hyperref}
+\usepackage{cprotect}
 
 \SetWatermarkText{DRAFT}
 \SetWatermarkScale{1}
@@ -111,13 +113,13 @@
 
     % There is a "Printed" date on the title page of a SAND report, so
     % the generic \date should generally be empty.
-    \date{November 20, 2025}
+    \date{January 16, 2026}
 
 
 % ---------------------------------------------------------------------------- %
 % Set some things we need for SAND reports. These are mandatory
 %
-\SANDnum{SAND2025-xxxx}
+\SANDnum{SAND2026-xxxx}
 \SANDprintDate{Date TBD}
 
 % ---------------------------------------------------------------------------- %
@@ -138,14 +140,22 @@
 % An Abstract is required for SAND reports
 %
 \begin{abstract}
-To come.
+Isogeometric Analysis (IGA) promises {\em time savings} and {\em increased accuracy} relative to traditional Finite Element Analysis (FEA) approaches.  
 
+The savings arise in part from the elimination of the mesh generation step, which is often time consuming and error prone, which we categories as {\bf analyst time}.   The second component of time savings is {\bf compute time}, which arises from faster convergence rates for IGA relative to traditional FEA.  For a specific level of accuracy, IGA can often achieve the result with fewer degrees of freedom (DOF) and less computational effort.
+
+This report examines the performance premise of IGA through a series of case studies involving engineering components with complex geometries.  We compare IGA results against traditional FEA results for modal and static analyses.  The report quantifies both analyst time and compute time savings, while also discussing challenges encountered during the implementation of IGA workflows.
+
+The overarching goal of this work is to raise awareness of IGA technology within the Sandia engineering analysis community.
+
+{\em
 To do:
 \begin{itemize}
 \item Joe Bishop as reviewer (jebisho@sandia.gov)
 \end{itemize}
+}
 \end{abstract}
-
+Source document reference: {\em brief/iga\_for\_components/main.tex}
 
 % ------------------------------------------------------------------------ %
 % The table of contents and list of figures and tables
@@ -166,27 +176,45 @@ To do:
 \chapter{Introduction}
 % ---------------------------------------------------------------------- %
 \label{Intro}
-Isogeometric Analysis (IGA) represents a paradigm shift in computational mechanics by unifying the mathematical frameworks of Computer-Aided Design (CAD) and numerical analysis. Introduced by Hughes et al. in 2005, IGA employs the same basis functions—typically Non-Uniform Rational B-Splines (NURBS), T-splines, or subdivision surfaces—for both the geometric representation and the solution approximation. 
+Isogeometric Analysis (IGA) represents a paradigm shift in computational mechanics by unifying the mathematical frameworks of Computer-Aided Design (CAD) and numerical analysis. Introduced by Hughes {\em et al.}~in 2005 \cite{Hughes2005Isogeometric}, IGA employs the same basis functions—typically Non-Uniform Rational B-Splines (NURBS), T-splines, or subdivision surfaces—for both the geometric representation and the solution approximation. 
 
-Traditional Finite Element Analysis (FEA) has served as the cornerstone of computational engineering for decades, offering robust capabilities for solving partial differential equations across diverse applications. Its strengths include mature software ecosystems, well-established theoretical foundations, extensive validation in industrial settings, and flexibility in handling complex physics through various element formulations. However, FEA suffers from inherent limitations stemming from the geometric disconnect between CAD and analysis domains. The mesh generation process introduces geometric approximation errors, requires significant preprocessing time, and creates $C^0$-continuous approximations that may be inadequate for higher-order problems such as thin shell analysis, phase-field modeling, and gradient-based theories. Additionally, design optimization workflows necessitate repeated geometry-mesh conversions, introducing inefficiencies and potential information loss.
+Traditional Finite Element Analysis (FEA) has served as the cornerstone of computational engineering for decades, offering robust capabilities for solving partial differential equations across diverse applications. Its strengths include mature software ecosystems, well-established theoretical foundations, extensive validation in industrial settings, and flexibility in handling complex physics through various element formulations. However, FEA suffers from one large inherent limitation:  The CAD geometry must be meshed, which only approximates the CAD description.  The mesh generation process introduces geometric approximation errors, requires significant preprocessing time, and creates $C^0$-continuous approximations that may be inadequate for higher-order problems such as thin shell analysis, phase-field modeling, and gradient-based theories. Additionally, design optimization workflows necessitate repeated geometry-mesh conversions, introducing inefficiencies and potential information loss.
 
 IGA addresses these deficiencies through its geometric fidelity and mathematical elegance. By maintaining exact geometric representation at all refinement levels, IGA eliminates geometric discretization errors and the cumbersome mesh generation step. The inherent higher-order continuity of spline basis functions—providing $C^1$, $C^2$, or arbitrary $C^k$ continuity—yields superior accuracy per degree of freedom for many problem classes, particularly those involving fourth-order operators or requiring smooth solution fields. The seamless integration with CAD systems enables direct analysis on design geometries and facilitates efficient shape optimization. Furthermore, IGA demonstrates enhanced performance in capturing complex phenomena such as boundary layers, stress concentrations, and wave propagation with coarser discretizations than traditional FEA.
 
 Despite its advantages, IGA faces several challenges that have tempered its widespread industrial adoption. The technology requires specialized software implementations with limited commercial availability compared to mature FEA platforms. Integration of trimmed surfaces, boolean operations, and complex multi-patch geometries from industrial CAD models remains an active research area. Volumetric parameterization of three-dimensional solids presents non-trivial difficulties, particularly for complex topologies. The computational cost per degree of freedom can be higher due to increased basis function support and quadrature requirements. Additionally, the engineering community's familiarity with traditional FEA methods, coupled with substantial investments in existing workflows and validation databases, creates institutional inertia against adoption.
 
-\section{A Section}
-Work in progress.
-
-
-\section{Another Section}
-Work in progress.
+%\section{A Section}
+%Work in progress.
+%
+%
+%\section{Another Section}
+%Work in progress.
 
 % ---------------------------------------------------------------------- %
 \chapter{Background}
 % ---------------------------------------------------------------------- %
 
+We review progress of IGA technology from perspectives of industry, academia, and government laborabories.
+
+Within industry, several commercial software packages now support IGA capabilities.  Notable examples include Ansys, Siemens NX Nastran, Dassault Systèmes Abaqus, Altair HyperWorks, and Coreform Flex.  These packages offer varying levels of IGA functionality, from basic NURBS-based elements to more advanced spline technologies and multi-patch coupling methods.
+
+Ansys (via LS-DYNA) is currently the most prominent large-scale commercial software vendor of IGA.  Since the acquisition of LSTC, Ansys has integrated IGA capabilities into LS-DYNA, making it the most mature commerical solver for IGA applications.
+
+LS-DYNA supports NURBS-based shells and solids, with specific emphasis on crash analysis and large-deformation problems.  The first NURBS-based shell formulations appeared in LS-DYNA in 2011.  Thereafter, IGA capabilities were expanded to solid elements, implicit and explicit analysis, contain, trimmed NURBS shells, and unstructured boundary-fitted approaches using B\'ezier extraction. In late 2025 and early 2026, Ansys expanded its ``Trimmed IGA Solids'' capabilities, which allows for immersed boundary analysis wherein the physics is solved on a background grid that respects the CAD geometry via trimming operations.  No traditional finite element mesh is required \cite{Novozhilov2025}.
+
+One example of IGA performance on thin-walled structures with complex surface geometry was provided by Novozhilov and Leidinger \cite{Novozhilov2025}.  Their use of the trimmed IGA approach permitted larger time steps and required fewer elements to achieve similar accuracy compared to traditional FEA approaches.  Specially, their IGA model delivered comparabile accuracy to a TET-16 formulation, while reducing compute time by a factor of 21$\times$.
+
+Siemens Digital Industries Software (NX and Simcenter Nastran) has also made significant strides in IGA technology.  Siemens offers NURBS-based shell and solid elements, with capabilities for multi-patch coupling and adaptive refinement.  Their IGA implementations focus on structural analysis, including static, dynamic, and thermal problems.  As of June 2025 and continuing into 2026, Siemens moved beyond previews of NX Performance Predictor.  While not branded as IGA, the underlying technology leverages spline-based representations to enhance accuracy and efficiency in performance prediction workflows.  Siemens also has integrated subdivision modeling (an alternative toe NURBS) that maintains higher-order ($C^2$) \cite{SiemensNX2025}.
+
+Dassault Systèmes Abaqus has been historically more conservative with native IGA integration.  Abaqus supports IGA through high-fidelity toolkits and user-defined elements (UEL).
+
+Altair HyperWorks has explored IGA capabilities through research collaborations and prototype implementations, but has yet to fully integrate IGA into its mainstream offerings.  The 2026 release of HyperWorks included IGA-like capabilities through it ``warp-map'' tools \cite{Altair2026}.
+
+Coreform is a computational mechanics software company that specializes in isogeometric analysis (IGA) and advanced meshing technologies.  Coreform's flagship product is Coreform Cubit, a powerful meshing and geometry processing tool that supports IGA workflows.  Coreform also offers Coreform Flex, a solver specifically designed for isogeometric analysis applications.  Michael Scott is the CEO of Coreform, Matt Sederberg is the Chief Strategic Officer, Greg Vernon is the Directory, and Thomas J.R. Hughes is the Senior Advisor \cite{CoreforeAbout2026}.  The authors of this SAND report worked periodically with Sederberg and Vernon during Q1 of FY2026 to obtain access to Coreform Flex and to discuss IGA capabilities and workflows.
+
 % ---------------------------------------------------------------------- %
-\chapter{Objective}
+%\chapter{Objective}
 % ---------------------------------------------------------------------- %
 
 % ---------------------------------------------------------------------- %
@@ -243,7 +271,7 @@ Work in progress.
         \centering
         % Placeholder for Subfigure 3
         \includegraphics[width=0.5\textwidth]{img/cframe/tet10.png}
-        \caption{Tetrahedral FEA model with 4,072,959 DOF (TODO: verifiy).}
+        \caption{Tetrahedral FEA model with 4,072,959 DOF.}
     \end{subfigure}
     \hfill
     \begin{subfigure}{0.45\textwidth}
@@ -366,11 +394,14 @@ David to put python, Excel, and supporting files on the repository.
     \end{tabular}
 \end{table}
 
+The data in Table~\ref{tab:cframe-resolutions} summarizes the model resolutions (DOF counts), run times, and number of processors used for each C-frame model.  The IGA models were run on a single core, while the FEA models were run on multiple cores to reduce wall time.  The cores were multiplied by wall time to estimate total processor time for the FEA models.  These comparisons are shown in Figure~\ref{fig:cframe-processor-time-dof}.
+The source for Figure~\ref{fig:cframe-processor-time-dof} is the Excel file {\em cframe\_modal/C-frame\_processor\_time\_vs\_dof.xlsx} in the {\em cee-gitlab.sandia.gov/structMechTools/iga} repository.
+
 \begin{figure}[h!]
     \begin{center}
     \includegraphics[width=0.5\textwidth]{img/cframe/processor_time_v_dof.png}
     \end{center}
-    \caption{Processor time versus degree of freedom (DOF) for C-frame IGA and FEA models.  The IGA model shows lower processor time for a given DOF count compared to the traditional FEA models.}
+    \cprotect\caption{Processor time versus degree of freedom (DOF) for C-frame IGA and FEA models.  The IGA model shows lower processor time for a given DOF count compared to the traditional FEA models.}
     \label{fig:cframe-processor-time-dof}
 \end{figure}
 
@@ -428,9 +459,29 @@ David to put python, Excel, and supporting files on the repository.
 That is, as they say, all, folks.
 
 
-\chapter{Bibliography}
+%\chapter{Bibliography}
 
-Hughes, T.J.R., Cottrell, J.A., and Bazilevs, Y. (2005). "Isogeometric analysis: CAD, finite elements, NURBS, exact geometry and mesh refinement." Computer Methods in Applied Mechanics and Engineering.
+%Hughes, T.J.R., Cottrell, J.A., and Bazilevs, Y. (2005). "Isogeometric analysis: CAD, finite elements, NURBS, exact geometry and mesh refinement." Computer Methods in Applied Mechanics and Engineering.
+
+
+\begin{thebibliography}{9} % The {9} indicates that there will be up to 9 items in the bibliography
+
+\bibitem{Altair2026}
+Altair Engineering Inc. (2026). \emph{HyperWorks 2026: Design and Simulation for the Future}. \url{https://altair.com/hyperworks-2026}. (Accessed: Jan. 16, 2026).
+
+\bibitem{CoreforeAbout2026}
+Coreform LLC. (2026). ``About Coreform.'' \url{https://coreform.com/about/}. (Accessed: Jan. 16, 2026.
+
+\bibitem{Hughes2005Isogeometric}
+Hughes, T.J.R., Cottrell, J.A., and Bazilevs, Y. (2005). "Isogeometric analysis: CAD, finite elements, NURBS, exact geometry and mesh refinement." Computer Methods in Applied Mechanics and Engineering.  \url{https://doi.org/10.1016/j.cma.2004.10.008}
+
+\bibitem{Novozhilov2025}
+Novozhilov Y. and Leidinger L. (2025).  ``Trimmed IGA Solids in LS-DYNA: CADFEM Findings, {\em 2025 Ansys EMEA Transportation Summit and LS-DYNA Conference}, Munich, Germany, 2025.
+
+\bibitem{SiemensNX2025}
+Siemens Digital Industries Software. (2025). \emph{What's New In NX June 2025}. \url{https://plm.sw.siemens.com/en-US/nx/cad-online/latest-nx-cad-version/}. (Accessed: Jan. 16, 2026).
+
+\end{thebibliography}
 
 % ---------------------------------------------------------------------- %
 \appendix
