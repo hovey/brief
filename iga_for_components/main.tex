@@ -209,6 +209,8 @@ Despite its advantages, IGA faces several challenges that have tempered its wide
 
 We review progress of IGA technology from perspectives of industry, academia, and government laborabories.
 
+\subection{Industry}
+
 Within industry, several commercial software packages now support IGA capabilities.  Notable examples include Ansys, Siemens NX Nastran, Dassault Systèmes Abaqus, Altair HyperWorks, and Coreform Flex.  These packages offer varying levels of IGA functionality, from basic NURBS-based elements to more advanced spline technologies and multi-patch coupling methods.
 
 Ansys (via LS-DYNA) is currently the most prominent large-scale commercial software vendor of IGA.  Since the acquisition of LSTC, Ansys has integrated IGA capabilities into LS-DYNA, making it the most mature commerical solver for IGA applications.
@@ -217,13 +219,29 @@ LS-DYNA supports NURBS-based shells and solids, with specific emphasis on crash 
 
 One example of IGA performance on thin-walled structures with complex surface geometry was provided by Novozhilov and Leidinger \cite{Novozhilov2025}.  Their use of the trimmed IGA approach permitted larger time steps and required fewer elements to achieve similar accuracy compared to traditional FEA approaches.  Specially, their IGA model delivered comparabile accuracy to a TET-16 formulation, while reducing compute time by a factor of 21$\times$.
 
-Siemens Digital Industries Software (NX and Simcenter Nastran) has also made significant strides in IGA technology.  Siemens offers NURBS-based shell and solid elements, with capabilities for multi-patch coupling and adaptive refinement.  Their IGA implementations focus on structural analysis, including static, dynamic, and thermal problems.  As of June 2025 and continuing into 2026, Siemens moved beyond previews of NX Performance Predictor.  While not branded as IGA, the underlying technology leverages spline-based representations to enhance accuracy and efficiency in performance prediction workflows.  Siemens also has integrated subdivision modeling (an alternative toe NURBS) that maintains higher-order ($C^2$) \cite{SiemensNX2025}.
+Siemens Digital Industries Software (NX and Simcenter Nastran) has also made significant strides in IGA technology.  Siemens offers NURBS-based shell and solid elements, with capabilities for multi-patch coupling and adaptive refinement.  Their IGA implementations focus on structural analysis, including static, dynamic, and thermal problems.  As of June 2025 and continuing into 2026, Siemens moved beyond previews of NX Performance Predictor.  While not branded as IGA, the underlying technology leverages spline-based representations to enhance accuracy and efficiency in performance prediction workflows.  Siemens also has integrated subdivision modeling (an alternative to NURBS) that maintains higher-order ($C^2$) \cite{SiemensNX2025}.
 
 Dassault Systèmes Abaqus has been historically more conservative with native IGA integration.  Abaqus supports IGA through high-fidelity toolkits and user-defined elements (UEL).
 
 Altair HyperWorks has explored IGA capabilities through research collaborations and prototype implementations, but has yet to fully integrate IGA into its mainstream offerings.  The 2026 release of HyperWorks included IGA-like capabilities through it ``warp-map'' tools \cite{Altair2026}.
 
 Coreform is a computational mechanics software company that specializes in isogeometric analysis (IGA) and advanced meshing technologies.  Coreform's flagship product is Coreform Cubit, a powerful meshing and geometry processing tool that supports IGA workflows.  Coreform also offers Coreform Flex, a solver specifically designed for isogeometric analysis applications.  Michael Scott is the CEO of Coreform, Matt Sederberg is the Chief Strategic Officer, Greg Vernon is the Directory, and Thomas J.R. Hughes is the Senior Advisor \cite{CoreforeAbout2026}.  The authors of this SAND report worked periodically with Sederberg and Vernon during Q1 of FY2026 to obtain access to Coreform Flex and to discuss IGA capabilities and workflows.
+
+\subection{Academia}
+
+G+Smo (Geometry + Simulation Models) (pronounced "gismo") is a comprehensive, open-source  C++ library for IGA.  Maintained by a confortium of European universities (including JKU Linz).  
+The library is licensed under the Mozilla Public License version 2.0. MPL is a simply {\em copyleft} license.  The primary goal of the MPL is to allow 
+
+
+https://gismo.github.io
+
+
+
+
+\subection{Government Laboratories}
+
+MOOSE
+
 
 % ---------------------------------------------------------------------- %
 %\chapter{Objective}
@@ -437,9 +455,28 @@ The source for Figure~\ref{fig:cframe-processor-time-dof} is the Excel file {\em
     \label{fig:door-hinge}
 \end{figure}
 
+
+2026-02-06
+
+\begin{itemize}
+\item Convergence: von Mises stress and reaction force (check consistency with applied force)
+\item Image with IGA mesh from David.
+\item Alejandro image with tet mesh and hex mesh.
+\item David xlsx for door hinge and circuit board.
+\end{itemize}
+
 % ---------------------
 \section{Circuit Board}
 % ---------------------
+
+2026-02-06
+
+\begin{itemize}
+\item Simply supported, apply a body force, QOI peak displacements, stresses may not make sense because the geomtries are so different.
+\item Modal, so first six modes.
+\item David not able to run, Coreform runs out of memory.
+\item Ajejandro ran simplified version in SSM.
+\end{itemize}
 
 \begin{itemize}
     \item Analysis type: nonlinear statics, modal
@@ -458,6 +495,18 @@ The source for Figure~\ref{fig:cframe-processor-time-dof} is the Excel file {\em
 % -------------------------
 \section{UUR Discriminator}
 % -------------------------
+
+\begin{itemize}
+\item David ran in Coreform, exact description of the spring.
+\item Jeremy ran in SM, beam elements for the spring.
+\item Preload spring and haversine base excitation, takes forever to run in Coreform, not run long enough to compare with SM.
+\item Coreforem had an upgrade and the previous input deck no longer run in the updated the Coreform, not run in the new version.
+\item 2025.7-rc+60909 311c8309 2025-07-08T16:50:04+00:00 is the version on the input decks.
+\item Image with IGA mesh from David.
+\item Alejandro image with tet mesh and hex mesh.
+\item David xlsx for door hinge and circuit board.
+\item Stopped work on Coreform (been stopped since April 2025), now only developing ABAQUS plug in (interoperability with third-party solvers).  Announcing new capabilities integration with Coreform in ABAQUS.  Joined the SIMULIA partner program.
+\end{itemize}
 
 % ---------------------------------------------------------------------- %
 \chapter{Methods}
