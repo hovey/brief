@@ -1,0 +1,92 @@
+\documentclass[12pt, OUO]{SNLletter}  %[11pt,OUO]
+
+% The following two lines needed if you use XeLaTeX or LuaLaTeX
+% they won't do anything if you use PdfLaTeX
+\usepackage{nimbussans}
+\usepackage[T1]{fontenc}
+
+% Remove this line, it's just for the dummy text
+\usepackage{lipsum}
+
+
+% Basic information for the date and recipient
+\letterdate{March 3, 2022}
+\addressee{Sandra E. External, Ph.D.}
+
+% LIMITATIONS only a single name can go in the address block
+% for the author.
+
+% YOUR address options
+\headname{Joe A. Sandian, Ph.D.}
+\mailstop{XXXX}
+\phone{(505) 844-1234}
+\fax{(505) 844-1234}
+\email{jasandia@sandia.gov}
+\web{http://www.sandia.gov}
+\jobtitle{Amazing Member of the Technical Staff}
+
+% You can put your department; there is some debate about whether
+% OPSEC says you should or not, but the option is there
+\department{Great Department (XXXX)}
+
+% Your SIGNATURE information
+% Signature graphic is completely optional.
+\signature{Joe A. Sandian, Ph.D.}
+\signaturegraphic{snl_stack} % Put an image with your signature here
+
+% Comment out all of the below if you aren't using OUO
+%
+% If you want a custom header, or if you just want the
+% ``OUO'' footer and the header, use the class option ``OUO''
+% and only use the OUOHeaderText command. 
+% \OUOHeaderText{SAMPLE OF OUO / NOT ACTUALLY OUO}
+\OUOHeaderText{CONTROLLED UNCLASSIFIED INFORMATION (CUI) / SANDIA CORPORATION}
+%
+% Data for the OUO BOX on the first page. Comment out to 
+% make it go away
+%\OUOExemption{Exemption \#0:   Non-OUO SAMPLE}
+%\OUOName{Joe A. Sandian / XXXX}
+%\OUODate{March 3, 2011}
+%\OUOGuidance{This is just a sample}
+
+
+\begin{document}
+    \begin{letter}{  
+    		% Data in this section is formatted differently.
+    		% It should include the date and the the recipient address as shown
+    	\thedate \\
+    	~ \\
+        \theaddressee \\
+        Address \\
+        City, ST ZIP
+        }
+    
+        \opening{Dear Addressee,}
+
+        Subject: \textbf{\textit{Subject in bold italics}}
+
+		\par
+        Text of the letter.
+        
+        Make sure your signature is not the only thing on the last page on a multi-page
+        letter.  Use \texttt{\textbackslash newpage} or adjust the spacing some other way if necessary to
+        keep a little bit of text above the signature on that last page, although the class is smart if you use the \texttt{\textbackslash closing} command.
+        The CC and ENCL blocks should also not be alone on the last page,
+        and should be on the same page as your signature.
+        
+        The following Lorem Ipsum text makes this a multi-page letter. Note how the class automatically keeps at least one line of text on the line above the \texttt{\textbackslash closing} signature on the last page.
+
+		\lipsum[1-8]
+
+        \closing{Sincerely,}
+
+	\cc{Names and addresses of carbon copy recipients}
+
+	\encl{Some report enclosed}
+
+%	\vfill % if you want to de-center a single-page letter, use this
+		
+		
+    \end{letter}
+
+\end{document}

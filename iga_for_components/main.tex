@@ -5,7 +5,10 @@
 % elements it should contain, and how to use the SANDreport class.
 %
 % Get the latest version of the class file and more at
-%    https://gitlab.sandia.gov/latex/sandreport-latex
+%    https://gitlab.sandia.gov/latex/sandreport-latex // broken link
+% try these instead:
+% https://wiki.sandia.gov/spaces/SANDLTX/pages/702487676/SANDreport.cls+Documentation
+% https://wiki.sandia.gov/spaces/SANDLTX/pages/758389479/SANDMemo
 %
 \makeatletter
 \def\input@path{{../sand_report_template}}
@@ -142,9 +145,9 @@
 \begin{abstract}
 Isogeometric Analysis (IGA) promises {\em time savings} and {\em increased accuracy} relative to traditional Finite Element Analysis (FEA) approaches.  
 
-The savings arise in part from the elimination of the mesh generation step, which is often time consuming and error prone, which we categories as {\bf analyst time}.   The second component of time savings is {\bf compute time}, which arises from faster convergence rates for IGA relative to traditional FEA.  For a specific level of accuracy, IGA can often achieve the result with fewer degrees of freedom (DOF) and less computational effort.
+The savings arise in part from the elimination of the mesh generation step, which is often time consuming and error prone.  We categorize the mesh step as {\bf analyst time}.   In contrast, {\bf compute time}, he second component of time savings, arises from faster convergence rates for IGA relative to traditional FEA.  For a specific level of accuracy, IGA can often achieve the result with fewer degrees of freedom (DOF) and less computational effort.
 
-This report examines the performance premise of IGA through a series of case studies involving engineering components with complex geometries.  We compare IGA results against traditional FEA results for modal and static analyses.  The report quantifies both analyst time and compute time savings, while also discussing challenges encountered during the implementation of IGA workflows.
+This report examines the performance premise of IGA through a series of case studies involving engineering components with complex geometries.  We compare IGA results against traditional FEA results for modal and static analyses.  The report characterizes both analyst time and compute time savings, while also discussing challenges encountered during the implementation of IGA workflows.
 
 The overarching goal of this work is to raise awareness of IGA technology within the Sandia engineering analysis community.
 
@@ -155,7 +158,6 @@ To do:
 \end{itemize}
 }
 \end{abstract}
-Source document reference: {\em brief/iga\_for\_components/main.tex}
 
 % ------------------------------------------------------------------------ %
 % The table of contents and list of figures and tables
@@ -190,11 +192,13 @@ Source document reference: {\em brief/iga\_for\_components/main.tex}
 \label{Intro}
 Isogeometric Analysis (IGA) represents a paradigm shift in computational mechanics by unifying the mathematical frameworks of Computer-Aided Design (CAD) and numerical analysis. Introduced by Hughes {\em et al.}~in 2005 \cite{Hughes2005Isogeometric}, IGA employs the same basis functions—typically Non-Uniform Rational B-Splines (NURBS), T-splines, or subdivision surfaces—for both the geometric representation and the solution approximation. 
 
-Traditional Finite Element Analysis (FEA) has served as the cornerstone of computational engineering for decades, offering robust capabilities for solving partial differential equations across diverse applications. Its strengths include mature software ecosystems, well-established theoretical foundations, extensive validation in industrial settings, and flexibility in handling complex physics through various element formulations. However, FEA suffers from one large inherent limitation:  The CAD geometry must be meshed, which only approximates the CAD description.  The mesh generation process introduces geometric approximation errors, requires significant preprocessing time, and creates $C^0$-continuous approximations that may be inadequate for higher-order problems such as thin shell analysis, phase-field modeling, and gradient-based theories. Additionally, design optimization workflows necessitate repeated geometry-mesh conversions, introducing inefficiencies and potential information loss.
+Traditional Finite Element Analysis (FEA) has been the cornerstone of computational engineering for decades, offering robust capabilities for solving partial differential equations across diverse applications. Its strengths include mature software ecosystems, well-established theoretical foundations, extensive validation in industrial settings, and flexibility in handling complex physics through various element formulations. 
+
+However, FEA suffers from one large inherent limitation:  The CAD geometry must be meshed, which only approximates the CAD description.  The mesh generation process introduces geometric approximation errors, requires significant preprocessing time, and (depending on the formulation) creates $C^0$-continuous approximations that may be inadequate for higher-order problems such as thin shell analysis, phase-field modeling, and gradient-based theories. Additionally, design optimization workflows necessitate repeated geometry-mesh conversions, introducing inefficiencies and potential information loss.
 
 IGA addresses these deficiencies through its geometric fidelity and mathematical elegance. By maintaining exact geometric representation at all refinement levels, IGA eliminates geometric discretization errors and the cumbersome mesh generation step. The inherent higher-order continuity of spline basis functions—providing $C^1$, $C^2$, or arbitrary $C^k$ continuity—yields superior accuracy per degree of freedom for many problem classes, particularly those involving fourth-order operators or requiring smooth solution fields. The seamless integration with CAD systems enables direct analysis on design geometries and facilitates efficient shape optimization. Furthermore, IGA demonstrates enhanced performance in capturing complex phenomena such as boundary layers, stress concentrations, and wave propagation with coarser discretizations than traditional FEA.
 
-Despite its advantages, IGA faces several challenges that have tempered its widespread industrial adoption. The technology requires specialized software implementations with limited commercial availability compared to mature FEA platforms. Integration of trimmed surfaces, boolean operations, and complex multi-patch geometries from industrial CAD models remains an active research area. Volumetric parameterization of three-dimensional solids presents non-trivial difficulties, particularly for complex topologies. The computational cost per degree of freedom can be higher due to increased basis function support and quadrature requirements. Additionally, the engineering community's familiarity with traditional FEA methods, coupled with substantial investments in existing workflows and validation databases, creates institutional inertia against adoption.
+Despite its advantages, IGA faces several challenges that have tempered its widespread industrial adoption. The technology requires specialized software implementations with limited commercial availability compared to mature FEA platforms. Integration of trimmed surfaces, boolean operations, and complex multi-patch geometries from industrial CAD models remains an active research area. Volumetric parameterization of three-dimensional solids presents non-trivial difficulties, particularly for complex topologies. The computational cost per degree of freedom can be higher due to increased basis function support and quadrature requirements. Additionally, the engineering community's familiarity with traditional FEA methods, coupled with substantial investments in existing workflows and validation databases, creates institutional inertia that thwarts adoption.
 
 %\section{A Section}
 %Work in progress.
@@ -207,9 +211,9 @@ Despite its advantages, IGA faces several challenges that have tempered its wide
 \chapter{Background}
 % ---------------------------------------------------------------------- %
 
-We review progress of IGA technology from perspectives of industry, academia, and government laborabories.
+We highlight some recent progress of IGA technology from perspectives of industry, academia, and government laborabories.
 
-\subection{Industry}
+\subsection{Industry}
 
 Within industry, several commercial software packages now support IGA capabilities.  Notable examples include Ansys, Siemens NX Nastran, Dassault Systèmes Abaqus, Altair HyperWorks, and Coreform Flex.  These packages offer varying levels of IGA functionality, from basic NURBS-based elements to more advanced spline technologies and multi-patch coupling methods.
 
@@ -223,24 +227,50 @@ Siemens Digital Industries Software (NX and Simcenter Nastran) has also made sig
 
 Dassault Systèmes Abaqus has been historically more conservative with native IGA integration.  Abaqus supports IGA through high-fidelity toolkits and user-defined elements (UEL).
 
-Altair HyperWorks has explored IGA capabilities through research collaborations and prototype implementations, but has yet to fully integrate IGA into its mainstream offerings.  The 2026 release of HyperWorks included IGA-like capabilities through it ``warp-map'' tools \cite{Altair2026}.
+Altair HyperWorks has explored IGA capabilities through research collaborations and prototype implementations, but has yet to fully integrate IGA into its mainstream offerings.  The 2026 release of HyperWorks included IGA-like capabilities through its ``warp-map'' tools \cite{Altair2026}.
 
 Coreform is a computational mechanics software company that specializes in isogeometric analysis (IGA) and advanced meshing technologies.  Coreform's flagship product is Coreform Cubit, a powerful meshing and geometry processing tool that supports IGA workflows.  Coreform also offers Coreform Flex, a solver specifically designed for isogeometric analysis applications.  Michael Scott is the CEO of Coreform, Matt Sederberg is the Chief Strategic Officer, Greg Vernon is the Directory, and Thomas J.R. Hughes is the Senior Advisor \cite{CoreforeAbout2026}.  The authors of this SAND report worked periodically with Sederberg and Vernon during Q1 of FY2026 to obtain access to Coreform Flex and to discuss IGA capabilities and workflows.
 
-\subection{Academia}
+\subsection{Academia}
 
-G+Smo (Geometry + Simulation Models) (pronounced "gismo") is a comprehensive, open-source  C++ library for IGA.  Maintained by a confortium of European universities (including JKU Linz).  
-The library is licensed under the Mozilla Public License version 2.0. MPL is a simply {\em copyleft} license.  The primary goal of the MPL is to allow 
+The academic community has created several open-source software frameworks for IGA.  Three of the most widely used are G+Smo, GeoPDEs, and PetIGA.
 
+G+Smo (Geometry + Simulation Models) (pronounced ``gismo'') is a comprehensive, open-source C++ library for IGA~\cite{Juttler2014GSmo}.  Development of the library was initiated in the summer of 2012, coinciding with the kick-off of the Austrian National Research Network ``Geometry + Simulation,'' funded by the Austrian Science Fund (FWF)~\cite{GSmoWiki2024}.  The library is jointly developed by contributors at Johannes Kepler University Linz (JKU Linz) and at the RICAM Institute of the Austrian Academy of Sciences.  G+Smo is an object-oriented, cross-platform, template C++ library that implements a generic concept for IGA, based on abstract classes for geometry maps, discretization bases, assemblers, and solvers.  
 
-https://gismo.github.io
+G+Smo champions its dimension-independent code, implemented via template meta-programming.  As a result, the same implementation applies to curves, surfaces, and volumes.  The library supports B-spline, NURBS, hierarchical B-spline, and truncated hierarchical B-spline bases of arbitrary polynomial order.  The library is licensed under the Mozilla Public License v2.0 (MPL~2.0), a \emph{copyleft} license that permits both open and proprietary use of derived software provided that modifications to the library itself are shared back under the same license.  Annual developer workshops---most recently at the University of West Bohemia, Pilsen, Czech Republic in January 2026---demonstrate the library's active and growing community~\cite{GSmoWiki2024}.
 
+GeoPDEs is a second major open-source framework for IGA, written in GNU Octave and fully compatible with MATLAB~\cite{deFalco2011GeoPDEs,Vazquez2016GeoPDEs}.  Originally released in 2010, the package provides seeks to provide a common and flexible environment for testing isogeometric approaches to solutions for PDEs. Key features include a dimension-independent implementation (the same code handles curves, surfaces, and volumes), support for multi-patch domains with conforming interfaces, divergence- and curl-conforming spline spaces, and adaptive methods using hierarchical B-splines.  The package ships with example problems spanning Poisson, linear elasticity, advection-diffusion, Stokes, Navier-Stokes, Maxwell, and Kirchhoff-Love shell equations.  GeoPDEs is released under the GNU General Public License v3.  It was developed principally by researchers at IMATI-CNR (Pavia, Italy) and the University of Santiago de Compostela (Spain), among other contributors, and remains actively maintained.
 
+PetIGA is a third significant open-source framework, targeting high-performance and large-scale IGA computations~\cite{Dalcin2016PetIGA}.  PetIGA is built on top of PETSc (the Portable, Extensible Toolkit for Scientific Computation), a widely used library for scalable solution of partial differential equations.  This design separates parallelism from algorithm choice, giving users a robust platform for prototyping and large-scale production runs.  PetIGA can assemble matrices and vectors from a Galerkin weak form discretized with NURBS basis functions, and has been demonstrated to scale to 4,096 parallel cores.  Applications demonstrated within the PetIGA framework include hyperelasticity, the Cahn-Hilliard phase-field equation, turbulent Navier-Stokes using variational multiscale methods, and Reissner-Mindlin shell formulations.  PetIGA was developed with support from the King Abdullah University of Science and Technology (KAUST) Extreme Computing Research Center~\cite{Dalcin2016PetIGA}.
 
+\subsection{Government Laboratories}
 
-\subection{Government Laboratories}
+Government laboratories have made significant investments in IGA technology, both through the development of internal simulation frameworks and through partnerships with commercial software vendors.
 
-MOOSE
+\subsubsection{Idaho National Laboratory and MOOSE}
+
+Idaho National Laboratory (INL) developed the Multiphysics Object-Oriented Simulation Environment (MOOSE), a general-purpose, open-source, finite-element-based framework for solving systems of coupled partial differential equations on high-performance computing platforms~\cite{Martineau2021MOOSE}.  Initial development began in 2004--2005 with funding from INL's Laboratory Directed Research and Development (LDRD) program, and the framework has since accumulated more than 60 known MOOSE-based application codes and over 70,000 framework package downloads~\cite{Martineau2021MOOSE}.
+
+Starting in 2021, INL partnered with Coreform LLC to extend MOOSE with isogeometric analysis capabilities through a series of U.S.\ Department of Energy Small Business Innovation Research (SBIR) awards~\cite{INLCoreformMOOSE2021}.  The collaboration introduced Coreform's spline-based meshing technology into the MOOSE workflow, providing researchers with a free-to-use, robust tool for generating high-quality, geometry-conforming meshes for MOOSE simulations.  A motivating application was the simulation of nuclear fuel pellets pressing against protective rod cladding, where smooth, geometry-accurate contact pressure calculations are critical; the spline-based representation improved both accuracy and computational efficiency relative to traditional rectangular meshing approaches~\cite{INLCoreformMOOSE2021}.
+
+Building on this initial collaboration, Coreform completed a Phase~I SBIR that demonstrated a proof-of-concept integration between the MOOSE nuclear simulation code and Coreform Cubit, along with enhancements enabling full IGA spline meshes to be read and used directly within MOOSE simulations~\cite{CoreformPhaseIISBIR2025}.  As part of this work, Coreform released Coreform Cubit Learn, a free non-commercial license of Coreform Cubit, making the same meshing toolset available to academic and government researchers that is used in industry.  A subsequent Phase~II SBIR award of \$1.1 million was made to Coreform to continue this work~\cite{CoreformPhaseIISBIR2025}.  The Phase~II effort aims to combine Coreform's prior IGA-for-MOOSE and MFEM-IGA integration projects to enable IGA simulations within MOOSE that can run on graphics processing units (GPUs), which is expected to significantly accelerate computation for nuclear energy engineering workflows.
+
+MOOSE's IGA capabilities are documented within the framework itself.  A canonical example in the MOOSE documentation demonstrates IGA applied to a C-frame structural analysis problem---the same geometry studied in this report---illustrating the workflow from Coreform Cubit spline mesh generation through MOOSE solid mechanics analysis~\cite{MOOSEIGAExample}.
+
+\subsubsection{Other Government Laboratory Contributions}
+
+The Sandia National Laboratories analysis of the engineering design-to-analysis workflow---documented by Ted Blacker, Manager of Simulation Sciences at Sandia---is an oft-cited motivation for IGA.  The study found that at Sandia, geometry preparation consumes approximately 57\% of overall analysis time and mesh generation an additional 20\%, leaving only 23\% for actual analysis work~\cite{Scott2011TSplines}.  This approximate 80/20 modeling-to-analysis ratio is recognized as a persistent bottleneck that IGA technology directly addresses.
+
+The figure from Blacker's study is shown in Figure~\ref{fig:blacker-iga-motivation}.  The figure illustrates the time distribution for a typical engineering analysis workflow, highlighting the disproportionate amount of time spent on geometry preparation and mesh generation compared to the actual analysis phase.  This data underscores the potential for IGA to significantly reduce overall analysis time by eliminating the need for separate geometry and mesh preparation steps.
+
+\begin{figure}[htb]
+    \centering
+    % Replace 'blacker-workflow' with your actual image filename
+    \includegraphics[width=0.8\textwidth]{img/blacker_workflow} 
+    \caption{The time distribution for a typical engineering analysis workflow, reproduced from \cite{Cottrell2009Isogeometric} and the original studies by Blacker {et al.,} at Sandia National Laboratories. The chart illustrates that approximately 80\% of total analyst time is consumed by geometry preparation and mesh generation, while only 20\% is spent on the actual numerical solution and results refinement.}
+    \label{fig:blacker-iga-motivation}
+\end{figure}
+
 
 
 % ---------------------------------------------------------------------- %
@@ -526,25 +556,166 @@ That is, as they say, all, folks.
 
 %Hughes, T.J.R., Cottrell, J.A., and Bazilevs, Y. (2005). "Isogeometric analysis: CAD, finite elements, NURBS, exact geometry and mesh refinement." Computer Methods in Applied Mechanics and Engineering.
 
-
-\begin{thebibliography}{9} % The {9} indicates that there will be up to 9 items in the bibliography
+\begin{thebibliography}{99} % Updated to 99 to accommodate more than 9 items
 
 \bibitem{Altair2026}
 Altair Engineering Inc. (2026). \emph{HyperWorks 2026: Design and Simulation for the Future}. \url{https://altair.com/hyperworks-2026}. (Accessed: Jan. 16, 2026).
 
+\bibitem{CoreformPhaseIISBIR2025}
+{Coreform LLC}. (2025).
+``Coreform wins major grant to develop isogeometric analysis for {MOOSE}.''
+\url{https://coreform.com/news/coreform-wins-major-grant-to-develop-isogeometric-analysis-for-moose/}.
+(Accessed: Jan.\ 16, 2026).
+
 \bibitem{CoreforeAbout2026}
-Coreform LLC. (2026). ``About Coreform.'' \url{https://coreform.com/about/}. (Accessed: Jan. 16, 2026.
+Coreform LLC. (2026). ``About Coreform.'' \url{https://coreform.com/about/}. (Accessed: Jan. 16, 2026).
+
+\bibitem{Cottrell2009Isogeometric}
+Cottrell, J.A., Hughes, T.J.R., and Bazilevs, Y. (2009). \emph{Isogeometric Analysis: Toward Integration of CAD and FEA}. John Wiley \& Sons, Ltd. \url{https://doi.org/10.1002/9780470749081}
+
+\bibitem{Dalcin2016PetIGA}
+Dalcin, L., Collier, N., Vignal, P., C{\^o}rtes, A.~M.~A., and Calo, V.~M. (2016).
+``{PetIGA}: {A} framework for high-performance isogeometric analysis.''
+\emph{Computer Methods in Applied Mechanics and Engineering}, 308, 151--181.
+\url{https://doi.org/10.1016/j.cma.2016.05.011}
+
+\bibitem{deFalco2011GeoPDEs}
+de~Falco, C., Reali, A., and V{\'a}zquez, R. (2011).
+``{GeoPDEs}: A research tool for {I}sogeometric {A}nalysis of {PDEs}.''
+\emph{Advances in Engineering Software}, 42(12), 1020--1034.
+\url{https://doi.org/10.1016/j.advengsoft.2011.06.010}
+
+\bibitem{GSmoWiki2024}
+{G+Smo Development Team}. (2024).
+``About {G+Smo}.''
+\url{https://github.com/gismo/gismo/wiki/About--G-Smo}.
+(Accessed: Jan.\ 16, 2026).
 
 \bibitem{Hughes2005Isogeometric}
-Hughes, T.J.R., Cottrell, J.A., and Bazilevs, Y. (2005). "Isogeometric analysis: CAD, finite elements, NURBS, exact geometry and mesh refinement." Computer Methods in Applied Mechanics and Engineering.  \url{https://doi.org/10.1016/j.cma.2004.10.008}
+Hughes, T.J.R., Cottrell, J.A., and Bazilevs, Y. (2005). ``Isogeometric analysis: CAD, finite elements, NURBS, exact geometry and mesh refinement.'' \emph{Computer Methods in Applied Mechanics and Engineering}.  \url{https://doi.org/10.1016/j.cma.2004.10.008}
+
+\bibitem{INLCoreformMOOSE2021}
+{Idaho National Laboratory}. (2021).
+``{INL} partners with {C}oreform to improve open-source modeling and simulation tool {MOOSE}.''
+\url{https://inl.gov/nuclear-energy/inl-partners-with-coreform-to-improve-open-source-modeling-and-simulation-tool-moose/}.
+(Accessed: Jan.\ 16, 2026).
+
+\bibitem{MOOSEIGAExample}
+{Idaho National Laboratory}. (2024).
+``Isogeometric {A}nalysis in {MOOSE}.''
+\url{https://mooseframework.inl.gov/modules/solid_mechanics/examples/cframe_iga.html}.
+(Accessed: Jan.\ 16, 2026).
+
+\bibitem{Juttler2014GSmo}
+J{\"u}ttler, B., Langer, U., Mantzaflaris, A., Moore, S.~E., and Zulehner, W. (2014).
+``Geometry + {S}imulation {M}odules: {I}mplementing {I}sogeometric {A}nalysis.''
+\emph{PAMM}, 14(1), 961--962.
+\url{https://doi.org/10.1002/pamm.201410461}
+
+\bibitem{Martineau2021MOOSE}
+Martineau, R.~C. (2021).
+``The {MOOSE} {M}ultiphysics {C}omputational {F}ramework for {N}uclear {P}ower {A}pplications.''
+\emph{Nuclear Technology}, 207(7), iii--viii.
+\url{https://doi.org/10.1080/00295450.2021.1915487}
 
 \bibitem{Novozhilov2025}
-Novozhilov Y. and Leidinger L. (2025).  ``Trimmed IGA Solids in LS-DYNA: CADFEM Findings, {\em 2025 Ansys EMEA Transportation Summit and LS-DYNA Conference}, Munich, Germany, 2025.
+Novozhilov, Y. and Leidinger, L. (2025).  ``Trimmed IGA Solids in LS-DYNA: CADFEM Findings.'' \emph{2025 Ansys EMEA Transportation Summit and LS-DYNA Conference}, Munich, Germany, 2025.
+
+\bibitem{Scott2011TSplines}
+Scott, M.~A., Borden, M.~J., Verhoosel, C.~V., Sederberg, T.~W., and Hughes, T.~J.~R. (2011).
+``Isogeometric finite element data structures based on {B\'{e}zier} extraction of {T}-splines.''
+\emph{International Journal for Numerical Methods in Engineering}, 88(2), 126--156.
+\url{https://doi.org/10.1002/nme.3167}
 
 \bibitem{SiemensNX2025}
 Siemens Digital Industries Software. (2025). \emph{What's New In NX June 2025}. \url{https://plm.sw.siemens.com/en-US/nx/cad-online/latest-nx-cad-version/}. (Accessed: Jan. 16, 2026).
 
+\bibitem{Vazquez2016GeoPDEs}
+V{\'a}zquez, R. (2016).
+``A new design for the implementation of isogeometric analysis in {O}ctave and {MATLAB}: {GeoPDEs} 3.0.''
+\emph{Computers \& Mathematics with Applications}, 72(3), 523--554.
+\url{https://doi.org/10.1016/j.camwa.2016.05.010}
+
 \end{thebibliography}
+
+% \begin{thebibliography}{9} % The {9} indicates that there will be up to 9 items in the bibliography
+% 
+% \bibitem{Altair2026}
+% Altair Engineering Inc. (2026). \emph{HyperWorks 2026: Design and Simulation for the Future}. \url{https://altair.com/hyperworks-2026}. (Accessed: Jan. 16, 2026).
+% 
+% \bibitem{CoreforeAbout2026}
+% Coreform LLC. (2026). ``About Coreform.'' \url{https://coreform.com/about/}. (Accessed: Jan. 16, 2026.
+% 
+% \bibitem{Hughes2005Isogeometric}
+% Hughes, T.J.R., Cottrell, J.A., and Bazilevs, Y. (2005). "Isogeometric analysis: CAD, finite elements, NURBS, exact geometry and mesh refinement." Computer Methods in Applied Mechanics and Engineering.  \url{https://doi.org/10.1016/j.cma.2004.10.008}
+% 
+% \bibitem{Novozhilov2025}
+% Novozhilov Y. and Leidinger L. (2025).  ``Trimmed IGA Solids in LS-DYNA: CADFEM Findings, {\em 2025 Ansys EMEA Transportation Summit and LS-DYNA Conference}, Munich, Germany, 2025.
+% 
+% \bibitem{SiemensNX2025}
+% Siemens Digital Industries Software. (2025). \emph{What's New In NX June 2025}. \url{https://plm.sw.siemens.com/en-US/nx/cad-online/latest-nx-cad-version/}. (Accessed: Jan. 16, 2026).
+% 
+% \bibitem{Juttler2014GSmo}
+% J{\"u}ttler, B., Langer, U., Mantzaflaris, A., Moore, S.~E., and Zulehner, W. (2014).
+% ``Geometry + {S}imulation {M}odules: {I}mplementing {I}sogeometric {A}nalysis.''
+% \emph{PAMM}, 14(1), 961--962.
+% \url{https://doi.org/10.1002/pamm.201410461}
+% 
+% \bibitem{GSmoWiki2024}
+% {G+Smo Development Team}. (2024).
+% ``About {G+Smo}.''
+% \url{https://github.com/gismo/gismo/wiki/About--G-Smo}.
+% (Accessed: Jan.\ 16, 2026).
+% 
+% \bibitem{deFalco2011GeoPDEs}
+% de~Falco, C., Reali, A., and V{\'a}zquez, R. (2011).
+% ``{GeoPDEs}: A research tool for {I}sogeometric {A}nalysis of {PDEs}.''
+% \emph{Advances in Engineering Software}, 42(12), 1020--1034.
+% \url{https://doi.org/10.1016/j.advengsoft.2011.06.010}
+% 
+% \bibitem{Vazquez2016GeoPDEs}
+% V{\'a}zquez, R. (2016).
+% ``A new design for the implementation of isogeometric analysis in {O}ctave and {MATLAB}: {GeoPDEs} 3.0.''
+% \emph{Computers \& Mathematics with Applications}, 72(3), 523--554.
+% \url{https://doi.org/10.1016/j.camwa.2016.05.010}
+% 
+% \bibitem{Dalcin2016PetIGA}
+% Dalcin, L., Collier, N., Vignal, P., C{\^o}rtes, A.~M.~A., and Calo, V.~M. (2016).
+% ``{PetIGA}: {A} framework for high-performance isogeometric analysis.''
+% \emph{Computer Methods in Applied Mechanics and Engineering}, 308, 151--181.
+% \url{https://doi.org/10.1016/j.cma.2016.05.011}
+% 
+% \bibitem{Martineau2021MOOSE}
+% Martineau, R.~C. (2021).
+% ``The {MOOSE} {M}ultiphysics {C}omputational {F}ramework for {N}uclear {P}ower {A}pplications.''
+% \emph{Nuclear Technology}, 207(7), iii--viii.
+% \url{https://doi.org/10.1080/00295450.2021.1915487}
+% 
+% \bibitem{INLCoreformMOOSE2021}
+% {Idaho National Laboratory}. (2021).
+% ``{INL} partners with {C}oreform to improve open-source modeling and simulation tool {MOOSE}.''
+% \url{https://inl.gov/nuclear-energy/inl-partners-with-coreform-to-improve-open-source-modeling-and-simulation-tool-moose/}.
+% (Accessed: Jan.\ 16, 2026).
+% 
+% \bibitem{CoreformPhaseIISBIR2025}
+% {Coreform LLC}. (2025).
+% ``Coreform wins major grant to develop isogeometric analysis for {MOOSE}.''
+% \url{https://coreform.com/news/coreform-wins-major-grant-to-develop-isogeometric-analysis-for-moose/}.
+% (Accessed: Jan.\ 16, 2026).
+% 
+% \bibitem{MOOSEIGAExample}
+% {Idaho National Laboratory}. (2024).
+% ``Isogeometric {A}nalysis in {MOOSE}.''
+% \url{https://mooseframework.inl.gov/modules/solid_mechanics/examples/cframe_iga.html}.
+% (Accessed: Jan.\ 16, 2026).
+% 
+% \bibitem{Scott2011TSplines}
+% Scott, M.~A., Borden, M.~J., Verhoosel, C.~V., Sederberg, T.~W., and Hughes, T.~J.~R. (2011).
+% ``Isogeometric finite element data structures based on {B\'{e}zier} extraction of {T}-splines.''
+% \emph{International Journal for Numerical Methods in Engineering}, 88(2), 126--156.
+% \url{https://doi.org/10.1002/nme.3167}
+% 
+% \end{thebibliography}
 
 % ---------------------------------------------------------------------- %
 \appendix
