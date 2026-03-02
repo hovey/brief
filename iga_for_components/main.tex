@@ -213,7 +213,7 @@ Despite its advantages, IGA faces several challenges that have tempered its wide
 
 We highlight some recent progress of IGA technology from perspectives of industry, academia, and government laborabories.
 
-\subsection{Industry}
+\section{Industry}
 
 Within industry, several commercial software packages now support IGA capabilities.  Notable examples include Ansys, Siemens NX Nastran, Dassault Systèmes Abaqus, Altair HyperWorks, and Coreform Flex.  These packages offer varying levels of IGA functionality, from basic NURBS-based elements to more advanced spline technologies and multi-patch coupling methods.
 
@@ -231,7 +231,7 @@ Altair HyperWorks has explored IGA capabilities through research collaborations 
 
 Coreform is a computational mechanics software company that specializes in isogeometric analysis (IGA) and advanced meshing technologies.  Coreform's flagship product is Coreform Cubit, a powerful meshing and geometry processing tool that supports IGA workflows.  Coreform also offers Coreform Flex, a solver specifically designed for isogeometric analysis applications.  Michael Scott is the CEO of Coreform, Matt Sederberg is the Chief Strategic Officer, Greg Vernon is the Directory, and Thomas J.R. Hughes is the Senior Advisor \cite{CoreforeAbout2026}.  The authors of this SAND report worked periodically with Sederberg and Vernon during Q1 of FY2026 to obtain access to Coreform Flex and to discuss IGA capabilities and workflows.
 
-\subsection{Academia}
+\section{Academia}
 
 The academic community has created several open-source software frameworks for IGA.  Three of the most widely used are G+Smo, GeoPDEs, and PetIGA.
 
@@ -243,11 +243,12 @@ GeoPDEs is a second major open-source framework for IGA, written in GNU Octave a
 
 PetIGA is a third significant open-source framework, targeting high-performance and large-scale IGA computations~\cite{Dalcin2016PetIGA}.  PetIGA is built on top of PETSc (the Portable, Extensible Toolkit for Scientific Computation), a widely used library for scalable solution of partial differential equations.  This design separates parallelism from algorithm choice, giving users a robust platform for prototyping and large-scale production runs.  PetIGA can assemble matrices and vectors from a Galerkin weak form discretized with NURBS basis functions, and has been demonstrated to scale to 4,096 parallel cores.  Applications demonstrated within the PetIGA framework include hyperelasticity, the Cahn-Hilliard phase-field equation, turbulent Navier-Stokes using variational multiscale methods, and Reissner-Mindlin shell formulations.  PetIGA was developed with support from the King Abdullah University of Science and Technology (KAUST) Extreme Computing Research Center~\cite{Dalcin2016PetIGA}.
 
-\subsection{Government Laboratories}
+\section{Government Laboratories}
 
 Government laboratories have made significant investments in IGA technology, both through the development of internal simulation frameworks and through partnerships with commercial software vendors.
 
-\subsubsection{Idaho National Laboratory and MOOSE}
+\subsection{Idaho National Laboratory and MOOSE}
+\label{sec:moose}
 
 Idaho National Laboratory (INL) developed the Multiphysics Object-Oriented Simulation Environment (MOOSE), a general-purpose, open-source, finite-element-based framework for solving systems of coupled partial differential equations on high-performance computing platforms~\cite{Martineau2021MOOSE}.  Initial development began in 2004--2005 with funding from INL's Laboratory Directed Research and Development (LDRD) program, and the framework has since accumulated more than 60 known MOOSE-based application codes and over 70,000 framework package downloads~\cite{Martineau2021MOOSE}.
 
@@ -257,7 +258,7 @@ Building on this initial collaboration, Coreform completed a Phase~I SBIR that d
 
 MOOSE's IGA capabilities are documented within the framework itself.  A canonical example in the MOOSE documentation demonstrates IGA applied to a C-frame structural analysis problem---the same geometry studied in this report---illustrating the workflow from Coreform Cubit spline mesh generation through MOOSE solid mechanics analysis~\cite{MOOSEIGAExample}.
 
-\subsubsection{Other Government Laboratory Contributions}
+\subsection{Other Government Laboratory Contributions}
 
 The Sandia National Laboratories analysis of the engineering design-to-analysis workflow---documented by Ted Blacker, Manager of Simulation Sciences at Sandia---is an oft-cited motivation for IGA.  The study found that at Sandia, geometry preparation consumes approximately 57\% of overall analysis time and mesh generation an additional 20\%, leaving only 23\% for actual analysis work~\cite{Scott2011TSplines}.  This approximate 80/20 modeling-to-analysis ratio is recognized as a persistent bottleneck that IGA technology directly addresses.
 
@@ -271,8 +272,6 @@ The figure from Blacker's study is shown in Figure~\ref{fig:blacker-iga-motivati
     \label{fig:blacker-iga-motivation}
 \end{figure}
 
-
-
 % ---------------------------------------------------------------------- %
 %\chapter{Objective}
 % ---------------------------------------------------------------------- %
@@ -281,31 +280,26 @@ The figure from Blacker's study is shown in Figure~\ref{fig:blacker-iga-motivati
 \chapter{Models}
 % ---------------------------------------------------------------------- %
 
+We explored several models, three of which have been chosen for inclusion into this report.  The first is the C-Frame (Figure~\ref{fig:cframe}), which is a common test case for IGA and FEA comparisons.  The second is door hinge (see Figure~\ref{fig:door-hinge}).  The third is a circuit board (Figure~\ref{fig:circuit-board}).
+
 % ---------------
 \section{C-Frame}
 % ---------------
 
+We initially used the C-Frame model, shown Figure~\ref{fig:cframe}, as a test case to explore IGA workflows and to compare against traditional FEA approaches.  The C-Frame geometry is included in the Coreform Flex distribution; no additional cleanup was needed for IGA.  
+
 \begin{figure}[h!]
     \begin{center}
-    \includegraphics[width=0.4\textwidth]{img/cframe/cframe.png}
+    \includegraphics[width=0.3\textwidth]{img/cframe/cframe.png}
     \end{center}
     \caption{C-frame geometry.}
     \label{fig:cframe}
 \end{figure}
 
-\begin{itemize}
-    \item Analysis type: modal
-    \item Material: isotropic linear elastic
-    \item Mesh: IGA
-    \item Geometry: C-frame
-    \item Boundary conditions: fixed at base
-    \item Loads: N/A
-    \item Solver: direct
-    \item Geomety included in Coreform Flex distribution, no additional cleanup needed for IGA.
-    \item Modal analysis performed
-    \item Requested modes in $(1, 4000)$ Hz
-    \item Solved locally on laptop 1 cpu, Windows 11, 32 GB RAM, Intel i7 (13th gen)
-\end{itemize}
+We performed a modal analysis on the C-Frame geometry using both IGA and traditional FEA approaches, with the goal of comparing convergence rates and computational efficiency between the two methods.  The IGA model was generated using Coreform Cubit, while the traditional FEA models were generated with Sandia's Cubit, using standard meshing techniques.
+
+The modal analysis was performed using the Sierra Solid Dynamic (SSD) solver, with a direct solver for the eigenvalue problem.  We requested modes in the frequency range of $(1, 4000)$ Hz to capture the relevant dynamic behavior of the structure.  
+The IGA analyses were solved locally on a laptop with 1 CPU, Windows 11, 32 GB RAM, and an Intel i7 (13th gen) processor.  The SSD analyses were run with multiple cores on the Sandia HPC. The results of the modal analysis, including mode shapes and frequencies, were compared between the IGA and traditional FEA models to assess the performance benefits of IGA in terms of accuracy and computational efficiency.
 
 %\newpage
 \clearpage
@@ -415,16 +409,18 @@ The figure from Blacker's study is shown in Figure~\ref{fig:blacker-iga-motivati
 \end{figure}
 
 \newpage
-Status: Alejandro trying to match the DOF x-axis.
-David to set up meeting with Alejandro and Chad to discuss results.
-Alejandro has DOF data for existing FEA models.
-Alejandro defeatured hex model, but not the tet model.
-David to email to Chad four IGA models (coarse, fine, finer, finest) by next Friday 19 Dec 2025.
-David to put python, Excel, and supporting files on the repository.
+% Status: Alejandro trying to match the DOF x-axis.
+% David to set up meeting with Alejandro and Chad to discuss results.
+% Alejandro has DOF data for existing FEA models.
+% Alejandro defeatured hex model, but not the tet model.
+% David to email to Chad four IGA models (coarse, fine, finer, finest) by next Friday 19 Dec 2025.
+% David to put python, Excel, and supporting files on the repository.
 
-The model frequency convergence results are shown in Figure~\ref{fig:cframe}.  The IGA model shows faster convergence with mesh refinement compared to the traditional FEA models.  The FEA models included solid standard (SSD) tetrahedral (10-noded) and SSD hexahedral (8-noded) elements.  The DOF count increases from left (coarse) to right (fine).  The DOF count specifics appear in Table~\ref{tab:cframe-resolutions}.  The source for Figure~\ref{fig:cframe} is the Python script {\em read\_modes\_upd.py} and the Excel file {\em cframe\_modes\_vs\_dof.xlsx} in the {\em pre\_post\_processing} folder on the GitLab repository.
+The model frequency convergence results are shown in Figure~\ref{fig:cframe}.  The IGA model shows faster convergence with mesh refinement compared to the traditional FEA models.  The FEA models included solid standard SSD tetrahedral (10-noded) and hexahedral (8-noded) elements.  The DOF count increases from left (coarse) to right (fine).  The DOF count specifics appear in Table~\ref{tab:cframe-resolutions}.  The source for Figure~\ref{fig:cframe} is the Python script {\em read\_modes\_upd.py} and the Excel file {\em cframe\_modes\_vs\_dof.xlsx} in the {\em pre\_post\_processing} folder on the GitLab repository.
 
-\newpage
+The data in Table~\ref{tab:cframe-resolutions} summarizes the model resolutions (DOF counts), run times, and number of processors used for each C-frame model.  The IGA models were run on a single core, while the FEA models were run on multiple cores to reduce wall time.  The cores were multiplied by wall time to estimate total processor time for the FEA models.  These comparisons are shown in Figure~\ref{fig:cframe-processor-time-dof}.
+The source for Figure~\ref{fig:cframe-processor-time-dof} is the Excel file {\em cframe\_modal/C-frame\_processor\_time\_vs\_dof.xlsx} in the GitLab repository.
+
 \begin{figure}[h!]
     \begin{center}
     \includegraphics[width=\textwidth]{img/cframe/modes_iga_sierra_dofs.png}
@@ -432,6 +428,8 @@ The model frequency convergence results are shown in Figure~\ref{fig:cframe}.  T
     \caption{Model frequency convergence as a function of degree of freedom (DOF) for IGA and FEA models.  FEA included SSD tetrahedral (10-noded) and SSD hexahedral (8-noded) meshes.  DOF count increases from left (coarse) to right (fine).  The IGA model shows faster convergence with DOF compared to the traditional FEA models.  DOF count specifics appear in Table~\ref{tab:cframe-resolutions}.}
     \label{fig:cframe}
 \end{figure}
+
+\newpage
 
 \begin{table}[h!]
     \centering
@@ -456,26 +454,35 @@ The model frequency convergence results are shown in Figure~\ref{fig:cframe}.  T
     \end{tabular}
 \end{table}
 
-The data in Table~\ref{tab:cframe-resolutions} summarizes the model resolutions (DOF counts), run times, and number of processors used for each C-frame model.  The IGA models were run on a single core, while the FEA models were run on multiple cores to reduce wall time.  The cores were multiplied by wall time to estimate total processor time for the FEA models.  These comparisons are shown in Figure~\ref{fig:cframe-processor-time-dof}.
-The source for Figure~\ref{fig:cframe-processor-time-dof} is the Excel file {\em cframe\_modal/C-frame\_processor\_time\_vs\_dof.xlsx} in the GitLab repository.
-
 \begin{figure}[h!]
     \begin{center}
-    \includegraphics[width=0.5\textwidth]{img/cframe/processor_time_v_dof.png}
+    \includegraphics[width=0.6\textwidth]{img/cframe/processor_time_v_dof.png}
     \end{center}
     \cprotect\caption{Processor time versus degree of freedom (DOF) for C-frame IGA and FEA models.  The IGA model shows lower processor time for a given DOF count compared to the traditional FEA models.}
     \label{fig:cframe-processor-time-dof}
 \end{figure}
+
+
+The C-Frame results establish a performance baseline for IGA relative to traditional FEA
+approaches at Sandia.  For the subsequent models---the door hinge and circuit board---we
+elected not to repeat the full multi-resolution convergence study across all three
+discretization strategies (IGA, SSD tet10, and SSD hex8).  Generating and running the
+complete suite of coarse-to-fine models for each geometry requires substantial analyst
+and compute time.  Having already characterized the convergence behavior on the C-Frame,
+we judged that a full replication would offer diminishing returns relative to its cost.
+We anticipate that the door hinge and circuit board will exhibit convergence trends
+qualitatively consistent with those observed for the C-Frame---namely, that IGA achieves
+comparable accuracy at lower DOF counts---though we acknowledge that this expectation
+has not been verified for these specific geometries and loading conditions.  
 
 % ------------------
 \newpage
 \section{Door Hinge}
 % ------------------
 
-\begin{itemize}
-    \item Analysis type: nonlinear statics
-    \item Features: frictional contact, plasticity
-\end{itemize}
+The door hinge model was set up for nonlinear static analysis, with features including frictional contact and plasticity.  The geometry was obtained from a CAD model, and no additional cleanup was needed for IGA.  The model was analyzed using the Sierra Solid Mechanics (SSM) solver, with appropriate material models and contact definitions to capture the nonlinear behavior of the hinge under loading.  
+
+%The results of the analysis, including stress distributions and reaction forces, were compared between the IGA and traditional FEA models to evaluate the performance of IGA in handling nonlinear problems with complex contact interactions.
 
 \begin{figure}[h!]
     \begin{center}
@@ -485,34 +492,37 @@ The source for Figure~\ref{fig:cframe-processor-time-dof} is the Excel file {\em
     \label{fig:door-hinge}
 \end{figure}
 
-
-2026-02-06
-
-\begin{itemize}
-\item Convergence: von Mises stress and reaction force (check consistency with applied force)
-\item Image with IGA mesh from David.
-\item Alejandro image with tet mesh and hex mesh.
-\item David xlsx for door hinge and circuit board.
-\end{itemize}
+%2026-02-06
+%
+%\begin{itemize}
+%\item Convergence: von Mises stress and reaction force (check consistency with applied force)
+%\item Image with IGA mesh from David.
+%\item Alejandro image with tet mesh and hex mesh.
+%\item David xlsx for door hinge and circuit board.
+%\end{itemize}
 
 % ---------------------
 \section{Circuit Board}
 % ---------------------
 
-2026-02-06
+The circuit board model was set up for both nonlinear static and modal analysis, with features including linear elastic materials.  The geometry was obtained from a CAD model, and required slight cleanup for IGA.  The nonlinear static analysis was performed using the Sierra Solid Mechanics (SSM) solver, while the modal analysis was conducted to extract the first six modes of vibration.  
 
-\begin{itemize}
-\item Simply supported, apply a body force, QOI peak displacements, stresses may not make sense because the geomtries are so different.
-\item Modal, so first six modes.
-\item David not able to run, Coreform runs out of memory.
-\item Ajejandro ran simplified version in SSM.
-\end{itemize}
+%The results of both analyses were compared between the IGA and traditional FEA models to assess the performance of IGA in capturing the structural response of the circuit board under static loading and dynamic excitation.
 
-\begin{itemize}
-    \item Analysis type: nonlinear statics, modal
-    \item Features: linear eleastic materials
-    \item Note: required slight geometry clean up
-\end{itemize}
+% 2026-02-06
+% 
+% \begin{itemize}
+% \item Simply supported, apply a body force, QOI peak displacements, stresses may not make sense because the geomtries are so different.
+% \item Modal, so first six modes.
+% \item David not able to run, Coreform runs out of memory.
+% \item Ajejandro ran simplified version in SSM.
+% \end{itemize}
+% 
+% \begin{itemize}
+%     \item Analysis type: nonlinear statics, modal
+%     \item Features: linear eleastic materials
+%     \item Note: required slight geometry clean up
+% \end{itemize}
 
 \begin{figure}[h!]
     \begin{center}
@@ -522,35 +532,174 @@ The source for Figure~\ref{fig:cframe-processor-time-dof} is the Excel file {\em
     \label{fig:circuit-board}
 \end{figure}
 
-% -------------------------
-\section{UUR Discriminator}
-% -------------------------
-
-\begin{itemize}
-\item David ran in Coreform, exact description of the spring.
-\item Jeremy ran in SM, beam elements for the spring.
-\item Preload spring and haversine base excitation, takes forever to run in Coreform, not run long enough to compare with SM.
-\item Coreforem had an upgrade and the previous input deck no longer run in the updated the Coreform, not run in the new version.
-\item 2025.7-rc+60909 311c8309 2025-07-08T16:50:04+00:00 is the version on the input decks.
-\item Image with IGA mesh from David.
-\item Alejandro image with tet mesh and hex mesh.
-\item David xlsx for door hinge and circuit board.
-\item Stopped work on Coreform (been stopped since April 2025), now only developing ABAQUS plug in (interoperability with third-party solvers).  Announcing new capabilities integration with Coreform in ABAQUS.  Joined the SIMULIA partner program.
-\end{itemize}
-
-% ---------------------------------------------------------------------- %
-\chapter{Methods}
-% ---------------------------------------------------------------------- %
+% % -------------------------
+% \section{UUR Discriminator}
+% % -------------------------
+% 
+% \begin{itemize}
+% \item David ran in Coreform, exact description of the spring.
+% \item Jeremy ran in SM, beam elements for the spring.
+% \item Preload spring and haversine base excitation, takes forever to run in Coreform, not run long enough to compare with SM.
+% \item Coreforem had an upgrade and the previous input deck no longer run in the updated the Coreform, not run in the new version.
+% \item 2025.7-rc+60909 311c8309 2025-07-08T16:50:04+00:00 is the version on the input decks.
+% \item Image with IGA mesh from David.
+% \item Alejandro image with tet mesh and hex mesh.
+% \item David xlsx for door hinge and circuit board.
+% \item Stopped work on Coreform (been stopped since April 2025), now only developing ABAQUS plug in (interoperability with third-party solvers).  Announcing new capabilities integration with Coreform in ABAQUS.  Joined the SIMULIA partner program.
+% \end{itemize}
 
 % ---------------------------------------------------------------------- %
-\chapter{Results}
+\chapter{Discussion}
 % ---------------------------------------------------------------------- %
+
+In a nutshell, IGA proved faster and more accurate than FEA.  However, the analyst
+time devoted to getting the Coreform IGA workflow up and running was substantial, and the software stability and post-processing workflows were sources of friction that limited
+our enthusiasm for the the Coreform offering.  The following sections discuss these assessments in more detail.
+
+% * At the beginning of the project, a large amount of analysis time was devoted to traversing the learning curve.
+% * Getting the license server to allow us compute access took time.
+% * Some of the older IGA input decks no longer run in the latest version of Coreform, which has been a source of frustration and has limited our ability to run some of the planned analyses.
+% * Input decks are for Corefore IGA are included in the appendix of this report.
+% * We distinguish between the Coreform as software, and IGA as a technology.
+% * We don't see a strong path forward with Coreform as it is presently implemented.
+% * We do see a strong path forward with IGA as a techology.
+% * Integration with MOOSE may also be an interesting path forward, were there a strong integration with the SSM/SSD workflow.
+% * Sandia would likely have the most success with IGA were we to use an incremental development in the existing SSM/SSD framework.
+
+\section{Workflow and Learning Curve}
+
+A candid account of this work must acknowledge that a substantial fraction of total
+project time was devoted to traversing the IGA learning curve rather than to producing
+analysis results.  Unlike traditional FEA workflows, for which mature documentation,
+institutional knowledge, and internal training resources are abundant at Sandia, IGA
+workflows remain largely unfamiliar to the engineering analysis community here.  
+Establishing a functioning end-to-end pipeline---from CAD geometry, through spline mesh
+generation in Coreform Cubit, to solution in Coreform Flex, and finally to
+post-processing---present the analyst with a new learning curve.  This startup cost
+is a non-negligible component of analyst time that should be factored into any
+institutional assessment of IGA adoption.
+
+Compounding this difficulty, obtaining computational access to Coreform Flex license server through Sandia's firewall proved more time-consuming than anticipated.  License
+provisioning and network configuration issues introduced delays early in the project,
+reducing the window available for productive analysis.  These logistical obstacles are
+not fundamental to IGA as a technology, but they are a realistic feature of any
+early-stage, external software adoption effort and should be expected by teams considering similar work.
+
+\section{Software Stability and Input Deck Compatibility}
+
+A recurring frustration encountered during this project was the incompatibility of
+previously working Coreform input decks with updated versions of the software.  Input
+decks that executed successfully under an initially-used version
+failed to run after
+subsequent software updates, requiring rework and re-validation of existing analyses.
+
+For reproducibility, the input decks used in this study are archived in the appendix of
+this report and on the project GitLab repository at
+{\em cee-gitlab.sandia.gov/structMechTools/iga}.  Teams building on this work should
+treat input deck compatibility as a version-management concern and pin their analyses to
+a specific, documented software release.
+
+Some of the post-processing efforts were confounded by the way in which Coreform used interpolation of field results data to tetrahedral meshes for visualization in ParaView.  This interpolation introduced artifacts that complicated the interpretation of results, particularly for the nonlinear analyses.  The state of maturation of the post-processing workflow is a non-negligible factor in the overall usability of the IGA platform, and it should be considered alongside solver performance when evaluating the suitability of a given software implementation for production use.  We found the experience of working with the post-processing workflow to be a source of friction that undermined our confidence in the numerical results were seeing.
+
+\section{Distinguishing IGA as a Technology from Coreform as a Platform}
+
+A central lesson of this project is the importance of distinguishing between IGA as a
+mathematical and computational technology and Coreform Flex as a specific software
+implementation of that technology.  Our experience with Coreform Flex---including the
+learning curve, the license access difficulties, the input deck compatibility issues,
+and the memory limitations encountered on the circuit board model---reflects the current
+maturity of one particular platform.  It does not reflect fundamental limitations of IGA
+itself.
+
+This distinction matters for how Sandia should interpret both the successes and the
+shortcomings documented in this report.  The convergence advantages demonstrated for the
+C-Frame are a property of the IGA discretization; they would be expected to persist
+regardless of which IGA solver is used.  Conversely, the operational
+friction described above is largely a property of Coreform Flex at its relatively nascent  stage of
+development.
+
+It is also worth noting that Coreform has recently shifted its primary development focus
+away from Coreform Flex as a standalone solver.  As of early 2026, Coreform's active
+development is directed toward an Abaqus plug-in, enabling IGA capabilities within the
+Dassault Syst\`{e}mes SIMULIA ecosystem through the Coreform--SIMULIA partner program.
+This strategic pivot suggests that Coreform Flex, in its current form, may not represent
+the long-term delivery vehicle for production-grade IGA analysis at Sandia.
+
+\section{Path Forward for IGA at Sandia}
+
+Despite the operational challenges encountered with Coreform Flex, the authors remain
+optimistic about the long-term potential of IGA technology for Sandia's engineering
+analysis mission.  We offer the following observations on the most promising paths
+forward.
+
+The most pragmatic near-term path for IGA adoption at Sandia is likely incremental
+integration within the existing Sierra Solid Mechanics (SSM) and Sierra Solid Dynamics
+(SSD) framework.  SSM and SSD are already deeply embedded in Sandia's engineering
+analysis workflows, carry an extensive validation heritage, and benefit from strong
+internal support and institutional familiarity.  Extending these solvers to accept
+spline-based discretizations---building on the NURBS and B\'{e}zier extraction
+technologies that are well-established in the literature---would allow analysts to
+leverage IGA accuracy advantages without abandoning the tools and workflows they know.
+This path avoids the software-maturity risks associated with research-grade or early
+commercial platforms.
+
+A second promising path is integration with the MOOSE framework through the
+INL--Coreform collaboration described in Section~\ref{sec:moose} of this report.  MOOSE's
+open-source, modular architecture and its active IGA development effort---including
+GPU-accelerated IGA solvers currently under development via DOE SBIR funding---make it
+an attractive platform for multiphysics IGA applications.  Were a robust integration between
+MOOSE's IGA capabilities and Sandia's Sierra ecosystem to be established, it could
+provide a high-performance, government-supported IGA solution that sidesteps the
+commercial software maturity concerns raised above.
+
+In both cases, the value of this project lies not only in the quantitative comparisons
+presented herein, but in the foundational experience the team has developed with IGA
+workflows, tooling, and problem setup.  That experience positions Sandia to engage more
+effectively with IGA technology as it continues to mature across the industry, academia,
+and the national laboratory community.
 
 % ---------------------------------------------------------------------- %
 \chapter{Conclusion}
 % ---------------------------------------------------------------------- %
-That is, as they say, all, folks.
 
+This report examined the performance of Isogeometric Analysis (IGA) relative to
+traditional Finite Element Analysis (FEA) through a series of case studies involving
+engineering components representative of Sandia's analysis portfolio.  The principal
+findings are summarized as follows.
+
+For the C-Frame modal analysis, IGA demonstrated clear advantages in both convergence
+rate and computational efficiency.  The IGA discretization achieved comparable modal
+frequency accuracy at substantially lower DOF counts than either the SSD tet10 or SSD
+hex8 formulations, and required less total processor time to reach a given level of
+accuracy.  These results are consistent with the theoretical expectations for
+higher-order, higher-continuity spline bases and with the broader IGA literature.  The
+door hinge and circuit board models extended the study to nonlinear static and modal
+analysis regimes; while a full multi-resolution convergence characterization was not
+performed for these geometries, the single-level comparisons conducted are consistent
+with the trends established by the C-Frame.
+
+The operational experience with Coreform Flex revealed that the software, while
+functional, carries meaningful friction in the areas of workflow setup, license access,
+input deck stability across software versions, and post-processing fidelity.  These
+issues are appropriately attributed to the nascent state of Coreform Flex as a platform
+rather than to any fundamental limitation of IGA as a technology.  The distinction is
+important: the numerical performance advantages of IGA are real and geometry-independent,
+while the operational shortcomings encountered here are platform-specific and subject to
+improvement as the software matures.
+
+Looking forward, the authors recommend that Sandia pursue IGA technology through
+incremental integration within the existing SSM/SSD framework, where institutional
+familiarity, validation heritage, and internal support structures are already in place.
+Engagement with the MOOSE--IGA ecosystem, currently under active development through
+the INL--Coreform SBIR partnership, represents a complementary path worth monitoring,
+particularly for coupled multiphysics applications.
+
+The overarching message of this work is one of optimism.  IGA delivers on its
+core performance promise---more accuracy per degree of freedom---and the Sandia
+engineering analysis community stands to benefit from its continued adoption.  
+The primary remaining barriers are not mathematical but organizational: maturing software
+toolchains, building institutional knowledge, and identifying integration points with
+existing workflows.  We hope this report can be a first step toward that goal.
 
 %\chapter{Bibliography}
 
