@@ -57,6 +57,7 @@
 \usepackage{xcolor}
 \usepackage[colorlinks=true, linkcolor=blue, citecolor=blue]{hyperref}
 \usepackage{cprotect}
+\usepackage{amsmath} % required for \begin{align} environments
 
 \SetWatermarkText{DRAFT}
 \SetWatermarkScale{1}
@@ -145,9 +146,9 @@
 \begin{abstract}
 Isogeometric Analysis (IGA) promises {\em time savings} and {\em increased accuracy} relative to traditional Finite Element Analysis (FEA) approaches.  
 
-The savings arise in part from the elimination of the mesh generation step, which is often time consuming and error prone.  We categorize the mesh step as {\bf analyst time}.   In contrast, {\bf compute time}, he second component of time savings, arises from faster convergence rates for IGA relative to traditional FEA.  For a specific level of accuracy, IGA can often achieve the result with fewer degrees of freedom (DOF) and less computational effort.
+The savings arise in part from the elimination of the mesh generation step, which is often time-consuming and error-prone.  We categorize the mesh step as {\bf analyst time}.   In contrast, {\bf compute time}, the second component of time savings, arises from faster convergence rates for IGA relative to traditional FEA.  For a specific level of accuracy, IGA can often achieve the result with fewer degrees of freedom (DOF) and less computational effort.
 
-This report examines the performance premise of IGA through a series of case studies involving engineering components with complex geometries.  We compare IGA results against traditional FEA results for modal and static analyses.  The report characterizes both analyst time and compute time savings, while also discussing challenges encountered during the implementation of IGA workflows.
+This report examines the performance premise of IGA through a series of case studies involving engineering components with complex geometries.  We compare IGA results against traditional FEA results for modal and static analyses.  The report characterizes both analyst time and compute time savings.  It also discusses the challenges encountered during the implementation of IGA workflows.
 
 The overarching goal of this work is to raise awareness of IGA technology within the Sandia engineering analysis community.
 
@@ -189,8 +190,106 @@ To do:
 % ---------------------------------------------------------------------- %
 \chapter{Introduction}
 % ---------------------------------------------------------------------- %
+
+
+In IGA, the geometry is the mesh (and the mesh is the geometry).  In FEA, the geometry and the mesh are two distint entities.  The mesh only approximates the geometry. [Hughes 2022]
+
+Thomas J.R. Hughes, Isogeometric Analysis: Mathematical and Engineering Perspectives, North Carolina State University, Department of Mathematics, April 22, 2022.  
+[link](https://youtu.be/ZtlgEUYGZMA?si=SaqJ95Hf8lEaKfdi)
+
+It takes a long time to generate finite element models.
+Introduce geometric simplifications, in other words errors, removing features, geometry clean up.  Geometry is more time-consuming than the analysis.
+
+Close the look with design optimization.  CAD with design, and redesign.
+
+"The promise of higher-order finite elements has not been realized.  Widely used commerical and industrial finite element codes rely heavily on the lowest degree elements, namely, bilinear quadrilateral and trilinear hexahedra, linear triangles and tetrahedra."
+
+"Fixing CAD geometry and creating FE Amodels accounts for more than 80\% of overall analysis time and is a major engineering {\em bottleneck}." Cites Hardwick and Clay, SNL.
+
+"[IGA] started off completely as a model-development idea with similarities to traditional Finite Element Analysis."
+
+Screen shot @ 12:24/1:02:22, more than 3,600 papers and 86,000 citations through March 20, 2022. "The growth rate of isogeometric analysis is much faster than for finite element analysis, which seemed to sweep away the world, but it took a long time for finite element analysis to do that, depending on where you place the start, say the 1950s or 1960s."
+
+{\bf B{\'e}zier extraction} is a technique that allows for the use of standard (traditional) finite element solvers, typically build to handle Lagrange polynomial basis functions, to solve problems discretized with spline-based basis functions such as NURBS and T-splines. [Hughes 2022] B{\'e}zier extraction is a mathematical operator that converts globally defined B-spline or NURBS basis functions into a set of locally supported Bernstein polynomials, which define B{\'e}zier elements.  This allows for the use of standard finite element assembly and solution techniques to be used with spline-based discretizations, without modification to the underlying solver. 
+
+In Borden et al. (2020) Isogeometric finite element data structures based on B{\'e}zier extraction of NURBS, IJNME, 
+https://doi.org/10.1002/nme.2968Digital Object Identifier (DOI)
+present "Bezier extraction operator and isogeometric Bezier elements for non-uniform reational B-Spline (NURBS)-based isogeometric analysis."  "The Bezier extraction operator allow numerical integration of smooth functions to be performed on $C^0$ Bezier elements. 
+Bezier elements "provide an element structure for isogeometric analysis that can be easily incorporated into existing finite element codes, without any changes to element form and assembly algorithms, and standard data processing arrays."
+
+"The Bezier extraction operator maps a piecewise Bernstein polynomial basis onto a B-spline basis.  This transformation makes it possible to use piecewise $C^0$ Bezier elements as the finite element representation of an NURBS or T-spline."
+
+The standard approach: Lagrange Polynomials as the traditional "h-type" finite element basis functions.  They are defined by interpolation at specific nodal points within an element.  They satisfy the Kronecker delta property, meaning a shape function at a specific node is at at that node and zero at all other nodes.  
+
+In the "p-type" of finite element analysis, one increases the polynomial order of the basis functions to achieve higher accuracy.   When using high-order Lagrange interpolants, the condition number of the resulting system of equations can become large, leading to numerical instability and convergence issues.  This is particularly problematic for high-order elements, where the basis functions can exhibit oscillatory behavior (Runge's phenomenon) and poor approximation properties.  As a result, high-order Lagrange elements are often not used in practice, and instead, low-order elements with mesh refinement (h-type) are preferred.
+
+To solve the p-refinement with Lagrange polynomials, one can use hierarchical basis functions, which are constructed by adding higher-order basis functions to the existing lower-order basis functions.  This allows for a more stable and accurate representation of the solution while avoiding the issues associated with high-order Lagrange interpolants.  Hierarchical basis functions can be used in both h-refinement and p-refinement strategies, providing flexibility in achieving the desired level of accuracy.
+
+To solve this challenge, researchers have developed hierarchical shape functions derived by integrated Legendre polynomials, which are orthogonal polynomials that provide a stable and efficient basis for high-order finite element methods.  These hierarchical shape functions can be used to construct high-order elements without the numerical instability associated with high-order Lagrange interpolants.  By using integrated Legendre polynomials, one can achieve better convergence properties and improved accuracy in finite element simulations, particularly for problems that require high-order approximations.
+
+The three main methods for representing geometry:  Lagrange interpolation, Legendre interpolation, and B-spline/NURBS.
+
+Lagrange interpolation is the standard "nodal" approach, where the geometry is represented by a set of nodal points and the Lagrange interpolation passes actually through the set of points (nodes).  It is best for enforcing conditions at specific points.  As you increase the number of points to get better precision, Lagrange polynomials suffer from Runge's phenomenon, where the polynomial oscillates wildly between the points near the edges of the interval, leading to poor approximation and numerical instability.
+
+The general formula:
+
+\begin{equation}
+L_i(x) = \prod_{j=0, j \neq i }^n \frac{x - x_j}{x_i - x_j}
+\end{equation}
+
+Explicit basis function for linear, quadratic, and cubic elements, assuming a standard referenece element $[-1, 1]$.
+
+Linear elements (2 nodes at $x = {-1, 1}$):
+
+\begin{align}
+L_0(x) &= \frac{1 - x}{2} \\
+L_1(x) &= \frac{1 + x}{2}
+\end{align}
+
+Quadratic Elements (3 nodes at $x = {-1, 0, 1}$):
+
+\begin{align}
+L_0(x) &= \frac{x^2 - x}{2} \\
+L_1(x) &= 1 - x^2 \\
+L_2(x) &= \frac{x^2 + x}{2}
+\end{align}
+
+Cubic Elements (4 nodes at $x = {-1, -\frac{1}{3}, \frac{1}{3}, 1}$):
+
+\begin{align}
+L_0(x) &= -\frac{9}{16} \left( x^3 - x^2 - \frac{1}{9}x + \frac{1}{9} \right) \\
+L_1(x) &= \frac{27}{16} \left( x^3 - \frac{1}{3}x^2 - x + \frac{1}{3} \right) \\
+L_2(x) &= -\frac{27}{16} \left( x^3 + \frac{1}{3}x^2 - x - \frac{1}{3} \right) \\
+L_3(x) &= \frac{9}{16} \left( x^3 + x^2 - \frac{1}{9}x - \frac{1}{9} \right)
+\end{align}
+
+\begin{figure}[htb]
+    \centering
+    \includegraphics[width=0.7\textwidth]{Lagrange.pdf} 
+    \caption{Lagrange polynomials for 2-, 3-, and 4- nodes 1D elements.}
+    \label{fig:lagrange}
+\end{figure}
+
+Lagrange polynomials are constructed specifically to pass {\bf exactly} through a set of predefined nodes.  The interpolation curve is "pinned" to every data point.  While accurate, higher-order Lagrange interpolations (using many points) suffers from {\bf Runge's Phenomenon}, where the interpolation oscilates violently between the nodes, especially near the edges of the interval.
+
+Legendre polynomials are essentially a specialzed, mathematically stable way to perform Lagrange-style interpolation.  Instead of choosing {\em equally spaced} nodes (which causes the oscillations mentioned above), we select nodes based on {\bf Legendre roots} (Gauss-Lobatto-Legendre points).  By clustering the nodes toward the edges of the domain, the basis functions are much more stable relative to higher-order Lagrange approaches.
+
+The key property of Lagendre polynomials is orthogonality over the $[-1, 1]$ interval, making them mathematically well-suited for integration.  These are used with higher-order ($p$-rerefinement) FEA and Spectral Element Methods.
+
+Legendre interpolation is based on Legendre polynomials, which are orthogonal polynomials that provide a stable basis for high-order approximations.  Legendre interpolation does not necessarily pass through specific nodal points, but it can achieve better convergence properties and improved accuracy, particularly for problems that require high-order approximations.  It is often used in spectral methods and high-order finite element methods.
+
+Bernstein polynomials are the mathematical building blocks of B{\'e}zier curves.  Nodes do {\bf not} pass through the control points (except for the very first and very last nodes).  The interpolation is guaranteed to stay within the convex hull of its control points, making it smooth and predictable.  The key property is both Partition of Unity and Positivity.  Because the basis function are always positive and sum to 1, the wild oscillations seen in Lagrange interpolation is avoided.
+
+B-spline/NURBS are a "local" approach.  Whereas Lagrange and Legendre interpolations are global, meaning that the basis functions have support over the entire domain, B-splines and NURBS have local support, meaning that each basis function is non-zero only over a small portion of the domain.  This local support allows for better control over the geometry and improved accuracy, particularly for complex geometries.  
+
 \label{Intro}
 Isogeometric Analysis (IGA) represents a paradigm shift in computational mechanics by unifying the mathematical frameworks of Computer-Aided Design (CAD) and numerical analysis. Introduced by Hughes {\em et al.}~in 2005 \cite{Hughes2005Isogeometric}, IGA employs the same basis functions—typically Non-Uniform Rational B-Splines (NURBS), T-splines, or subdivision surfaces—for both the geometric representation and the solution approximation. 
+
+IGA includes FEA as a special case.
+* FEA has two basic refinement types: h-refinement (mesh refinement) and p-refinement (polynomial order elevation).  IGA has a third type: k-refinement, which increases the continuity of the basis functions.  This is a key advantage of IGA, as it allows for higher-order continuity (e.g., $C^1$, $C^2$) that is not easily achieved with traditional FEA.
+[Hughes 2022]
+
+With B-splines, when go to the quadratic basis, they no longer appear like they do in finite elements.  (B-spline linear functions look like finite elements, but quadratic and higher do not.)  The basis functions have larger support (increased knot span), which leads to better accuracy per degree of freedom for many problems, especially those involving higher-order derivatives or requiring smooth solution fields. [Hughes 2022]
 
 Traditional Finite Element Analysis (FEA) has been the cornerstone of computational engineering for decades, offering robust capabilities for solving partial differential equations across diverse applications. Its strengths include mature software ecosystems, well-established theoretical foundations, extensive validation in industrial settings, and flexibility in handling complex physics through various element formulations. 
 

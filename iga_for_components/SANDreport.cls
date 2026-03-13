@@ -179,7 +179,9 @@
 %\usepackage{ebgaramond-maths}
 
 \RequirePackage[T1]{fontenc}
-\usepackage{newtxtext,newtxmath} %Loads a Times clone, a Helvetica clone, and other fonts.
+
+% 2026-03-13 Comment out to suppress Times and recover standard computer modern LaTex fonts.
+% \usepackage{newtxtext,newtxmath} %Loads a Times clone, a Helvetica clone, and other fonts.
 
 % Required packages
 \RequirePackage{xcolor}
