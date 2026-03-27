@@ -48,7 +48,7 @@ def get_control_points(degree):
 # ── Helper: draw one panel with Control Points ──────────────────────────────
 
 
-def draw_B{\'e}zier_panel(ax, x, basis_fns, title, labels):
+def draw_bezier_panel(ax, x, basis_fns, title, labels):
     ax.set_facecolor(PANEL_BG)
     ax.spines[["top", "right"]].set_visible(False)
     ax.spines[["left", "bottom"]].set_color("#AAAAAA")
@@ -105,12 +105,12 @@ def draw_B{\'e}zier_panel(ax, x, basis_fns, title, labels):
     ax.set_ylim(-0.1, 1.25)  # Slightly higher y to show CP markers clearly
     ax.set_xlabel(r"$x$", fontsize=11)
     ax.set_ylabel(r"$B_{i,n}(x)$", fontsize=11)
-    ax.set_title(title, fontsize=13, fontweight="bold", pad=10)
+    ax.set_title(title, fontsize=13, fontweight="bold", pad=0)
     ax.legend(
         fontsize=9.5,
         framealpha=0.9,
         loc="upper center",
-        bbox_to_anchor=(0.5, -0.15),
+        bbox_to_anchor=(0.5, -0.25),
         ncol=len(basis_fns),
     )
 
@@ -128,7 +128,7 @@ def main():
     x = np.linspace(-1, 1, 500)
     fig = plt.figure(figsize=(5.5, 10), facecolor=BG_COLOR)
     fig.suptitle(
-        "B{\'e}zier (Bernstein) Basis Functions\nshowing Control Points ($CP_i$) mapped to $[-1, 1]$",
+        "Bézier (Bernstein) Basis Functions\nshowing Control Points ($CP_i$) mapped to $[-1, 1]$",
         fontsize=14,
         fontweight="bold",
         y=0.99,
@@ -139,29 +139,29 @@ def main():
     )
 
     ax1 = fig.add_subplot(gs[0, 0])
-    draw_B{\'e}zier_panel(
-        ax1, x, bernstein_linear(x), "Linear B{\'e}zier (2 CPs)", [r"$B_{0,1}$", r"$B_{1,1}$"]
+    draw_bezier_panel(
+        ax1, x, bernstein_linear(x), "Linear Bézier (2 CPs)", [r"$B_{0,1}$", r"$B_{1,1}$"]
     )
 
     ax2 = fig.add_subplot(gs[1, 0])
-    draw_B{\'e}zier_panel(
+    draw_bezier_panel(
         ax2,
         x,
         bernstein_quadratic(x),
-        "Quadratic B{\'e}zier (3 CPs)",
+        "Quadratic Bézier (3 CPs)",
         [r"$B_{0,2}$", r"$B_{1,2}$", r"$B_{2,2}$"],
     )
 
     ax3 = fig.add_subplot(gs[2, 0])
-    draw_B{\'e}zier_panel(
+    draw_bezier_panel(
         ax3,
         x,
         bernstein_cubic(x),
-        "Cubic B{\'e}zier (4 CPs)",
+        "Cubic Bézier (4 CPs)",
         [r"$B_{0,3}$", r"$B_{1,3}$", r"$B_{2,3}$", r"$B_{3,3}$"],
     )
 
-    out = "B{\'e}zier.pdf"
+    out = "bezier.pdf"
     fig.savefig(out, dpi=150, bbox_inches="tight")
     print(f"Figure saved → {out}")
     plt.show()

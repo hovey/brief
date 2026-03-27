@@ -99,7 +99,7 @@ def draw_panel(ax, x, basis_fns, nodes, title, labels):
         fontsize=9.5,
         framealpha=0.9,
         loc="upper center",
-        bbox_to_anchor=(0.5, -0.15),
+        bbox_to_anchor=(0.5, -0.25),
         ncol=len(nodes),
     )
     ax.tick_params(labelsize=9)
@@ -118,6 +118,7 @@ def draw_panel(ax, x, basis_fns, nodes, title, labels):
 
 
 def main():
+    """The main entry point."""
     x = np.linspace(-1, 1, 500)
 
     # ── Figure layout ─────────────────────────────────────────────────────────
@@ -141,7 +142,7 @@ def main():
         linear_basis(x),
         LINEAR_NODES,
         "Linear Element (2 nodes)",
-        [r"$L_0 = \dfrac{1-x}{2}$", r"$L_1 = \dfrac{1+x}{2}$"],
+        [r"$L_0$", r"$L_1$"],
     )
 
     # ── Panel 2 – Quadratic ───────────────────────────────────────────────────
@@ -152,7 +153,7 @@ def main():
         quadratic_basis(x),
         QUADRATIC_NODES,
         "Quadratic Element (3 nodes)",
-        [r"$L_0 = \dfrac{x^2-x}{2}$", r"$L_1 = 1-x^2$", r"$L_2 = \dfrac{x^2+x}{2}$"],
+        [r"$L_0$", r"$L_1$", r"$L_2$"],
     )
 
     # ── Panel 3 – Cubic ───────────────────────────────────────────────────────

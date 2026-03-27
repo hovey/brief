@@ -82,7 +82,7 @@ def draw_panel(ax, x, basis_fns, nodes, title, labels):
         fontsize=9.5,
         framealpha=0.9,
         loc="upper center",
-        bbox_to_anchor=(0.5, -0.15),
+        bbox_to_anchor=(0.5, -0.25),
         ncol=len(nodes),
     )
 
