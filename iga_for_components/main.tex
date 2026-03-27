@@ -145,12 +145,18 @@
 \begin{abstract}
 Isogeometric Analysis (IGA) promises {\bf time savings} and {\bf increased accuracy} relative to traditional Finite Element Analysis (FEA) approaches.  
 
-The savings arise in part from the elimination of the mesh generation step, which is often time-consuming and error-prone.  We categorize this mesh step as {\bf analyst time}.  In addition, {\bf compute time}, the second component of time savings, arises from faster convergence rates for IGA relative to traditional FEA.  For a specific level of accuracy, IGA can often achieve the result with fewer degrees of freedom (DOF) and less computational effort.
+The savings arise in part from the elimination of the mesh generation step, which is often time-consuming and error-prone.  We categorize this mesh step as {\bf analyst time}.  In addition, {\bf compute time}, the second component of time savings, arises from faster convergence rates for IGA relative to traditional FEA.  For a specific level of accuracy, IGA can often achieve the result with fewer degrees of freedom (DOF) and less computational effort \cite{Hughes2005Isogeometric, Hughes2022NCSU}.
 
 This report examines the performance premise of IGA through a series of case studies.  
-The report examines both analyst time and compute time savings.  It also discusses the challenges encountered during the implementation of IGA workflows.
+It also discusses the challenges encountered during the implementation of IGA workflows.
 
 The overarching goal of this work is to raise awareness of IGA technology within the Sandia engineering analysis community.
+
+{\bf Summary of Findings:}
+\begin{itemize}
+\item We remain particularly interested in IGA, depsite the challenges and limitations presented by the particular implementation, Coreform Flex, used for this study.
+\item We encourage integration of IGA technologies within the existing SNL Sierra framework, perhaps through use of B{\'e}zier extraction.
+\end{itemize}
 
 \end{abstract}
 
@@ -191,80 +197,44 @@ Traditional Finite Element Analysis (FEA) has been a standard for computational 
 
 However, FEA suffers from one large inherent limitation:  The CAD geometry must be meshed, and the traditional FEA mesh only approximates the CAD description.  The mesh generation process introduces geometric approximation errors, requires significant preprocessing time, and (depending on the formulation) creates $C^0$-continuous approximations that may be inadequate for higher-order problems.  Additionally, design optimization workflows require repeated geometry-to-mesh conversions, which can introduce inefficiencies and information loss.
 
+Introduced by Hughes {\em et al.}~in 2005 \cite{Hughes2005Isogeometric},
 IGA addresses proposes to address these drawbacks through its use of the {\bf same} basis
 for geometry and analysis, effectively eliminating the mesh step.
 The geometric basis for CAD is often Non-Uniform Rational
 B-Splines (NURBS), which arise from B{\'e}zier (Bernstein) basis functions.  
 
 In contrast, traditional FEA uses Lagrange (or, alternatively Legendre) interpolations as 
-basis functions for analysis (see Appendix \ref{appendix:basis}).  In instances when the geometry has a CAD description and 
-that description is NURBS-based, use of traditional FEA mesh will only approximate
-the original geometry.  As a result, the FEA analysis will model only an approximation of the
-the underlying geometry.
+basis functions for analysis (see Appendix \ref{appendix:basis}).  In instances where the geometry has a CAD description and 
+that description is NURBS-based, the traditional FEA mesh will only approximate
+the original geometry.  As a result, the FEA analysis will only approximate of the
+the true physics of the system.
 
 By maintaining exact geometric representation at all refinement levels, IGA eliminates geometric discretization errors and the cumbersome mesh generation step. The inherent higher-order continuity of spline basis functions—providing $C^1$, $C^2$, or arbitrary $C^k$ continuity—yields superior accuracy per degree of freedom for many problem classes, particularly those involving fourth-order operators or requiring smooth solution fields. 
 
 The seamless integration with CAD systems enables direct analysis on design geometries and facilitates efficient shape optimization. Furthermore, IGA demonstrates enhanced performance in capturing complex phenomena such as boundary layers, stress concentrations, and wave propagation with coarser discretizations than traditional FEA.
 
 Despite its advantages, IGA faces several challenges that have tempered its widespread adoption.
-The software ecosystem is still nascent.  Most commercial and laboratory tools are build
-around mature FEA platoforms, and finding IGA-native implementations can be difficult.
+The software ecosystem is still nascent, relative to traditional FEA. 
+Most commercial and laboratory tools are built
+around mature FEA platforms, and finding IGA-native implementations can be difficult.
 
 Additional hurdles stem from the additional mathematical machinery that must be created,
-to include surface trimming, boolean operations, and complex multi-patch CAD geometry.
+to include surface trimming, boolean operations, and complex multi-patch CAD geometry management.
 Even something as fundamental as defining the volume for a 3D solid can get tedious when
 the topology gets complicated.
 
 While IGA is generally known to require fewer degrees of freedom than FEA for a given
-level of accuracy, IGA can actually become more expensive than FEA per degree of freedom
+level of accuracy, IGA can actually become {\em more} expensive than FEA per degree of freedom
 because of the wider support of the basis functions and the heavier math required for
 quadrature.
 
 Finally, one of the biggest barriers to adoption is likely human in nature.  
-Engineers have spend decades developing FEA workflows, developing large validation
-databases, and have become proficient with their trusted FEA tools.  Adoption of a new
-method not only requires retooling of the analysis codes, it requires analysis
-acceptance and trust, which can require time.
+Engineers have spent decades developing FEA workflows and creating large validation
+databases; they have become very proficient with FEA tools they already know and trust. 
+Adoption of a new method not only requires retooling of the analysis codes,
+it requires recreation of an analysist's processes.
 
-
-In IGA, the geometry is the mesh (and the mesh is the geometry).  In FEA, the geometry and the mesh are two distinct entities.  The mesh only approximates the geometry. [Hughes 2022]
-
-Thomas J.R. Hughes, Isogeometric Analysis: Mathematical and Engineering Perspectives, North Carolina State University, Department of Mathematics, April 22, 2022.  
-[link](https://youtu.be/ZtlgEUYGZMA?si=SaqJ95Hf8lEaKfdi)
-
-It takes a long time to generate finite element models.
-Introduce geometric simplifications, in other words errors, removing features, geometry clean up.  Geometry is more time-consuming than the analysis.
-
-Close the look with design optimization.  CAD with design, and redesign.
-
-``The promise of higher-order finite elements has not been realized.  Widely used commerical and industrial finite element codes rely heavily on the lowest degree elements, namely, bilinear quadrilateral and trilinear hexahedra, linear triangles and tetrahedra.''
-
-``Fixing CAD geometry and creating FE Amodels accounts for more than 80\% of overall analysis time and is a major engineering {\em bottleneck}.'' Cites Hardwick and Clay, SNL.
-
-``[IGA] started off completely as a model-development idea with similarities to traditional Finite Element Analysis.''
-
-Screen shot @ 12:24/1:02:22, more than 3,600 papers and 86,000 citations through March 20, 2022. ``The growth rate of isogeometric analysis is much faster than for finite element analysis, which seemed to sweep away the world, but it took a long time for finite element analysis to do that, depending on where you place the start, say the 1950s or 1960s.''
-
-{\bf B{\'e}zier extraction} is a technique that allows for the use of standard (traditional) finite element solvers, typically build to handle Lagrange polynomial basis functions, to solve problems discretized with spline-based basis functions such as NURBS and T-splines. [Hughes 2022] B{\'e}zier extraction is a mathematical operator that converts globally defined B-spline or NURBS basis functions into a set of locally supported Bernstein polynomials, which define B{\'e}zier elements.  This allows for the use of standard finite element assembly and solution techniques to be used with spline-based discretizations, without modification to the underlying solver. 
-
-In Borden et al. (2020) Isogeometric finite element data structures based on B{\'e}zier extraction of NURBS, IJNME, 
-https://doi.org/10.1002/nme.2968Digital Object Identifier (DOI)
-present ``B{\'e}zier extraction operator and isogeometric B{\'e}zier elements for non-uniform reational B-Spline (NURBS)-based isogeometric analysis.''  The B{\'e}zier extraction operator allow numerical integration of smooth functions to be performed on $C^0$ B{\'e}zier elements. 
-B{\'e}zier elements ``provide an element structure for isogeometric analysis that can be easily incorporated into existing finite element codes, without any changes to element form and assembly algorithms, and standard data processing arrays.''
-
-``The B{\'e}zier extraction operator maps a piecewise Bernstein polynomial basis onto a B-spline basis.  This transformation makes it possible to use piecewise $C^0$ B{\'e}zier elements as the finite element representation of an NURBS or T-spline.''
-
-
-
-
-% -----
-Isogeometric Analysis (IGA) represents a paradigm shift in computational mechanics by unifying the mathematical frameworks of Computer-Aided Design (CAD) and numerical analysis. Introduced by Hughes {\em et al.}~in 2005 \cite{Hughes2005Isogeometric}, IGA employs the same basis functions—typically Non-Uniform Rational B-Splines (NURBS), T-splines, or subdivision surfaces—for both the geometric representation and the solution approximation. 
-
-IGA includes FEA as a special case.
-* FEA has two basic refinement types: h-refinement (mesh refinement) and p-refinement (polynomial order elevation).  IGA has a third type: k-refinement, which increases the continuity of the basis functions.  This is a key advantage of IGA, as it allows for higher-order continuity (e.g., $C^1$, $C^2$) that is not easily achieved with traditional FEA.
-[Hughes 2022]
-
-With B-splines, when go to the quadratic basis, they no longer appear like they do in finite elements.  (B-spline linear functions look like finite elements, but quadratic and higher do not.)  The basis functions have larger support (increased knot span), which leads to better accuracy per degree of freedom for many problems, especially those involving higher-order derivatives or requiring smooth solution fields. [Hughes 2022]
+Nonetheless, adoption of IGA has outpaced FEA.  According to Hughes~\cite{Hughes2022NCSU} (at 12:24/1:02:22), ``The growth rate of isogeometric analysis is much faster than for finite element analysis, which seemed to sweep away the world, but it took a long time for finite element analysis to do that, depending on where you place the start, say the 1950s or 1960s.''
 
 
 
@@ -335,7 +305,7 @@ The figure from Blacker's study is shown in Figure~\ref{fig:blacker-iga-motivati
     \centering
     % Replace 'blacker-workflow' with your actual image filename
     \includegraphics[width=0.8\textwidth]{img/blacker_workflow} 
-    \caption{The time distribution for a typical engineering analysis workflow, reproduced from \cite{Cottrell2009Isogeometric} and the original studies by Blacker {et al.,} at Sandia National Laboratories. The chart illustrates that approximately 80\% of total analyst time is consumed by geometry preparation and mesh generation, while only 20\% is spent on the actual numerical solution and results refinement.}
+    \caption{The time distribution for a typical engineering analysis workflow, reproduced from \cite{Hughes2005Isogeometric} and the original studies by Blacker {et al.,} at Sandia National Laboratories. The chart illustrates that approximately 80\% of total analyst time is consumed by geometry preparation and mesh generation, while only 20\% is spent on the actual numerical solution and results refinement.}
     \label{fig:blacker-iga-motivation}
 \end{figure}
 
@@ -500,7 +470,7 @@ The source for Figure~\ref{fig:cframe-processor-time-dof} is the Excel file {\em
 
 \begin{table}[h!]
     \centering
-    \caption{C-frame model resolutions (DOF \#), run times, and number of processors.}
+    \caption{C-frame model resolutions (DOF \#), run times, and processors.}
     \label{tab:cframe-resolutions}
     \begin{tabular}{|c|c|c|c|c|}
         \hline
@@ -725,6 +695,20 @@ workflows, tooling, and problem setup.  That experience positions Sandia to enga
 effectively with IGA technology as it continues to mature across the industry, academia,
 and the national laboratory community.
 
+
+
+{\bf B{\'e}zier extraction} is a technique that allows for the use of standard (traditional) finite element solvers, typically build to handle Lagrange polynomial basis functions, to solve problems discretized with spline-based basis functions such as NURBS and T-splines. [Hughes 2022] B{\'e}zier extraction is a mathematical operator that converts globally defined B-spline or NURBS basis functions into a set of locally supported Bernstein polynomials, which define B{\'e}zier elements.  This allows for the use of standard finite element assembly and solution techniques to be used with spline-based discretizations, without modification to the underlying solver. 
+
+In Borden et al. (2020) Isogeometric finite element data structures based on B{\'e}zier extraction of NURBS, IJNME, 
+https://doi.org/10.1002/nme.2968Digital Object Identifier (DOI)
+present ``B{\'e}zier extraction operator and isogeometric B{\'e}zier elements for non-uniform reational B-Spline (NURBS)-based isogeometric analysis.''  The B{\'e}zier extraction operator allow numerical integration of smooth functions to be performed on $C^0$ B{\'e}zier elements. 
+B{\'e}zier elements ``provide an element structure for isogeometric analysis that can be easily incorporated into existing finite element codes, without any changes to element form and assembly algorithms, and standard data processing arrays.''
+
+``The B{\'e}zier extraction operator maps a piecewise Bernstein polynomial basis onto a B-spline basis.  This transformation makes it possible to use piecewise $C^0$ B{\'e}zier elements as the finite element representation of an NURBS or T-spline.''
+
+
+
+
 % ---------------------------------------------------------------------- %
 \chapter{Conclusion}
 % ---------------------------------------------------------------------- %
@@ -786,6 +770,9 @@ Hovey, C.B. (2022). \emph{Formulation and Python Implementation of B{\'e}zier an
 
 \bibitem{Hughes2005Isogeometric}
 Hughes, T.J.R., Cottrell, J.A., and Bazilevs, Y. (2005). "Isogeometric analysis: CAD, finite elements, NURBS, exact geometry and mesh refinement." Computer Methods in Applied Mechanics and Engineering.  \url{https://doi.org/10.1016/j.cma.2004.10.008}
+
+\bibitem{Hughes2022NCSU}
+Hughes, T.J.R. (2022). \emph{Isogeometric Analysis: Mathematical and Engineering Perspectives}. [Video]. North Carolina State University, Department of Mathematics, April 22, 2022. \url{https://youtu.be/ZtlgEUYGZMA}
 
 \bibitem{Novozhilov2025}
 Novozhilov Y. and Leidinger L. (2025).  ``Trimmed IGA Solids in LS-DYNA: CADFEM Findings, {\em 2025 Ansys EMEA Transportation Summit and LS-DYNA Conference}, Munich, Germany, 2025.
@@ -904,6 +891,13 @@ B_{3,3}(x) &= \frac{(1+x)^3}{8}
 \end{align}
 
 Figure~{\ref{fig:bezier}} illustrates these functions.
+
+The B-spline linear functions match the linear functions of traditional FEA.
+However, starting with the quadratic basis and above, B-spline functions longer appear like they do in finite elements.  
+
+The quadratic and higher B-spline functions have larger support (increased knot spans), which leads to better
+accuracy per degree of freedom for manay problems, especially those involving
+higher-order derivatives or requiring smooth solution fields \cite{Hughes2022NCSU}.
 
 \begin{figure}[htb]
     \centering
