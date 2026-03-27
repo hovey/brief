@@ -696,16 +696,6 @@ and the national laboratory community.
 
 
 
-{\bf B{\'e}zier extraction} is a technique that allows for the use of standard (traditional) finite element solvers, typically build to handle Lagrange polynomial basis functions, to solve problems discretized with spline-based basis functions such as NURBS and T-splines. [Hughes 2022] B{\'e}zier extraction is a mathematical operator that converts globally defined B-spline or NURBS basis functions into a set of locally supported Bernstein polynomials, which define B{\'e}zier elements.  This allows for the use of standard finite element assembly and solution techniques to be used with spline-based discretizations, without modification to the underlying solver. 
-
-In Borden et al. (2020) Isogeometric finite element data structures based on B{\'e}zier extraction of NURBS, IJNME, 
-https://doi.org/10.1002/nme.2968Digital Object Identifier (DOI)
-present ``B{\'e}zier extraction operator and isogeometric B{\'e}zier elements for non-uniform reational B-Spline (NURBS)-based isogeometric analysis.''  The B{\'e}zier extraction operator allow numerical integration of smooth functions to be performed on $C^0$ B{\'e}zier elements. 
-B{\'e}zier elements ``provide an element structure for isogeometric analysis that can be easily incorporated into existing finite element codes, without any changes to element form and assembly algorithms, and standard data processing arrays.''
-
-``The B{\'e}zier extraction operator maps a piecewise Bernstein polynomial basis onto a B-spline basis.  This transformation makes it possible to use piecewise $C^0$ B{\'e}zier elements as the finite element representation of an NURBS or T-spline.''
-
-
 
 
 % ---------------------------------------------------------------------- %
@@ -837,12 +827,12 @@ M.~A. Scott, T.~Blacker, and T.~J.~R. Hughes.
 Siemens Digital Industries Software.
 \newblock \emph{NX Performance Predictor and Subdivision Modeling Updates}.
 \newblock{\emph{What's New In NX June 2025}. \url{https://plm.sw.siemens.com/en-US/nx/cad-online/latest-nx-cad-version/}. (Accessed: Jan. 16, 2026).}
-\newblock Siemens, 2025. [cite: 64]
+\newblock Siemens, 2025.
 
 \bibitem{Vazquez2016GeoPDEs}
 R.~Vázquez.
 \newblock A new design for GeoPDEs, a MATLAB/Octave toolbox for isogeometric analysis.
-\newblock \emph{University of Santiago de Compostela}, 2016. [cite: 84]
+\newblock \emph{University of Santiago de Compostela}, 2016.
 
 \end{thebibliography}
 
@@ -1013,6 +1003,20 @@ higher-order derivatives or requiring smooth solution fields~\cite{Hughes2022NCS
     \caption{B{\'e}zier basis functions for 2-, 3-, and 4-noded 1D element.}
     \label{fig:bezier}
 \end{figure}
+
+% -----------------------
+\chapter{B{\'e}zier Extraction}
+% -----------------------
+
+
+{\bf B{\'e}zier extraction} is a technique that allows for the use of standard (traditional) finite element solvers, typically build to handle Lagrange polynomial basis functions, to solve problems discretized with spline-based basis functions such as NURBS and T-splines. [Hughes 2022] B{\'e}zier extraction is a mathematical operator that converts globally defined B-spline or NURBS basis functions into a set of locally supported Bernstein polynomials, which define B{\'e}zier elements.  This allows for the use of standard finite element assembly and solution techniques to be used with spline-based discretizations, without modification to the underlying solver. 
+
+In Borden et al. (2020) Isogeometric finite element data structures based on B{\'e}zier extraction of NURBS, IJNME, 
+https://doi.org/10.1002/nme.2968Digital Object Identifier (DOI)
+present ``B{\'e}zier extraction operator and isogeometric B{\'e}zier elements for non-uniform reational B-Spline (NURBS)-based isogeometric analysis.''  The B{\'e}zier extraction operator allow numerical integration of smooth functions to be performed on $C^0$ B{\'e}zier elements. 
+B{\'e}zier elements ``provide an element structure for isogeometric analysis that can be easily incorporated into existing finite element codes, without any changes to element form and assembly algorithms, and standard data processing arrays.''
+
+``The B{\'e}zier extraction operator maps a piecewise Bernstein polynomial basis onto a B-spline basis.  This transformation makes it possible to use piecewise $C^0$ B{\'e}zier elements as the finite element representation of an NURBS or T-spline.''
 
 
 % -----------------------
