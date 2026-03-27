@@ -145,7 +145,7 @@
 \begin{abstract}
 Isogeometric Analysis (IGA) promises {\bf time savings} and {\bf increased accuracy} relative to traditional Finite Element Analysis (FEA) approaches.  
 
-The savings arise in part from the elimination of the mesh generation step, which is often time-consuming and error-prone.  We categorize this mesh step as {\bf analyst time}.  In addition, {\bf compute time}, the second component of time savings, arises from faster convergence rates for IGA relative to traditional FEA.  For a specific level of accuracy, IGA can often achieve the result with fewer degrees of freedom (DOF) and less computational effort \cite{Hughes2005Isogeometric, Hughes2022NCSU}.
+The savings arise in part from the elimination of the mesh generation step, which is often time-consuming and error-prone.  We categorize this mesh step as {\bf analyst time}.  In addition, {\bf compute time}, the second component of time savings, arises from faster convergence rates for IGA relative to traditional FEA.  For a specific level of accuracy, IGA can often achieve the result with fewer degrees of freedom (DOF) and less computational effort~\cite{Hughes2005Isogeometric, Hughes2022NCSU}.
 
 This report examines the performance premise of IGA through a series of case studies.  
 It also discusses the challenges encountered during the implementation of IGA workflows.
@@ -197,7 +197,7 @@ Traditional Finite Element Analysis (FEA) has been a standard for computational 
 
 However, FEA suffers from one large inherent limitation:  The CAD geometry must be meshed, and the traditional FEA mesh only approximates the CAD description.  The mesh generation process introduces geometric approximation errors, requires significant preprocessing time, and (depending on the formulation) creates $C^0$-continuous approximations that may be inadequate for higher-order problems.  Additionally, design optimization workflows require repeated geometry-to-mesh conversions, which can introduce inefficiencies and information loss.
 
-Introduced by Hughes {\em et al.}~in 2005 \cite{Hughes2005Isogeometric},
+Introduced by Hughes {\em et al.}~in 2005~\cite{Hughes2005Isogeometric},
 IGA addresses proposes to address these drawbacks through its use of the {\bf same} basis
 for geometry and analysis, effectively eliminating the mesh step.
 The geometric basis for CAD is often Non-Uniform Rational
@@ -240,7 +240,6 @@ Nonetheless, adoption of IGA has outpaced FEA.  According to Hughes~\cite{Hughes
 
 
 
-
 %\section{A Section}
 %Work in progress.
 %
@@ -252,21 +251,21 @@ Nonetheless, adoption of IGA has outpaced FEA.  According to Hughes~\cite{Hughes
 \chapter{Background}
 % ---------------------------------------------------------------------- %
 
-Within industry, several commercial software packages now support IGA capabilities.  Notable examples include Ansys, Siemens NX Nastran, Dassault Systèmes Abaqus, Altair HyperWorks, and Coreform Flex.  These packages offer varying levels of IGA functionality, from basic NURBS-based elements to more advanced spline technologies and multi-patch coupling methods.
+Within industry, several commercial software packages now support IGA capabilities.  Examples include Ansys, Siemens NX Nastran, Dassault Systèmes Abaqus, Altair HyperWorks, and Coreform Flex.  These packages offer varying levels of IGA functionality, from basic NURBS-based elements to more advanced spline technologies and multi-patch coupling methods.
 
 Ansys (via LS-DYNA) is currently the most prominent large-scale commercial software vendor of IGA.  Since the acquisition of LSTC, Ansys has integrated IGA capabilities into LS-DYNA, making it the most mature commerical solver for IGA applications.
 
-LS-DYNA supports NURBS-based shells and solids, with specific emphasis on crash analysis and large-deformation problems.  The first NURBS-based shell formulations appeared in LS-DYNA in 2011.  Thereafter, IGA capabilities were expanded to solid elements, implicit and explicit analysis, contain, trimmed NURBS shells, and unstructured boundary-fitted approaches using B\'ezier extraction. In late 2025 and early 2026, Ansys expanded its ``Trimmed IGA Solids'' capabilities, which allows for immersed boundary analysis wherein the physics is solved on a background grid that respects the CAD geometry via trimming operations.  No traditional finite element mesh is required \cite{Novozhilov2025}.
+LS-DYNA supports NURBS-based shells and solids, with specific emphasis on crash analysis and large-deformation problems.  The first NURBS-based shell formulations appeared in LS-DYNA in 2011.  Thereafter, IGA capabilities were expanded to solid elements, implicit and explicit analysis, contain, trimmed NURBS shells, and unstructured boundary-fitted approaches using B\'ezier extraction. In late 2025 and early 2026, Ansys expanded its ``Trimmed IGA Solids'' capabilities, which allows for immersed boundary analysis wherein the physics is solved on a background grid that respects the CAD geometry via trimming operations.  No traditional finite element mesh is required~\cite{Novozhilov2025}.
 
-One example of IGA performance on thin-walled structures with complex surface geometry was provided by Novozhilov and Leidinger \cite{Novozhilov2025}.  Their use of the trimmed IGA approach permitted larger time steps and required fewer elements to achieve similar accuracy compared to traditional FEA approaches.  Specially, their IGA model delivered comparabile accuracy to a TET-16 formulation, while reducing compute time by a factor of 21$\times$.
+One example of IGA performance on thin-walled structures with complex surface geometry was provided by Novozhilov and Leidinger~\cite{Novozhilov2025}.  Their use of the trimmed IGA approach permitted larger time steps and required fewer elements to achieve similar accuracy compared to traditional FEA approaches.  Specially, their IGA model delivered comparabile accuracy to a TET-16 formulation, while reducing compute time by a factor of 21$\times$.
 
-Siemens Digital Industries Software (NX and Simcenter Nastran) has also made significant strides in IGA technology.  Siemens offers NURBS-based shell and solid elements, with capabilities for multi-patch coupling and adaptive refinement.  Their IGA implementations focus on structural analysis, including static, dynamic, and thermal problems.  As of June 2025 and continuing into 2026, Siemens moved beyond previews of NX Performance Predictor.  While not branded as IGA, the underlying technology leverages spline-based representations to enhance accuracy and efficiency in performance prediction workflows.  Siemens also has integrated subdivision modeling (an alternative to NURBS) that maintains higher-order ($C^2$) \cite{SiemensNX2025}.
+Siemens Digital Industries Software (NX and Simcenter Nastran) has also made significant strides in IGA technology.  Siemens offers NURBS-based shell and solid elements, with capabilities for multi-patch coupling and adaptive refinement.  Their IGA implementations focus on structural analysis, including static, dynamic, and thermal problems.  As of June 2025 and continuing into 2026, Siemens moved beyond previews of NX Performance Predictor.  While not branded as IGA, the underlying technology leverages spline-based representations to enhance accuracy and efficiency in performance prediction workflows.  Siemens also has integrated subdivision modeling (an alternative to NURBS) that maintains higher-order ($C^2$)~\cite{SiemensNX2025}.
 
 Dassault Syst\`{e}mes Abaqus has been historically more conservative with native IGA integration.  Abaqus supports IGA through high-fidelity toolkits and user-defined elements (UEL).
 
-Altair HyperWorks has explored IGA capabilities through research collaborations and prototype implementations, but has yet to fully integrate IGA into its mainstream offerings.  The 2026 release of HyperWorks included IGA-like capabilities through its ``warp-map'' tools \cite{Altair2026}.
+Altair HyperWorks has explored IGA capabilities through research collaborations and prototype implementations, but has yet to fully integrate IGA into its mainstream offerings.  The 2026 release of HyperWorks included IGA-like capabilities through its ``warp-map'' tools~\cite{Altair2026}.
 
-Coreform is a computational mechanics software company that specializes in isogeometric analysis (IGA) and advanced meshing technologies.  Coreform's flagship product is Coreform Cubit, a powerful meshing and geometry processing tool that supports IGA workflows.  Coreform also offers Coreform Flex, a solver specifically designed for isogeometric analysis applications.  Michael Scott is the CEO of Coreform, Matt Sederberg is the Chief Strategic Officer, Greg Vernon is the Directory, and Thomas J.R. Hughes is the Senior Advisor \cite{CoreforeAbout2026}.  The authors of this SAND report worked periodically with Sederberg and Vernon during Q1 of FY2026 to obtain access to Coreform Flex and to discuss IGA capabilities and workflows.
+Coreform is a computational mechanics software company that specializes in isogeometric analysis (IGA) and advanced meshing technologies.  Coreform's flagship product is Coreform Cubit, a powerful meshing and geometry processing tool that supports IGA workflows.  Coreform also offers Coreform Flex, a solver specifically designed for isogeometric analysis applications.  Michael Scott is the CEO of Coreform, Matt Sederberg is the Chief Strategic Officer, Greg Vernon is the Directory, and Thomas J.R. Hughes is the Senior Advisor~\cite{CoreforeAbout2026}.  The authors of this SAND report worked periodically with Sederberg and Vernon during Q1 of FY2026 to obtain access to Coreform Flex and to discuss IGA capabilities and workflows.
 
 \section{Academia}
 
@@ -305,7 +304,7 @@ The figure from Blacker's study is shown in Figure~\ref{fig:blacker-iga-motivati
     \centering
     % Replace 'blacker-workflow' with your actual image filename
     \includegraphics[width=0.8\textwidth]{img/blacker_workflow} 
-    \caption{The time distribution for a typical engineering analysis workflow, reproduced from \cite{Hughes2005Isogeometric} and the original studies by Blacker {et al.,} at Sandia National Laboratories. The chart illustrates that approximately 80\% of total analyst time is consumed by geometry preparation and mesh generation, while only 20\% is spent on the actual numerical solution and results refinement.}
+    \caption{The time distribution for a typical engineering analysis workflow, reproduced from~\cite{Hughes2005Isogeometric} and the original studies by Blacker {et al.,} at Sandia National Laboratories. The chart illustrates that approximately 80\% of total analyst time is consumed by geometry preparation and mesh generation, while only 20\% is spent on the actual numerical solution and results refinement.}
     \label{fig:blacker-iga-motivation}
 \end{figure}
 
@@ -897,7 +896,7 @@ However, starting with the quadratic basis and above, B-spline functions longer 
 
 The quadratic and higher B-spline functions have larger support (increased knot spans), which leads to better
 accuracy per degree of freedom for manay problems, especially those involving
-higher-order derivatives or requiring smooth solution fields \cite{Hughes2022NCSU}.
+higher-order derivatives or requiring smooth solution fields~\cite{Hughes2022NCSU}.
 
 \begin{figure}[htb]
     \centering
