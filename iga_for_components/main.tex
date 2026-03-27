@@ -747,6 +747,9 @@ Altair Engineering Inc. (2026). \emph{HyperWorks 2026: Design and Simulation for
 \bibitem{CoreforeAbout2026}
 Coreform LLC. (2026). ``About Coreform.'' \url{https://coreform.com/about/}. (Accessed: Jan. 16, 2026.)
 
+\bibitem{Hovey2022Bezier}
+Hovey, C.B. (2022). \emph{Formulation and Python Implementation of B{\'e}zier and B-Spline Geometry}. SAND2022-7702C. Sandia National Laboratories, June 8, 2022.
+
 \bibitem{Hughes2005Isogeometric}
 Hughes, T.J.R., Cottrell, J.A., and Bazilevs, Y. (2005). "Isogeometric analysis: CAD, finite elements, NURBS, exact geometry and mesh refinement." Computer Methods in Applied Mechanics and Engineering.  \url{https://doi.org/10.1016/j.cma.2004.10.008}
 
@@ -761,46 +764,43 @@ Siemens Digital Industries Software. (2025). \emph{What's New In NX June 2025}. 
 % ---------------------------------------------------------------------- %
 \appendix
 % ---------------------------------------------------------------------- %
-% -----------------------
 \chapter{Basis Functions}
-% -----------------------
-The standard approach: Lagrange Polynomials as the traditional ``h-type'' finite element basis functions.  They are defined by interpolation at specific nodal points within an element.  They satisfy the Kronecker delta property, meaning a shape function at a specific node is at at that node and zero at all other nodes.  
 
-In the ``p-type'' of finite element analysis, one increases the polynomial order of the basis functions to achieve higher accuracy.   When using high-order Lagrange interpolants, the condition number of the resulting system of equations can become large, leading to numerical instability and convergence issues.  This is particularly problematic for high-order elements, where the basis functions can exhibit oscillatory behavior (Runge's phenomenon) and poor approximation properties.  As a result, high-order Lagrange elements are often not used in practice, and instead, low-order elements with mesh refinement (h-type) are preferred.
+The representation of geometry and solution fields in numerical analysis relies on the choice of basis functions. In traditional Finite Element Analysis (FEA), the standard approach uses {\bf Lagrange Polynomials}. These ``nodal'' basis functions are defined by interpolation at specific points (nodes) within an element. They satisfy the Kronecker delta property:
 
-To solve the p-refinement with Lagrange polynomials, one can use hierarchical basis functions, which are constructed by adding higher-order basis functions to the existing lower-order basis functions.  This allows for a more stable and accurate representation of the solution while avoiding the issues associated with high-order Lagrange interpolants.  Hierarchical basis functions can be used in both h-refinement and p-refinement strategies, providing flexibility in achieving the desired level of accuracy.
+\begin{equation}
+L_i(x_j) = \delta_{ij} = \begin{cases} 1 & \text{if } i = j \\ 0 & \text{if } i \neq j \end{cases}
+\label{eq:kronecker}
+\end{equation}
 
-To solve this challenge, researchers have developed hierarchical shape functions derived by integrated Legendre polynomials, which are orthogonal polynomials that provide a stable and efficient basis for high-order finite element methods.  These hierarchical shape functions can be used to construct high-order elements without the numerical instability associated with high-order Lagrange interpolants.  By using integrated Legendre polynomials, one can achieve better convergence properties and improved accuracy in finite element simulations, particularly for problems that require high-order approximations.
+This property ensures that the coefficient of a basis function corresponds {\em directly to the physical value} at that node.
 
-The three main methods for representing geometry:  Lagrange interpolation, Legendre interpolation, and B-spline/NURBS.
+\section{Lagrange Interpolation}
 
-Lagrange interpolation is the standard ``nodal'' approach, where the geometry is represented by a set of nodal points and the Lagrange interpolation passes actually through the set of points (nodes).  It is best for enforcing conditions at specific points.  As you increase the number of points to get better precision, Lagrange polynomials suffer from Runge's phenomenon, where the polynomial oscillates wildly between the points near the edges of the interval, leading to poor approximation and numerical instability.
+Lagrange interpolations are effective for low-order elements ($h$-refinement).  However, for higher-order elements, with increasing polynomial order ($p$-refinement) and equally spaced nodes, Lagrange interpolations lead to numerical instability.  High-order Lagrange interpolants exhibit {\bf Runge’s Phenomenon}, where the polynomial oscillates wildly near the edges of the interval. This results in poor approximation properties and ill-conditioned systems of equations.
+Higher-order Lagrange elements are often not used in practice, and intead, low-order elements with mesh refinement (``$h$-type'') are preferred.
 
-The general formula:
-
+The general formula for a Lagrange polynomial of degree $n$ is:
 \begin{equation}
 L_i(x) = \prod_{j=0, j \neq i }^n \frac{x - x_j}{x_i - x_j}
 \end{equation}
 
-Explicit basis function for linear, quadratic, and cubic elements, assuming a standard referenece element $[-1, 1]$.
+For a standard reference element $x \in [-1, 1]$, the explicit basis functions are:
 
-Linear elements (2 nodes at $x = {-1, 1}$):
-
+{\bf Linear Elements (2 nodes at $x = \{-1, 1\}$):}
 \begin{align}
 L_0(x) &= \frac{1 - x}{2} \\
 L_1(x) &= \frac{1 + x}{2}
 \end{align}
 
-Quadratic Elements (3 nodes at $x = {-1, 0, 1}$):
-
+{\bf Quadratic Elements (3 nodes at $x = \{-1, 0, 1\}$):}
 \begin{align}
 L_0(x) &= \frac{x^2 - x}{2} \\
 L_1(x) &= 1 - x^2 \\
 L_2(x) &= \frac{x^2 + x}{2}
 \end{align}
 
-Cubic Elements (4 nodes at $x = {-1, -\frac{1}{3}, \frac{1}{3}, 1}$):
-
+{\bf Cubic Elements (4 nodes at $x = \{-1, -\frac{1}{3}, \frac{1}{3}, 1\}$):}
 \begin{align}
 L_0(x) &= -\frac{9}{16} \left( x^3 - x^2 - \frac{1}{9}x + \frac{1}{9} \right) \\
 L_1(x) &= \frac{27}{16} \left( x^3 - \frac{1}{3}x^2 - x + \frac{1}{3} \right) \\
@@ -808,40 +808,88 @@ L_2(x) &= -\frac{27}{16} \left( x^3 + \frac{1}{3}x^2 - x - \frac{1}{3} \right) \
 L_3(x) &= \frac{9}{16} \left( x^3 + x^2 - \frac{1}{9}x - \frac{1}{9} \right)
 \end{align}
 
+Figure~{\ref{fig:lagrange}} illustrates these functions.
+
+\section{Legendre (GLL) Interpolation}
+
+To mitigate the instability of high-order Lagrange elements, {\bf Legendre Interpolation} (specifically using Gauss-Lobatto-Legendre or GLL nodes) is employed. Instead of equal spacing, nodes are clustered toward the endpoints, coinciding with the roots of $(1-x^2)P'_n(x)$, where $P_n(x)$ is the Legendre polynomial. This clustering significantly reduces Runge's Phenomenon, providing a stable basis for high-order spectral element methods.
+
+The specific GLL polynomials presented here are still interpolatory (nodal) and satisfy the Kronecker delta property (Eq.~\ref{eq:kronecker}).   They are mathematical stability over the $[-1, 1]$ interval, which allows for efficient integration and better convergence in $p$-refinement strategies.
+
+{\bf Linear GLL (nodes at $x = \{-1, 1\}$):}
+Identical to Linear Lagrange.
+
+{\bf Quadratic GLL (nodes at $x = \{-1, 0, 1\}$):}
+Identical to Quadratic Lagrange.
+
+{\bf Cubic GLL (nodes at $x = \{-1, -\sqrt{1/5}, \sqrt{1/5}, 1\}$):}
+Given the nodes $\xi_1 = -\sqrt{0.2}$ and $\xi_2 = \sqrt{0.2}$, the basis functions are:
+\begin{align}
+L_0(x) &= \frac{(x - \xi_1)(x - \xi_2)(x - 1)}{(-1 - \xi_1)(-1 - \xi_2)(-1 - 1)} \\
+L_1(x) &= \frac{(x + 1)(x - \xi_2)(x - 1)}{(\xi_1 + 1)(\xi_1 - \xi_2)(\xi_1 - 1)} \\
+L_2(x) &= \frac{(x + 1)(x - \xi_1)(x - 1)}{(\xi_2 + 1)(\xi_2 - \xi_1)(\xi_2 - 1)} \\
+L_3(x) &= \frac{(x + 1)(x - \xi_1)(x - \xi_2)}{(1 + 1)(1 - \xi_1)(1 - \xi_2)}
+\end{align}
+
+{\bf Note:} For the Linear and Quadratic cases, $n=1$ and $n=2$, GLL nodes coincide with equally spaced nodes. Therefore, the Linear and Quadratic Legendre bases are mathematically identical to the Linear and Quadratic Lagrange bases, respectively.
+
+Figure~{\ref{fig:legendre}} illustrates these functions.
+
+\section{B{\'e}zier (Bernstein) Basis Functions}
+
+In Isogeometric Analysis (IGA), {\bf Bernstein Polynomials} serve as the basis for B{\'e}zier curves, surfaces, and volumes. Unlike Lagrange and Legendre bases, Bernstein polynomials are {\bf not interpolatory} (except for at the first and last control points in a single patch).  The resulting curve does not pass through the interior control points.  Bernstein polynomials provide a smooth approximation that remains strictly within the convex hull of the control points.  See Hovey~\cite{Hovey2022Bezier} for additional details.
+
+Key properties include {\bf Positivity} (the functions are always $\geq 0$) and {\bf Partition of Unity} (they sum to 1 at any point). These properties prevent the oscillations seen in Lagrange interpolation, ensuring geometric stability.
+
+The Bernstein basis functions of degree $n$ are defined on $t \in [0, 1]$ as:
+\begin{equation}
+B_{i,n}(t) = \binom{n}{i} t^i (1-t)^{n-i}
+\end{equation}
+To map these to the reference element $x \in [-1, 1]$, we use the transformation $t = \frac{x+1}{2}$.
+
+{\bf Linear B{\'e}zier ($n=1$):} Identical to Linear Lagrange and Linear Legendre.
+\begin{align}
+B_{0,1}(x) &= \frac{1-x}{2} \\
+B_{1,1}(x) &= \frac{1+x}{2}
+\end{align}
+
+{\bf Quadratic B{\'e}zier ($n=2$):}
+\begin{align}
+B_{0,2}(x) &= \frac{(1-x)^2}{4} \\
+B_{1,2}(x) &= \frac{1-x^2}{2} \\
+B_{2,2}(x) &= \frac{(1+x)^2}{4}
+\end{align}
+
+{\bf Cubic B{\'e}zier ($n=3$):}
+\begin{align}
+B_{0,3}(x) &= \frac{(1-x)^3}{8} \\
+B_{1,3}(x) &= \frac{3(1-x)^2(1+x)}{8} \\
+B_{2,3}(x) &= \frac{3(1-x)(1+x)^2}{8} \\
+B_{3,3}(x) &= \frac{(1+x)^3}{8}
+\end{align}
+
+Figure~{\ref{fig:bezier}} illustrates these functions.
+
 \begin{figure}[htb]
     \centering
     \includegraphics[width=0.7\textwidth]{lagrange.pdf} 
-    \caption{Lagrange polynomials for 2-, 3-, and 4-noded 1D element.}
+    \caption{Lagrange basis functions for 2-, 3-, and 4-noded 1D element.}
     \label{fig:lagrange}
 \end{figure}
-
-Lagrange polynomials are constructed specifically to pass {\bf exactly} through a set of predefined nodes.  The interpolation curve is ``pinned'' to every data point.  While accurate, higher-order Lagrange interpolations (using many points) suffers from {\bf Runge's Phenomenon}, where the interpolation oscilates violently between the nodes, especially near the edges of the interval.
-
-Legendre polynomials are essentially a specialzed, mathematically stable way to perform Lagrange-style interpolation.  Instead of choosing {\em equally spaced} nodes (which causes the oscillations mentioned above), we select nodes based on {\bf Legendre roots} (Gauss-Lobatto-Legendre points).  By clustering the nodes toward the edges of the domain, the basis functions are much more stable relative to higher-order Lagrange approaches.
-
-The key property of Lagendre polynomials is orthogonality over the $[-1, 1]$ interval, making them mathematically well-suited for integration.  These are used with higher-order ($p$-rerefinement) FEA and Spectral Element Methods.
-
-Legendre interpolation is based on Legendre polynomials, which are orthogonal polynomials that provide a stable basis for high-order approximations.  Legendre interpolation does not necessarily pass through specific nodal points, but it can achieve better convergence properties and improved accuracy, particularly for problems that require high-order approximations.  It is often used in spectral methods and high-order finite element methods.
-
-Bernstein polynomials are the mathematical building blocks of B{\'e}zier curves.  Nodes do {\bf not} pass through the control points (except for the very first and very last nodes).  The interpolation is guaranteed to stay within the convex hull of its control points, making it smooth and predictable.  The key property is both Partition of Unity and Positivity.  Because the basis function are always positive and sum to 1, the wild oscillations seen in Lagrange interpolation is avoided.
-
-B-spline/NURBS are a ``local'' approach.  Whereas Lagrange and Legendre interpolations are global, meaning that the basis functions have support over the entire domain, B-splines and NURBS have local support, meaning that each basis function is non-zero only over a small portion of the domain.  This local support allows for better control over the geometry and improved accuracy, particularly for complex geometries.  
-
 
 \begin{figure}[htb]
     \centering
     \includegraphics[width=0.7\textwidth]{legendre.pdf} 
     \caption{Legendre basis functions for 2-, 3-, and 4-noded 1D element.}
-    \label{fig:lagrange}
+    \label{fig:legendre}
 \end{figure}
 
 \begin{figure}[htb]
     \centering
     \includegraphics[width=0.7\textwidth]{bezier.pdf} 
-    \caption{B{\'e}zier basis functions polynomials for 2-, 3-, and 4-noded 1D element.}
-    \label{fig:lagrange}
+    \caption{B{\'e}zier basis functions for 2-, 3-, and 4-noded 1D element.}
+    \label{fig:bezier}
 \end{figure}
-
 
 
 % -----------------------
