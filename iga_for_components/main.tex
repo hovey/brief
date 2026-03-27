@@ -143,20 +143,15 @@
 % An Abstract is required for SAND reports
 %
 \begin{abstract}
-Isogeometric Analysis (IGA) promises {\em time savings} and {\em increased accuracy} relative to traditional Finite Element Analysis (FEA) approaches.  
+Isogeometric Analysis (IGA) promises {\bf time savings} and {\bf increased accuracy} relative to traditional Finite Element Analysis (FEA) approaches.  
 
-The savings arise in part from the elimination of the mesh generation step, which is often time-consuming and error-prone.  We categorize the mesh step as {\bf analyst time}.  In contrast, {\bf compute time}, the second component of time savings, arises from faster convergence rates for IGA relative to traditional FEA.  For a specific level of accuracy, IGA can often achieve the result with fewer degrees of freedom (DOF) and less computational effort.
+The savings arise in part from the elimination of the mesh generation step, which is often time-consuming and error-prone.  We categorize this mesh step as {\bf analyst time}.  In addition, {\bf compute time}, the second component of time savings, arises from faster convergence rates for IGA relative to traditional FEA.  For a specific level of accuracy, IGA can often achieve the result with fewer degrees of freedom (DOF) and less computational effort.
 
-This report examines the performance premise of IGA through a series of case studies involving engineering components with complex geometries.  We compare IGA results against traditional FEA results for modal and static analyses.  The report quantifies both analyst time and compute time savings.  It also discusses the challenges encountered during the implementation of IGA workflows.
+This report examines the performance premise of IGA through a series of case studies.  
+The report examines both analyst time and compute time savings.  It also discusses the challenges encountered during the implementation of IGA workflows.
 
 The overarching goal of this work is to raise awareness of IGA technology within the Sandia engineering analysis community.
 
-{\em
-To do:
-\begin{itemize}
-\item Joe Bishop as reviewer (jebisho@sandia.gov)
-\end{itemize}
-}
 \end{abstract}
 
 % ------------------------------------------------------------------------ %
@@ -190,6 +185,47 @@ To do:
 \chapter{Introduction}
 % ---------------------------------------------------------------------- %
 \label{Intro}
+
+
+Traditional Finite Element Analysis (FEA) has been a standard for computational mechanics for decades.  Traditional FEA has a mature software ecosystem, well-established theoretical foundation, extensive validation, and numerous element formulations.
+
+However, FEA suffers from one large inherent limitation:  The CAD geometry must be meshed, and the traditional FEA mesh only approximates the CAD description.  The mesh generation process introduces geometric approximation errors, requires significant preprocessing time, and (depending on the formulation) creates $C^0$-continuous approximations that may be inadequate for higher-order problems.  Additionally, design optimization workflows require repeated geometry-to-mesh conversions, which can introduce inefficiencies and information loss.
+
+IGA addresses proposes to address these drawbacks through its use of the {\bf same} basis
+for geometry and analysis, effectively eliminating the mesh step.
+The geometric basis for CAD is often Non-Uniform Rational
+B-Splines (NURBS), which arise from B{\'e}zier (Bernstein) basis functions.  
+
+In contrast, traditional FEA uses Lagrange (or, alternatively Legendre) interpolations as 
+basis functions for analysis (see Appendix \ref{appendix:basis}).  In instances when the geometry has a CAD description and 
+that description is NURBS-based, use of traditional FEA mesh will only approximate
+the original geometry.  As a result, the FEA analysis will model only an approximation of the
+the underlying geometry.
+
+By maintaining exact geometric representation at all refinement levels, IGA eliminates geometric discretization errors and the cumbersome mesh generation step. The inherent higher-order continuity of spline basis functions—providing $C^1$, $C^2$, or arbitrary $C^k$ continuity—yields superior accuracy per degree of freedom for many problem classes, particularly those involving fourth-order operators or requiring smooth solution fields. 
+
+The seamless integration with CAD systems enables direct analysis on design geometries and facilitates efficient shape optimization. Furthermore, IGA demonstrates enhanced performance in capturing complex phenomena such as boundary layers, stress concentrations, and wave propagation with coarser discretizations than traditional FEA.
+
+Despite its advantages, IGA faces several challenges that have tempered its widespread adoption.
+The software ecosystem is still nascent.  Most commercial and laboratory tools are build
+around mature FEA platoforms, and finding IGA-native implementations can be difficult.
+
+Additional hurdles stem from the additional mathematical machinery that must be created,
+to include surface trimming, boolean operations, and complex multi-patch CAD geometry.
+Even something as fundamental as defining the volume for a 3D solid can get tedious when
+the topology gets complicated.
+
+While IGA is generally known to require fewer degrees of freedom than FEA for a given
+level of accuracy, IGA can actually become more expensive than FEA per degree of freedom
+because of the wider support of the basis functions and the heavier math required for
+quadrature.
+
+Finally, one of the biggest barriers to adoption is likely human in nature.  
+Engineers have spend decades developing FEA workflows, developing large validation
+databases, and have become proficient with their trusted FEA tools.  Adoption of a new
+method not only requires retooling of the analysis codes, it requires analysis
+acceptance and trust, which can require time.
+
 
 In IGA, the geometry is the mesh (and the mesh is the geometry).  In FEA, the geometry and the mesh are two distinct entities.  The mesh only approximates the geometry. [Hughes 2022]
 
@@ -230,13 +266,11 @@ IGA includes FEA as a special case.
 
 With B-splines, when go to the quadratic basis, they no longer appear like they do in finite elements.  (B-spline linear functions look like finite elements, but quadratic and higher do not.)  The basis functions have larger support (increased knot span), which leads to better accuracy per degree of freedom for many problems, especially those involving higher-order derivatives or requiring smooth solution fields. [Hughes 2022]
 
-Traditional Finite Element Analysis (FEA) has been the cornerstone of computational engineering for decades, offering robust capabilities for solving partial differential equations across diverse applications. Its strengths include mature software ecosystems, well-established theoretical foundations, extensive validation in industrial settings, and flexibility in handling complex physics through various element formulations. 
 
-However, FEA suffers from one large inherent limitation:  The CAD geometry must be meshed, which only approximates the CAD description.  The mesh generation process introduces geometric approximation errors, requires significant preprocessing time, and (depending on the formulation) creates $C^0$-continuous approximations that may be inadequate for higher-order problems such as thin shell analysis, phase-field modeling, and gradient-based theories. Additionally, design optimization workflows necessitate repeated geometry-mesh conversions, introducing inefficiencies and potential information loss.
 
-IGA addresses these deficiencies through its geometric fidelity and mathematical elegance. By maintaining exact geometric representation at all refinement levels, IGA eliminates geometric discretization errors and the cumbersome mesh generation step. The inherent higher-order continuity of spline basis functions—providing $C^1$, $C^2$, or arbitrary $C^k$ continuity—yields superior accuracy per degree of freedom for many problem classes, particularly those involving fourth-order operators or requiring smooth solution fields. The seamless integration with CAD systems enables direct analysis on design geometries and facilitates efficient shape optimization. Furthermore, IGA demonstrates enhanced performance in capturing complex phenomena such as boundary layers, stress concentrations, and wave propagation with coarser discretizations than traditional FEA.
 
-Despite its advantages, IGA faces several challenges that have tempered its widespread industrial adoption. The technology requires specialized software implementations with limited commercial availability compared to mature FEA platforms. Integration of trimmed surfaces, boolean operations, and complex multi-patch geometries from industrial CAD models remains an active research area. Volumetric parameterization of three-dimensional solids presents non-trivial difficulties, particularly for complex topologies. The computational cost per degree of freedom can be higher due to increased basis function support and quadrature requirements. Additionally, the engineering community's familiarity with traditional FEA methods, coupled with substantial investments in existing workflows and validation databases, creates institutional inertia that thwarts adoption.
+
+
 %\section{A Section}
 %Work in progress.
 %
@@ -765,6 +799,7 @@ Siemens Digital Industries Software. (2025). \emph{What's New In NX June 2025}. 
 \appendix
 % ---------------------------------------------------------------------- %
 \chapter{Basis Functions}
+\label{appendix:basis}
 
 The representation of geometry and solution fields in numerical analysis relies on the choice of basis functions. In traditional Finite Element Analysis (FEA), the standard approach uses {\bf Lagrange Polynomials}. These ``nodal'' basis functions are defined by interpolation at specific points (nodes) within an element. They satisfy the Kronecker delta property:
 
@@ -775,7 +810,7 @@ L_i(x_j) = \delta_{ij} = \begin{cases} 1 & \text{if } i = j \\ 0 & \text{if } i 
 
 This property ensures that the coefficient of a basis function corresponds {\em directly to the physical value} at that node.
 
-\section{Lagrange Interpolation}
+\section{Lagrange Basis Functions}
 
 Lagrange interpolations are effective for low-order elements ($h$-refinement).  However, for higher-order elements, with increasing polynomial order ($p$-refinement) and equally spaced nodes, Lagrange interpolations lead to numerical instability.  High-order Lagrange interpolants exhibit {\bf Runge’s Phenomenon}, where the polynomial oscillates wildly near the edges of the interval. This results in poor approximation properties and ill-conditioned systems of equations.
 Higher-order Lagrange elements are often not used in practice, and intead, low-order elements with mesh refinement (``$h$-type'') are preferred.
@@ -810,7 +845,7 @@ L_3(x) &= \frac{9}{16} \left( x^3 + x^2 - \frac{1}{9}x - \frac{1}{9} \right)
 
 Figure~{\ref{fig:lagrange}} illustrates these functions.
 
-\section{Legendre (GLL) Interpolation}
+\section{Legendre (GLL) Basis Functions}
 
 To mitigate the instability of high-order Lagrange elements, {\bf Legendre Interpolation} (specifically using Gauss-Lobatto-Legendre or GLL nodes) is employed. Instead of equal spacing, nodes are clustered toward the endpoints, coinciding with the roots of $(1-x^2)P'_n(x)$, where $P_n(x)$ is the Legendre polynomial. This clustering significantly reduces Runge's Phenomenon, providing a stable basis for high-order spectral element methods.
 
