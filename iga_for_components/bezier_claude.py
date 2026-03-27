@@ -24,8 +24,8 @@ plt.rcParams.update(
 
 COLORS = ["#1f77b4", "#ff7f0e", "#2ca02c", "#d62728"]
 GRID_COLOR = "#CCCCCC"
-BG_COLOR   = "#F8F9FA"
-PANEL_BG   = "#FFFFFF"
+BG_COLOR = "#F8F9FA"
+PANEL_BG = "#FFFFFF"
 
 
 # ── Bernstein basis ───────────────────────────────────────────────────────────
@@ -71,17 +71,26 @@ def draw_panel(ax, x, basis_fns, nodes, title, labels, peak_x):
     # Mark the peak of each basis function
     for i, (xp, color, B) in enumerate(zip(peak_x, COLORS, basis_fns)):
         peak_val = B[np.argmin(np.abs(x - xp))]
-        ax.scatter([xp], [peak_val], color=color, s=80, zorder=5,
-                   edgecolors="white", linewidths=1.2)
+        ax.scatter(
+            [xp], [peak_val], color=color, s=80, zorder=5, edgecolors="white", linewidths=1.2
+        )
 
     # Mark B_{i,n}(0) and B_{i,n}(1) — endpoints are 0 except for the outermost
     for i, (color, B) in enumerate(zip(COLORS, basis_fns)):
         for xend in [-1.0, 1.0]:
             val = B[0] if xend == -1.0 else B[-1]
             marker = "D" if np.isclose(val, 1.0) else "o"
-            ax.scatter([xend], [val], color=color, s=55, zorder=5,
-                       edgecolors="white", linewidths=1.0,
-                       marker=marker, alpha=0.85)
+            ax.scatter(
+                [xend],
+                [val],
+                color=color,
+                s=55,
+                zorder=5,
+                edgecolors="white",
+                linewidths=1.0,
+                marker=marker,
+                alpha=0.85,
+            )
 
     ax.set_xlim(-1.15, 1.15)
     ax.set_ylim(-0.10, 1.25)
@@ -109,6 +118,7 @@ def draw_panel(ax, x, basis_fns, nodes, title, labels, peak_x):
         else:
             # Express as simple fraction where possible
             from fractions import Fraction
+
             frac = Fraction(n).limit_denominator(6)
             if abs(float(frac) - n) < 1e-10:
                 if frac.denominator == 1:
@@ -132,7 +142,8 @@ def main():
 
     fig = plt.figure(figsize=(5.5, 10), facecolor=BG_COLOR)
     fig.suptitle(
-        r"Bernstein--Bézier Basis Functions" "\n"
+        r"Bernstein--Bézier Basis Functions"
+        "\n"
         r"$B_{i,n}(t),\quad t = \tfrac{x+1}{2} \in [0,1]$",
         fontsize=14,
         fontweight="bold",
@@ -140,17 +151,26 @@ def main():
     )
 
     gs = gridspec.GridSpec(
-        3, 1, figure=fig,
-        top=0.92, bottom=0.1, left=0.13, right=0.97, hspace=0.65,
+        3,
+        1,
+        figure=fig,
+        top=0.92,
+        bottom=0.1,
+        left=0.13,
+        right=0.97,
+        hspace=0.65,
     )
 
     # ── Panel 1 – Degree 1 (linear, 2 functions) ─────────────────────────────
     n1 = 1
-    cp1 = control_points(n1)        # [-1, 1]
-    b1  = bernstein(t, n1)
+    cp1 = control_points(n1)  # [-1, 1]
+    b1 = bernstein(t, n1)
     ax1 = fig.add_subplot(gs[0, 0])
     draw_panel(
-        ax1, x, b1, cp1,
+        ax1,
+        x,
+        b1,
+        cp1,
         r"Degree $n=1$ (2 basis functions)",
         [r"$B_{0,1} = 1-t$", r"$B_{1,1} = t$"],
         peak_x=cp1,
@@ -158,11 +178,14 @@ def main():
 
     # ── Panel 2 – Degree 2 (quadratic, 3 functions) ──────────────────────────
     n2 = 2
-    cp2 = control_points(n2)        # [-1, 0, 1]
-    b2  = bernstein(t, n2)
+    cp2 = control_points(n2)  # [-1, 0, 1]
+    b2 = bernstein(t, n2)
     ax2 = fig.add_subplot(gs[1, 0])
     draw_panel(
-        ax2, x, b2, cp2,
+        ax2,
+        x,
+        b2,
+        cp2,
         r"Degree $n=2$ (3 basis functions)",
         [r"$B_{0,2}=(1-t)^2$", r"$B_{1,2}=2t(1-t)$", r"$B_{2,2}=t^2$"],
         peak_x=cp2,
@@ -170,11 +193,14 @@ def main():
 
     # ── Panel 3 – Degree 3 (cubic, 4 functions) ──────────────────────────────
     n3 = 3
-    cp3 = control_points(n3)        # [-1, -1/3, 1/3, 1]
-    b3  = bernstein(t, n3)
+    cp3 = control_points(n3)  # [-1, -1/3, 1/3, 1]
+    b3 = bernstein(t, n3)
     ax3 = fig.add_subplot(gs[2, 0])
     draw_panel(
-        ax3, x, b3, cp3,
+        ax3,
+        x,
+        b3,
+        cp3,
         r"Degree $n=3$ (4 basis functions)",
         [
             r"$B_{0,3}=(1-t)^3$",
@@ -185,7 +211,7 @@ def main():
         peak_x=cp3,
     )
 
-    out = "bezier.pdf"
+    out = "B{'e}zier.pdf"
     fig.savefig(out, dpi=150, bbox_inches="tight")
     print(f"Figure saved → {out}")
     plt.show()
