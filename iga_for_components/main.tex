@@ -148,14 +148,14 @@ Isogeometric Analysis (IGA) promises {\bf time savings} and {\bf increased accur
 The savings arise in part from the elimination of the mesh generation step, which is often time-consuming and error-prone.  We categorize this mesh step as {\bf analyst time}.  In addition, {\bf compute time}, the second component of time savings, arises from faster convergence rates for IGA relative to traditional FEA.  For a specific level of accuracy, IGA can often achieve the result with fewer degrees of freedom (DOF) and less computational effort~\cite{Hughes2005Isogeometric, Hughes2022NCSU}.
 
 This report examines the performance premise of IGA through a series of case studies.  
-It also discusses the challenges encountered during the implementation of IGA workflows.
+It also discusses the challenges encountered during the implementation of a specific IGA workflow from Coreform, makers of the commerical software Coreform IGA (formerly Coreform Flex).
 
 The overarching goal of this work is to raise awareness of IGA technology within the Sandia engineering analysis community.
 
 {\bf Summary of Findings:}
 \begin{itemize}
-\item We remain particularly interested in IGA, depsite the challenges and limitations presented by the particular implementation, Coreform Flex, used for this study.
-\item We encourage integration of IGA technologies within the existing SNL Sierra framework, perhaps through use of B{\'e}zier extraction.
+\item We remain particularly interested in IGA, despite the challenges and limitations presented by the particular implementation, Coreform IGA, used for this study.
+\item We encourage integration of IGA technologies within the existing SNL Sierra framework, perhaps through use of B{\'e}zier extraction technologies.
 \end{itemize}
 
 \end{abstract}
@@ -195,10 +195,10 @@ The overarching goal of this work is to raise awareness of IGA technology within
 
 Traditional Finite Element Analysis (FEA) has been a standard for computational mechanics for decades.  Traditional FEA has a mature software ecosystem, well-established theoretical foundation, extensive validation, and numerous element formulations.
 
-However, FEA suffers from one large inherent limitation:  The CAD geometry must be meshed, and the traditional FEA mesh only approximates the CAD description.  The mesh generation process introduces geometric approximation errors, requires significant preprocessing time, and (depending on the formulation) creates $C^0$-continuous approximations that may be inadequate for higher-order problems.  Additionally, design optimization workflows require repeated geometry-to-mesh conversions, which can introduce inefficiencies and information loss.
+However, FEA suffers from one large inherent limitation:  The geometry must be meshed, and the traditional FEA mesh only approximates the geometry when it has a CAD origin.  The mesh generation process introduces geometric approximation errors, requires significant preprocessing time, and (depending on the formulation) creates $C^0$-continuous approximations that may be inadequate for higher-order problems.  Additionally, design optimization workflows require repeated geometry-to-mesh conversions, which can introduce inefficiencies and information loss.
 
 Introduced by Hughes {\em et al.}~in 2005~\cite{Hughes2005Isogeometric},
-IGA addresses proposes to address these drawbacks through its use of the {\bf same} basis
+IGA proposes to address these drawbacks through its use of the {\bf same} basis
 for geometry and analysis, effectively eliminating the mesh step.
 The geometric basis for CAD is often Non-Uniform Rational
 B-Splines (NURBS), which arise from B{\'e}zier (Bernstein) basis functions.  
@@ -224,15 +224,15 @@ Even something as fundamental as defining the volume for a 3D solid can get tedi
 the topology gets complicated.
 
 While IGA is generally known to require fewer degrees of freedom than FEA for a given
-level of accuracy, IGA can actually become {\em more} expensive than FEA per degree of freedom
+level of accuracy, IGA can actually become {\em more} expensive than FEA {\em per degree of freedom}
 because of the wider support of the basis functions and the heavier math required for
-quadrature.
+quadrature. That said, the {\em overall processor time} for the IGA models still promises to be lower than that for the FEA models (a result corroborated by our limited case study, see Table~\ref{tab:cframe-resolutions}).
 
 Finally, one of the biggest barriers to adoption is likely human in nature.  
 Engineers have spent decades developing FEA workflows and creating large validation
 databases; they have become very proficient with FEA tools they already know and trust. 
 Adoption of a new method not only requires retooling of the analysis codes,
-it requires recreation of an analysist's processes.
+it requires recreation of an analysists' processes.
 
 Nonetheless, adoption of IGA has outpaced FEA.  According to Hughes~\cite{Hughes2022NCSU} (at 12:24/1:02:22), ``The growth rate of isogeometric analysis is much faster than for finite element analysis, which seemed to sweep away the world, but it took a long time for finite element analysis to do that, depending on where you place the start, say the 1950s or 1960s.''
 
@@ -251,7 +251,7 @@ Nonetheless, adoption of IGA has outpaced FEA.  According to Hughes~\cite{Hughes
 \chapter{Background}
 % ---------------------------------------------------------------------- %
 
-Within industry, several commercial software packages now support IGA capabilities.  Examples include Ansys, Siemens NX Nastran, Dassault Systèmes Abaqus, Altair HyperWorks, and Coreform Flex.  These packages offer varying levels of IGA functionality, from basic NURBS-based elements to more advanced spline technologies and multi-patch coupling methods.
+Within industry, several commercial software packages now support IGA capabilities.  Examples include Ansys, Siemens NX Nastran, Dassault Systèmes Abaqus, Altair HyperWorks, and Coreform IGA (formerly Coreform Flex).  These packages offer varying levels of IGA functionality, from basic NURBS-based elements to more advanced spline technologies and multi-patch coupling methods.
 
 Ansys (via LS-DYNA) is currently the most prominent large-scale commercial software vendor of IGA.  Since the acquisition of LSTC, Ansys has integrated IGA capabilities into LS-DYNA, making it the most mature commerical solver for IGA applications.
 
@@ -265,7 +265,7 @@ Dassault Syst\`{e}mes Abaqus has been historically more conservative with native
 
 Altair HyperWorks has explored IGA capabilities through research collaborations and prototype implementations, but has yet to fully integrate IGA into its mainstream offerings.  The 2026 release of HyperWorks included IGA-like capabilities through its ``warp-map'' tools~\cite{Altair2026}.
 
-Coreform is a computational mechanics software company that specializes in isogeometric analysis (IGA) and advanced meshing technologies.  Coreform's flagship product is Coreform Cubit, a powerful meshing and geometry processing tool that supports IGA workflows.  Coreform also offers Coreform Flex, a solver specifically designed for isogeometric analysis applications.  Michael Scott is the CEO of Coreform, Matt Sederberg is the Chief Strategic Officer, Greg Vernon is the Directory, and Thomas J.R. Hughes is the Senior Advisor~\cite{CoreforeAbout2026}.  The authors of this SAND report worked periodically with Sederberg and Vernon during Q1 of FY2026 to obtain access to Coreform Flex and to discuss IGA capabilities and workflows.
+Coreform is a computational mechanics software company that specializes in isogeometric analysis (IGA) and advanced meshing technologies.  Coreform's flagship product is Coreform Cubit, a powerful meshing and geometry processing tool that supports IGA workflows.  Coreform also offers Coreform IGA (formerly Coreform Flex), a solver specifically designed for isogeometric analysis applications.  Michael Scott is the CEO of Coreform, Matt Sederberg is the Chief Strategic Officer, Greg Vernon is the Directory, and Thomas J.R. Hughes is the Senior Advisor~\cite{CoreforeAbout2026}.  The authors of this SAND report worked periodically with Sederberg and Vernon during Q1 of FY2026 to obtain access to Coreform IGA and to discuss IGA capabilities and workflows.
 
 \section{Academia}
 
@@ -322,7 +322,7 @@ We explored several models, three of which have been chosen for inclusion into t
 \section{C-Frame}
 % ---------------
 
-We initially used the C-Frame model, shown Figure~\ref{fig:cframe}, as a test case to explore IGA workflows and to compare against traditional FEA approaches.  The C-Frame geometry is included in the Coreform Flex distribution; no additional cleanup was needed for IGA.  
+We initially used the C-Frame model, shown Figure~\ref{fig:cframe}, as a test case to explore IGA workflows and to compare against traditional FEA approaches.  The C-Frame geometry is included in the Coreform IGA distribution; no additional cleanup was needed for IGA.  
 
 \begin{figure}[h!]
     \begin{center}
@@ -610,12 +610,12 @@ analysis results.  Unlike traditional FEA workflows, for which mature documentat
 institutional knowledge, and internal training resources are abundant at Sandia, IGA
 workflows remain largely unfamiliar to the engineering analysis community here.  
 Establishing a functioning end-to-end pipeline---from CAD geometry, through spline mesh
-generation in Coreform Cubit, to solution in Coreform Flex, and finally to
+generation in Coreform Cubit, to solution in Coreform IGA, and finally to
 post-processing---present the analyst with a new learning curve.  This startup cost
 is a non-negligible component of analyst time that should be factored into any
 institutional assessment of IGA adoption.
 
-Compounding this difficulty, obtaining computational access to Coreform Flex license server through Sandia's firewall proved more time-consuming than anticipated.  License
+Compounding this difficulty, obtaining computational access to Coreform IGA license server through Sandia's firewall proved more time-consuming than anticipated.  License
 provisioning and network configuration issues introduced delays early in the project,
 reducing the window available for productive analysis.  These logistical obstacles are
 not fundamental to IGA as a technology, but they are a realistic feature of any
@@ -640,8 +640,8 @@ Some of the post-processing efforts were confounded by the way in which Coreform
 \section{Distinguishing IGA as a Technology from Coreform as a Platform}
 
 A central lesson of this project is the importance of distinguishing between IGA as a
-mathematical and computational technology and Coreform Flex as a specific software
-implementation of that technology.  Our experience with Coreform Flex---including the
+mathematical and computational technology and Coreform IGA as a specific software
+implementation of that technology.  Our experience with Coreform IGA---including the
 learning curve, the license access difficulties, the input deck compatibility issues,
 and the memory limitations encountered on the circuit board model---reflects the current
 maturity of one particular platform.  It does not reflect fundamental limitations of IGA
@@ -651,19 +651,19 @@ This distinction matters for how Sandia should interpret both the successes and 
 shortcomings documented in this report.  The convergence advantages demonstrated for the
 C-Frame are a property of the IGA discretization; they would be expected to persist
 regardless of which IGA solver is used.  Conversely, the operational
-friction described above is largely a property of Coreform Flex at its relatively nascent  stage of
+friction described above is largely a property of Coreform IGA at its relatively nascent  stage of
 development.
 
 It is also worth noting that Coreform has recently shifted its primary development focus
-away from Coreform Flex as a standalone solver.  As of early 2026, Coreform's active
+away from Coreform IGA as a standalone solver.  As of early 2026, Coreform's active
 development is directed toward an Abaqus plug-in, enabling IGA capabilities within the
 Dassault Syst\`{e}mes SIMULIA ecosystem through the Coreform--SIMULIA partner program.
-This strategic pivot suggests that Coreform Flex, in its current form, may not represent
+This strategic pivot suggests that Coreform IGA, in its current form, may not represent
 the long-term delivery vehicle for production-grade IGA analysis at Sandia.
 
 \section{Path Forward for IGA at Sandia}
 
-Despite the operational challenges encountered with Coreform Flex, the authors remain
+Despite the operational challenges encountered with Coreform IGA, the authors remain
 optimistic about the long-term potential of IGA technology for Sandia's engineering
 analysis mission.  We offer the following observations on the most promising paths
 forward.
@@ -718,10 +718,10 @@ analysis regimes; while a full multi-resolution convergence characterization was
 performed for these geometries, the single-level comparisons conducted are consistent
 with the trends established by the C-Frame.
 
-The operational experience with Coreform Flex revealed that the software, while
+The operational experience with Coreform IGA revealed that the software, while
 functional, carries meaningful friction in the areas of workflow setup, license access,
 input deck stability across software versions, and post-processing fidelity.  These
-issues are appropriately attributed to the nascent state of Coreform Flex as a platform
+issues are appropriately attributed to the nascent state of Coreform IGA as a platform
 rather than to any fundamental limitation of IGA as a technology.  The distinction is
 important: the numerical performance advantages of IGA are real and geometry-independent,
 while the operational shortcomings encountered here are platform-specific and subject to
